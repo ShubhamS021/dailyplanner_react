@@ -58,9 +58,9 @@ For building a new package manually you need to follow these steps:
 5. Finally copy this package file to `./release/linux|windows` and commit with a message like: `build: deb package v.0.4.0`
 6. Repeat 4 and 5 on the other environment
 
-### Release a new version in gitlab
+### Release a new version in github
 
-1. Head over to [gitlab Releases](https://github.com/ShubhamS021/DailyPlanner-/releases)
+1. Head over to [github Releases](https://github.com/ShubhamS021/DailyPlanner-/releases)
 2. Create a new release
 3. Choose the new version from the tag dropdown and write the same into the 'Release title'
 4. Copy the last generated text from the CHANGELOG.md into the field 'Release notes' (compare structure with other releases, e.g. caption)

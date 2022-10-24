@@ -1,10 +1,6 @@
-# Dayplanner
+# DailyPlanner
 
-[![Coverage](https://sonar.der-hahn.net/api/project_badges/measure?project=Kevin.Hahn_dayplanner_64748fee-d48a-4e45-8539-4b15fee1cf90&metric=coverage&token=sqb_3e5566b528819b8ffa561388dcc1d055b150ab13)](https://sonar.der-hahn.net/dashboard?id=Kevin.Hahn_dayplanner_64748fee-d48a-4e45-8539-4b15fee1cf90)
-
-[![Quality Gate Status](https://sonar.der-hahn.net/api/project_badges/measure?project=Kevin.Hahn_dayplanner_64748fee-d48a-4e45-8539-4b15fee1cf90&metric=alert_status&token=sqb_3e5566b528819b8ffa561388dcc1d055b150ab13)](https://sonar.der-hahn.net/dashboard?id=Kevin.Hahn_dayplanner_64748fee-d48a-4e45-8539-4b15fee1cf90)
-
-A day planner application built using React, designed for use as a training tool. The user-friendly interface allows for easy scheduling and management of daily tasks.
+A Daily Planner application built using React, designed for use as a training tool. The user-friendly interface allows for easy scheduling and management of daily tasks.
 
 ## Available Scripts
 
@@ -54,7 +50,7 @@ Release scripts are used for versioning the application and generating the [CHAN
 For building a new package manually you need to follow these steps:
 
 1. Setup a Rust environment on Linux or Windows (tested with Ubuntu and Windows 10) for tauri ([more instructions](https://tauri.app/v1/guides/getting-started/prerequisites))
-   - hint: this environment determines what will be build (.deb or .msi) 
+   - hint: this environment determines what will be build (.deb or .msi)
 2. Fixate the version by running one of the release scripts
    - e.g. if you want to release a new patch run `yarn run release:patch`
 3. Take the new version number from the `package.json` and paste into `src-tauri/Cargo.toml` (version) and `tauri.conf.json` (package: {version}) and save everything
@@ -64,15 +60,15 @@ For building a new package manually you need to follow these steps:
 
 ### Release a new version in gitlab
 
-1. Head over to [gitlab Releases](https://gitlab.com/Kevin.Hahn/dayplanner-/releases)
+1. Head over to [gitlab Releases](https://github.com/ShubhamS021/DailyPlanner-/releases)
 2. Create a new release
 3. Choose the new version from the tag dropdown and write the same into the 'Release title'
 4. Copy the last generated text from the CHANGELOG.md into the field 'Release notes' (compare structure with other releases, e.g. caption)
 5. Add both urls to the 'Release assets':
    |URL | Link title | Type |
    | --- | --- | --- |
-   | <https://gitlab.com/Kevin.Hahn/dayplanner-/blob/develop/release/linux> | Dayplanner.deb | Package |
-   | <https://gitlab.com/Kevin.Hahn/dayplanner-/blob/develop/release/windows> | Dayplanner.msi | Package |
+   | <https://github.com/ShubhamS021/DailyPlanner-/blob/develop/release/linux> | DailyPlanner.deb | Package |
+   | <https://github.com/ShubhamS021/DailyPlanner-/blob/develop/release/windows> | DailyPlanner.msi | Package |
 6. Finally create the release :)
 
 ## Learn More

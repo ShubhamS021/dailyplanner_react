@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# Dayplanner
+
+A day planner application built using React, designed for use as a training tool. The user-friendly interface allows for easy scheduling and management of daily tasks.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -28,6 +30,10 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm lint`
+
+Lints the code for potential errors and enforces code quality standards, ensuring that the code is clean, readable, and maintainable.
 
 ### `npm run eject`
 

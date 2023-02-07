@@ -29,7 +29,9 @@ module.exports = (_env, argv) => {
                 filename: './index.html',
                 favicon: './public/favicon.ico',
             }),
-            isDevelopment && new ReactRefreshWebpackPlugin({ overlay: false }),
+            ...(isDevelopment
+                ? [new ReactRefreshWebpackPlugin({ overlay: false })]
+                : []),
         ],
         resolve: {
             modules: [path.resolve(__dirname, 'src'), 'node_modules'],

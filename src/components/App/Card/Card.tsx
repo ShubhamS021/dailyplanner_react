@@ -8,6 +8,12 @@ export interface Tag {
     color: string;
 }
 
+export interface Task {
+    id: number;
+    description: string;
+    fulfilled?: boolean;
+}
+
 const upperTags: Tag[] = [
     { id: 1, text: 'Tag A', color: colors.rose },
     { id: 2, text: 'Tag B', color: colors.green },
@@ -16,6 +22,12 @@ const upperTags: Tag[] = [
 const lowerTags: Tag[] = [
     { id: 1, text: 'Tag C', color: colors.rose },
     { id: 2, text: 'Tag D', color: colors.green },
+];
+
+const tasks: Task[] = [
+    { id: 1, description: 'Task 1', fulfilled: false },
+    { id: 2, description: 'Task 2', fulfilled: true },
+    { id: 3, description: 'Task 3', fulfilled: false },
 ];
 
 export const renderTags = (tags: Tag[]) => {
@@ -30,6 +42,20 @@ export const renderTags = (tags: Tag[]) => {
     );
 };
 
+export const renderTasks = (tasks: Task[]) => {
+    return (
+        <>
+            {tasks.map((t) => (
+                <TaskComponent
+                    key={t.id}
+                    description={t.description}
+                    fulfilled={t.fulfilled}
+                />
+            ))}
+        </>
+    );
+};
+
 export const CardComponent = () => {
     return (
         <div className="bg-white border border-solid rounded-lg border-[#DDDDDD] p-4 drop-shadow-[0_2px_4px_rgba(0,0,0,0.08)]">
@@ -39,10 +65,7 @@ export const CardComponent = () => {
                 <p className="text-sm text-[#5A5A65]">
                     A description of a task.
                 </p>
-                {/* <Tasks /> */}
-                <TaskComponent description="Task" />
-                <TaskComponent description="Task" />
-                <TaskComponent description="Task" />
+                {renderTasks(tasks)}
                 {renderTags(lowerTags)}
             </div>
         </div>

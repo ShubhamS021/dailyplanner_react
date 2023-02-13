@@ -1,5 +1,6 @@
 import { colors } from '../../../theme/colors';
 import { TagComponent } from '../Tag/Tag';
+import { TaskComponent } from '../Task/Task';
 
 export interface Tag {
     id: number;
@@ -39,6 +40,9 @@ export const CardComponent = () => {
                     A description of a task.
                 </p>
                 {/* <Tasks /> */}
+                <TaskComponent description="Task" />
+                <TaskComponent description="Task" />
+                <TaskComponent description="Task" />
                 {renderTags(lowerTags)}
             </div>
         </div>

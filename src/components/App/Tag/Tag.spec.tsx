@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { colors } from '../../../theme/colors.js';
+import { colors } from '../../../theme/colors';
 
 import { TagComponent } from './Tag';
 

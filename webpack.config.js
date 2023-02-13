@@ -1,11 +1,11 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
-const ReactRefreshTypeScript = require('react-refresh-typescript')
-const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const ReactRefreshTypeScript = require('react-refresh-typescript');
+const path = require('path');
 
 module.exports = (_env, argv) => {
-    const isDevelopment = argv.mode === 'development'
-    console.log(`Building in ${argv.mode} mode.`)
+    const isDevelopment = argv.mode === 'development';
+    console.log(`Building in ${argv.mode} mode.`);
 
     return {
         mode: isDevelopment ? 'development' : 'production',
@@ -80,5 +80,5 @@ module.exports = (_env, argv) => {
                 },
             ],
         },
-    }
-}
+    };
+};

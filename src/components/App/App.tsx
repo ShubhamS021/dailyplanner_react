@@ -5,7 +5,10 @@ export const App = () => {
         <main className="bg-[#F8F8F8] p-4">
             <div className="grid grid-rows-2 gap-1 items-center">
                 Basic card with looped tags and strikeable tasks:
-                <CardComponent />
+                <CardComponent
+                    title="Card Title"
+                    description="A description of a task."
+                />
             </div>
         </main>
     );

@@ -2,6 +2,11 @@ import { colors } from '../../../theme/colors';
 import { TagComponent } from '../Tag/Tag';
 import { TaskComponent } from '../Task/Task';
 
+export interface CardProps {
+    title: string;
+    description?: string;
+}
+
 export interface Tag {
     id: number;
     text: string;
@@ -56,17 +61,21 @@ export const renderTasks = (tasks: Task[]) => {
     );
 };
 
-export const CardComponent = () => {
+export const CardComponent = (props: CardProps) => {
+    if (props.title === '') throw new Error('no title set');
+
     return (
         <div className="bg-white border border-solid rounded-lg border-[#DDDDDD] p-4 drop-shadow-[0_2px_4px_rgba(0,0,0,0.08)]">
             <div className="flex flex-col gap-2 items-start">
-                {renderTags(upperTags)}
-                <h3 className="font-semibold text-base">Card title</h3>
-                <p className="text-sm text-[#5A5A65]">
-                    A description of a task.
-                </p>
-                {renderTasks(tasks)}
-                {renderTags(lowerTags)}
+                {upperTags.length > 0 && renderTags(upperTags)}
+                <h3 className="font-semibold text-base">{props.title}</h3>
+                {props.description !== '' && (
+                    <p className="text-sm text-[#5A5A65]">
+                        {props.description}
+                    </p>
+                )}
+                {tasks.length > 0 && renderTasks(tasks)}
+                {lowerTags.length > 0 && renderTags(lowerTags)}
             </div>
         </div>
     );

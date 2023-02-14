@@ -24,6 +24,14 @@ export const TaskComponent = (props: TaskProps) => {
                 />
                 <div className="bg-[#E1E4E8] rounded-md w-4 h-4 flex flex-shrink-0 justify-center items-center mr-2 cursor-pointer">
                     <svg
+                        viewBox="0 0 16 16"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="#5A5A65"
+                        className="initial"
+                    >
+                        <circle cx="8" cy="8" r="2" />
+                    </svg>
+                    <svg
                         className="fill-current hidden w-3 h-3 text-[#5A5A65] pointer-events-none"
                         version="1.1"
                         width="12"

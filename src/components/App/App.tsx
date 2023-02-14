@@ -1,7 +1,7 @@
+import { LaneComponent } from 'components/Lane/Lane';
 import { type Card } from 'interfaces/Card';
 import { colors } from '../../theme/colors';
-import { AddTask } from './AddTask/AddTask';
-import { LaneComponent } from './Lane/Lane';
+import { AddTask } from '../AddTask/AddTask';
 
 export const App = () => {
     const cards: Card[] = [

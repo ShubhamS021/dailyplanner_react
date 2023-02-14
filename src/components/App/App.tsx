@@ -1,5 +1,6 @@
 import { type Card } from 'interfaces/Card';
 import { colors } from '../../theme/colors';
+import { AddTask } from './AddTask/AddTask';
 import { LaneComponent } from './Lane/Lane';
 
 export const App = () => {
@@ -40,7 +41,9 @@ export const App = () => {
                         An overview of my tasks.
                     </div>
                 </div>
-                <div>{/* new task button */}</div>
+                <div>
+                    <AddTask />
+                </div>
             </div>
             <div
                 className="p-5 rounded-2xl bg-[#F8F8F8] grid grid-cols-4 gap-6"

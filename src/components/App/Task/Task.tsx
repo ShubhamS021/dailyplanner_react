@@ -45,7 +45,7 @@ export const TaskComponent = (props: TaskProps) => {
                 </div>
                 <label
                     className={`select-none cursor-pointer ${
-                        checked ? 'line-through' : ''
+                        checked ? 'line-through opacity-60' : ''
                     }`}
                 >
                     {props.description}

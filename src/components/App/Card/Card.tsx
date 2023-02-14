@@ -1,3 +1,5 @@
+import { type Tag } from 'interfaces/Tag';
+import { type Task } from 'interfaces/Task';
 import { colors } from '../../../theme/colors';
 import { TagComponent } from '../Tag/Tag';
 import { TaskComponent } from '../Task/Task';
@@ -5,18 +7,6 @@ import { TaskComponent } from '../Task/Task';
 export interface CardProps {
     title: string;
     description?: string;
-}
-
-export interface Tag {
-    id: number;
-    text: string;
-    color: string;
-}
-
-export interface Task {
-    id: number;
-    description: string;
-    fulfilled?: boolean;
 }
 
 const upperTags: Tag[] = [

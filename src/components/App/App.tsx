@@ -1,7 +1,28 @@
+import { type Card } from 'interfaces/Card';
 import { colors } from '../../theme/colors';
 import { LaneComponent } from './Lane/Lane';
 
 export const App = () => {
+    const cards: Card[] = [
+        {
+            id: 1,
+            title: 'Working title',
+            description: 'Some text',
+            upperTags: [
+                { id: 1, text: 'Tag A', color: colors.rose },
+                { id: 2, text: 'Tag B', color: colors.green },
+            ],
+            lowerTags: [
+                { id: 1, text: 'Tag C', color: colors.rose },
+                { id: 2, text: 'Tag D', color: colors.green },
+            ],
+            tasks: [
+                { id: 1, description: 'Task 1' },
+                { id: 2, description: 'Task 2' },
+            ],
+        },
+    ];
+
     return (
         <main className="p-10">
             <div className="h-16 mb-6 grid grid-cols-[1fr_auto]">
@@ -28,14 +49,17 @@ export const App = () => {
                 <LaneComponent
                     color={colors.light_grey}
                     text={'Not started'}
+                    cards={cards}
                 ></LaneComponent>
                 <LaneComponent
                     color={colors.lavender}
                     text={'In Progress'}
+                    cards={cards}
                 ></LaneComponent>
                 <LaneComponent
                     color={colors.rose}
                     text={'Blocked'}
+                    cards={cards}
                 ></LaneComponent>
                 <LaneComponent
                     color={colors.green}

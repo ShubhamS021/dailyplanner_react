@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { colors } from '../../../theme/colors';
+import { colors } from '../../theme/colors';
 import { LaneComponent } from './Lane';
 
 test('renders basic lane', () => {

@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+input:checked + div svg {
+    @apply block;
+}
+
+input:checked + div svg.initial {
+    @apply hidden;
+}

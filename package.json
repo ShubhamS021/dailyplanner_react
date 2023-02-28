@@ -5,7 +5,7 @@
     "scripts": {
         "start": "webpack serve --mode development",
         "build": "webpack build --mode production",
-        "test": "jest --verbose",
+        "test": "jest --verbose --coverage",
         "lint": "eslint --max-warnings 0 src/**/*",
         "prepare": "husky install"
     },
@@ -17,6 +17,7 @@
     },
     "devDependencies": {
         "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
+        "@tailwindcss/forms": "^0.5.3",
         "@testing-library/jest-dom": "^5.16.5",
         "@testing-library/react": "^13.4.0",
         "@testing-library/user-event": "^14.4.3",
@@ -38,6 +39,7 @@
         "html-webpack-plugin": "^5.5.0",
         "husky": "^8.0.3",
         "jest-transform-stub": "^2.0.0",
+        "lint-staged": "^13.1.2",
         "postcss": "^8.4.21",
         "postcss-import": "^15.1.0",
         "postcss-nested": "^6.0.0",

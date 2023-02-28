@@ -1,46 +1,78 @@
-import { type Card } from 'interfaces/Card';
+import { type Lane } from 'interfaces/Lane';
 import { colors } from '../../theme/colors';
 import { AddTask } from '../AddTask/AddTask';
+import { BoardTitle } from '../BoardTitle/BoardTitle';
 import { LaneComponent } from '../Lane/Lane';
 
 export const App = () => {
-    const cards: Card[] = [
+    const lanes: Lane[] = [
         {
             id: 1,
-            title: 'Working title',
-            description: 'Some text',
-            upperTags: [
-                { id: 1, text: 'Tag A', color: colors.rose },
-                { id: 2, text: 'Tag B', color: colors.green },
-            ],
-            lowerTags: [
-                { id: 1, text: 'Tag C', color: colors.rose },
-                { id: 2, text: 'Tag D', color: colors.green },
-            ],
-            tasks: [
-                { id: 1, description: 'Task 1' },
-                { id: 2, description: 'Task 2' },
+            title: 'Not Started',
+            color: colors.light_grey,
+            cards: [
+                {
+                    id: 1,
+                    title: 'Working title',
+                    description: 'Some text',
+                    upperTags: [
+                        { id: 1, text: 'Tag A', color: colors.rose },
+                        { id: 2, text: 'Tag B', color: colors.green },
+                    ],
+                    lowerTags: [
+                        { id: 1, text: 'Tag C', color: colors.rose },
+                        { id: 2, text: 'Tag D', color: colors.green },
+                    ],
+                    tasks: [
+                        { id: 1, description: 'Task 1' },
+                        { id: 2, description: 'Task 2' },
+                    ],
+                },
             ],
         },
+        {
+            id: 2,
+            title: 'In Progress',
+            color: colors.lavender,
+            cards: [],
+        },
+        {
+            id: 3,
+            title: 'Blocked',
+            color: colors.rose,
+            cards: [],
+        },
+        {
+            id: 4,
+            title: 'Done',
+            color: colors.green,
+            cards: [],
+        },
     ];
+
+    const renderLanes = (lanes: Lane[]) => {
+        return (
+            <>
+                {lanes.map((l, index) => (
+                    <LaneComponent
+                        key={`lane-${index}`}
+                        id={l.id}
+                        text={l.title}
+                        color={l.color}
+                        cards={l.cards}
+                    ></LaneComponent>
+                ))}
+            </>
+        );
+    };
 
     return (
         <main className="p-10">
             <div className="h-16 mb-6 grid grid-cols-[1fr_auto]">
-                <div className="flex flex-col gap-2">
-                    <div
-                        className="text-3xl font-bold text-[#212121]"
-                        data-testid="page-title"
-                    >
-                        My tasks
-                    </div>
-                    <div
-                        className="text-sm text-[#5A5A65]"
-                        data-testid="page-subtitle"
-                    >
-                        An overview of my tasks.
-                    </div>
-                </div>
+                <BoardTitle
+                    title="My tasks"
+                    subtitle="An overview of my tasks."
+                />
                 <div>
                     <AddTask />
                 </div>
@@ -49,25 +81,7 @@ export const App = () => {
                 className="p-5 rounded-2xl bg-[#F8F8F8] grid grid-cols-4 gap-6"
                 data-testid="page-board"
             >
-                <LaneComponent
-                    color={colors.light_grey}
-                    text={'Not started'}
-                    cards={cards}
-                ></LaneComponent>
-                <LaneComponent
-                    color={colors.lavender}
-                    text={'In Progress'}
-                    cards={cards}
-                ></LaneComponent>
-                <LaneComponent
-                    color={colors.rose}
-                    text={'Blocked'}
-                    cards={cards}
-                ></LaneComponent>
-                <LaneComponent
-                    color={colors.green}
-                    text={'Done'}
-                ></LaneComponent>
+                {renderLanes(lanes)}
             </div>
         </main>
     );

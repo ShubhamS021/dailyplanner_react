@@ -1,14 +1,20 @@
-import { type Card } from '../../../interfaces/Card';
+import { type Card } from 'interfaces/Card';
 import { CardComponent } from '../Card/Card';
 import { LabelComponent } from '../Label/Label';
 
 export interface LaneProps {
+    id: number;
     color: string;
     text: string;
     cards?: Card[];
 }
 
-export const LaneComponent: React.FC<LaneProps> = ({ color, text, cards }) => {
+export const LaneComponent: React.FC<LaneProps> = ({
+    id,
+    color,
+    text,
+    cards,
+}) => {
     const renderEmptyLane = () => {
         return (
             <>
@@ -18,12 +24,12 @@ export const LaneComponent: React.FC<LaneProps> = ({ color, text, cards }) => {
     };
 
     const renderCards = (cards: Card[] | undefined) => {
-        if (cards === undefined) return renderEmptyLane();
+        if (cards === undefined || cards.length === 0) return renderEmptyLane();
         return (
             <>
                 {cards.map((c, index) => (
                     <CardComponent
-                        key={index}
+                        key={`lane-${id}-card-${index}`}
                         title={c.title}
                         description={c.description}
                         upperTags={c.upperTags}

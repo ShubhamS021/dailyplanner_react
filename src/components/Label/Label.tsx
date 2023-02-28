@@ -8,6 +8,7 @@ export const LabelComponent = (props: LabelProps) => {
         <div
             className={`text-base text-[#4d4d4d] px-3 py-1 rounded-[20px] font-semibold`}
             style={{ backgroundColor: props.color }}
+            data-testid="page-label"
         >
             {props.text}
         </div>

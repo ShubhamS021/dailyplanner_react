@@ -24,7 +24,7 @@ export const CardComponent: React.FC<CardProps> = ({
         if (tags === undefined) return;
         return (
             <>
-                <div className="flex gap-1">
+                <div className="flex gap-1" data-testid="card-tags">
                     {tags.map((t) => (
                         <TagComponent
                             key={t.id}
@@ -53,12 +53,25 @@ export const CardComponent: React.FC<CardProps> = ({
     };
 
     return (
-        <div className="bg-white border border-solid rounded-lg border-[#DDDDDD] p-4 drop-shadow-[0_2px_4px_rgba(0,0,0,0.08)]">
+        <div
+            className="bg-white border border-solid rounded-lg border-[#DDDDDD] p-4 drop-shadow-[0_2px_4px_rgba(0,0,0,0.08)]"
+            data-testid="card"
+        >
             <div className="flex flex-col gap-2 items-start">
                 {renderTags(upperTags)}
-                <h3 className="font-semibold text-base">{title}</h3>
+                <h3
+                    className="font-semibold text-base"
+                    data-testid="card-title"
+                >
+                    {title}
+                </h3>
                 {description !== '' && (
-                    <p className="text-sm text-[#5A5A65]">{description}</p>
+                    <p
+                        className="text-sm text-[#5A5A65]"
+                        data-testid="card-description"
+                    >
+                        {description}
+                    </p>
                 )}
                 {renderTasks(tasks)}
                 {renderTags(lowerTags)}

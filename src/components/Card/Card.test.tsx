@@ -1,21 +1,27 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { CardComponent } from './Card';
 
 test('renders basic card', () => {
-    render(
+    const { getByTestId } = render(
         <CardComponent title={'card title'} description="card description" />
     );
-    const title = screen.getByText(/card title/i);
-    expect(title).toBeInTheDocument();
 
-    const description = screen.getByText(/description/i);
-    expect(description).toBeInTheDocument();
+    expect(getByTestId(/card-title/i).textContent).toBe('card title');
+    expect(getByTestId(/card-description/i).textContent).toBe(
+        'card description'
+    );
 });
 
 test('breaks render on card with empty title', () => {
+    const consoleErrorFn = jest
+        .spyOn(console, 'error')
+        .mockImplementation(() => jest.fn());
     try {
-        render(<CardComponent title={''} />);
+        expect(render(<CardComponent title={''} />)).toThrowError(
+            'no title set'
+        );
     } catch (e) {
         expect(e.message).toBe('no title set');
+        consoleErrorFn.mockRestore();
     }
 });

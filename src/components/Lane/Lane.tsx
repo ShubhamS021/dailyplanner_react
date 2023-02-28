@@ -42,7 +42,7 @@ export const LaneComponent: React.FC<LaneProps> = ({
     };
 
     return (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2" data-testid="lane">
             <div className="w-fit">
                 <LabelComponent color={color} text={text} />
             </div>

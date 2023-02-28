@@ -53,9 +53,9 @@ export const App = () => {
     const renderLanes = (lanes: Lane[]) => {
         return (
             <>
-                {lanes.map((l, index) => (
+                {lanes.map((l) => (
                     <LaneComponent
-                        key={`lane-${index}`}
+                        key={`lane-${l.id}`}
                         id={l.id}
                         text={l.title}
                         color={l.color}

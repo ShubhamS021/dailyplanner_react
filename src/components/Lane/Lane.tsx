@@ -27,9 +27,9 @@ export const LaneComponent: React.FC<LaneProps> = ({
         if (cards === undefined || cards.length === 0) return renderEmptyLane();
         return (
             <>
-                {cards.map((c, index) => (
+                {cards.map((c) => (
                     <CardComponent
-                        key={`lane-${id}-card-${index}`}
+                        key={`lane-${id}-card-${c.id}`}
                         title={c.title}
                         description={c.description}
                         upperTags={c.upperTags}

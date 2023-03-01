@@ -18,7 +18,7 @@ export const LaneComponent: React.FC<LaneProps> = ({
     const renderEmptyLane = () => {
         return (
             <>
-                <CardComponent title="Nothing in here..." />
+                <CardComponent title="---" />
             </>
         );
     };

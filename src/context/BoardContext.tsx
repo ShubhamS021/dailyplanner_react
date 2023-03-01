@@ -1,6 +1,7 @@
 import { type Card } from 'interfaces/Card';
 import { type Lane } from 'interfaces/Lane';
 import { createContext, useMemo, useState } from 'react';
+import { type DropResult } from 'react-beautiful-dnd';
 import { colors } from 'theme/colors';
 
 const initialState: Lane[] = [
@@ -32,8 +33,10 @@ const initialState: Lane[] = [
 
 export const BoardContext = createContext({
     board: initialState,
+    lastCardId: 0,
     addCardToLane: (card: Card, laneId: number) => {},
     removeCardFromLane: (cardId: number, laneId: number) => {},
+    handleDragEnd: (result: DropResult) => {},
 });
 
 interface BoardProviderProps {
@@ -42,8 +45,10 @@ interface BoardProviderProps {
 
 const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
     const [board, setBoard] = useState<Lane[]>(initialState);
+    const [lastCardId, setLastCardId] = useState(0);
 
     const addCardToLane = (card: Card, laneId: number) => {
+        setLastCardId(card.id);
         setBoard((prevBoard) => {
             return prevBoard.map((lane) => {
                 if (lane.id === laneId) {
@@ -68,8 +73,70 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
         });
     };
 
+    const handleDragEnd = (result: DropResult) => {
+        const { source, destination } = result;
+        if (destination === null || destination === undefined) {
+            return;
+        }
+        if (
+            source.droppableId === destination.droppableId &&
+            source.index === destination.index
+        ) {
+            return;
+        }
+        console.log('drag handled');
+
+        const sourceLaneId = parseInt(source.droppableId);
+        const destLaneId = parseInt(destination.droppableId);
+        const sourceCardIndex = source.index;
+        const destCardIndex = destination.index;
+
+        if (sourceLaneId === destLaneId) {
+            // Reorder cards in the same lane
+            const laneIndex = board.findIndex(
+                (lane) => lane.id === sourceLaneId
+            );
+            const lane = board[laneIndex];
+            const newCards = Array.from(lane.cards);
+            const [removedCard] = newCards.splice(sourceCardIndex, 1);
+            newCards.splice(destCardIndex, 0, removedCard);
+
+            const newLane = { ...lane, cards: newCards };
+            const newBoard = [...board];
+            newBoard.splice(laneIndex, 1, newLane);
+            setBoard(newBoard);
+        } else {
+            // Move card to a different lane
+            const sourceLaneIndex = board.findIndex(
+                (lane) => lane.id === sourceLaneId
+            );
+            const destLaneIndex = board.findIndex(
+                (lane) => lane.id === destLaneId
+            );
+            const sourceLane = board[sourceLaneIndex];
+            const destLane = board[destLaneIndex];
+            const sourceCards = Array.from(sourceLane.cards);
+            const destCards = Array.from(destLane.cards);
+            const [removedCard] = sourceCards.splice(sourceCardIndex, 1);
+            destCards.splice(destCardIndex, 0, removedCard);
+
+            const newSourceLane = { ...sourceLane, cards: sourceCards };
+            const newDestLane = { ...destLane, cards: destCards };
+            const newBoard = [...board];
+            newBoard.splice(sourceLaneIndex, 1, newSourceLane);
+            newBoard.splice(destLaneIndex, 1, newDestLane);
+            setBoard(newBoard);
+        }
+    };
+
     const value = useMemo(
-        () => ({ board, addCardToLane, removeCardFromLane }),
+        () => ({
+            board,
+            lastCardId,
+            addCardToLane,
+            removeCardFromLane,
+            handleDragEnd,
+        }),
         [board]
     );
 

@@ -1,4 +1,5 @@
 import { type Card } from 'interfaces/Card';
+import { Draggable } from 'react-beautiful-dnd';
 import { CardComponent } from '../Card/Card';
 import { LabelComponent } from '../Label/Label';
 
@@ -27,15 +28,29 @@ export const LaneComponent: React.FC<LaneProps> = ({
         if (cards === undefined || cards.length === 0) return renderEmptyLane();
         return (
             <>
-                {cards.map((c) => (
-                    <CardComponent
-                        key={`lane-${id}-card-${c.id}`}
-                        title={c.title}
-                        description={c.description}
-                        upperTags={c.upperTags}
-                        tasks={c.tasks}
-                        lowerTags={c.lowerTags}
-                    />
+                {cards.map((c, index) => (
+                    <Draggable
+                        key={c.id.toString()}
+                        draggableId={c.id.toString()}
+                        index={index}
+                    >
+                        {(provided, snapshot) => (
+                            <div
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                            >
+                                <CardComponent
+                                    key={`lane-${id}-card-${c.id}`}
+                                    title={c.title}
+                                    description={c.description}
+                                    upperTags={c.upperTags}
+                                    tasks={c.tasks}
+                                    lowerTags={c.lowerTags}
+                                />
+                            </div>
+                        )}
+                    </Draggable>
                 ))}
             </>
         );

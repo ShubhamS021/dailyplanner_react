@@ -9,7 +9,7 @@ export interface AddCardProps {
 
 export const AddCard: React.FC<AddCardProps> = ({ text, placeholder }) => {
     const [inputValue, setInputValue] = useState('');
-    const { addCardToLane } = useContext(BoardContext);
+    const { addCardToLane, lastCardId } = useContext(BoardContext);
 
     return (
         <>
@@ -27,7 +27,10 @@ export const AddCard: React.FC<AddCardProps> = ({ text, placeholder }) => {
                     type="button"
                     className="bg-[#17A2B8] text-white px-2 py-1 rounded font-semibold hover:ring-2 hover:ring-[#057C8E] hover:shadow-[0_2px_4px_rgba(5,124,142,0.4)] disabled:bg-gray-400 disabled:ring-0 disabled:shadow-none"
                     onClick={() => {
-                        const card: Card = { title: inputValue, id: 1 };
+                        const card: Card = {
+                            title: inputValue,
+                            id: lastCardId + 1,
+                        };
                         addCardToLane(card, 1);
                         setInputValue('');
                     }}

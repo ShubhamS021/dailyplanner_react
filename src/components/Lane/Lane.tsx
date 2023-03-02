@@ -1,6 +1,7 @@
 import { type Card } from 'interfaces/Card';
 import { Draggable } from 'react-beautiful-dnd';
 import { CardComponent } from '../Card/Card';
+import { Dropzone } from '../Dropzone/Dropzone';
 import { LabelComponent } from '../Label/Label';
 
 export interface LaneProps {
@@ -17,11 +18,7 @@ export const LaneComponent: React.FC<LaneProps> = ({
     cards,
 }) => {
     const renderEmptyLane = () => {
-        return (
-            <>
-                <CardComponent title="---" />
-            </>
-        );
+        return <Dropzone text="Place tasks here.." />;
     };
 
     const renderCards = (cards: Card[] | undefined) => {

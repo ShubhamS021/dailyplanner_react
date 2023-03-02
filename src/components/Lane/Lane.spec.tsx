@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react';
 import { type Card } from 'interfaces/Card';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { colors } from '../../theme/colors';
 import { LaneComponent } from './Lane';
 
@@ -10,7 +11,7 @@ test('renders basic lane', () => {
     expect(getByTestId(/page-label/i).textContent).toBe('Lane ABC');
 });
 
-test('renders lane with empty card', () => {
+test('renders lane with no cards -> dropzone', () => {
     const cards: Card[] = [];
     const { getByTestId, queryAllByTestId } = render(
         <LaneComponent
@@ -21,7 +22,7 @@ test('renders lane with empty card', () => {
         />
     );
     expect(getByTestId(/page-label/i).textContent).toBe('Lane ABC');
-    expect(queryAllByTestId('card').length).toBe(1);
+    expect(queryAllByTestId(/dropzone/i).length).toBe(1);
 });
 
 test('renders lane with card', () => {
@@ -31,12 +32,20 @@ test('renders lane with card', () => {
         { id: 3, title: 'card 3' },
     ];
     const { getByTestId, queryAllByTestId } = render(
-        <LaneComponent
-            color={colors.green}
-            text="Lane ABC"
-            id={1}
-            cards={cards}
-        />
+        <DragDropContext onDragEnd={() => {}}>
+            <Droppable droppableId="some_id">
+                {(provided: any) => (
+                    <div ref={provided.innerRef} {...provided.droppableProps}>
+                        <LaneComponent
+                            color={colors.green}
+                            text="Lane ABC"
+                            id={1}
+                            cards={cards}
+                        />
+                    </div>
+                )}
+            </Droppable>
+        </DragDropContext>
     );
     expect(getByTestId(/page-label/i).textContent).toBe('Lane ABC');
     expect(queryAllByTestId('card').length).toBe(3);

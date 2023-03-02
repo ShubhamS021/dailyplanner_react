@@ -1,8 +1,8 @@
-import { AddCard } from 'components/AddCard/AddCard';
-import { BoardContext } from 'context/BoardContext';
 import { type Lane } from 'interfaces/Lane';
 import { useContext } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { BoardContext } from '../../context/BoardContext';
+import { AddCard } from '../AddCard/AddCard';
 import { BoardTitle } from '../BoardTitle/BoardTitle';
 import { LaneComponent } from '../Lane/Lane';
 
@@ -28,6 +28,7 @@ export const App = () => {
                                     color={l.color}
                                     cards={l.cards}
                                 ></LaneComponent>
+                                {provided.placeholder}
                             </div>
                         )}
                     </Droppable>

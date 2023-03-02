@@ -1,6 +1,6 @@
-import { BoardContext } from 'context/BoardContext';
-import { type Card } from 'interfaces/Card';
 import { useContext, useState } from 'react';
+import { BoardContext } from '../../context/BoardContext';
+import { type Card } from '../../interfaces/Card';
 
 export interface AddCardProps {
     placeholder: string;
@@ -17,6 +17,7 @@ export const AddCard: React.FC<AddCardProps> = ({ text, placeholder }) => {
                 <input
                     placeholder={placeholder}
                     className="bg-[#f8f8f8] focus:outline-none"
+                    data-testid="addcard-input"
                     value={inputValue}
                     onChange={(e) => {
                         setInputValue(e.target.value);
@@ -25,6 +26,7 @@ export const AddCard: React.FC<AddCardProps> = ({ text, placeholder }) => {
                 <button
                     disabled={inputValue === ''}
                     type="button"
+                    data-testid="addcard-button"
                     className="bg-[#17A2B8] text-white px-2 py-1 rounded font-semibold hover:ring-2 hover:ring-[#057C8E] hover:shadow-[0_2px_4px_rgba(5,124,142,0.4)] disabled:bg-gray-400 disabled:ring-0 disabled:shadow-none"
                     onClick={() => {
                         const card: Card = {

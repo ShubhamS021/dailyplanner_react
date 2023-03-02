@@ -45,7 +45,7 @@ export const TaskComponent = (props: TaskProps) => {
         </svg>
     );
     return (
-        <div className={`text-sm text-[#5A5A65]py-1`}>
+        <div className={`text-sm text-[#5A5A65]py-1`} data-testid="card-task">
             <div className="flex items-center mr-4  cursor-pointer">
                 <input
                     type="checkbox"

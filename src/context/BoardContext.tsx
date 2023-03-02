@@ -1,8 +1,8 @@
-import { type Card } from 'interfaces/Card';
-import { type Lane } from 'interfaces/Lane';
 import { createContext, useEffect, useMemo, useState } from 'react';
 import { type DropResult } from 'react-beautiful-dnd';
-import { colors } from 'theme/colors';
+import { type Card } from '../interfaces/Card';
+import { type Lane } from '../interfaces/Lane';
+import { colors } from '../theme/colors';
 
 const initialState: Lane[] = [
     {
@@ -110,7 +110,6 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
         ) {
             return;
         }
-        console.log('drag handled');
 
         const sourceLaneId = parseInt(source.droppableId);
         const destLaneId = parseInt(destination.droppableId);

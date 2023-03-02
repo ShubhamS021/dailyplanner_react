@@ -1,6 +1,6 @@
 import { type Card } from 'interfaces/Card';
 import { type Lane } from 'interfaces/Lane';
-import { createContext, useMemo, useState } from 'react';
+import { createContext, useEffect, useMemo, useState } from 'react';
 import { type DropResult } from 'react-beautiful-dnd';
 import { colors } from 'theme/colors';
 
@@ -46,6 +46,19 @@ interface BoardProviderProps {
 const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
     const [board, setBoard] = useState<Lane[]>(initialState);
     const [lastCardId, setLastCardId] = useState(0);
+
+    // Read the initial state from localStorage
+    useEffect(() => {
+        const storedBoard = localStorage.getItem('board');
+        if (storedBoard !== null && storedBoard !== undefined) {
+            setBoard(JSON.parse(storedBoard));
+        }
+    }, []);
+
+    // Update localStorage whenever the board changes
+    useEffect(() => {
+        localStorage.setItem('board', JSON.stringify(board));
+    }, [board]);
 
     const addCardToLane = (card: Card, laneId: number) => {
         setLastCardId(card.id);

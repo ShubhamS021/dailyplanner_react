@@ -58,7 +58,20 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
     // Update localStorage whenever the board changes
     useEffect(() => {
         localStorage.setItem('board', JSON.stringify(board));
+        setLastCardId(findLastCardId());
     }, [board]);
+
+    const findLastCardId = () => {
+        let lastId = 1;
+
+        board.forEach((lane) => {
+            lane.cards.forEach((card) => {
+                if (card.id > lastId) lastId = card.id;
+            });
+        });
+
+        return lastId;
+    };
 
     const addCardToLane = (card: Card, laneId: number) => {
         setLastCardId(card.id);

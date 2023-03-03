@@ -33,7 +33,6 @@ const initialState: Lane[] = [
 
 export const BoardContext = createContext({
     board: initialState,
-    lastCardId: 0,
     addCardToLane: (card: Card, laneId: number) => {},
     removeCardFromLane: (cardId: number, laneId: number) => {},
     handleDragEnd: (result: DropResult) => {},
@@ -45,7 +44,6 @@ interface BoardProviderProps {
 
 const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
     const [board, setBoard] = useState<Lane[]>(initialState);
-    const [lastCardId, setLastCardId] = useState(0);
 
     // Read the initial state from localStorage
     useEffect(() => {
@@ -58,7 +56,6 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
     // Update localStorage whenever the board changes
     useEffect(() => {
         localStorage.setItem('board', JSON.stringify(board));
-        setLastCardId(findLastCardId());
     }, [board]);
 
     const findLastCardId = () => {
@@ -74,7 +71,7 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
     };
 
     const addCardToLane = (card: Card, laneId: number) => {
-        setLastCardId(card.id);
+        card.id = findLastCardId() + 1;
         setBoard((prevBoard) => {
             return prevBoard.map((lane) => {
                 if (lane.id === laneId) {
@@ -157,7 +154,6 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
     const value = useMemo(
         () => ({
             board,
-            lastCardId,
             addCardToLane,
             removeCardFromLane,
             handleDragEnd,

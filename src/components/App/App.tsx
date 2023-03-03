@@ -13,11 +13,8 @@ export const App = () => {
         return (
             <>
                 {lanes.map((l) => (
-                    <Droppable
-                        droppableId={l.id.toString()}
-                        key={`lane-${l.id}`}
-                    >
-                        {(provided, snapshot) => (
+                    <Droppable droppableId={`${l.id}`} key={`lane-${l.id}`}>
+                        {(provided) => (
                             <div
                                 ref={provided.innerRef}
                                 {...provided.droppableProps}

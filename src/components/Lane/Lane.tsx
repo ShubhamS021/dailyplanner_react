@@ -27,8 +27,8 @@ export const LaneComponent: React.FC<LaneProps> = ({
             <>
                 {cards.map((c, index) => (
                     <Draggable
-                        key={c.id.toString()}
-                        draggableId={c.id.toString()}
+                        key={`${c.id}`}
+                        draggableId={`lane-${id}-card-${c.id}`}
                         index={index}
                     >
                         {(provided, snapshot) => (

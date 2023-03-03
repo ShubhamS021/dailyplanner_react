@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react';
 import { useContext } from 'react';
-import { DropResult } from 'react-beautiful-dnd';
+import { type DropResult } from 'react-beautiful-dnd';
 import { type Card } from '../interfaces/Card';
 import BoardContextProvider, { BoardContext } from './BoardContext';
 

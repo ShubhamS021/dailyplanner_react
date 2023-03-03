@@ -36,19 +36,19 @@ describe('BoardContext', () => {
         expect(result.current.board[0].cards[0].title).toBe('Test Card');
 
         act(() => {
-            result.current.removeCardFromLane(1, 1);
+            result.current.removeCardFromLane(2, 1);
         });
         expect(result.current.board[0].cards.length).toBe(0);
     });
 
     it('should reorder cards in the same lane', () => {
         const card1: Card = {
-            id: 1,
+            id: 2,
             title: 'Card 1',
             description: '',
         };
         const card2: Card = {
-            id: 2,
+            id: 3,
             title: 'Card 2',
             description: '',
         };

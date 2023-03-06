@@ -44,8 +44,10 @@ export const AddCardSubtasks: React.FC<AddCardSubtaskProps> = ({
     return (
         <div className="flex flex-col gap-2">
             <div className="text-sm text-[#5E5E5E]">
-                <div className="font-bold">{headline}</div>
-                <p>{explanation}</p>
+                <div className="font-bold" data-testid="addcardtasks-headline">
+                    {headline}
+                </div>
+                <p data-testid="addcardtasks-explanation">{explanation}</p>
             </div>
             <div className="grid grid-cols-[1fr,auto] gap-2">
                 <div className="border border-[#f5f4f4] p-2 rounded-lg flex gap-2 items-center">
@@ -87,6 +89,7 @@ export const AddCardSubtasks: React.FC<AddCardSubtaskProps> = ({
                                 handleRemoveTask(t);
                             }}
                             title="Remove task from list."
+                            data-testid="addcard-subtask-delete-button"
                         >
                             {trashSVG}
                         </button>

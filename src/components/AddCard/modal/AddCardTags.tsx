@@ -49,8 +49,10 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
     return (
         <div className="flex flex-col gap-2">
             <div className="text-sm text-[#5E5E5E]">
-                <div className="font-bold">{headline}</div>
-                <p>{explanation}</p>
+                <div className="font-bold" data-testid="addcardtags-headline">
+                    {headline}
+                </div>
+                <p data-testid="addcardtags-explanation">{explanation}</p>
             </div>
             <div className="grid grid-cols-[1fr,auto,auto,auto] gap-2">
                 <div className="self-center">
@@ -80,6 +82,7 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
                         <div
                             key={index}
                             className={`cursor-pointer `}
+                            data-testid="addcard-tag-color-button"
                             onClick={() => {
                                 handleTagColorSelectionIndex(index);
                                 handleTagColorSelection(color);
@@ -107,7 +110,10 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
                     </button>
                 </div>
             </div>
-            <div className="flex flex-row flex-wrap gap-2">
+            <div
+                className="flex flex-row flex-wrap gap-2"
+                data-testid="addcardtags-list"
+            >
                 {card.upperTags?.map((t, index) => {
                     return (
                         <TagComponent

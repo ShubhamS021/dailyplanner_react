@@ -7,9 +7,7 @@ import { AddCardDescription } from './AddCardDescription';
 import { AddCardSubtasks } from './AddCardSubtasks';
 import { AddCardTags } from './AddCardTags';
 
-export interface AddCardTagsProps {
-    headline: string;
-    explanation: string;
+export interface AddCardModalProps {
     card: Card;
     updateDescription: (description: string) => void;
     updateTasks: (tasks: Task[]) => void;
@@ -18,7 +16,7 @@ export interface AddCardTagsProps {
     saveCard: () => void;
 }
 
-export const AddCardModal: React.FC<AddCardTagsProps> = ({
+export const AddCardModal: React.FC<AddCardModalProps> = ({
     card,
     updateDescription,
     updateTasks,

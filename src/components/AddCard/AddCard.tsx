@@ -1,8 +1,8 @@
-import type Tag from 'interfaces/Tag';
-import type Task from 'interfaces/Task';
 import { useContext, useState } from 'react';
 import { BoardContext } from '../../context/BoardContext';
 import { type Card } from '../../interfaces/Card';
+import type Tag from '../../interfaces/Tag';
+import type Task from '../../interfaces/Task';
 import { AddCardModal } from './modal/AddCardModal';
 
 export interface AddCardProps {
@@ -76,8 +76,6 @@ export const AddCard: React.FC<AddCardProps> = ({ text, placeholder }) => {
             {showModal ? (
                 <>
                     <AddCardModal
-                        headline={''}
-                        explanation={''}
                         card={card}
                         updateDescription={(description: string) => {
                             updateDescription(description);

@@ -1,6 +1,6 @@
-import { trashSVG } from 'assets/svgs/trash.svg';
-import { type Tag } from 'interfaces/Tag';
-import { type Task } from 'interfaces/Task';
+import { trashSVG } from '../../assets/svgs/trash.svg';
+import { type Tag } from '../../interfaces/Tag';
+import { type Task } from '../../interfaces/Task';
 import { TagComponent } from '../Tag/Tag';
 import { TaskComponent } from '../Task/Task';
 

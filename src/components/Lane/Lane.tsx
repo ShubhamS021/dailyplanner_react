@@ -1,7 +1,7 @@
-import { BoardContext } from 'context/BoardContext';
-import { type Card } from 'interfaces/Card';
 import { useContext } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
+import { BoardContext } from '../../context/BoardContext';
+import { type Card } from '../../interfaces/Card';
 import { CardComponent } from '../Card/Card';
 import { Dropzone } from '../Dropzone/Dropzone';
 import { LabelComponent } from '../Label/Label';
@@ -35,7 +35,7 @@ export const LaneComponent: React.FC<LaneProps> = ({
                         draggableId={`lane-${id}-card-${c.id}`}
                         index={index}
                     >
-                        {(provided, snapshot) => (
+                        {(provided) => (
                             <div
                                 ref={provided.innerRef}
                                 {...provided.draggableProps}

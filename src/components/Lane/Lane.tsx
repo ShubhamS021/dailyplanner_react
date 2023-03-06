@@ -1,4 +1,6 @@
+import { BoardContext } from 'context/BoardContext';
 import { type Card } from 'interfaces/Card';
+import { useContext } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { CardComponent } from '../Card/Card';
 import { Dropzone } from '../Dropzone/Dropzone';
@@ -17,6 +19,8 @@ export const LaneComponent: React.FC<LaneProps> = ({
     text,
     cards,
 }) => {
+    const boardContext = useContext(BoardContext);
+
     const renderEmptyLane = () => {
         return <Dropzone text="Place tasks here.." />;
     };
@@ -44,6 +48,12 @@ export const LaneComponent: React.FC<LaneProps> = ({
                                     upperTags={c.upperTags}
                                     tasks={c.tasks}
                                     lowerTags={c.lowerTags}
+                                    onRemoveTask={() => {
+                                        boardContext.removeCardFromLane(
+                                            c.id,
+                                            id
+                                        );
+                                    }}
                                 />
                             </div>
                         )}

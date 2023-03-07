@@ -1,5 +1,9 @@
-import { type Card } from 'interfaces/Card';
+import { useContext } from 'react';
+import { Draggable } from 'react-beautiful-dnd';
+import { BoardContext } from '../../context/BoardContext';
+import { type Card } from '../../interfaces/Card';
 import { CardComponent } from '../Card/Card';
+import { Dropzone } from '../Dropzone/Dropzone';
 import { LabelComponent } from '../Label/Label';
 
 export interface LaneProps {
@@ -15,12 +19,10 @@ export const LaneComponent: React.FC<LaneProps> = ({
     text,
     cards,
 }) => {
+    const boardContext = useContext(BoardContext);
+
     const renderEmptyLane = () => {
-        return (
-            <>
-                <CardComponent title="Nothing in here..." />
-            </>
-        );
+        return <Dropzone text="Place tasks here.." />;
     };
 
     const renderCards = (cards: Card[] | undefined) => {
@@ -28,14 +30,34 @@ export const LaneComponent: React.FC<LaneProps> = ({
         return (
             <>
                 {cards.map((c, index) => (
-                    <CardComponent
-                        key={`lane-${id}-card-${index}`}
-                        title={c.title}
-                        description={c.description}
-                        upperTags={c.upperTags}
-                        tasks={c.tasks}
-                        lowerTags={c.lowerTags}
-                    />
+                    <Draggable
+                        key={`${c.id}`}
+                        draggableId={`lane-${id}-card-${c.id}`}
+                        index={index}
+                    >
+                        {(provided) => (
+                            <div
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                            >
+                                <CardComponent
+                                    key={`lane-${id}-card-${c.id}`}
+                                    title={c.title}
+                                    description={c.description}
+                                    upperTags={c.upperTags}
+                                    tasks={c.tasks}
+                                    lowerTags={c.lowerTags}
+                                    onRemoveTask={() => {
+                                        boardContext.removeCardFromLane(
+                                            c.id,
+                                            id
+                                        );
+                                    }}
+                                />
+                            </div>
+                        )}
+                    </Draggable>
                 ))}
             </>
         );

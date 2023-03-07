@@ -1,4 +1,4 @@
-import React from 'react';
+import BoardContextProvider from 'context/BoardContext';
 import ReactDOM from 'react-dom/client';
 import App from './components/App/App';
 import './index.css';
@@ -8,9 +8,13 @@ const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
-    <React.StrictMode>
+    // ! WARNING: react-beautiful-dnd is not yet ready for React 18 + StrictMode..
+    // Reference: https://github.com/atlassian/react-beautiful-dnd/issues/2396
+    // <React.StrictMode>
+    <BoardContextProvider>
         <App />
-    </React.StrictMode>
+    </BoardContextProvider>
+    // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

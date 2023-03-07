@@ -12,6 +12,10 @@ export const TaskComponent = (props: TaskProps) => {
         setChecked(event.target.checked);
     };
 
+    function handleLabelClick(checked: boolean) {
+        setChecked(!checked);
+    }
+
     const bulletSVG = (
         <svg
             viewBox="0 0 16 16"
@@ -44,13 +48,14 @@ export const TaskComponent = (props: TaskProps) => {
             </g>
         </svg>
     );
+
     return (
         <div className={`text-sm text-[#5A5A65]py-1`} data-testid="card-task">
             <div className="flex items-center mr-4  cursor-pointer">
                 <input
                     type="checkbox"
                     className="opacity-0 absolute h-4 w-4 cursor-pointer"
-                    data-testid="input-checkbox"
+                    data-testid="task-checkbox"
                     onChange={handleChange}
                     checked={checked}
                 />
@@ -59,6 +64,10 @@ export const TaskComponent = (props: TaskProps) => {
                     {checkSVG}
                 </div>
                 <label
+                    onClick={() => {
+                        handleLabelClick(checked);
+                    }}
+                    data-testid="task-label"
                     className={`select-none cursor-pointer ${
                         checked ? 'line-through opacity-60' : ''
                     }`}

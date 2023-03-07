@@ -12,8 +12,15 @@ export const AddCardDescription: React.FC<AddCardDescriptionProps> = ({
     return (
         <div className="flex flex-col gap-2">
             <div className="text-sm text-[#5E5E5E]">
-                <div className="font-bold">{headline}</div>
-                <p>{explanation}</p>
+                <div
+                    className="font-bold"
+                    data-testid="addcarddescription-headline"
+                >
+                    {headline}
+                </div>
+                <p data-testid="addcarddescription-explanation">
+                    {explanation}
+                </p>
             </div>
             <div className="border border-[#f5f4f4] p-2 rounded-lg">
                 <input

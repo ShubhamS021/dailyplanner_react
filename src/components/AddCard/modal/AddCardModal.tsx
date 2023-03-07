@@ -40,7 +40,7 @@ export const AddCardModal: React.FC<AddCardModalProps> = ({
                                 className="text-base font-semibold"
                                 data-testid="addcard-modal-title"
                             >
-                                New Task: {card.title}
+                                {card.title}
                             </h3>
                         </div>
                         <div>

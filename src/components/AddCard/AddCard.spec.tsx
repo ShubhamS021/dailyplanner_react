@@ -3,6 +3,20 @@ import { useContext } from 'react';
 import BoardContextProvider, { BoardContext } from '../../context/BoardContext';
 import { AddCard } from './AddCard';
 
+jest.mock('./modal/AddCardSubtasks', () => ({
+    __esModule: true,
+    AddCardSubtasks: () => {
+        return <></>;
+    },
+}));
+
+jest.mock('./modal/AddCardTags', () => ({
+    __esModule: true,
+    AddCardTags: () => {
+        return <></>;
+    },
+}));
+
 describe('AddCard', () => {
     test('renders the basic addCard', () => {
         const { getByTestId } = render(
@@ -27,9 +41,7 @@ describe('AddCard', () => {
         const modalButton = getByTestId(/addcard-button/);
         fireEvent.click(modalButton);
 
-        expect(getByTestId(/addcard-modal-title/).textContent).toBe(
-            'New Task: NEW CARD'
-        );
+        expect(getByTestId(/addcard-modal-title/).textContent).toBe('NEW CARD');
 
         const descriptionInput = getByTestId(
             /addcard-description-input/
@@ -58,9 +70,7 @@ describe('AddCard', () => {
         const modalButton = getByTestId(/addcard-button/);
         fireEvent.click(modalButton);
 
-        expect(getByTestId(/addcard-modal-title/).textContent).toBe(
-            'New Task: NEW CARD'
-        );
+        expect(getByTestId(/addcard-modal-title/).textContent).toBe('NEW CARD');
 
         const button = getByTestId(/addcard-modal-cancel-button/);
         fireEvent.click(button);
@@ -73,7 +83,7 @@ describe('AddCard', () => {
         fireEvent.click(modalButton);
 
         expect(getByTestId(/addcard-modal-title/).textContent).toBe(
-            'New Task: NEW CARD 2'
+            'NEW CARD 2'
         );
 
         const closeButton = getByTestId(/addcard-modal-close-button/);

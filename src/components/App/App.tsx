@@ -1,6 +1,8 @@
 import { type Lane } from 'interfaces/Lane';
 import { useContext } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import Export from '../../components/Export/Export';
+import Import from '../../components/Import/Import';
 import { BoardContext } from '../../context/BoardContext';
 import { AddCard } from '../AddCard/AddCard';
 import { BoardTitle } from '../BoardTitle/BoardTitle';
@@ -52,6 +54,10 @@ export const App = () => {
                 <DragDropContext onDragEnd={boardContext.handleDragEnd}>
                     {renderLanes(boardContext.board)}
                 </DragDropContext>
+            </div>
+            <div className="flex justify-end gap-2 mt-2">
+                <Export />
+                <Import />
             </div>
         </main>
     );

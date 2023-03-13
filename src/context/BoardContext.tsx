@@ -37,6 +37,8 @@ export const BoardContext = createContext({
     removeCardFromLane: (cardId: number, laneId: number) => {},
     handleDragEnd: (result: DropResult) => {},
     clearBoard: () => {},
+    exportBoardToJSON: () => {},
+    importBoardFromJSON: (e: React.ChangeEvent<HTMLInputElement>) => {},
 });
 
 interface BoardProviderProps {
@@ -108,6 +110,32 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
         });
     };
 
+    const importBoardFromJSON = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const fileReader = new FileReader();
+        if (e.target.files !== null) {
+            fileReader.readAsText(e.target.files[0], 'UTF-8');
+            fileReader.onload = () => {
+                const str = String(fileReader.result);
+                try {
+                    const parsedContent = JSON.parse(str);
+                    console.log(parsedContent);
+                } catch (error) {}
+            };
+        }
+    };
+
+    const exportBoardToJSON = () => {
+        const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
+            JSON.stringify(board)
+        )}`;
+        const link = document.createElement('a');
+        link.href = jsonString;
+        const currentDate = new Date();
+        link.download = `BoardExport-${currentDate.toLocaleString()}.json`;
+
+        link.click();
+    };
+
     const handleDragEnd = (result: DropResult) => {
         const { source, destination } = result;
         if (destination === null || destination === undefined) {
@@ -170,6 +198,8 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
             removeCardFromLane,
             handleDragEnd,
             clearBoard,
+            exportBoardToJSON,
+            importBoardFromJSON,
         }),
         [board]
     );

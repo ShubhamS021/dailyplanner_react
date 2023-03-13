@@ -110,15 +110,26 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
         });
     };
 
+    const restoreBoard = (board: Lane[]) => {
+        setBoard((prevBoard) => {
+            return prevBoard.map((lane, index) => {
+                return {
+                    ...lane,
+                    cards: board[index].cards,
+                };
+            });
+        });
+    };
+
     const importBoardFromJSON = (e: React.ChangeEvent<HTMLInputElement>) => {
         const fileReader = new FileReader();
         if (e.target.files !== null) {
             fileReader.readAsText(e.target.files[0], 'UTF-8');
             fileReader.onload = () => {
-                const str = String(fileReader.result);
+                const boardJSON = String(fileReader.result);
                 try {
-                    const parsedContent = JSON.parse(str);
-                    console.log(parsedContent);
+                    const parsedBoard = JSON.parse(boardJSON);
+                    restoreBoard(parsedBoard);
                 } catch (error) {}
             };
         }

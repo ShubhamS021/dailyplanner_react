@@ -29,6 +29,9 @@ test('renders the basic AddCardModal', () => {
             saveCard={function (): void {
                 throw new Error('Function not implemented.');
             }}
+            updateLowerTags={function (tags: Tag[]): void {
+                throw new Error('Function not implemented.');
+            }}
         />
     );
 
@@ -60,6 +63,9 @@ test('renders the basic AddCardModal', () => {
             saveCard={function (): void {
                 throw new Error('Function not implemented.');
             }}
+            updateLowerTags={function (tags: Tag[]): void {
+                expect(tags.length).toBe(1);
+            }}
         />
     );
 
@@ -79,4 +85,9 @@ test('renders the basic AddCardModal', () => {
 
     const tagButton = getByTestId(/addcard-tag-button/);
     fireEvent.click(tagButton);
+
+    const lowerTagInput = getByTestId(
+        /addcard-lowertags-input/
+    ) as HTMLInputElement;
+    fireEvent.change(lowerTagInput, { target: { value: '01.01.2000' } });
 });

@@ -4,6 +4,7 @@ import { type Card } from '../../../interfaces/Card';
 import type Tag from '../../../interfaces/Tag';
 import type Task from '../../../interfaces/Task';
 import { AddCardDescription } from './AddCardDescription';
+import { AddCardDueDate } from './AddCardDueDate';
 import { AddCardSubtasks } from './AddCardSubtasks';
 import { AddCardTags } from './AddCardTags';
 
@@ -12,6 +13,7 @@ export interface AddCardModalProps {
     updateDescription: (description: string) => void;
     updateTasks: (tasks: Task[]) => void;
     updateTags: (tags: Tag[]) => void;
+    updateLowerTags: (tags: Tag[]) => void;
     closeModal: () => void;
     saveCard: () => void;
 }
@@ -21,6 +23,7 @@ export const AddCardModal: React.FC<AddCardModalProps> = ({
     updateDescription,
     updateTasks,
     updateTags,
+    updateLowerTags,
     closeModal,
     saveCard,
 }) => {
@@ -86,6 +89,14 @@ export const AddCardModal: React.FC<AddCardModalProps> = ({
                                 updateTags(tags);
                             }}
                         ></AddCardTags>
+                        <AddCardDueDate
+                            headline={'Add due date'}
+                            explanation={'Define a due date for this task.'}
+                            card={card}
+                            updateTags={(tags: Tag[]) => {
+                                updateLowerTags(tags);
+                            }}
+                        ></AddCardDueDate>
                         <hr className="border-t-1 border-[#C4C4C4] max-h-[1px] my-4"></hr>
                     </div>
                     {/* footer */}

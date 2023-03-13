@@ -44,6 +44,10 @@ export const AddCard: React.FC<AddCardProps> = ({ text, placeholder }) => {
         setCard({ ...card, upperTags: tags });
     };
 
+    const updateLowerTags = (tags: Tag[]) => {
+        setCard({ ...card, lowerTags: tags });
+    };
+
     const closeModal = () => {
         resetToInitial();
         setShowModal(false);
@@ -85,6 +89,9 @@ export const AddCard: React.FC<AddCardProps> = ({ text, placeholder }) => {
                         }}
                         updateTags={(tags: Tag[]) => {
                             updateTags(tags);
+                        }}
+                        updateLowerTags={(tags: Tag[]) => {
+                            updateLowerTags(tags);
                         }}
                         closeModal={() => {
                             closeModal();

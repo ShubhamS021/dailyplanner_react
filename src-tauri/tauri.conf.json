@@ -7,7 +7,7 @@
         "distDir": "../dist"
     },
     "package": {
-        "productName": "react-dayplanner",
+        "productName": "Dayplanner",
         "version": "0.1.0"
     },
     "tauri": {
@@ -58,7 +58,7 @@
                 "fullscreen": false,
                 "height": 600,
                 "resizable": true,
-                "title": "react-dayplanner",
+                "title": "Dayplanner",
                 "width": 800
             }
         ]

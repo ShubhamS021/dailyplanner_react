@@ -1,10 +1,10 @@
 [package]
 name = "app"
 version = "0.1.0"
-description = "A Tauri App"
-authors = ["you"]
+description = "A kanban application to track your daily tasks."
+authors = ["Kevin Hahn"]
 license = ""
-repository = ""
+repository = "https://git.sulzer.de/hahnk/dayplanner"
 default-run = "app"
 edition = "2021"
 rust-version = "1.59"

@@ -14,7 +14,7 @@ export const App = () => {
     const renderLanes = (lanes: Lane[]) => {
         return (
             <>
-                {lanes.map((l) => (
+                {lanes.map((l, index) => (
                     <Droppable droppableId={`${l.id}`} key={`lane-${l.id}`}>
                         {(provided) => (
                             <div
@@ -26,6 +26,7 @@ export const App = () => {
                                     text={l.title}
                                     color={l.color}
                                     cards={l.cards}
+                                    isLastLane={index === lanes.length - 1}
                                 ></LaneComponent>
                                 {provided.placeholder}
                             </div>

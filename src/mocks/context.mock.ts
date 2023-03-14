@@ -1,5 +1,6 @@
 export const mockAddCardToLane = jest.fn();
 export const mockRemoveCardFromLane = jest.fn();
+export const mockRemoveCardsFromLane = jest.fn();
 export const mockHandleDragEnd = jest.fn();
 export const mockClearBoard = jest.fn();
 export const mockExportBoardToJSON = jest.fn();
@@ -13,6 +14,7 @@ export const mockContext = {
     board: [],
     addCardToLane: mockAddCardToLane,
     removeCardFromLane: mockRemoveCardFromLane,
+    removeCardsFromLane: mockRemoveCardsFromLane,
     handleDragEnd: mockHandleDragEnd,
     clearBoard: mockClearBoard,
     exportBoardToJSON: mockExportBoardToJSON,

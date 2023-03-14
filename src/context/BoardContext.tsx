@@ -35,6 +35,7 @@ export const BoardContext = createContext({
     board: initialState,
     addCardToLane: (card: Card, laneId: number) => {},
     removeCardFromLane: (cardId: number, laneId: number) => {},
+    removeCardsFromLane: (laneId: number) => {},
     handleDragEnd: (result: DropResult) => {},
     clearBoard: () => {},
     exportBoardToJSON: () => {},
@@ -92,6 +93,20 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
                     return {
                         ...lane,
                         cards: lane.cards.filter((card) => card.id !== cardId),
+                    };
+                }
+                return lane;
+            });
+        });
+    };
+
+    const removeCardsFromLane = (laneId: number) => {
+        setBoard((prevBoard) => {
+            return prevBoard.map((lane) => {
+                if (lane.id === laneId) {
+                    return {
+                        ...lane,
+                        cards: [],
                     };
                 }
                 return lane;
@@ -207,6 +222,7 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
             board,
             addCardToLane,
             removeCardFromLane,
+            removeCardsFromLane,
             handleDragEnd,
             clearBoard,
             exportBoardToJSON,

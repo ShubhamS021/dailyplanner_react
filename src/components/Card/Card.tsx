@@ -76,6 +76,7 @@ export const CardComponent: React.FC<CardProps> = ({
                                 onRemoveTask();
                             }}
                             title="Remove task from list."
+                            data-testid="remove-card-button"
                         >
                             {trashSVG}
                         </button>

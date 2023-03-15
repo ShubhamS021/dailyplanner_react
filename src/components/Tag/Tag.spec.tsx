@@ -5,7 +5,11 @@ import { TagComponent } from './Tag';
 
 test('renders basic tag', () => {
     const { getByTestId } = render(
-        <TagComponent color={colors.green} text="Tag ABC" />
+        <TagComponent
+            color={colors.green}
+            text="Tag ABC"
+            isRemoveable={false}
+        />
     );
 
     expect(getByTestId('tag').textContent).toBe('Tag ABC');

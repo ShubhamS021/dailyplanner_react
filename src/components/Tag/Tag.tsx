@@ -1,12 +1,22 @@
+import { tagCloseSVG } from 'assets/svgs/tagClose.svg';
+
 export interface TagProps {
     color: string;
     text?: string;
     hasOutline?: boolean;
+    isRemoveable?: boolean;
+    onRemove?: () => void;
 }
 
-export const TagComponent = (props: TagProps) => {
-    let style = { backgroundColor: props.color, border: '' };
-    if (props.hasOutline === true) {
+export const TagComponent: React.FC<TagProps> = ({
+    color,
+    text,
+    hasOutline,
+    isRemoveable,
+    onRemove,
+}) => {
+    let style = { backgroundColor: color, border: '' };
+    if (hasOutline === true) {
         style = { ...style, border: '2px solid rgba(0,0,0,0.3)' };
     }
     return (
@@ -15,7 +25,10 @@ export const TagComponent = (props: TagProps) => {
             style={style}
             data-testid="tag"
         >
-            {props.text}
+            <div className="flex gap-1 items-center">
+                <div>{text}</div>
+                {isRemoveable && <div onClick={onRemove}>{tagCloseSVG}</div>}
+            </div>
         </div>
     );
 };

@@ -46,6 +46,11 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
         updateTags([...card.upperTags, newTag]);
     };
 
+    const handleOnRemoveTag = (id: number) => {
+        if (card.upperTags == null) card.upperTags = [];
+        updateTags([...card.upperTags.filter((t) => t.id !== id)]);
+    };
+
     return (
         <div className="flex flex-col gap-2">
             <div className="text-sm text-[#5E5E5E]">
@@ -120,6 +125,10 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
                             key={index}
                             color={t.color}
                             text={t.text}
+                            isRemoveable={true}
+                            onRemove={() => {
+                                handleOnRemoveTag(t.id);
+                            }}
                         ></TagComponent>
                     );
                 })}

@@ -1,4 +1,4 @@
-import { tagCloseSVG } from 'assets/svgs/tagClose.svg';
+import { tagCloseSVG } from '../../assets/svgs/tagClose.svg';
 
 export interface TagProps {
     color: string;

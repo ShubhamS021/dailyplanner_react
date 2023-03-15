@@ -9,6 +9,9 @@ test('renders basic card', () => {
             <CardComponent
                 title={'card title'}
                 description="card description"
+                onRemoveTask={function (): void {
+                    throw new Error('Function not implemented.');
+                }}
             />
         </DragDropContext>
     );
@@ -66,6 +69,11 @@ test('renders card with tags and tasks', () => {
                                                 text: 'Tag Low 1',
                                             },
                                         ]}
+                                        onRemoveTask={function (): void {
+                                            throw new Error(
+                                                'Function not implemented.'
+                                            );
+                                        }}
                                     />
                                 </div>
                             )}
@@ -89,9 +97,16 @@ test('breaks render on card with empty title', () => {
         .spyOn(console, 'error')
         .mockImplementation(() => jest.fn());
     try {
-        expect(render(<CardComponent title={''} />)).toThrowError(
-            'no title set'
-        );
+        expect(
+            render(
+                <CardComponent
+                    title={''}
+                    onRemoveTask={function (): void {
+                        throw new Error('Function not implemented.');
+                    }}
+                />
+            )
+        ).toThrowError('no title set');
     } catch (e) {
         expect(e.message).toBe('no title set');
         consoleErrorFn.mockRestore();

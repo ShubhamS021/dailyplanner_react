@@ -1,3 +1,4 @@
+import { editSVG } from '../../assets/svgs/edit.svg';
 import { trashSVG } from '../../assets/svgs/trash.svg';
 import { type Tag } from '../../interfaces/Tag';
 import { type Task } from '../../interfaces/Task';
@@ -10,7 +11,8 @@ export interface CardProps {
     upperTags?: Tag[];
     lowerTags?: Tag[];
     tasks?: Task[];
-    onRemoveTask: () => void;
+    onRemoveCard: () => void;
+    onEditCard: () => void;
 }
 
 export const CardComponent: React.FC<CardProps> = ({
@@ -19,7 +21,8 @@ export const CardComponent: React.FC<CardProps> = ({
     upperTags,
     lowerTags,
     tasks,
-    onRemoveTask,
+    onRemoveCard,
+    onEditCard,
 }) => {
     if (title === '') throw new Error('no title set');
 
@@ -69,13 +72,24 @@ export const CardComponent: React.FC<CardProps> = ({
                     >
                         {title}
                     </h3>
-                    <div className="invisible group-hover:visible">
+                    <div className="invisible group-hover:visible flex gap-1">
                         <button
-                            className="inline-flex items-center justify-center w-6 h-6 text-pink-100 transition-colors duration-150 bg-pink-700 rounded-lg focus:shadow-outline hover:bg-pink-800"
+                            className="inline-flex items-center justify-center w-8 h-8 transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline"
                             onClick={() => {
-                                onRemoveTask();
+                                onEditCard();
                             }}
-                            title="Remove task from list."
+                            title="Edit this card."
+                            data-testid="edit-card-button"
+                        >
+                            {editSVG}
+                        </button>
+
+                        <button
+                            className="inline-flex items-center justify-center w-8 h-8 transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline hover:bg-pink-600"
+                            onClick={() => {
+                                onRemoveCard();
+                            }}
+                            title="Remove this card."
                             data-testid="remove-card-button"
                         >
                             {trashSVG}

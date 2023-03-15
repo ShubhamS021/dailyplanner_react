@@ -9,7 +9,10 @@ test('renders basic card', () => {
             <CardComponent
                 title={'card title'}
                 description="card description"
-                onRemoveTask={function (): void {
+                onRemoveCard={function (): void {
+                    throw new Error('Function not implemented.');
+                }}
+                onEditCard={function (): void {
                     throw new Error('Function not implemented.');
                 }}
             />
@@ -69,7 +72,12 @@ test('renders card with tags and tasks', () => {
                                                 text: 'Tag Low 1',
                                             },
                                         ]}
-                                        onRemoveTask={function (): void {
+                                        onRemoveCard={function (): void {
+                                            throw new Error(
+                                                'Function not implemented.'
+                                            );
+                                        }}
+                                        onEditCard={function (): void {
                                             throw new Error(
                                                 'Function not implemented.'
                                             );
@@ -101,7 +109,10 @@ test('breaks render on card with empty title', () => {
             render(
                 <CardComponent
                     title={''}
-                    onRemoveTask={function (): void {
+                    onRemoveCard={function (): void {
+                        throw new Error('Function not implemented.');
+                    }}
+                    onEditCard={function (): void {
                         throw new Error('Function not implemented.');
                     }}
                 />

@@ -10,6 +10,8 @@ import { AddCardTags } from './AddCardTags';
 
 export interface AddCardModalProps {
     card: Card;
+    submitButtonText?: string;
+    cancelButtonText?: string;
     updateDescription: (description: string) => void;
     updateTasks: (tasks: Task[]) => void;
     updateTags: (tags: Tag[]) => void;
@@ -20,6 +22,8 @@ export interface AddCardModalProps {
 
 export const AddCardModal: React.FC<AddCardModalProps> = ({
     card,
+    submitButtonText,
+    cancelButtonText,
     updateDescription,
     updateTasks,
     updateTags,
@@ -109,7 +113,7 @@ export const AddCardModal: React.FC<AddCardModalProps> = ({
                                 closeModal();
                             }}
                         >
-                            Cancel
+                            {cancelButtonText ?? 'Cancel'}
                         </button>
                         <button
                             className="bg-[#17A2B8] text-white p-2 py-1.5 rounded-md font-semibold ease-linear transition-all duration-150"
@@ -120,7 +124,7 @@ export const AddCardModal: React.FC<AddCardModalProps> = ({
                                 closeModal();
                             }}
                         >
-                            Add task
+                            {submitButtonText ?? 'Add task'}
                         </button>
                     </div>
                 </div>

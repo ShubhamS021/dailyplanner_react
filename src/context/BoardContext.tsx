@@ -40,6 +40,7 @@ export const BoardContext = createContext({
     clearBoard: () => {},
     exportBoardToJSON: () => {},
     importBoardFromJSON: (e: React.ChangeEvent<HTMLInputElement>) => {},
+    updateCard: (card: Card, laneId: number) => {},
 });
 
 interface BoardProviderProps {
@@ -80,6 +81,23 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
             return prevBoard.map((lane) => {
                 if (lane.id === laneId) {
                     return { ...lane, cards: [...lane.cards, card] };
+                }
+                return lane;
+            });
+        });
+    };
+
+    const updateCard = (card: Card, laneId: number) => {
+        setBoard((prevBoard) => {
+            return prevBoard.map((lane) => {
+                if (lane.id === laneId) {
+                    return {
+                        ...lane,
+                        cards: [
+                            ...lane.cards.filter((c) => c.id !== card.id),
+                            card,
+                        ],
+                    };
                 }
                 return lane;
             });
@@ -227,6 +245,7 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
             clearBoard,
             exportBoardToJSON,
             importBoardFromJSON,
+            updateCard,
         }),
         [board]
     );

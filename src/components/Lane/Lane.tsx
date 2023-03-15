@@ -1,9 +1,12 @@
 import { useContext, useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { trashSVG } from '../../assets/svgs/trash.svg';
+import { AddCardModal } from '../../components/AddCard/modal/AddCardModal';
 import { ConfirmationModal } from '../../components/ConfirmationModal/ConfirmationModal';
 import { BoardContext } from '../../context/BoardContext';
 import { type Card } from '../../interfaces/Card';
+import type Tag from '../../interfaces/Tag';
+import type Task from '../../interfaces/Task';
 import { CardComponent } from '../Card/Card';
 import { Dropzone } from '../Dropzone/Dropzone';
 import { LabelComponent } from '../Label/Label';
@@ -24,6 +27,8 @@ export const LaneComponent: React.FC<LaneProps> = ({
     isLastLane,
 }) => {
     const [showModal, setShowModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [cardToEdit, setCardToEdit] = useState<Card>();
     const boardContext = useContext(BoardContext);
 
     const renderDelete = () => {
@@ -73,17 +78,85 @@ export const LaneComponent: React.FC<LaneProps> = ({
                                     upperTags={c.upperTags}
                                     tasks={c.tasks}
                                     lowerTags={c.lowerTags}
-                                    onRemoveTask={() => {
+                                    onRemoveCard={() => {
                                         boardContext.removeCardFromLane(
                                             c.id,
                                             id
                                         );
+                                    }}
+                                    onEditCard={() => {
+                                        setCardToEdit(c);
+                                        setShowEditModal(true);
                                     }}
                                 />
                             </div>
                         )}
                     </Draggable>
                 ))}
+            </>
+        );
+    };
+
+    const renderDeleteConfirmationModal = () => {
+        return (
+            <>
+                <ConfirmationModal
+                    title={'Warning: Deleting all cards from lane'}
+                    text={
+                        'Are you sure you want to delete all cards from this lane? This action cannot be undone.'
+                    }
+                    submitButtonText={'Yes, delete all.'}
+                    modalConfirmation={() => {
+                        boardContext.removeCardsFromLane(id);
+                    }}
+                    closeModal={() => {
+                        setShowModal(false);
+                    }}
+                ></ConfirmationModal>
+                <div className="opacity-50 fixed inset-0 z-40 bg-black"></div>
+            </>
+        );
+    };
+
+    const renderEditCardModal = () => {
+        if (cardToEdit == null) return;
+        return (
+            <>
+                <AddCardModal
+                    card={cardToEdit}
+                    submitButtonText={'Save changes'}
+                    updateDescription={(description: string) => {
+                        setCardToEdit((prevState) => {
+                            if (prevState == null) return;
+                            return { ...prevState, description };
+                        });
+                    }}
+                    updateTasks={(tasks: Task[]) => {
+                        setCardToEdit((prevState) => {
+                            if (prevState == null) return;
+                            return { ...prevState, tasks };
+                        });
+                    }}
+                    updateTags={(tags: Tag[]) => {
+                        setCardToEdit((prevState) => {
+                            if (prevState == null) return;
+                            return { ...prevState, upperTags: tags };
+                        });
+                    }}
+                    updateLowerTags={(tags: Tag[]) => {
+                        setCardToEdit((prevState) => {
+                            if (prevState == null) return;
+                            return { ...prevState, lowerTags: tags };
+                        });
+                    }}
+                    closeModal={() => {
+                        setShowEditModal(false);
+                    }}
+                    saveCard={() => {
+                        boardContext.updateCard(cardToEdit, id);
+                    }}
+                ></AddCardModal>
+                <div className="opacity-50 fixed inset-0 z-40 bg-black"></div>
             </>
         );
     };
@@ -95,24 +168,8 @@ export const LaneComponent: React.FC<LaneProps> = ({
                 {isLastLane && renderDelete()}
             </div>
             {renderCards(cards)}
-            {showModal ? (
-                <>
-                    <ConfirmationModal
-                        title={'Warning: Deleting all cards from lane'}
-                        text={
-                            'Are you sure you want to delete all cards from this lane? This action cannot be undone.'
-                        }
-                        submitButtonText={'Yes, delete all.'}
-                        modalConfirmation={() => {
-                            boardContext.removeCardsFromLane(id);
-                        }}
-                        closeModal={() => {
-                            setShowModal(false);
-                        }}
-                    ></ConfirmationModal>
-                    <div className="opacity-50 fixed inset-0 z-40 bg-black"></div>
-                </>
-            ) : null}
+            {showModal ? renderDeleteConfirmationModal() : null}
+            {showEditModal ? renderEditCardModal() : null}
         </div>
     );
 };

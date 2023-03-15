@@ -90,13 +90,13 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
     const updateCard = (card: Card, laneId: number) => {
         setBoard((prevBoard) => {
             return prevBoard.map((lane) => {
+                const newLaneCards = lane.cards.map((c) =>
+                    c.id === card.id ? card : c
+                );
                 if (lane.id === laneId) {
                     return {
                         ...lane,
-                        cards: [
-                            ...lane.cards.filter((c) => c.id !== card.id),
-                            card,
-                        ],
+                        cards: [...newLaneCards],
                     };
                 }
                 return lane;

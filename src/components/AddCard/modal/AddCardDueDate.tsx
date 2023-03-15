@@ -34,6 +34,11 @@ export const AddCardDueDate: React.FC<AddCardDueDateProps> = ({
         updateTags([...card.lowerTags, newTag]);
     };
 
+    const handleOnRemoveTag = (id: number) => {
+        if (card.lowerTags == null) card.lowerTags = [];
+        updateTags([...card.lowerTags.filter((t) => t.id !== id)]);
+    };
+
     return (
         <div className="flex flex-col gap-2">
             <div className="text-sm text-[#5E5E5E]">
@@ -86,6 +91,10 @@ export const AddCardDueDate: React.FC<AddCardDueDateProps> = ({
                             key={index}
                             color={t.color}
                             text={t.text}
+                            isRemoveable={true}
+                            onRemove={() => {
+                                handleOnRemoveTag(t.id);
+                            }}
                         ></TagComponent>
                     );
                 })}

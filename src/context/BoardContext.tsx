@@ -41,6 +41,7 @@ export const BoardContext = createContext({
     exportBoardToJSON: () => {},
     importBoardFromJSON: (e: React.ChangeEvent<HTMLInputElement>) => {},
     updateCard: (card: Card, laneId: number) => {},
+    updateTask: (cardId: number, taskId: number, fulfilled: boolean) => {},
 });
 
 interface BoardProviderProps {
@@ -98,6 +99,33 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
                         ...lane,
                         cards: [...newLaneCards],
                     };
+                }
+                return lane;
+            });
+        });
+    };
+
+    const updateTask = (cardId: number, taskId: number, fulfilled: boolean) => {
+        setBoard((prevBoard) => {
+            return prevBoard.map((lane) => {
+                if (lane.cards.some((c) => c.id === cardId)) {
+                    const card = lane.cards.find((c) => c.id) as Card;
+                    if (card === null)
+                        throw new Error('Expected card not in lane!');
+
+                    if (card.tasks === null) {
+                        throw new Error('Expected tasks not in card!');
+                    }
+
+                    card.tasks?.map((t) =>
+                        t.id === taskId
+                            ? (t.fulfilled = fulfilled)
+                            : t.fulfilled
+                    );
+
+                    console.log(card);
+
+                    updateCard(card, lane.id);
                 }
                 return lane;
             });
@@ -246,6 +274,7 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
             exportBoardToJSON,
             importBoardFromJSON,
             updateCard,
+            updateTask,
         }),
         [board]
     );

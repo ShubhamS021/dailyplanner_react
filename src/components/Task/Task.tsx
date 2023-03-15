@@ -3,17 +3,24 @@ import { useState } from 'react';
 export interface TaskProps {
     description: string;
     fulfilled?: boolean;
+    onFulfillTask: (fulfilled: boolean) => void;
 }
 
-export const TaskComponent = (props: TaskProps) => {
-    const [checked, setChecked] = useState(props.fulfilled ?? false);
+export const TaskComponent: React.FC<TaskProps> = ({
+    description,
+    fulfilled,
+    onFulfillTask,
+}) => {
+    const [checked, setChecked] = useState(fulfilled ?? false);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
+        onFulfillTask(event.target.checked);
     };
 
     function handleLabelClick(checked: boolean) {
         setChecked(!checked);
+        onFulfillTask(!checked);
     }
 
     const bulletSVG = (
@@ -72,7 +79,7 @@ export const TaskComponent = (props: TaskProps) => {
                         checked ? 'line-through opacity-60' : ''
                     }`}
                 >
-                    {props.description}
+                    {description}
                 </label>
             </div>
         </div>

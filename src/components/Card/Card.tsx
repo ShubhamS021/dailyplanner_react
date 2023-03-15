@@ -1,11 +1,14 @@
+import { useContext } from 'react';
 import { editSVG } from '../../assets/svgs/edit.svg';
 import { trashSVG } from '../../assets/svgs/trash.svg';
+import { BoardContext } from '../../context/BoardContext';
 import { type Tag } from '../../interfaces/Tag';
 import { type Task } from '../../interfaces/Task';
 import { TagComponent } from '../Tag/Tag';
 import { TaskComponent } from '../Task/Task';
 
 export interface CardProps {
+    id: number;
     title: string;
     description?: string;
     upperTags?: Tag[];
@@ -16,6 +19,7 @@ export interface CardProps {
 }
 
 export const CardComponent: React.FC<CardProps> = ({
+    id,
     title,
     description,
     upperTags,
@@ -25,6 +29,7 @@ export const CardComponent: React.FC<CardProps> = ({
     onEditCard,
 }) => {
     if (title === '') throw new Error('no title set');
+    const boardContext = useContext(BoardContext);
 
     const renderTags = (tags: Tag[] | undefined) => {
         if (tags === undefined) return;
@@ -52,6 +57,9 @@ export const CardComponent: React.FC<CardProps> = ({
                         key={t.id}
                         description={t.description}
                         fulfilled={t.fulfilled}
+                        onFulfillTask={(fulfilled: boolean) => {
+                            boardContext.updateTask(id, t.id, fulfilled);
+                        }}
                     />
                 ))}
             </>

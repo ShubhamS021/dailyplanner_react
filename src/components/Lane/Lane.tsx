@@ -72,6 +72,7 @@ export const LaneComponent: React.FC<LaneProps> = ({
                                 {...provided.dragHandleProps}
                             >
                                 <CardComponent
+                                    id={c.id}
                                     key={`lane-${id}-card-${c.id}`}
                                     title={c.title}
                                     description={c.description}

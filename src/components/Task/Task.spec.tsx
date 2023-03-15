@@ -4,7 +4,13 @@ import { TaskComponent } from './Task';
 
 test('renders unchecked basic task', () => {
     const { getByTestId } = render(
-        <TaskComponent description="test unchecked task" fulfilled={false} />
+        <TaskComponent
+            description="test unchecked task"
+            fulfilled={false}
+            onFulfillTask={(fulfilled: boolean) => {
+                throw new Error('Function not implemented.');
+            }}
+        />
     );
 
     expect(getByTestId('task-checkbox')).not.toBeChecked();
@@ -12,14 +18,25 @@ test('renders unchecked basic task', () => {
 
 test('renders checked basic task without prop', () => {
     const { getByTestId } = render(
-        <TaskComponent description="test unchecked task" />
+        <TaskComponent
+            description="test unchecked task"
+            onFulfillTask={(fulfilled: boolean) => {
+                throw new Error('Function not implemented.');
+            }}
+        />
     );
     expect(getByTestId('task-checkbox')).not.toBeChecked();
 });
 
 test('renders checked basic task', () => {
     const { getByTestId } = render(
-        <TaskComponent description="test checked task" fulfilled={true} />
+        <TaskComponent
+            description="test checked task"
+            fulfilled={true}
+            onFulfillTask={(fulfilled: boolean) => {
+                throw new Error('Function not implemented.');
+            }}
+        />
     );
     expect(getByTestId('task-checkbox')).toBeChecked();
 });
@@ -29,6 +46,9 @@ test('ticks a task', () => {
         <TaskComponent
             description="test unchecked task to be checked"
             fulfilled={false}
+            onFulfillTask={(fulfilled: boolean) => {
+                expect(fulfilled).toBe(true);
+            }}
         />
     );
     const checkbox = getByTestId('task-checkbox');
@@ -42,6 +62,9 @@ test('ticks a task by label', () => {
         <TaskComponent
             description="test unchecked task to be checked"
             fulfilled={false}
+            onFulfillTask={(fulfilled: boolean) => {
+                expect(fulfilled).toBe(true);
+            }}
         />
     );
     const checkbox = getByTestId('task-checkbox');

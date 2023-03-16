@@ -3,20 +3,6 @@ import { useContext } from 'react';
 import BoardContextProvider, { BoardContext } from '../../context/BoardContext';
 import { AddCard } from './AddCard';
 
-jest.mock('./modal/AddCardSubtasks', () => ({
-    __esModule: true,
-    AddCardSubtasks: () => {
-        return <></>;
-    },
-}));
-
-jest.mock('./modal/AddCardTags', () => ({
-    __esModule: true,
-    AddCardTags: () => {
-        return <></>;
-    },
-}));
-
 describe('AddCard', () => {
     test('renders the basic addCard', () => {
         const { getByTestId } = render(
@@ -30,7 +16,7 @@ describe('AddCard', () => {
     });
 
     test('add a new card', () => {
-        const { getByTestId } = render(
+        const { getByTestId, getAllByTestId } = render(
             <AddCard placeholder={'add a card'} text={'button text'} />
         );
 
@@ -38,18 +24,50 @@ describe('AddCard', () => {
         fireEvent.change(input, { target: { value: 'NEW CARD' } });
 
         expect(input.value).toBe('NEW CARD');
-        const modalButton = getByTestId(/addcard-button/);
-        fireEvent.click(modalButton);
+        fireEvent.click(getByTestId(/addcard-button/));
 
         expect(getByTestId(/addcard-modal-title/).textContent).toBe('NEW CARD');
 
+        // updateTitle
+        fireEvent.click(getByTestId(/addcard-title-edit-button/));
+
+        const titleInput = getByTestId(
+            /addcard-title-edit-input/
+        ) as HTMLInputElement;
+        fireEvent.change(titleInput, {
+            target: { value: 'NEW TITLE' },
+        });
+
+        fireEvent.click(getByTestId(/addcard-title-edit-submit-button/));
+
+        // updateDescription
         const descriptionInput = getByTestId(
             /addcard-description-input/
         ) as HTMLInputElement;
         fireEvent.change(descriptionInput, {
-            target: { value: 'new description' },
+            target: { value: 'NEW DESCRIPTION' },
         });
 
+        // updateTasks
+        const taskInput = getByTestId(
+            /addcard-subtask-input/
+        ) as HTMLInputElement;
+        fireEvent.change(taskInput, { target: { value: 'NEW TASK' } });
+
+        fireEvent.click(getByTestId(/addcard-subtask-button/));
+
+        // updateTags
+        const tagInput = getByTestId(/addcard-tags-input/) as HTMLInputElement;
+        fireEvent.change(tagInput, { target: { value: 'NEW TAG' } });
+        fireEvent.click(getAllByTestId(/addcard-tag-color-button/)[0]);
+        fireEvent.click(getByTestId(/addcard-tag-button/));
+
+        // updateLowerTags
+        const lowerTagInput = getByTestId(
+            /addcard-lowertags-input/
+        ) as HTMLInputElement;
+        fireEvent.change(lowerTagInput, { target: { value: '2000-01-01' } });
+        fireEvent.click(getByTestId(/addcard-lowertags-button/));
         const button = getByTestId(/addcard-modal-button/);
         fireEvent.click(button);
 

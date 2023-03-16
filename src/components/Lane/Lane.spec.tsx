@@ -2,52 +2,83 @@ import { fireEvent, render } from '@testing-library/react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { BoardContext } from '../../context/BoardContext';
 import { type Card } from '../../interfaces/Card';
-import { mockContext } from '../../mocks/context.mock';
-import { colors } from '../../theme/colors';
+import {
+    mockContext,
+    mockRemoveCardFromLane,
+    mockRemoveCardsFromLane,
+    mockUpdateCard,
+} from '../../mocks/context.mock';
 import { LaneComponent } from './Lane';
 
-test('renders basic lane', () => {
+const cards: Card[] = [
+    {
+        id: 1,
+        title: 'Card 1',
+        description: 'Card 1 description',
+        upperTags: [],
+        tasks: [],
+        lowerTags: [],
+    },
+    {
+        id: 2,
+        title: 'Card 2',
+        description: 'Card 2 description',
+        upperTags: [],
+        tasks: [],
+        lowerTags: [],
+    },
+];
+
+it('should render the correct lane text', () => {
+    const laneText = 'Test Lane';
     const { getByTestId } = render(
         <LaneComponent
-            color={colors.green}
-            text="Lane ABC"
             id={1}
+            text={laneText}
+            color={'#ffffff'}
             isLastLane={false}
         />
     );
-    expect(getByTestId(/page-label/i).textContent).toBe('Lane ABC');
+    const lane = getByTestId('lane');
+    expect(lane).toHaveTextContent(laneText);
 });
 
-test('renders lane with no cards -> dropzone', () => {
-    const cards: Card[] = [];
-    const { getByTestId, queryAllByTestId } = render(
+it('should render the correct lane color', () => {
+    const laneColor = '#ff0000';
+    const { getByTestId } = render(
         <LaneComponent
-            color={colors.green}
-            text="Lane ABC"
             id={1}
-            cards={cards}
+            text={'Test Lane'}
+            color={laneColor}
             isLastLane={false}
         />
     );
-    expect(getByTestId(/page-label/i).textContent).toBe('Lane ABC');
-    expect(queryAllByTestId(/dropzone/i).length).toBe(1);
+    const lane = getByTestId('page-label');
+    expect(lane).toHaveStyle(`background-color: ${laneColor}`);
 });
 
-test('renders lane with card', () => {
-    const cards: Card[] = [
-        { id: 1, title: 'card 1' },
-        { id: 2, title: 'card 2' },
-        { id: 3, title: 'card 3' },
-    ];
-    const { getByTestId, queryAllByTestId } = render(
+it('should render an empty lane', () => {
+    const { getByText } = render(
+        <LaneComponent
+            id={1}
+            text={'Test Lane'}
+            color={'#ffffff'}
+            isLastLane={false}
+        />
+    );
+    expect(getByText('Place tasks here..')).toBeInTheDocument();
+});
+
+it('should render cards', () => {
+    const { getByTestId } = render(
         <DragDropContext onDragEnd={() => {}}>
             <Droppable droppableId="some_id">
                 {(provided: any) => (
                     <div ref={provided.innerRef} {...provided.droppableProps}>
                         <LaneComponent
-                            color={colors.green}
-                            text="Lane ABC"
                             id={1}
+                            text={'Test Lane'}
+                            color={'#ffffff'}
                             cards={cards}
                             isLastLane={false}
                         />
@@ -56,20 +87,34 @@ test('renders lane with card', () => {
             </Droppable>
         </DragDropContext>
     );
-    expect(getByTestId(/page-label/i).textContent).toBe('Lane ABC');
-    expect(queryAllByTestId('card').length).toBe(3);
+    const lane = getByTestId('lane');
+    expect(lane).toContainElement(getByTestId('lane-1-card-1'));
+    expect(lane).toContainElement(getByTestId('lane-1-card-2'));
 });
 
-test('clicking delete all button shows confirmation modal', () => {
+it('should render delete all button in last lane', () => {
     const { getByTestId } = render(
+        <LaneComponent
+            id={1}
+            text={'Test Lane'}
+            color={'#ffffff'}
+            isLastLane={true}
+        />
+    );
+    expect(getByTestId('delete-all-from-lane-button')).toBeInTheDocument();
+});
+
+it('should open the confirmation modal when delete all button is clicked', () => {
+    const { getByTestId, getByText } = render(
         <DragDropContext onDragEnd={() => {}}>
             <Droppable droppableId="some_id">
                 {(provided: any) => (
                     <div ref={provided.innerRef} {...provided.droppableProps}>
                         <LaneComponent
-                            color={colors.green}
-                            text="Lane ABC"
                             id={1}
+                            text={'Test Lane'}
+                            color={'#ffffff'}
+                            cards={cards}
                             isLastLane={true}
                         />
                     </div>
@@ -77,20 +122,46 @@ test('clicking delete all button shows confirmation modal', () => {
             </Droppable>
         </DragDropContext>
     );
-    const deleteButton = getByTestId('delete-all-from-lane-button');
-    fireEvent.click(deleteButton);
-    expect(getByTestId('confirmation-modal')).toBeInTheDocument();
+    fireEvent.click(getByTestId('delete-all-from-lane-button'));
+    expect(
+        getByText('Warning: Deleting all cards from lane')
+    ).toBeInTheDocument();
+    expect(
+        getByText(
+            'Are you sure you want to delete all cards from this lane? This action cannot be undone.'
+        )
+    ).toBeInTheDocument();
 });
 
-test('clicking remove task button calls removeCardFromLane function from context', () => {
-    const removeCardFromLaneMock = jest.fn();
+it('should cancel the confirmation modal when delete all button is clicked', () => {
     const { getByTestId } = render(
-        <BoardContext.Provider
-            value={{
-                ...mockContext,
-                removeCardFromLane: removeCardFromLaneMock,
-            }}
-        >
+        <DragDropContext onDragEnd={() => {}}>
+            <Droppable droppableId="some_id">
+                {(provided: any) => (
+                    <div ref={provided.innerRef} {...provided.droppableProps}>
+                        <LaneComponent
+                            id={1}
+                            text={'Test Lane'}
+                            color={'#ffffff'}
+                            cards={cards}
+                            isLastLane={true}
+                        />
+                    </div>
+                )}
+            </Droppable>
+        </DragDropContext>
+    );
+    fireEvent.click(getByTestId('delete-all-from-lane-button'));
+    fireEvent.click(getByTestId('confirmation-modal-cancel-button'));
+
+    const lane = getByTestId('lane');
+    expect(lane).toContainElement(getByTestId('lane-1-card-1'));
+    expect(lane).toContainElement(getByTestId('lane-1-card-2'));
+});
+
+it('should submit the confirmation modal when delete all button is clicked', () => {
+    const { getByTestId } = render(
+        <BoardContext.Provider value={mockContext}>
             <DragDropContext onDragEnd={() => {}}>
                 <Droppable droppableId="some_id">
                     {(provided: any) => (
@@ -99,10 +170,10 @@ test('clicking remove task button calls removeCardFromLane function from context
                             {...provided.droppableProps}
                         >
                             <LaneComponent
-                                color={colors.green}
-                                text="Lane ABC"
                                 id={1}
-                                cards={[{ id: 1, title: 'card 1' }]}
+                                text={'Test Lane'}
+                                color={'#ffffff'}
+                                cards={cards}
                                 isLastLane={true}
                             />
                         </div>
@@ -111,21 +182,15 @@ test('clicking remove task button calls removeCardFromLane function from context
             </DragDropContext>
         </BoardContext.Provider>
     );
-    const removeTaskButton = getByTestId('remove-card-button');
-    fireEvent.click(removeTaskButton);
-    expect(removeCardFromLaneMock).toHaveBeenCalledTimes(1);
-    expect(removeCardFromLaneMock).toHaveBeenCalledWith(1, 1);
+    fireEvent.click(getByTestId('delete-all-from-lane-button'));
+    fireEvent.click(getByTestId('confirmation-modal-button'));
+
+    expect(mockRemoveCardsFromLane).toHaveBeenCalledTimes(1);
 });
 
-test('clicking yes, delete all button calls removeCardsFromLane function from context', () => {
-    const removeCardsFromLaneMock = jest.fn();
-    const { getByTestId } = render(
-        <BoardContext.Provider
-            value={{
-                ...mockContext,
-                removeCardsFromLane: removeCardsFromLaneMock,
-            }}
-        >
+it('should remove a card from lane', () => {
+    const { getAllByTestId } = render(
+        <BoardContext.Provider value={mockContext}>
             <DragDropContext onDragEnd={() => {}}>
                 <Droppable droppableId="some_id">
                     {(provided: any) => (
@@ -134,9 +199,10 @@ test('clicking yes, delete all button calls removeCardsFromLane function from co
                             {...provided.droppableProps}
                         >
                             <LaneComponent
-                                color={colors.green}
-                                text="Lane ABC"
                                 id={1}
+                                text={'Test Lane'}
+                                color={'#ffffff'}
+                                cards={cards}
                                 isLastLane={true}
                             />
                         </div>
@@ -145,10 +211,118 @@ test('clicking yes, delete all button calls removeCardsFromLane function from co
             </DragDropContext>
         </BoardContext.Provider>
     );
-    const deleteButton = getByTestId('delete-all-from-lane-button');
-    fireEvent.click(deleteButton);
-    const yesButton = getByTestId('confirmation-modal-button');
-    fireEvent.click(yesButton);
-    expect(removeCardsFromLaneMock).toHaveBeenCalledTimes(1);
-    expect(removeCardsFromLaneMock).toHaveBeenCalledWith(1);
+    const removeButton = getAllByTestId('remove-card-button')[0];
+    fireEvent.click(removeButton);
+
+    expect(mockRemoveCardFromLane).toHaveBeenCalledTimes(1);
+});
+
+it('should cancel edit a card from lane', () => {
+    const { getAllByTestId } = render(
+        <BoardContext.Provider value={mockContext}>
+            <DragDropContext onDragEnd={() => {}}>
+                <Droppable droppableId="some_id">
+                    {(provided: any) => (
+                        <div
+                            ref={provided.innerRef}
+                            {...provided.droppableProps}
+                        >
+                            <LaneComponent
+                                id={1}
+                                text={'Test Lane'}
+                                color={'#ffffff'}
+                                cards={cards}
+                                isLastLane={true}
+                            />
+                        </div>
+                    )}
+                </Droppable>
+            </DragDropContext>
+        </BoardContext.Provider>
+    );
+    const editButton = getAllByTestId('edit-card-button')[0];
+    fireEvent.click(editButton);
+});
+
+it('should submit edit a card from lane', () => {
+    const { getByTestId, getAllByTestId } = render(
+        <BoardContext.Provider value={mockContext}>
+            <DragDropContext onDragEnd={() => {}}>
+                <Droppable droppableId="some_id">
+                    {(provided: any) => (
+                        <div
+                            ref={provided.innerRef}
+                            {...provided.droppableProps}
+                        >
+                            <LaneComponent
+                                id={1}
+                                text={'Test Lane'}
+                                color={'#ffffff'}
+                                cards={cards}
+                                isLastLane={true}
+                            />
+                        </div>
+                    )}
+                </Droppable>
+            </DragDropContext>
+        </BoardContext.Provider>
+    );
+    fireEvent.click(getAllByTestId('edit-card-button')[0]);
+
+    // updateTitle
+    fireEvent.click(getByTestId(/addcard-title-edit-button/));
+
+    const titleInput = getByTestId(
+        /addcard-title-edit-input/
+    ) as HTMLInputElement;
+    fireEvent.change(titleInput, {
+        target: { value: 'NEW TITLE' },
+    });
+
+    fireEvent.click(getByTestId(/addcard-title-edit-submit-button/));
+
+    // updateDescription
+    const descriptionInput = getByTestId(
+        /addcard-description-input/
+    ) as HTMLInputElement;
+    fireEvent.change(descriptionInput, {
+        target: { value: 'NEW DESCRIPTION' },
+    });
+
+    // updateTasks
+    const taskInput = getByTestId(/addcard-subtask-input/) as HTMLInputElement;
+    fireEvent.change(taskInput, { target: { value: 'NEW TASK' } });
+
+    fireEvent.click(getByTestId(/addcard-subtask-button/));
+
+    // updateTags
+    const tagInput = getByTestId(/addcard-tags-input/) as HTMLInputElement;
+    fireEvent.change(tagInput, { target: { value: 'NEW TAG' } });
+    fireEvent.click(getAllByTestId(/addcard-tag-color-button/)[0]);
+    fireEvent.click(getByTestId(/addcard-tag-button/));
+
+    // updateLowerTags
+    const lowerTagInput = getByTestId(
+        /addcard-lowertags-input/
+    ) as HTMLInputElement;
+    fireEvent.change(lowerTagInput, { target: { value: '2000-01-01' } });
+    fireEvent.click(getByTestId(/addcard-lowertags-button/));
+
+    // save card
+    fireEvent.click(getByTestId(/addcard-modal-button/));
+
+    // assert what the card have on the lane
+    expect(mockUpdateCard).toBeCalledWith(
+        {
+            description: 'NEW DESCRIPTION',
+            id: 1,
+            lowerTags: [{ color: '#cbdfd8', id: 1, text: '2000-01-01' }],
+            tasks: [{ description: 'NEW TASK', id: 1 }],
+            title: 'NEW TITLE',
+            upperTags: [
+                { color: 'rgba(0, 70, 128, 0.33)', id: 1, text: 'NEW TAG' },
+            ],
+        },
+        1
+    );
 });

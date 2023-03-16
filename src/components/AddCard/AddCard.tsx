@@ -86,6 +86,9 @@ export const AddCard: React.FC<AddCardProps> = ({
                 <>
                     <AddCardModal
                         card={card}
+                        updateTitle={(title: string) => {
+                            updateTitle(title);
+                        }}
                         updateDescription={(description: string) => {
                             updateDescription(description);
                         }}

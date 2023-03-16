@@ -55,7 +55,7 @@ export const AddCardModal: React.FC<AddCardModalProps> = ({
                                 <>
                                     <input
                                         className="focus:outline-none text-sm w-full border border-[#f5f4f4] p-2 rounded-lg"
-                                        data-testid="addcard-subtask-edit-input"
+                                        data-testid="addcard-title-edit-input"
                                         placeholder={title.current}
                                         onChange={(e) => {
                                             title.current = e.target.value;
@@ -88,7 +88,7 @@ export const AddCardModal: React.FC<AddCardModalProps> = ({
                                             setEditTitle(true);
                                         }}
                                         title="Edit this task."
-                                        data-testid="addcard-subtask-edit-button"
+                                        data-testid="addcard-title-edit-button"
                                     >
                                         {editSVG}
                                     </button>

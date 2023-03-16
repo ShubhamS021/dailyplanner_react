@@ -28,7 +28,9 @@ export const TagComponent: React.FC<TagProps> = ({
             <div className="flex gap-1 items-center">
                 <div>{text}</div>
                 {isRemoveable === true && (
-                    <div onClick={onRemove}>{tagCloseSVG}</div>
+                    <div onClick={onRemove} data-testid="tag-remove-button">
+                        {tagCloseSVG}
+                    </div>
                 )}
             </div>
         </div>

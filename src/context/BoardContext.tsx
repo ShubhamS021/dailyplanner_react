@@ -4,7 +4,7 @@ import { type Card } from '../interfaces/Card';
 import { type Lane } from '../interfaces/Lane';
 import { colors } from '../theme/colors';
 
-const initialState: Lane[] = [
+export const initialState: Lane[] = [
     {
         id: 1,
         title: 'Not Started',
@@ -122,8 +122,6 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
                             ? (t.fulfilled = fulfilled)
                             : t.fulfilled
                     );
-
-                    console.log(card);
 
                     updateCard(card, lane.id);
                 }

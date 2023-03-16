@@ -25,6 +25,7 @@ export const AddCardDueDate: React.FC<AddCardDueDateProps> = ({
     };
 
     const handleAddNewTag = () => {
+        if (tagTitle.current === '') return;
         if (card.lowerTags == null) card.lowerTags = [];
         const newTag: Tag = {
             id: card.lowerTags.length + 1,

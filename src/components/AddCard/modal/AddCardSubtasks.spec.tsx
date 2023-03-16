@@ -50,6 +50,30 @@ test('adds a task', () => {
     fireEvent.click(button);
 });
 
+test('edits a task', () => {
+    const card: Card = {
+        id: 1,
+        title: 'test card',
+        tasks: [{ id: 1, description: 'Task 1' }],
+    };
+
+    const { getByTestId } = render(
+        <AddCardSubtasks
+            headline={'tasks'}
+            explanation={'testing add card tasks'}
+            card={card}
+            updateTasks={(tasks: Task[]) => {}}
+        />
+    );
+
+    fireEvent.click(getByTestId(/addcard-subtask-edit-button/));
+
+    const input = getByTestId(/addcard-subtask-edit-input/) as HTMLInputElement;
+    fireEvent.change(input, { target: { value: 'Task 1 edited' } });
+
+    fireEvent.click(getByTestId(/addcard-subtask-edit-submit-button/));
+});
+
 test('removes a task', () => {
     const card: Card = {
         id: 1,

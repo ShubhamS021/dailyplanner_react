@@ -1,8 +1,11 @@
-import { act, renderHook } from '@testing-library/react';
+import { act, fireEvent, renderHook } from '@testing-library/react';
 import { useContext } from 'react';
 import { type DropResult } from 'react-beautiful-dnd';
 import { type Card } from '../interfaces/Card';
-import BoardContextProvider, { BoardContext } from './BoardContext';
+import BoardContextProvider, {
+    BoardContext,
+    initialState,
+} from './BoardContext';
 
 describe('BoardContext', () => {
     it('should add a card to a lane', () => {
@@ -180,4 +183,128 @@ describe('BoardContext', () => {
             result.current.handleDragEnd(dropResult);
         });
     });
+
+    it('should export a board', () => {
+        const wrapper = ({ children }: { children: React.ReactNode }) => (
+            <BoardContextProvider>{children}</BoardContextProvider>
+        );
+        const { result } = renderHook(() => useContext(BoardContext), {
+            wrapper,
+        });
+
+        result.current.exportBoardToJSON();
+    });
+
+    it('should import a board', () => {
+        const wrapper = ({ children }: { children: React.ReactNode }) => (
+            <BoardContextProvider>{children}</BoardContextProvider>
+        );
+        const { result } = renderHook(() => useContext(BoardContext), {
+            wrapper,
+        });
+
+        const boardImport = new File(
+            [JSON.stringify(initialState)],
+            'data.json',
+            {
+                type: 'application/json',
+            }
+        );
+
+        const fileList = {
+            0: boardImport,
+            length: 1,
+            item: (index: number) => {
+                return this?.[index];
+            },
+        };
+
+        const input = document.createElement('input');
+        input.type = 'file';
+        Object.defineProperty(input, 'files', {
+            value: fileList,
+        });
+
+        fireEvent.change(input);
+
+        const event = {
+            target: { files: input.files },
+        };
+
+        result.current.importBoardFromJSON(
+            event as React.ChangeEvent<HTMLInputElement>
+        );
+    });
+});
+
+it('should update a existing card', () => {
+    const wrapper = ({ children }: { children: React.ReactNode }) => (
+        <BoardContextProvider>{children}</BoardContextProvider>
+    );
+    const { result } = renderHook(() => useContext(BoardContext), {
+        wrapper,
+    });
+
+    const card: Card = {
+        id: 1,
+        title: 'Card 1',
+    };
+
+    act(() => {
+        result.current.addCardToLane(card, 1);
+    });
+
+    act(() => {
+        const updatedCard: Card = {
+            ...result.current.board[0].cards[0],
+            title: 'Card 1 updated',
+        };
+        result.current.updateCard(updatedCard, 1);
+    });
+
+    expect(result.current.board[0].cards[0].title).toBe('Card 1 updated');
+});
+
+it('should update a existing cards task', () => {
+    const wrapper = ({ children }: { children: React.ReactNode }) => (
+        <BoardContextProvider>{children}</BoardContextProvider>
+    );
+    const { result } = renderHook(() => useContext(BoardContext), {
+        wrapper,
+    });
+
+    act(() => {
+        result.current.clearBoard();
+    });
+
+    const card: Card = {
+        id: 0,
+        title: 'Card 1',
+        tasks: [{ id: 1, description: 'Task' }],
+    };
+
+    act(() => {
+        result.current.addCardToLane(card, 1);
+    });
+
+    act(() => {
+        result.current.updateTask(2, 1, true);
+    });
+
+    expect(result.current.board[0]?.cards[0]?.tasks?.[0].fulfilled).toBe(true);
+});
+
+it('should remove cards from existing lane', () => {
+    const wrapper = ({ children }: { children: React.ReactNode }) => (
+        <BoardContextProvider>{children}</BoardContextProvider>
+    );
+    const { result } = renderHook(() => useContext(BoardContext), {
+        wrapper,
+    });
+
+    act(() => {
+        result.current.removeCardsFromLane(1);
+    });
+
+    expect(result.current.board[0]?.cards.length).toBe(0);
 });

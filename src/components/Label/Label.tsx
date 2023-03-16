@@ -3,14 +3,14 @@ export interface LabelProps {
     text: string;
 }
 
-export const LabelComponent = (props: LabelProps) => {
+export const LabelComponent: React.FC<LabelProps> = ({ color, text }) => {
     return (
         <div
             className={`text-base text-[#4d4d4d] px-3 py-1 rounded-[20px] font-semibold`}
-            style={{ backgroundColor: props.color }}
+            style={{ backgroundColor: color }}
             data-testid="page-label"
         >
-            {props.text}
+            {text}
         </div>
     );
 };

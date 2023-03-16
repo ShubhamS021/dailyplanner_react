@@ -114,3 +114,37 @@ test('adds a tag to empty array', () => {
         getAllByTestId(/addcardtags-list/)[1].children.length
     ).toBeGreaterThan(0);
 });
+
+test('removes a tag to empty array', () => {
+    const card: Card = {
+        id: 1,
+        title: 'test card',
+        upperTags: [{ id: 1, text: 'Tag 1', color: '#fff' }],
+    };
+
+    const { getByTestId, getAllByTestId } = render(
+        <AddCardTags
+            headline={'tags'}
+            explanation={'testing remove card tags'}
+            card={card}
+            updateTags={(tags: Tag[]) => {
+                card.upperTags = [...tags];
+            }}
+        />
+    );
+
+    fireEvent.click(getByTestId(/tag-remove-button/));
+
+    render(
+        <AddCardTags
+            headline={'tags'}
+            explanation={'testing add card tags'}
+            card={card}
+            updateTags={(tags: Tag[]) => {
+                card.upperTags = [...tags];
+            }}
+        />
+    );
+
+    expect(getAllByTestId(/addcardtags-list/)[1].children.length).toBe(0);
+});

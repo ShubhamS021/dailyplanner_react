@@ -9,6 +9,8 @@ export const mockImportBoardFromJSON = jest
     .mockImplementation((e: React.ChangeEvent<HTMLInputElement>) => {
         mockImportBoardFromJSON.mock.calls.push([e]);
     });
+export const mockUpdateCard = jest.fn();
+export const mockUpdateTask = jest.fn();
 
 export const mockContext = {
     board: [],
@@ -19,4 +21,6 @@ export const mockContext = {
     clearBoard: mockClearBoard,
     exportBoardToJSON: mockExportBoardToJSON,
     importBoardFromJSON: mockImportBoardFromJSON,
+    updateCard: mockUpdateCard,
+    updateTask: mockUpdateTask,
 };

@@ -67,6 +67,7 @@ export const LaneComponent: React.FC<LaneProps> = ({
                     >
                         {(provided) => (
                             <div
+                                data-testid={`lane-${id}-card-${c.id}`}
                                 ref={provided.innerRef}
                                 {...provided.draggableProps}
                                 {...provided.dragHandleProps}

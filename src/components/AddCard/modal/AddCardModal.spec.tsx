@@ -14,6 +14,9 @@ test('renders the basic AddCardModal', () => {
     const { getByTestId } = render(
         <AddCardModal
             card={card}
+            updateTitle={function (title: string): void {
+                throw new Error('Function not implemented.');
+            }}
             updateDescription={function (description: string): void {
                 throw new Error('Function not implemented.');
             }}
@@ -48,6 +51,9 @@ test('renders the basic AddCardModal', () => {
     const { getByTestId, getAllByTestId } = render(
         <AddCardModal
             card={card}
+            updateTitle={function (title: string): void {
+                throw new Error('Function not implemented.');
+            }}
             updateDescription={function (description: string): void {
                 throw new Error('Function not implemented.');
             }}

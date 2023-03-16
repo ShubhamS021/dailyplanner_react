@@ -1,5 +1,8 @@
+import { useRef, useState } from 'react';
 import { closeSVG } from '../../../assets/svgs/close.svg';
+import { editSVG } from '../../../assets/svgs/edit.svg';
 import { infoCircleSVG } from '../../../assets/svgs/infoCircle.svg';
+import { saveSVG } from '../../../assets/svgs/save.svg';
 import { type Card } from '../../../interfaces/Card';
 import type Tag from '../../../interfaces/Tag';
 import type Task from '../../../interfaces/Task';
@@ -12,6 +15,7 @@ export interface AddCardModalProps {
     card: Card;
     submitButtonText?: string;
     cancelButtonText?: string;
+    updateTitle: (title: string) => void;
     updateDescription: (description: string) => void;
     updateTasks: (tasks: Task[]) => void;
     updateTags: (tags: Tag[]) => void;
@@ -24,6 +28,7 @@ export const AddCardModal: React.FC<AddCardModalProps> = ({
     card,
     submitButtonText,
     cancelButtonText,
+    updateTitle,
     updateDescription,
     updateTasks,
     updateTags,
@@ -31,6 +36,9 @@ export const AddCardModal: React.FC<AddCardModalProps> = ({
     closeModal,
     saveCard,
 }) => {
+    const [editTitle, setEditTitle] = useState(false);
+    const title = useRef(card.title);
+
     return (
         <div
             className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
@@ -40,15 +48,52 @@ export const AddCardModal: React.FC<AddCardModalProps> = ({
                 {/* content */}
                 <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                     {/* header */}
-                    <div className="px-6 pt-6 rounded-t grid grid-cols-[1fr,auto] gap-2">
+                    <div className=" group px-6 pt-6 rounded-t grid grid-cols-[1fr,auto] gap-2 ">
                         <div className="flex gap-2">
                             {infoCircleSVG}
-                            <h3
-                                className="text-base font-semibold"
-                                data-testid="addcard-modal-title"
-                            >
-                                {card.title}
-                            </h3>
+                            {editTitle && (
+                                <>
+                                    <input
+                                        className="focus:outline-none text-sm w-full border border-[#f5f4f4] p-2 rounded-lg"
+                                        data-testid="addcard-subtask-edit-input"
+                                        placeholder={title.current}
+                                        onChange={(e) => {
+                                            title.current = e.target.value;
+                                        }}
+                                    ></input>
+                                    <button
+                                        className="inline-flex items-center justify-center w-8 h-8 transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline"
+                                        onClick={() => {
+                                            updateTitle(title.current);
+                                            setEditTitle(false);
+                                        }}
+                                        title="Save this task."
+                                        data-testid="addcard-title-edit-submit-button"
+                                    >
+                                        {saveSVG}
+                                    </button>
+                                </>
+                            )}
+                            {!editTitle && (
+                                <div className="w-full grid grid-cols-[1fr,auto]">
+                                    <h3
+                                        className="text-base font-semibold"
+                                        data-testid="addcard-modal-title"
+                                    >
+                                        {card.title}
+                                    </h3>
+                                    <button
+                                        className="invisible group-hover:visible inline-flex items-center justify-center w-8 h-8 transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline"
+                                        onClick={() => {
+                                            setEditTitle(true);
+                                        }}
+                                        title="Edit this task."
+                                        data-testid="addcard-subtask-edit-button"
+                                    >
+                                        {editSVG}
+                                    </button>
+                                </div>
+                            )}
                         </div>
                         <div>
                             <button

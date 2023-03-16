@@ -126,6 +126,12 @@ export const LaneComponent: React.FC<LaneProps> = ({
                 <AddCardModal
                     card={cardToEdit}
                     submitButtonText={'Save changes'}
+                    updateTitle={(title: string) => {
+                        setCardToEdit((prevState) => {
+                            if (prevState == null) return;
+                            return { ...prevState, title };
+                        });
+                    }}
                     updateDescription={(description: string) => {
                         setCardToEdit((prevState) => {
                             if (prevState == null) return;

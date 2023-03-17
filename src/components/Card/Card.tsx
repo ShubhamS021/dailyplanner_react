@@ -29,7 +29,7 @@ export const CardComponent: React.FC<CardProps> = ({
     onEditCard,
 }) => {
     if (title === '') throw new Error('no title set');
-    const boardContext = useContext(BoardContext);
+    const { updateTask, compactMode } = useContext(BoardContext);
 
     const renderTags = (tags: Tag[] | undefined) => {
         if (tags === undefined) return;
@@ -48,8 +48,9 @@ export const CardComponent: React.FC<CardProps> = ({
         );
     };
 
-    const renderTasks = (tasks: Task[] | undefined) => {
+    const renderTasks = () => {
         if (tasks === undefined) return;
+        if (compactMode) return;
         return (
             <>
                 {tasks.map((t) => (
@@ -58,11 +59,24 @@ export const CardComponent: React.FC<CardProps> = ({
                         description={t.description}
                         fulfilled={t.fulfilled}
                         onFulfillTask={(fulfilled: boolean) => {
-                            boardContext.updateTask(id, t.id, fulfilled);
+                            updateTask(id, t.id, fulfilled);
                         }}
                     />
                 ))}
             </>
+        );
+    };
+
+    const renderDescription = () => {
+        if (description === '') return;
+        if (compactMode) return;
+        return (
+            <p
+                className="text-sm text-[#5A5A65]"
+                data-testid="card-description"
+            >
+                {description}
+            </p>
         );
     };
 
@@ -105,15 +119,8 @@ export const CardComponent: React.FC<CardProps> = ({
                     </div>
                 </div>
 
-                {description !== '' && (
-                    <p
-                        className="text-sm text-[#5A5A65]"
-                        data-testid="card-description"
-                    >
-                        {description}
-                    </p>
-                )}
-                {renderTasks(tasks)}
+                {renderDescription()}
+                {renderTasks()}
                 {renderTags(lowerTags)}
             </div>
         </div>

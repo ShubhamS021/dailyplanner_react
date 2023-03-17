@@ -1,9 +1,10 @@
-import { type Lane } from 'interfaces/Lane';
 import { useContext } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import CompactModeToggle from '../../components/CompactModeToggle/CompactModeToggle';
 import Export from '../../components/Export/Export';
 import Import from '../../components/Import/Import';
 import { BoardContext } from '../../context/BoardContext';
+import { type Lane } from '../../interfaces/Lane';
 import { AddCard } from '../AddCard/AddCard';
 import { BoardTitle } from '../BoardTitle/BoardTitle';
 import { LaneComponent } from '../Lane/Lane';
@@ -59,6 +60,7 @@ export const App = () => {
             <div className="flex justify-end gap-2 mt-2">
                 <Export />
                 <Import />
+                <CompactModeToggle />
             </div>
         </main>
     );

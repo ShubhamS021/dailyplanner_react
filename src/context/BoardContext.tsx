@@ -33,6 +33,7 @@ export const initialState: Lane[] = [
 
 export const BoardContext = createContext({
     board: initialState,
+    compactMode: false,
     addCardToLane: (card: Card, laneId: number) => {},
     removeCardFromLane: (cardId: number, laneId: number) => {},
     removeCardsFromLane: (laneId: number) => {},
@@ -42,6 +43,7 @@ export const BoardContext = createContext({
     importBoardFromJSON: (e: React.ChangeEvent<HTMLInputElement>) => {},
     updateCard: (card: Card, laneId: number) => {},
     updateTask: (cardId: number, taskId: number, fulfilled: boolean) => {},
+    toggleCompactMode: () => {},
 });
 
 interface BoardProviderProps {
@@ -50,6 +52,7 @@ interface BoardProviderProps {
 
 const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
     const [board, setBoard] = useState<Lane[]>(initialState);
+    const [compactMode, setCompactMode] = useState(false);
 
     // Read the initial state from localStorage
     useEffect(() => {
@@ -206,6 +209,10 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
         link.click();
     };
 
+    const toggleCompactMode = () => {
+        setCompactMode(!compactMode);
+    };
+
     const handleDragEnd = (result: DropResult) => {
         const { source, destination } = result;
         if (destination === null || destination === undefined) {
@@ -264,6 +271,7 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
     const value = useMemo(
         () => ({
             board,
+            compactMode,
             addCardToLane,
             removeCardFromLane,
             removeCardsFromLane,
@@ -273,8 +281,9 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
             importBoardFromJSON,
             updateCard,
             updateTask,
+            toggleCompactMode,
         }),
-        [board]
+        [board, compactMode]
     );
 
     return (

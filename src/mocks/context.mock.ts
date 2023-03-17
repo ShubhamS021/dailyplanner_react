@@ -11,9 +11,11 @@ export const mockImportBoardFromJSON = jest
     });
 export const mockUpdateCard = jest.fn();
 export const mockUpdateTask = jest.fn();
+export const mocktoggleCompactMode = jest.fn();
 
 export const mockContext = {
     board: [],
+    compactMode: false,
     addCardToLane: mockAddCardToLane,
     removeCardFromLane: mockRemoveCardFromLane,
     removeCardsFromLane: mockRemoveCardsFromLane,
@@ -23,4 +25,5 @@ export const mockContext = {
     importBoardFromJSON: mockImportBoardFromJSON,
     updateCard: mockUpdateCard,
     updateTask: mockUpdateTask,
+    toggleCompactMode: mocktoggleCompactMode,
 };

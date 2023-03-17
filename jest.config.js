@@ -3,6 +3,7 @@ module.exports = {
         '^.\\.(css|less|scss)$': 'identity-obj-proxy',
         '^@/(.*)$': '<rootDir>/src/$1',
     },
+    coveragePathIgnorePatterns: ['<rootDir>/src/assets/svgs'],
     transform: {
         '\\.[jt]sx?$': 'babel-jest',
         '.+\\.(svg|css|less|sass|scss|png|jpg|ttf|woff|woff2)$':
@@ -13,4 +14,4 @@ module.exports = {
         browsers: ['chrome', 'firefox', 'safari'],
     },
     setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
-}
+};

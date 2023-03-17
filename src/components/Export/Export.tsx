@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { fileExportSVG } from '../../assets/svgs/file-export.svg';
 import { BoardContext } from '../../context/BoardContext';
 
 export const Export = () => {
@@ -16,6 +17,7 @@ export const Export = () => {
             }}
         >
             <div className="flex gap-2 items-center p-2 stroke-[#5E5E5E] hover:stroke-white">
+                {fileExportSVG}
                 <p className="font-semibold text-sm">Export</p>
             </div>
         </button>

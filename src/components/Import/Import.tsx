@@ -1,4 +1,5 @@
 import { useContext, useRef } from 'react';
+import { fileImportSVG } from '../../assets/svgs/file-import.svg';
 import { BoardContext } from '../../context/BoardContext';
 
 export const Import = () => {
@@ -32,6 +33,7 @@ export const Import = () => {
                     data-testid="import-input"
                 />
                 <div className="flex gap-2 items-center p-2 stroke-[#5E5E5E] hover:stroke-white">
+                    {fileImportSVG}
                     <p className="font-semibold text-sm">Import</p>
                 </div>
             </button>

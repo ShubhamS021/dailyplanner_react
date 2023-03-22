@@ -1,15 +1,14 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import { BoardContext } from '../../context/BoardContext';
+import { mockContext } from '../../mocks/context.mock';
 import Board from './Board';
 
 test('renders the basic board', () => {
-    render(<Board />);
+    const { getByTestId } = render(
+        <BoardContext.Provider value={mockContext}>
+            <Board />
+        </BoardContext.Provider>
+    );
 
-    const title = screen.getByTestId('page-title');
-    expect(title).toBeInTheDocument();
-
-    const subtitle = screen.getByTestId('page-subtitle');
-    expect(subtitle).toBeInTheDocument();
-
-    const board = screen.getByTestId('page-board');
-    expect(board).toBeInTheDocument();
+    expect(getByTestId(/page-board/)).toBeInTheDocument();
 });

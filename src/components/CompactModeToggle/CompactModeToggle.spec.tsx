@@ -1,6 +1,6 @@
 import { fireEvent, render } from '@testing-library/react';
 import { BoardContext } from '../../context/BoardContext';
-import { mockContext, mocktoggleCompactMode } from '../../mocks/context.mock';
+import { mockContext, mockToggleCompactMode } from '../../mocks/context.mock';
 import CompactModeToggle from './CompactModeToggle';
 
 describe('CompactModeToggle', () => {
@@ -23,6 +23,6 @@ describe('CompactModeToggle', () => {
         );
         const button = getByTestId(/compactmode-toggle-button/);
         fireEvent.click(button);
-        expect(mocktoggleCompactMode).toHaveBeenCalledTimes(1);
+        expect(mockToggleCompactMode).toHaveBeenCalledTimes(1);
     });
 });

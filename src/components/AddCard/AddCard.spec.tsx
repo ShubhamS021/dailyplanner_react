@@ -1,6 +1,4 @@
-import { act, fireEvent, render, renderHook } from '@testing-library/react';
-import { useContext } from 'react';
-import BoardContextProvider, { BoardContext } from '../../context/BoardContext';
+import { fireEvent, render } from '@testing-library/react';
 import { AddCard } from './AddCard';
 
 describe('AddCard', () => {
@@ -108,17 +106,5 @@ describe('AddCard', () => {
         fireEvent.click(closeButton);
 
         expect(input.value).toBe('');
-    });
-
-    afterAll(() => {
-        const wrapper = ({ children }: { children: React.ReactNode }) => (
-            <BoardContextProvider>{children}</BoardContextProvider>
-        );
-        const { result } = renderHook(() => useContext(BoardContext), {
-            wrapper,
-        });
-        act(() => {
-            result.current.clearBoard();
-        });
     });
 });

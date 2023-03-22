@@ -1,10 +1,24 @@
 import { createContext, useEffect, useMemo, useState } from 'react';
 import { type DropResult } from 'react-beautiful-dnd';
+import { Board } from '../interfaces/Board';
 import { type Card } from '../interfaces/Card';
 import { type Lane } from '../interfaces/Lane';
 import { colors } from '../theme/colors';
 
-export const initialState: Lane[] = [
+export type BoardMode =
+    | 'boardDefaultMode'
+    | 'boardChooseMode'
+    | 'boardCreateMode'
+    | 'boardCustomLanesMode';
+
+export const initialBoardState: Board = {
+    id: 0,
+    title: 'My tasks',
+    subtitle: 'An overview of my tasks.',
+    lanes: [],
+};
+
+export const initialLanes: Lane[] = [
     {
         id: 1,
         title: 'Not Started',
@@ -32,9 +46,13 @@ export const initialState: Lane[] = [
 ];
 
 export const BoardContext = createContext({
-    board: initialState,
+    boards: new Array<Board>(),
+    board: new Board(),
     compactMode: false,
+    boardMode: 'boardChooseMode' as BoardMode,
+    addLaneToBoard: (lane: Lane, boardId: number) => {},
     addCardToLane: (card: Card, laneId: number) => {},
+    removeLaneFromBoard: (laneId: number, boardId: number) => {},
     removeCardFromLane: (cardId: number, laneId: number) => {},
     removeCardsFromLane: (laneId: number) => {},
     handleDragEnd: (result: DropResult) => {},
@@ -44,6 +62,10 @@ export const BoardContext = createContext({
     updateCard: (card: Card, laneId: number) => {},
     updateTask: (cardId: number, taskId: number, fulfilled: boolean) => {},
     toggleCompactMode: () => {},
+    toggleBoardMode: (mode: BoardMode) => {},
+    addBoard: (board: Board) => {},
+    removeBoard: (boardId: number) => {},
+    enterBoard: (boardId: number) => {},
 });
 
 interface BoardProviderProps {
@@ -51,26 +73,50 @@ interface BoardProviderProps {
 }
 
 const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
-    const [board, setBoard] = useState<Lane[]>(initialState);
+    const [boards, setBoards] = useState<Board[]>([]);
+    const [board, setBoard] = useState<Board>(new Board());
     const [compactMode, setCompactMode] = useState(false);
+    const [boardMode, setBoardMode] = useState<BoardMode>('boardChooseMode');
 
-    // Read the initial state from localStorage
+    // Read the initial boards state from localStorage and toggle initial app mode
     useEffect(() => {
-        const storedBoard = localStorage.getItem('board');
-        if (storedBoard !== null && storedBoard !== undefined) {
-            setBoard(JSON.parse(storedBoard));
+        const storedBoards = localStorage.getItem('boards');
+        if (storedBoards !== null && storedBoards !== undefined) {
+            const parsedBoards: Board[] = JSON.parse(storedBoards);
+            setBoards(parsedBoards);
+
+            // toggle startup mode
+            const currentBoardId: number = +(
+                localStorage.getItem('currentBoard') ?? '-1'
+            );
+
+            if (parsedBoards.some((b) => b.id === currentBoardId)) {
+                setBoard(
+                    parsedBoards.filter((b) => b.id === currentBoardId)[0]
+                );
+                toggleBoardMode('boardDefaultMode');
+            } else {
+                if (parsedBoards.length === 0) {
+                    toggleBoardMode('boardCreateMode');
+                }
+            }
         }
     }, []);
 
-    // Update localStorage whenever the board changes
+    // Update localStorage whenever the boards change
     useEffect(() => {
-        localStorage.setItem('board', JSON.stringify(board));
+        localStorage.setItem('boards', JSON.stringify(boards));
+    }, [boards]);
+
+    // update boards whenever a board changes
+    useEffect(() => {
+        updateBoards(board);
     }, [board]);
 
     const findLastCardId = () => {
         let lastId = 1;
 
-        board.forEach((lane) => {
+        board.lanes.forEach((lane) => {
             lane.cards.forEach((card) => {
                 if (card.id > lastId) lastId = card.id;
             });
@@ -82,104 +128,200 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
     const addCardToLane = (card: Card, laneId: number) => {
         card.id = findLastCardId() + 1;
         setBoard((prevBoard) => {
-            return prevBoard.map((lane) => {
-                if (lane.id === laneId) {
-                    return { ...lane, cards: [...lane.cards, card] };
-                }
-                return lane;
-            });
+            return {
+                ...prevBoard,
+                lanes: prevBoard.lanes.map((lane) => {
+                    if (lane.id === laneId) {
+                        return { ...lane, cards: [...lane.cards, card] };
+                    }
+                    return lane;
+                }),
+            };
+        });
+    };
+
+    const addLaneToBoard = (lane: Lane, boardId: number) => {
+        const newLane = {
+            ...lane,
+            id: boards.find((b) => b.id === boardId)?.lanes?.length ?? 1,
+        };
+        setBoard((prevBoard) => {
+            return {
+                ...prevBoard,
+                lanes: [...prevBoard.lanes, newLane],
+            };
+        });
+    };
+
+    const removeLaneFromBoard = (laneId: number, boardId: number) => {
+        setBoards((prevBoards) => {
+            return [
+                ...prevBoards.map((b) => {
+                    if (b.id === boardId) {
+                        return {
+                            ...b,
+                            lanes: b.lanes.filter((l) => l.id !== laneId),
+                        };
+                    }
+                    return b;
+                }),
+            ];
+        });
+    };
+
+    const updateBoards = (board: Board) => {
+        const updatedBoard = { ...board };
+        setBoards((prevBoards) => {
+            return [
+                ...prevBoards.map((b) => {
+                    return b.id === board.id ? updatedBoard : b;
+                }),
+            ];
+        });
+    };
+
+    const addBoard = (board: Board) => {
+        const newBoard = { ...board };
+        newBoard.id = boards.length;
+
+        setBoards((prevBoards) => {
+            return [...prevBoards, newBoard];
+        });
+
+        setBoard((_prevBoard) => {
+            return { ...newBoard };
+        });
+    };
+
+    const enterBoard = (boardId: number) => {
+        const targetBoard = boards.find((b) => b.id === boardId);
+        if (targetBoard === undefined) {
+            throw new Error(`No board with id ${boardId} found.`);
+        }
+        setBoard(targetBoard);
+        toggleBoardMode('boardDefaultMode');
+        localStorage.setItem('currentBoard', boardId.toString());
+    };
+
+    const removeBoard = (boardId: number) => {
+        setBoards((prevBoards) => {
+            const newBoards = [...prevBoards.filter((b) => b.id !== boardId)];
+            if (newBoards.length === 0) {
+                toggleBoardMode('boardCreateMode');
+            }
+            return newBoards;
         });
     };
 
     const updateCard = (card: Card, laneId: number) => {
         setBoard((prevBoard) => {
-            return prevBoard.map((lane) => {
-                const newLaneCards = lane.cards.map((c) =>
-                    c.id === card.id ? card : c
-                );
-                if (lane.id === laneId) {
-                    return {
-                        ...lane,
-                        cards: [...newLaneCards],
-                    };
-                }
-                return lane;
-            });
+            return {
+                ...prevBoard,
+                lanes: prevBoard.lanes.map((lane) => {
+                    const newLaneCards = lane.cards.map((c) =>
+                        c.id === card.id ? card : c
+                    );
+                    if (lane.id === laneId) {
+                        return {
+                            ...lane,
+                            cards: [...newLaneCards],
+                        };
+                    }
+                    return lane;
+                }),
+            };
         });
     };
 
     const updateTask = (cardId: number, taskId: number, fulfilled: boolean) => {
         setBoard((prevBoard) => {
-            return prevBoard.map((lane) => {
-                if (lane.cards.some((c) => c.id === cardId)) {
-                    const card = lane.cards.find((c) => c.id) as Card;
-                    if (card === null)
-                        throw new Error('Expected card not in lane!');
+            return {
+                ...prevBoard,
+                lanes: prevBoard.lanes.map((lane) => {
+                    if (lane.cards.some((c) => c.id === cardId)) {
+                        const card = lane.cards.find((c) => c.id) as Card;
+                        if (card === null)
+                            throw new Error('Expected card not in lane!');
 
-                    if (card.tasks === null) {
-                        throw new Error('Expected tasks not in card!');
+                        if (card.tasks === null) {
+                            throw new Error('Expected tasks not in card!');
+                        }
+
+                        card.tasks?.map((t) =>
+                            t.id === taskId
+                                ? (t.fulfilled = fulfilled)
+                                : t.fulfilled
+                        );
+
+                        updateCard(card, lane.id);
                     }
-
-                    card.tasks?.map((t) =>
-                        t.id === taskId
-                            ? (t.fulfilled = fulfilled)
-                            : t.fulfilled
-                    );
-
-                    updateCard(card, lane.id);
-                }
-                return lane;
-            });
+                    return lane;
+                }),
+            };
         });
     };
 
     const removeCardFromLane = (cardId: number, laneId: number) => {
         setBoard((prevBoard) => {
-            return prevBoard.map((lane) => {
-                if (lane.id === laneId) {
-                    return {
-                        ...lane,
-                        cards: lane.cards.filter((card) => card.id !== cardId),
-                    };
-                }
-                return lane;
-            });
+            return {
+                ...prevBoard,
+                lanes: prevBoard.lanes.map((lane) => {
+                    if (lane.id === laneId) {
+                        return {
+                            ...lane,
+                            cards: lane.cards.filter(
+                                (card) => card.id !== cardId
+                            ),
+                        };
+                    }
+                    return lane;
+                }),
+            };
         });
     };
 
     const removeCardsFromLane = (laneId: number) => {
         setBoard((prevBoard) => {
-            return prevBoard.map((lane) => {
-                if (lane.id === laneId) {
-                    return {
-                        ...lane,
-                        cards: [],
-                    };
-                }
-                return lane;
-            });
+            return {
+                ...prevBoard,
+                lanes: prevBoard.lanes.map((lane) => {
+                    if (lane.id === laneId) {
+                        return {
+                            ...lane,
+                            cards: [],
+                        };
+                    }
+                    return lane;
+                }),
+            };
         });
     };
 
     const clearBoard = () => {
         setBoard((prevBoard) => {
-            return prevBoard.map((lane) => {
-                return {
-                    ...lane,
-                    cards: [],
-                };
-            });
+            return {
+                ...prevBoard,
+                lanes: prevBoard.lanes.map((lane) => {
+                    return {
+                        ...lane,
+                        cards: [],
+                    };
+                }),
+            };
         });
     };
 
     const restoreBoard = (board: Lane[]) => {
         setBoard((prevBoard) => {
-            return prevBoard.map((lane, index) => {
-                return {
-                    ...lane,
-                    cards: board[index].cards,
-                };
-            });
+            return {
+                ...prevBoard,
+                lanes: prevBoard.lanes.map((lane, index) => {
+                    return {
+                        ...lane,
+                        cards: board[index].cards,
+                    };
+                }),
+            };
         });
     };
 
@@ -213,6 +355,10 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
         setCompactMode(!compactMode);
     };
 
+    const toggleBoardMode = (mode: BoardMode) => {
+        setBoardMode(mode);
+    };
+
     const handleDragEnd = (result: DropResult) => {
         const { source, destination } = result;
         if (destination === null || destination === undefined) {
@@ -232,28 +378,28 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
 
         if (sourceLaneId === destLaneId) {
             // Reorder cards in the same lane
-            const laneIndex = board.findIndex(
+            const laneIndex = board.lanes.findIndex(
                 (lane) => lane.id === sourceLaneId
             );
-            const lane = board[laneIndex];
+            const lane = board.lanes[laneIndex];
             const newCards = Array.from(lane.cards);
             const [removedCard] = newCards.splice(sourceCardIndex, 1);
             newCards.splice(destCardIndex, 0, removedCard);
 
             const newLane = { ...lane, cards: newCards };
-            const newBoard = [...board];
-            newBoard.splice(laneIndex, 1, newLane);
+            const newBoard = { ...board, lanes: [...board.lanes] };
+            newBoard.lanes.splice(laneIndex, 1, newLane);
             setBoard(newBoard);
         } else {
             // Move card to a different lane
-            const sourceLaneIndex = board.findIndex(
+            const sourceLaneIndex = board.lanes.findIndex(
                 (lane) => lane.id === sourceLaneId
             );
-            const destLaneIndex = board.findIndex(
+            const destLaneIndex = board.lanes.findIndex(
                 (lane) => lane.id === destLaneId
             );
-            const sourceLane = board[sourceLaneIndex];
-            const destLane = board[destLaneIndex];
+            const sourceLane = board.lanes[sourceLaneIndex];
+            const destLane = board.lanes[destLaneIndex];
             const sourceCards = Array.from(sourceLane.cards);
             const destCards = Array.from(destLane.cards);
             const [removedCard] = sourceCards.splice(sourceCardIndex, 1);
@@ -261,18 +407,22 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
 
             const newSourceLane = { ...sourceLane, cards: sourceCards };
             const newDestLane = { ...destLane, cards: destCards };
-            const newBoard = [...board];
-            newBoard.splice(sourceLaneIndex, 1, newSourceLane);
-            newBoard.splice(destLaneIndex, 1, newDestLane);
+            const newBoard = { ...board, lanes: [...board.lanes] };
+            newBoard.lanes.splice(sourceLaneIndex, 1, newSourceLane);
+            newBoard.lanes.splice(destLaneIndex, 1, newDestLane);
             setBoard(newBoard);
         }
     };
 
     const value = useMemo(
         () => ({
+            boards,
             board,
             compactMode,
+            boardMode,
             addCardToLane,
+            addLaneToBoard,
+            removeLaneFromBoard,
             removeCardFromLane,
             removeCardsFromLane,
             handleDragEnd,
@@ -282,8 +432,12 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
             updateCard,
             updateTask,
             toggleCompactMode,
+            toggleBoardMode,
+            addBoard,
+            removeBoard,
+            enterBoard,
         }),
-        [board, compactMode]
+        [boards, board, compactMode, boardMode]
     );
 
     return (

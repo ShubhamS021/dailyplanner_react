@@ -8,7 +8,7 @@
         "start": "webpack serve --mode development",
         "build": "webpack build --mode production",
         "test": "jest --verbose --coverage",
-        "lint": "eslint --max-warnings 0 src/**/*",
+        "lint": "eslint --max-warnings 0 src",
         "prepare": "husky install",
         "tauri": "tauri",
         "app:build": "tauri build",

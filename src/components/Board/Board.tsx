@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { arrowLeftSVG } from '../../assets/svgs/arrow-left.svg';
 import CompactModeToggle from '../../components/CompactModeToggle/CompactModeToggle';
 import Export from '../../components/Export/Export';
 import Import from '../../components/Import/Import';
@@ -10,7 +11,11 @@ import { BoardTitle } from '../Board/BoardTitle/BoardTitle';
 import { LaneComponent } from '../Lane/Lane';
 
 export const Board = () => {
-    const boardContext = useContext(BoardContext);
+    const { toggleBoardMode, handleDragEnd, board } = useContext(BoardContext);
+
+    const handleBackToBoards = () => {
+        toggleBoardMode('boardChooseMode');
+    };
 
     const renderLanes = (lanes: Lane[]) => {
         return (
@@ -40,21 +45,26 @@ export const Board = () => {
 
     return (
         <main className="p-10">
-            <div className="h-16 mb-6 grid grid-cols-[1fr_auto]">
-                <BoardTitle
-                    title="My tasks"
-                    subtitle="An overview of my tasks."
-                />
+            <div className="h-16 mb-6 grid grid-cols-[auto,1fr_auto] items-center">
+                <div
+                    className="cursor-pointer mr-4 stroke-[#14161F]"
+                    onClick={() => {
+                        handleBackToBoards();
+                    }}
+                >
+                    {arrowLeftSVG}
+                </div>
+                <BoardTitle title={board.title} subtitle={board.subtitle} />
                 <div>
                     <AddCard placeholder={'Write a new task'} text={'add'} />
                 </div>
             </div>
             <div
-                className="p-5 rounded-2xl bg-[#F8F8F8] grid grid-cols-4 gap-6"
+                className="p-5 rounded-2xl bg-[#F8F8F8] grid grid-flow-col-dense gap-6"
                 data-testid="page-board"
             >
-                <DragDropContext onDragEnd={boardContext.handleDragEnd}>
-                    {renderLanes(boardContext.board)}
+                <DragDropContext onDragEnd={handleDragEnd}>
+                    {renderLanes(board.lanes)}
                 </DragDropContext>
             </div>
             <div className="flex justify-end gap-2 mt-2">

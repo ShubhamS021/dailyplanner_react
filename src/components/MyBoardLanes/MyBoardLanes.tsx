@@ -2,9 +2,8 @@ import { useContext, useState } from 'react';
 import logo from '../../assets/logo.png';
 import { layoutCardsSVG } from '../../assets/svgs/layoutCards.svg';
 import { plusSVG } from '../../assets/svgs/plus.svg';
-import { LabelComponent } from '../../components/Label/Label';
 import { TagComponent } from '../../components/Tag/Tag';
-import { BoardContext, initialBoardState } from '../../context/BoardContext';
+import { BoardContext } from '../../context/BoardContext';
 import { type Lane } from '../../interfaces/Lane';
 import { colors } from '../../theme/colors';
 
@@ -155,38 +154,6 @@ export const MyBoardLanes = () => {
                         </button>
                     </div>
                 </div>
-                <div className="flex items-center justify-center w-1/3">
-                    <hr className="border-t-1 border-gray-300 w-1/3 mr-4" />
-                    <span className="text-gray-600 font-semibold">or</span>
-                    <hr className="border-t-1 border-gray-300 w-1/3 ml-4" />
-                </div>
-                <div
-                    className="text-xl text-[#212121]"
-                    data-testid="myboardlanes-subtitle"
-                >
-                    Start with standard lanes
-                </div>
-
-                <div className="flex gap-2">
-                    {initialBoardState.lanes.map((lane, index) => (
-                        <LabelComponent
-                            color={lane.color}
-                            text={lane.title}
-                            key={index}
-                        />
-                    ))}
-                </div>
-
-                <button
-                    className="bg-[#17A2B8] text-white px-8 py-1.5 rounded-md font-semibold ease-linear transition-all duration-150"
-                    type="button"
-                    data-testid="myboardlanes-create-default-button"
-                    onClick={() => {
-                        handleStart();
-                    }}
-                >
-                    Start
-                </button>
             </div>
         </main>
     );

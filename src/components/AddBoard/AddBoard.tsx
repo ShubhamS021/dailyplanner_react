@@ -1,4 +1,4 @@
-import { useContext, useRef } from 'react';
+import { useContext, useState } from 'react';
 import logo from '../../assets/logo.png';
 import {
     BoardContext,
@@ -8,30 +8,35 @@ import {
 
 export const AddBoard = () => {
     const { addBoard, toggleBoardMode } = useContext(BoardContext);
-    const nameRef = useRef('');
-    const descriptionRef = useRef('');
+
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
 
     const handleCreateStandardBoard = () => {
-        const newBoard = { ...initialBoardState, lanes: [...initialLanes] };
+        const newBoard = { ...initialBoardState, lanes: initialLanes };
         addBoard(newBoard);
         toggleBoardMode('boardDefaultMode');
     };
 
     const handleCreateCustomBoard = () => {
         const customBoard = { ...initialBoardState };
-        customBoard.title = nameRef.current;
-        customBoard.subtitle = descriptionRef.current;
+        customBoard.title = name;
+        customBoard.subtitle = description;
 
         addBoard(customBoard);
         toggleBoardMode('boardCustomLanesMode');
     };
 
     const handleNameChanges = (name: string) => {
-        nameRef.current = name;
+        setName(name);
     };
 
     const handleDescriptionChanges = (description: string) => {
-        descriptionRef.current = description;
+        setDescription(description);
+    };
+
+    const isValid = () => {
+        return name !== '' && description !== '';
     };
 
     return (
@@ -102,7 +107,8 @@ export const AddBoard = () => {
                     <small className="text-[#E1E4E8]">{`e.g. "An overview of my tasks."`}</small>
                 </div>
                 <button
-                    className="bg-[#17A2B8] text-white px-8 py-1.5 rounded-md font-semibold ease-linear transition-all duration-150"
+                    disabled={!isValid()}
+                    className="bg-[#17A2B8] disabled:bg-[#ECEEF8] text-white px-8 py-1.5 rounded-md font-semibold ease-linear transition-all duration-150"
                     type="button"
                     data-testid="addboard-create-own-button"
                     onClick={() => {

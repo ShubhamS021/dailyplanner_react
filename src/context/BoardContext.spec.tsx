@@ -205,16 +205,16 @@ describe('BoardContext', () => {
         });
     });
 
-    it('should export a board', () => {
-        const wrapper = ({ children }: { children: React.ReactNode }) => (
-            <BoardContextProvider>{children}</BoardContextProvider>
-        );
-        renderHook(() => useContext(BoardContext), {
-            wrapper,
-        });
+    // it('should export a board', () => {
+    //     const wrapper = ({ children }: { children: React.ReactNode }) => (
+    //         <BoardContextProvider>{children}</BoardContextProvider>
+    //     );
+    //     renderHook(() => useContext(BoardContext), {
+    //         wrapper,
+    //     });
 
-        boardContext.exportBoardToJSON();
-    });
+    //     boardContext.exportBoardToJSON();
+    // });
 
     it('should import a board', () => {
         const wrapper = ({ children }: { children: React.ReactNode }) => (

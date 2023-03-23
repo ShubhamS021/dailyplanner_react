@@ -311,16 +311,13 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
         });
     };
 
-    const restoreBoard = (board: Lane[]) => {
+    const restoreBoard = (board: Board) => {
         setBoard((prevBoard) => {
             return {
                 ...prevBoard,
-                lanes: prevBoard.lanes.map((lane, index) => {
-                    return {
-                        ...lane,
-                        cards: board[index].cards,
-                    };
-                }),
+                title: board.title,
+                subtitle: board.subtitle,
+                lanes: board.lanes,
             };
         });
     };
@@ -332,7 +329,7 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
             fileReader.onload = () => {
                 const boardJSON = String(fileReader.result);
                 try {
-                    const parsedBoard = JSON.parse(boardJSON);
+                    const parsedBoard = JSON.parse(boardJSON) as Board;
                     restoreBoard(parsedBoard);
                 } catch (error) {}
             };
@@ -346,7 +343,10 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
         const link = document.createElement('a');
         link.href = jsonString;
         const currentDate = new Date();
-        link.download = `BoardExport-${currentDate.toLocaleString()}.json`;
+        link.download = `BoardExport-${board.title.replaceAll(
+            ' ',
+            '_'
+        )}-${currentDate.toLocaleString()}.json`;
 
         link.click();
     };

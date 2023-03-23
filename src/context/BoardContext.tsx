@@ -154,18 +154,17 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
     };
 
     const removeLaneFromBoard = (laneId: number, boardId: number) => {
-        setBoards((prevBoards) => {
-            return [
-                ...prevBoards.map((b) => {
-                    if (b.id === boardId) {
-                        return {
-                            ...b,
-                            lanes: b.lanes.filter((l) => l.id !== laneId),
-                        };
-                    }
-                    return b;
-                }),
-            ];
+        const board = boards.find((b) => b.id === boardId);
+        if (board == null)
+            throw new Error('removeLaneFromBoard no board found');
+
+        const newBoard = {
+            ...board,
+            lanes: [...board.lanes.filter((l) => l.id !== laneId)],
+        };
+
+        setBoard((_prevBoard) => {
+            return { ...newBoard };
         });
     };
 

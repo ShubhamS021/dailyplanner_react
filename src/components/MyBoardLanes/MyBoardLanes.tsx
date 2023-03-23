@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from 'react';
+import { useContext, useState } from 'react';
 import logo from '../../assets/logo.png';
 import { layoutCardsSVG } from '../../assets/svgs/layoutCards.svg';
 import { plusSVG } from '../../assets/svgs/plus.svg';
@@ -12,8 +12,7 @@ export const MyBoardLanes = () => {
     const { addLaneToBoard, removeLaneFromBoard, enterBoard, boards } =
         useContext(BoardContext);
 
-    const laneRef = useRef('');
-
+    const [laneValue, setLaneValue] = useState('');
     const [selectedColorIndex, setSelectedColorIndex] = useState(0);
     const [selectedColor, setSelectedColor] = useState(colors.sulzer33_blue);
 
@@ -32,11 +31,12 @@ export const MyBoardLanes = () => {
     const handleAddNewLane = () => {
         const newLane: Lane = {
             id: -1,
-            title: laneRef.current,
+            title: laneValue,
             color: selectedColor,
             cards: [],
         };
         addLaneToBoard(newLane, boards.length - 1);
+        setLaneValue('');
     };
 
     const handleLaneRemove = (laneId: number) => {
@@ -44,7 +44,7 @@ export const MyBoardLanes = () => {
     };
 
     const handleLaneChanges = (name: string) => {
-        laneRef.current = name;
+        setLaneValue(name);
     };
 
     return (
@@ -75,6 +75,7 @@ export const MyBoardLanes = () => {
                             onChange={(e) => {
                                 handleLaneChanges(e.target.value);
                             }}
+                            value={laneValue}
                         ></input>
                     </div>
                     <div className="flex gap-2">
@@ -107,13 +108,14 @@ export const MyBoardLanes = () => {
                     </div>
                     <div className="flex justify-center">
                         <button
-                            className="bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white font-semibold"
+                            disabled={laneValue === ''}
+                            className="bg-[#ECEEF8] disabled:bg-[#ECEEF8] disabled:text-white rounded-md hover:bg-[#17A2B8] hover:text-white font-semibold stroke-[#5E5E5E] hover:stroke-white disabled:stroke-white"
                             data-testid="myboardlanes-addlane-button"
                             onClick={() => {
                                 handleAddNewLane();
                             }}
                         >
-                            <div className="flex gap-2 items-center p-2 stroke-[#5E5E5E] hover:stroke-white">
+                            <div className="flex gap-2 items-center p-2 ">
                                 {plusSVG}
                                 <p className="font-semibold text-sm">
                                     Add lane
@@ -139,7 +141,10 @@ export const MyBoardLanes = () => {
 
                     <div className="flex justify-center">
                         <button
-                            className="bg-[#17A2B8] text-white px-8 py-1.5 rounded-md font-semibold ease-linear transition-all duration-150"
+                            disabled={
+                                boards[boards.length - 1].lanes.length === 0
+                            }
+                            className="bg-[#17A2B8] disabled:bg-[#ECEEF8] text-white px-8 py-1.5 rounded-md font-semibold ease-linear transition-all duration-150"
                             type="button"
                             data-testid="myboardlanes-create-own-button"
                             onClick={() => {

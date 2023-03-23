@@ -60,7 +60,10 @@ export const Board = () => {
                 </div>
             </div>
             <div
-                className="p-5 rounded-2xl bg-[#F8F8F8] grid grid-flow-col-dense gap-6"
+                className={`p-5 rounded-2xl bg-[#F8F8F8] grid gap-6`}
+                style={{
+                    gridTemplateColumns: `repeat(${board.lanes.length},minmax(200px,1fr)`,
+                }}
                 data-testid="page-board"
             >
                 <DragDropContext onDragEnd={handleDragEnd}>

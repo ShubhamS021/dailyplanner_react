@@ -52,9 +52,11 @@ export const BoardContext = createContext({
     boardMode: 'boardChooseMode' as BoardMode,
     addLaneToBoard: (lane: Lane, boardId: number) => {},
     addCardToLane: (card: Card, laneId: number) => {},
+    addCardToInitialBoardLane: (card: Card, boardId: number) => {},
     removeLaneFromBoard: (laneId: number, boardId: number) => {},
     removeCardFromLane: (cardId: number, laneId: number) => {},
     removeCardsFromLane: (laneId: number) => {},
+    moveCardToBoard: (card: Card, currentLaneId: number, newboard: Board) => {},
     handleDragEnd: (result: DropResult) => {},
     clearBoard: () => {},
     exportBoardToJSON: () => {},
@@ -140,6 +142,16 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
         });
     };
 
+    const addCardToInitialBoardLane = (card: Card, boardId: number) => {
+        const newBoard = boards.find((b) => b.id === boardId);
+        if (newBoard == null)
+            throw new Error('addCardToInitialBoardLane no board found');
+
+        newBoard.lanes[0].cards.push(card);
+
+        updateBoards(newBoard);
+    };
+
     const addLaneToBoard = (lane: Lane, boardId: number) => {
         const newLane = {
             ...lane,
@@ -177,6 +189,15 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
                 }),
             ];
         });
+    };
+
+    const moveCardToBoard = (
+        card: Card,
+        currentLaneId: number,
+        newboard: Board
+    ) => {
+        addCardToInitialBoardLane(card, newboard.id);
+        removeCardFromLane(card.id, currentLaneId);
     };
 
     const addBoard = (board: Board) => {
@@ -424,6 +445,7 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
             removeLaneFromBoard,
             removeCardFromLane,
             removeCardsFromLane,
+            moveCardToBoard,
             handleDragEnd,
             clearBoard,
             exportBoardToJSON,

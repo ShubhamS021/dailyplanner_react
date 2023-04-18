@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { editSVG } from '../../assets/svgs/edit.svg';
+import { routeSVG } from '../../assets/svgs/route.svg';
 import { trashSVG } from '../../assets/svgs/trash.svg';
 import { BoardContext } from '../../context/BoardContext';
 import { type Tag } from '../../interfaces/Tag';
@@ -16,6 +17,7 @@ export interface CardProps {
     tasks?: Task[];
     onRemoveCard: () => void;
     onEditCard: () => void;
+    onMoveCard: () => void;
 }
 
 export const CardComponent: React.FC<CardProps> = ({
@@ -27,6 +29,7 @@ export const CardComponent: React.FC<CardProps> = ({
     tasks,
     onRemoveCard,
     onEditCard,
+    onMoveCard,
 }) => {
     if (title === '') throw new Error('no title set');
     const { updateTask, compactMode } = useContext(BoardContext);
@@ -95,6 +98,16 @@ export const CardComponent: React.FC<CardProps> = ({
                         {title}
                     </h3>
                     <div className="invisible group-hover:visible flex gap-1">
+                        <button
+                            className="inline-flex items-center justify-center w-8 h-8 transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline"
+                            onClick={() => {
+                                onMoveCard();
+                            }}
+                            title="Move this card."
+                            data-testid="move-card-button"
+                        >
+                            {routeSVG}
+                        </button>
                         <button
                             className="inline-flex items-center justify-center w-8 h-8 transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline"
                             onClick={() => {

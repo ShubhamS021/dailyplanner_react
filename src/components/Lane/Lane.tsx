@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { trashSVG } from '../../assets/svgs/trash.svg';
 import { AddCardModal } from '../../components/AddCard/modal/AddCardModal';
+import { CardMoveModal } from '../../components/CardMoveModal/CardMoveModal';
 import { ConfirmationModal } from '../../components/ConfirmationModal/ConfirmationModal';
 import { BoardContext } from '../../context/BoardContext';
 import { type Card } from '../../interfaces/Card';
@@ -28,7 +29,9 @@ export const LaneComponent: React.FC<LaneProps> = ({
 }) => {
     const [showModal, setShowModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
+    const [showMoveModal, setShowMoveModal] = useState(false);
     const [cardToEdit, setCardToEdit] = useState<Card>();
+    const [cardToMove, setCardToMove] = useState<Card>();
     const boardContext = useContext(BoardContext);
 
     const renderDelete = () => {
@@ -90,6 +93,10 @@ export const LaneComponent: React.FC<LaneProps> = ({
                                         setCardToEdit(c);
                                         setShowEditModal(true);
                                     }}
+                                    onMoveCard={() => {
+                                        setCardToMove(c);
+                                        setShowMoveModal(true);
+                                    }}
                                 />
                             </div>
                         )}
@@ -115,6 +122,47 @@ export const LaneComponent: React.FC<LaneProps> = ({
                         setShowModal(false);
                     }}
                 ></ConfirmationModal>
+                <div className="opacity-50 fixed inset-0 z-40 bg-black"></div>
+            </>
+        );
+    };
+
+    const renderMoveCardModal = () => {
+        if (cardToMove == null) return;
+        return (
+            <>
+                <CardMoveModal
+                    title={'Move card to another board'}
+                    text={'Choose the board you want move your card to:'}
+                    submitButtonText={'Move the card'}
+                    modalConfirmation={(newBoardId: number) => {
+                        const newBoard = boardContext.boards.find(
+                            (b) => b.id === newBoardId
+                        );
+
+                        if (newBoard === undefined)
+                            throw new Error(`No board with id ${id} found.`);
+
+                        const currentLane = boardContext.board.lanes.find((l) =>
+                            l.cards.some((c) => c.id === cardToMove.id)
+                        );
+
+                        if (currentLane === undefined) {
+                            throw new Error(
+                                `Lane for card ${cardToMove.id} couldn't be determined.`
+                            );
+                        }
+
+                        boardContext.moveCardToBoard(
+                            cardToMove,
+                            currentLane.id,
+                            newBoard
+                        );
+                    }}
+                    closeModal={() => {
+                        setShowMoveModal(false);
+                    }}
+                ></CardMoveModal>
                 <div className="opacity-50 fixed inset-0 z-40 bg-black"></div>
             </>
         );
@@ -178,6 +226,7 @@ export const LaneComponent: React.FC<LaneProps> = ({
             {renderCards(cards)}
             {showModal ? renderDeleteConfirmationModal() : null}
             {showEditModal ? renderEditCardModal() : null}
+            {showMoveModal ? renderMoveCardModal() : null}
         </div>
     );
 };

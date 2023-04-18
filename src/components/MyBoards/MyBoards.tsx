@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import logo from '../../assets/logo.png';
 import { arrowNarrowRight } from '../../assets/svgs/arrow-narrow-right.svg';
+import { gitlabSVG } from '../../assets/svgs/gitlab.svg';
 import { trashSVG } from '../../assets/svgs/trash.svg';
 import { ConfirmationModal } from '../../components/ConfirmationModal/ConfirmationModal';
 import { BoardContext } from '../../context/BoardContext';
@@ -32,7 +33,7 @@ export const MyBoards = () => {
     };
 
     return (
-        <main className="p-10 grid grid-cols-1 grid-rows-1 justify-center items-center">
+        <main className="p-10 h-screen grid grid-cols-1 grid-rows-[1fr,auto] justify-center items-center">
             <div className="flex flex-col items-center gap-3">
                 <div>
                     <img src={logo} alt="Dayplanner Logo"></img>
@@ -126,6 +127,15 @@ export const MyBoards = () => {
                     Start
                 </button>
             </div>
+
+            <footer className="flex flex-col items-center gap-3 self-end">
+                <a
+                    className="text-[#5A5A65] hover:font-semibold flex gap-2 items-center"
+                    href="https://git.sulzer.de/hahnk/dayplanner"
+                >
+                    {gitlabSVG} Dayplanner im Sulzer GitLab
+                </a>
+            </footer>
         </main>
     );
 };

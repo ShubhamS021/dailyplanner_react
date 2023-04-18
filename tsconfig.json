@@ -16,7 +16,6 @@
         "declaration": false,
         "noLib": false,
         "preserveConstEnums": true,
-        "suppressImplicitAnyIndexErrors": true,
         "sourceMap": true,
         "strictNullChecks": true,
         "noEmitOnError": false,

@@ -130,10 +130,10 @@ export const MyBoards = () => {
 
             <footer className="flex flex-col items-center gap-3 self-end">
                 <a
-                    className="text-[#5A5A65] hover:font-semibold flex gap-2 items-center"
+                    className="text-[#5A5A65] flex gap-2 items-center"
                     href="https://git.sulzer.de/hahnk/dayplanner"
                 >
-                    {gitlabSVG} Dayplanner im Sulzer GitLab
+                    {gitlabSVG} Dayplanner auf <b>git.sulzer.de</b>
                 </a>
             </footer>
         </main>

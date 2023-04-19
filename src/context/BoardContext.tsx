@@ -117,9 +117,13 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
     }, [board]);
 
     const findLastCardId = () => {
+        return findLastCardIdInSpecificBoard(board);
+    };
+
+    const findLastCardIdInSpecificBoard = (targetBoard: Board) => {
         let lastId = 1;
 
-        board.lanes.forEach((lane) => {
+        targetBoard.lanes.forEach((lane) => {
             lane.cards.forEach((card) => {
                 if (card.id > lastId) lastId = card.id;
             });
@@ -197,7 +201,11 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
         currentLaneId: number,
         newboard: Board
     ) => {
-        addCardToInitialBoardLane(card, newboard.id);
+        const newCard = {
+            ...card,
+            id: findLastCardIdInSpecificBoard(newboard) + 1,
+        };
+        addCardToInitialBoardLane(newCard, newboard.id);
         removeCardFromLane(card.id, currentLaneId);
     };
 

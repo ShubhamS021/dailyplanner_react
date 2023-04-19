@@ -67,6 +67,7 @@ export const BoardContext = createContext({
     toggleBoardMode: (mode: BoardMode) => {},
     addBoard: (board: Board) => {},
     removeBoard: (boardId: number) => {},
+    renameBoard: (boardId: number, title: string, subtitle: string) => {},
     enterBoard: (boardId: number) => {},
 });
 
@@ -231,6 +232,18 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
             }
             return newBoards;
         });
+    };
+
+    const renameBoard = (boardId: number, title: string, subtitle: string) => {
+        const newBoard = boards.find((b) => b.id === boardId);
+        if (newBoard === undefined) {
+            throw new Error(`No board with id ${boardId} found.`);
+        }
+
+        newBoard.title = title;
+        newBoard.subtitle = subtitle;
+
+        updateBoards(newBoard);
     };
 
     const updateCard = (card: Card, laneId: number) => {
@@ -442,6 +455,7 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
             boardMode,
             addCardToLane,
             addLaneToBoard,
+            addCardToInitialBoardLane,
             removeLaneFromBoard,
             removeCardFromLane,
             removeCardsFromLane,
@@ -456,6 +470,7 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
             toggleBoardMode,
             addBoard,
             removeBoard,
+            renameBoard,
             enterBoard,
         }),
         [boards, board, compactMode, boardMode]

@@ -1,15 +1,19 @@
 import { useContext, useState } from 'react';
 import logo from '../../assets/logo.png';
 import { arrowNarrowRight } from '../../assets/svgs/arrow-narrow-right.svg';
+import { editSVG } from '../../assets/svgs/edit.svg';
 import { gitlabSVG } from '../../assets/svgs/gitlab.svg';
 import { trashSVG } from '../../assets/svgs/trash.svg';
+import { BoardRenameModal } from '../../components/BoardRenameModal/BoardRenameModal';
 import { ConfirmationModal } from '../../components/ConfirmationModal/ConfirmationModal';
 import { BoardContext } from '../../context/BoardContext';
 
 export const MyBoards = () => {
-    const { toggleBoardMode, removeBoard, enterBoard, boards } =
+    const { toggleBoardMode, removeBoard, renameBoard, enterBoard, boards } =
         useContext(BoardContext);
     const [showModal, setShowModal] = useState(false);
+    const [boardToEdit, setBoardToEdit] = useState(boards[0]);
+    const [showEditModal, setShowEditModal] = useState(false);
 
     const renderDeleteConfirmationModal = (boardId: number) => {
         return (
@@ -27,6 +31,26 @@ export const MyBoards = () => {
                         setShowModal(false);
                     }}
                 ></ConfirmationModal>
+                <div className="opacity-50 fixed inset-0 z-40 bg-black"></div>
+            </>
+        );
+    };
+
+    const renderEditBoardModal = () => {
+        return (
+            <>
+                <BoardRenameModal
+                    title={'Rename board'}
+                    text={'Please change the information of the board.'}
+                    board={boardToEdit}
+                    submitButtonText={'Save changes.'}
+                    modalConfirmation={(title, subtitle) => {
+                        renameBoard(boardToEdit.id, title, subtitle);
+                    }}
+                    closeModal={() => {
+                        setShowEditModal(false);
+                    }}
+                ></BoardRenameModal>
                 <div className="opacity-50 fixed inset-0 z-40 bg-black"></div>
             </>
         );
@@ -55,11 +79,11 @@ export const MyBoards = () => {
                                     {board.title}
                                 </div>
                                 <div className="invisible group-hover:visible flex gap-2">
-                                    {/* TODO: implement a board edit modal to edit title and lanes 
                                     <button
                                         className="inline-flex items-center justify-center transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline"
                                         onClick={() => {
-                                            // handleBoardNameEdit();
+                                            setBoardToEdit(board);
+                                            setShowEditModal(true);
                                         }}
                                         title="Edit this Board."
                                         data-testid="edit-board-button"
@@ -67,7 +91,7 @@ export const MyBoards = () => {
                                         <div className="flex gap-2 items-center p-2 stroke-white">
                                             {editSVG}
                                         </div>
-                                    </button> */}
+                                    </button>
 
                                     <button
                                         className="inline-flex items-center justify-center transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-pink-600 hover:text-white focus:shadow-outline "
@@ -136,6 +160,7 @@ export const MyBoards = () => {
                     {gitlabSVG} Dayplanner auf <b>git.sulzer.de</b>
                 </a>
             </footer>
+            {showEditModal ? renderEditBoardModal() : null}
         </main>
     );
 };

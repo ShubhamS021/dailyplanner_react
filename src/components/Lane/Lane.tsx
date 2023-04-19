@@ -219,8 +219,13 @@ export const LaneComponent: React.FC<LaneProps> = ({
 
     return (
         <div className="flex flex-col gap-2" data-testid="lane">
-            <div className="w-full grid grid-cols-[auto,1fr]">
+            <div className="w-full grid grid-cols-[auto,auto,1fr] gap-1">
                 <LabelComponent color={color} text={text} />
+                <div
+                    className={`text-xs text-[#4d4d4d] font-semibold self-center place-self-end`}
+                >
+                    ({cards?.length})
+                </div>
                 {isLastLane && renderDelete()}
             </div>
             {renderCards(cards)}

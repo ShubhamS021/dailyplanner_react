@@ -104,72 +104,74 @@ export const AddCardSubtasks: React.FC<AddCardSubtaskProps> = ({
                     </div>
                 </button>
             </div>
-            {card.tasks?.map((t, index) => {
-                return (
-                    <div
-                        key={index}
-                        className={`group border-b border-solid py-2 text-sm grid grid-cols-[auto,1fr,auto] gap-2 items-center`}
-                    >
-                        <div className="ml-1">{uncheckedSVG}</div>
-                        {isTaskInEditMode(t) && (
-                            <>
-                                <input
-                                    className="focus:outline-none text-sm w-full border border-[#f5f4f4] p-2 rounded-lg"
-                                    data-testid="addcard-subtask-edit-input"
-                                    value={taskEditTitle}
-                                    onChange={(e) => {
-                                        handleSubtaskEditTitleChanges(
-                                            e.target.value
-                                        );
-                                    }}
-                                ></input>
-                            </>
-                        )}
-                        {!isTaskInEditMode(t) && <div>{t.description}</div>}
-                        <div className="invisible group-hover:visible flex gap-2">
-                            {!isTaskInEditMode(t) && (
-                                <>
-                                    <button
-                                        className="inline-flex items-center justify-center w-8 h-8 transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline"
-                                        onClick={() => {
-                                            handleEditTask(t);
-                                        }}
-                                        title="Edit this task."
-                                        data-testid="addcard-subtask-edit-button"
-                                    >
-                                        {editSVG}
-                                    </button>
-
-                                    <button
-                                        className="inline-flex items-center justify-center w-8 h-8 transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline hover:bg-pink-600"
-                                        onClick={() => {
-                                            handleRemoveTask(t);
-                                        }}
-                                        title="Remove this task."
-                                        data-testid="addcard-subtask-delete-button"
-                                    >
-                                        {trashSVG}
-                                    </button>
-                                </>
-                            )}
+            <div className="max-h-44 overflow-auto">
+                {card.tasks?.map((t, index) => {
+                    return (
+                        <div
+                            key={index}
+                            className={`group border-b border-solid py-2 text-sm grid grid-cols-[auto,1fr,auto] gap-2 items-center`}
+                        >
+                            <div className="ml-1">{uncheckedSVG}</div>
                             {isTaskInEditMode(t) && (
                                 <>
-                                    <button
-                                        className="inline-flex items-center justify-center w-8 h-8 transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline"
-                                        onClick={() => {
-                                            handleEditTaskSubmit(t);
+                                    <input
+                                        className="focus:outline-none text-sm w-full border border-[#f5f4f4] p-2 rounded-lg"
+                                        data-testid="addcard-subtask-edit-input"
+                                        value={taskEditTitle}
+                                        onChange={(e) => {
+                                            handleSubtaskEditTitleChanges(
+                                                e.target.value
+                                            );
                                         }}
-                                        title="Save this task."
-                                        data-testid="addcard-subtask-edit-submit-button"
-                                    >
-                                        {saveSVG}
-                                    </button>
+                                    ></input>
                                 </>
                             )}
+                            {!isTaskInEditMode(t) && <div>{t.description}</div>}
+                            <div className="invisible group-hover:visible flex gap-2">
+                                {!isTaskInEditMode(t) && (
+                                    <>
+                                        <button
+                                            className="inline-flex items-center justify-center w-8 h-8 transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline"
+                                            onClick={() => {
+                                                handleEditTask(t);
+                                            }}
+                                            title="Edit this task."
+                                            data-testid="addcard-subtask-edit-button"
+                                        >
+                                            {editSVG}
+                                        </button>
+
+                                        <button
+                                            className="inline-flex items-center justify-center w-8 h-8 transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline hover:bg-pink-600"
+                                            onClick={() => {
+                                                handleRemoveTask(t);
+                                            }}
+                                            title="Remove this task."
+                                            data-testid="addcard-subtask-delete-button"
+                                        >
+                                            {trashSVG}
+                                        </button>
+                                    </>
+                                )}
+                                {isTaskInEditMode(t) && (
+                                    <>
+                                        <button
+                                            className="inline-flex items-center justify-center w-8 h-8 transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline"
+                                            onClick={() => {
+                                                handleEditTaskSubmit(t);
+                                            }}
+                                            title="Save this task."
+                                            data-testid="addcard-subtask-edit-submit-button"
+                                        >
+                                            {saveSVG}
+                                        </button>
+                                    </>
+                                )}
+                            </div>
                         </div>
-                    </div>
-                );
-            })}
+                    );
+                })}
+            </div>
         </div>
     );
 };

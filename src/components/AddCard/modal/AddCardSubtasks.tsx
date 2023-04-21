@@ -37,6 +37,7 @@ export const AddCardSubtasks: React.FC<AddCardSubtaskProps> = ({
         const newTask: Task = {
             id: findLastTaskIdInSpecificCard(card) + 1,
             description: taskTitle.current,
+            fulfilled: false,
         };
         updateTasks([...card.tasks, newTask]);
         setTitle('');

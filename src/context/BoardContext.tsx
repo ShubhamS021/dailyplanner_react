@@ -87,24 +87,26 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
     // Read the initial boards state from localStorage and toggle initial app mode
     useEffect(() => {
         const storedBoards = localStorage.getItem('boards');
-        if (storedBoards !== null && storedBoards !== undefined) {
+        if (storedBoards != null) {
             const parsedBoards: Board[] = JSON.parse(storedBoards);
-            setBoards(parsedBoards);
+            setBoards((prevBoards) => parsedBoards);
 
-            // toggle startup mode
             const currentBoardId: number = +(
                 localStorage.getItem('currentBoard') ?? '-1'
             );
+            const currentBoard = parsedBoards.find(
+                (b) => b.id === currentBoardId
+            );
+            toggleBoardMode(
+                currentBoard != null
+                    ? 'boardDefaultMode'
+                    : parsedBoards.length === 0
+                    ? 'boardCreateMode'
+                    : 'boardDefaultMode'
+            );
 
-            if (parsedBoards.some((b) => b.id === currentBoardId)) {
-                setBoard(
-                    parsedBoards.filter((b) => b.id === currentBoardId)[0]
-                );
-                toggleBoardMode('boardDefaultMode');
-            } else {
-                if (parsedBoards.length === 0) {
-                    toggleBoardMode('boardCreateMode');
-                }
+            if (currentBoard != null) {
+                setBoard(currentBoard);
             }
         }
     }, []);
@@ -275,84 +277,96 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
 
     const updateCard = (card: Card, laneId: number) => {
         setBoard((prevBoard) => {
+            const laneIndex = prevBoard.lanes.findIndex(
+                (lane) => lane.id === laneId
+            );
+
+            if (laneIndex === -1) {
+                return prevBoard;
+            }
+
+            const newLanes = [...prevBoard.lanes];
+            const newLaneCards = newLanes[laneIndex].cards.map((c) =>
+                c.id === card.id ? card : c
+            );
+
+            newLanes[laneIndex] = {
+                ...newLanes[laneIndex],
+                cards: newLaneCards,
+            };
             return {
                 ...prevBoard,
-                lanes: prevBoard.lanes.map((lane) => {
-                    const newLaneCards = lane.cards.map((c) =>
-                        c.id === card.id ? card : c
-                    );
-                    if (lane.id === laneId) {
-                        return {
-                            ...lane,
-                            cards: [...newLaneCards],
-                        };
-                    }
-                    return lane;
-                }),
+                lanes: newLanes,
             };
         });
     };
 
     const updateTask = (cardId: number, taskId: number, fulfilled: boolean) => {
-        setBoard((prevBoard) => {
-            return {
-                ...prevBoard,
-                lanes: prevBoard.lanes.map((lane) => {
-                    if (lane.cards.some((c) => c.id === cardId)) {
-                        const card = lane.cards.find((c) => c.id) as Card;
-                        if (card === null)
-                            throw new Error('Expected card not in lane!');
+        const card = board.lanes
+            .flatMap((l) => l.cards)
+            .find((c) => c.id === cardId);
 
-                        if (card.tasks === null) {
-                            throw new Error('Expected tasks not in card!');
-                        }
+        if (card == null) {
+            throw new Error('Expected card not in lanes!');
+        }
 
-                        card.tasks?.map((t) =>
-                            t.id === taskId
-                                ? (t.fulfilled = fulfilled)
-                                : t.fulfilled
-                        );
+        const task = card.tasks?.find((t) => t.id === taskId);
 
-                        updateCard(card, lane.id);
-                    }
-                    return lane;
-                }),
-            };
-        });
+        if (task == null) {
+            throw new Error('Expected task not in card!');
+        }
+
+        task.fulfilled = fulfilled;
+
+        const lane = board.lanes.find((l) => l.cards.includes(card));
+
+        if (lane != null) {
+            updateCard(card, lane.id);
+        }
     };
-
     const removeCardFromLane = (cardId: number, laneId: number) => {
         setBoard((prevBoard) => {
+            const laneIndex = prevBoard.lanes.findIndex(
+                (lane) => lane.id === laneId
+            );
+
+            if (laneIndex === -1) {
+                return prevBoard;
+            }
+
+            const newLanes = [...prevBoard.lanes];
+            newLanes[laneIndex] = {
+                ...newLanes[laneIndex],
+                cards: newLanes[laneIndex].cards.filter(
+                    (card) => card.id !== cardId
+                ),
+            };
             return {
                 ...prevBoard,
-                lanes: prevBoard.lanes.map((lane) => {
-                    if (lane.id === laneId) {
-                        return {
-                            ...lane,
-                            cards: lane.cards.filter(
-                                (card) => card.id !== cardId
-                            ),
-                        };
-                    }
-                    return lane;
-                }),
+                lanes: newLanes,
             };
         });
     };
 
     const removeCardsFromLane = (laneId: number) => {
         setBoard((prevBoard) => {
+            const laneIndex = prevBoard.lanes.findIndex(
+                (lane) => lane.id === laneId
+            );
+
+            if (laneIndex === -1) {
+                return prevBoard;
+            }
+
+            const newLanes = [...prevBoard.lanes];
+            newLanes[laneIndex] = {
+                ...newLanes[laneIndex],
+                cards: [],
+            };
+
             return {
                 ...prevBoard,
-                lanes: prevBoard.lanes.map((lane) => {
-                    if (lane.id === laneId) {
-                        return {
-                            ...lane,
-                            cards: [],
-                        };
-                    }
-                    return lane;
-                }),
+                lanes: newLanes,
             };
         });
     };

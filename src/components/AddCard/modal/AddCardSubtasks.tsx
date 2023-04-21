@@ -1,9 +1,10 @@
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { addSVG } from '../../../assets/svgs/add.svg';
 import { editSVG } from '../../../assets/svgs/edit.svg';
 import { saveSVG } from '../../../assets/svgs/save.svg';
 import { trashSVG } from '../../../assets/svgs/trash.svg';
 import { uncheckedSVG } from '../../../assets/svgs/unchecked.svg';
+import { BoardContext } from '../../../context/BoardContext';
 import { type Card } from '../../../interfaces/Card';
 import type Task from '../../../interfaces/Task';
 
@@ -25,6 +26,7 @@ export const AddCardSubtasks: React.FC<AddCardSubtaskProps> = ({
         description: '',
     };
 
+    const { findLastTaskIdInSpecificCard } = useContext(BoardContext);
     const taskTitle = useRef('');
     const [title, setTitle] = useState('');
     const [taskEditTitle, setTaskEditTitle] = useState('');
@@ -33,7 +35,7 @@ export const AddCardSubtasks: React.FC<AddCardSubtaskProps> = ({
     const handleAddNewTask = () => {
         if (card.tasks == null) card.tasks = [];
         const newTask: Task = {
-            id: card.tasks?.length + 1,
+            id: findLastTaskIdInSpecificCard(card) + 1,
             description: taskTitle.current,
         };
         updateTasks([...card.tasks, newTask]);

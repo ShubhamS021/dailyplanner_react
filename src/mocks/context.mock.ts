@@ -20,6 +20,13 @@ export const mockImportBoardFromJSON = jest
     });
 export const mockUpdateCard = jest.fn();
 export const mockUpdateTask = jest.fn();
+
+let mockedLastTaskId = 1;
+export const mockFindLastTaskIdInSpecificCard = jest.fn(() => {
+    mockedLastTaskId++;
+    return mockedLastTaskId;
+});
+
 export const mockToggleCompactMode = jest.fn();
 export const mockToggleBoardMode = jest.fn();
 export const mockAddBoard = jest.fn();
@@ -45,6 +52,7 @@ export const mockContext = {
     importBoardFromJSON: mockImportBoardFromJSON,
     updateCard: mockUpdateCard,
     updateTask: mockUpdateTask,
+    findLastTaskIdInSpecificCard: mockFindLastTaskIdInSpecificCard,
     toggleCompactMode: mockToggleCompactMode,
     toggleBoardMode: mockToggleBoardMode,
     addBoard: mockAddBoard,

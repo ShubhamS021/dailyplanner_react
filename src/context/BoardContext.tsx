@@ -63,6 +63,9 @@ export const BoardContext = createContext({
     importBoardFromJSON: (e: React.ChangeEvent<HTMLInputElement>) => {},
     updateCard: (card: Card, laneId: number) => {},
     updateTask: (cardId: number, taskId: number, fulfilled: boolean) => {},
+    findLastTaskIdInSpecificCard: (card: Card): number => {
+        return -1;
+    },
     toggleCompactMode: () => {},
     toggleBoardMode: (mode: BoardMode) => {},
     addBoard: (board: Board) => {},
@@ -128,6 +131,22 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
                 if (card.id > lastId) lastId = card.id;
             });
         });
+
+        return lastId;
+    };
+
+    const findLastTaskIdInSpecificCard = (card: Card): number => {
+        if (card.tasks === undefined) return -1;
+
+        let lastId = 1;
+
+        card.tasks.forEach((task) => {
+            console.log(task.id);
+
+            if (task.id > lastId) lastId = task.id;
+        });
+
+        console.log('newID', lastId);
 
         return lastId;
     };
@@ -474,6 +493,7 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
             importBoardFromJSON,
             updateCard,
             updateTask,
+            findLastTaskIdInSpecificCard,
             toggleCompactMode,
             toggleBoardMode,
             addBoard,

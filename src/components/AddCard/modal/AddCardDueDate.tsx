@@ -68,7 +68,7 @@ export const AddCardDueDate: React.FC<AddCardDueDateProps> = ({
                     <button
                         className="group bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white disabled:bg-[#ECEEF8] disabled:text-[#ccc] font-semibold"
                         data-testid="addcard-lowertags-button"
-                        onClick={(_e) => {
+                        onClick={() => {
                             handleAddNewTag();
                         }}
                         disabled={dueDate === ''}

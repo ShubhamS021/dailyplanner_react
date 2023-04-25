@@ -80,7 +80,7 @@ export const MyBoards = () => {
                                 </div>
                                 <div className="invisible group-hover:visible flex gap-2">
                                     <button
-                                        className="inline-flex items-center justify-center transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline"
+                                        className="w-10 inline-flex items-center justify-center transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline"
                                         onClick={() => {
                                             setBoardToEdit(board);
                                             setShowEditModal(true);
@@ -94,7 +94,7 @@ export const MyBoards = () => {
                                     </button>
 
                                     <button
-                                        className="inline-flex items-center justify-center transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-pink-600 hover:text-white focus:shadow-outline "
+                                        className="w-10 inline-flex items-center justify-center transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-pink-600 hover:text-white focus:shadow-outline "
                                         onClick={() => {
                                             setShowModal(true);
                                         }}
@@ -157,7 +157,11 @@ export const MyBoards = () => {
                     className="text-[#5A5A65] flex gap-2 items-center"
                     href="https://git.sulzer.de/hahnk/dayplanner"
                 >
-                    {gitlabSVG} Dayplanner auf <b>git.sulzer.de</b>
+                    {gitlabSVG}
+                    Dayplanner on
+                    <b className="hover:text-[#FC6D27] transition-all duration-200">
+                        git.sulzer.de
+                    </b>
                 </a>
             </footer>
             {showEditModal ? renderEditBoardModal() : null}

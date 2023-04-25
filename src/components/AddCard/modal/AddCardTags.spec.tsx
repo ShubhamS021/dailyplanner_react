@@ -26,7 +26,7 @@ test('renders the basic AddCardTags', () => {
         />
     );
 
-    expect(getByTestId(/addcardtags-headline/).textContent).toBe('tags');
+    expect(getByTestId(/addcardtags-headline/).textContent).toBe('tags(2/5)');
     expect(getByTestId(/addcardtags-explanation/).textContent).toBe(
         'testing add card tags'
     );
@@ -52,7 +52,7 @@ test('adds a tag and colors', () => {
         />
     );
 
-    expect(getByTestId(/addcardtags-headline/).textContent).toBe('tags');
+    expect(getByTestId(/addcardtags-headline/).textContent).toBe('tags(2/5)');
     expect(getByTestId(/addcardtags-explanation/).textContent).toBe(
         'testing add card tags'
     );
@@ -85,7 +85,7 @@ test('adds a tag to empty array', () => {
         />
     );
 
-    expect(getByTestId(/addcardtags-headline/).textContent).toBe('tags');
+    expect(getByTestId(/addcardtags-headline/).textContent).toBe('tags(0/5)');
     expect(getByTestId(/addcardtags-explanation/).textContent).toBe(
         'testing add card tags'
     );

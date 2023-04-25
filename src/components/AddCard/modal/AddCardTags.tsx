@@ -19,6 +19,7 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
     card,
     updateTags,
 }) => {
+    const MAX_TAGS = 5;
     const [selectedColorIndex, setSelectedColorIndex] = useState(0);
     const [selectedColor, setSelectedColor] = useState(colors.sulzer33_blue);
 
@@ -55,8 +56,16 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
     return (
         <div className="flex flex-col gap-2">
             <div className="text-sm text-[#5E5E5E]">
-                <div className="font-bold" data-testid="addcardtags-headline">
+                <div
+                    className="flex gap-1 font-bold"
+                    data-testid="addcardtags-headline"
+                >
                     {headline}
+                    <div
+                        className={`text-xs text-[#4d4d4d] font-semibold self-center place-self-end`}
+                    >
+                        ({card.upperTags?.length ?? 0}/{MAX_TAGS})
+                    </div>
                 </div>
                 <p data-testid="addcardtags-explanation">{explanation}</p>
             </div>
@@ -109,7 +118,9 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
                         onClick={(_e) => {
                             handleAddNewTag();
                         }}
-                        disabled={tag === ''}
+                        disabled={
+                            tag === '' || card.upperTags?.length === MAX_TAGS
+                        }
                     >
                         <div className="flex gap-2 items-center p-2 stroke-[#5E5E5E] hover:stroke-white group-disabled:stroke-[#ccc]">
                             {addSVG}
@@ -136,6 +147,9 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
                     );
                 })}
             </div>
+            {card.upperTags?.length === MAX_TAGS && (
+                <small className="text-[#e0004d]">Tag limit reached.</small>
+            )}
         </div>
     );
 };

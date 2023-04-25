@@ -148,8 +148,6 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
             if (task.id > lastId) lastId = task.id;
         });
 
-        console.log('newID', lastId);
-
         return lastId;
     };
 

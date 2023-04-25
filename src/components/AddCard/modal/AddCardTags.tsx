@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { addSVG } from '../../../assets/svgs/add.svg';
 import { tagsSVG } from '../../../assets/svgs/tags.svg';
 import { TagComponent } from '../../../components/Tag/Tag';
@@ -22,10 +22,10 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
     const [selectedColorIndex, setSelectedColorIndex] = useState(0);
     const [selectedColor, setSelectedColor] = useState(colors.sulzer33_blue);
 
-    const tagTitle = useRef('');
+    const [tag, setTag] = useState('');
 
-    const handleTagTitleChanges = (title: string) => {
-        tagTitle.current = title;
+    const handleTagChanges = (tag: string) => {
+        setTag(tag);
     };
 
     const handleTagColorSelection = (color: string) => {
@@ -40,10 +40,11 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
         if (card.upperTags == null) card.upperTags = [];
         const newTag: Tag = {
             id: card.upperTags?.length + 1,
-            text: tagTitle.current,
+            text: tag,
             color: selectedColor,
         };
         updateTags([...card.upperTags, newTag]);
+        setTag('');
     };
 
     const handleOnRemoveTag = (id: number) => {
@@ -67,8 +68,9 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
                             placeholder={'Enter a tag.'}
                             className="focus:outline-none text-sm w-full"
                             data-testid="addcard-tags-input"
+                            value={tag}
                             onChange={(e) => {
-                                handleTagTitleChanges(e.target.value);
+                                handleTagChanges(e.target.value);
                             }}
                         ></input>
                     </div>
@@ -102,13 +104,14 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
                 </div>
                 <div className="self-center">
                     <button
-                        className="bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white font-semibold"
+                        className="group bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white disabled:bg-[#ECEEF8] disabled:text-[#ccc] font-semibold"
                         data-testid="addcard-tag-button"
                         onClick={(_e) => {
                             handleAddNewTag();
                         }}
+                        disabled={tag === ''}
                     >
-                        <div className="flex gap-2 items-center p-2 stroke-[#5E5E5E] hover:stroke-white">
+                        <div className="flex gap-2 items-center p-2 stroke-[#5E5E5E] hover:stroke-white group-disabled:stroke-[#ccc]">
                             {addSVG}
                             <p className="font-semibold text-sm">Add tag</p>
                         </div>

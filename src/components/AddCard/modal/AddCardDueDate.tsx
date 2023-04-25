@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useState } from 'react';
 import { addSVG } from '../../../assets/svgs/add.svg';
 import { type Card } from '../../../interfaces/Card';
 import type Tag from '../../../interfaces/Tag';
@@ -18,18 +18,17 @@ export const AddCardDueDate: React.FC<AddCardDueDateProps> = ({
     card,
     updateTags,
 }) => {
-    const tagTitle = useRef('');
+    const [dueDate, setDueDate] = useState('');
 
-    const handleTagTitleChanges = (title: string) => {
-        tagTitle.current = title;
+    const handleDueDateChanges = (dueDate: string) => {
+        setDueDate(dueDate);
     };
 
     const handleAddNewTag = () => {
-        if (tagTitle.current === '') return;
         if (card.lowerTags == null) card.lowerTags = [];
         const newTag: Tag = {
             id: card.lowerTags.length + 1,
-            text: tagTitle.current,
+            text: dueDate,
             color: colors.green,
         };
         updateTags([...card.lowerTags, newTag]);
@@ -60,20 +59,21 @@ export const AddCardDueDate: React.FC<AddCardDueDateProps> = ({
                             data-testid="addcard-lowertags-input"
                             type={'date'}
                             onChange={(e) => {
-                                handleTagTitleChanges(e.target.value);
+                                handleDueDateChanges(e.target.value);
                             }}
                         ></input>
                     </div>
                 </div>
                 <div className="self-center">
                     <button
-                        className="bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white font-semibold"
+                        className="group bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white disabled:bg-[#ECEEF8] disabled:text-[#ccc] font-semibold"
                         data-testid="addcard-lowertags-button"
                         onClick={(_e) => {
                             handleAddNewTag();
                         }}
+                        disabled={dueDate === ''}
                     >
-                        <div className="flex gap-2 items-center p-2 stroke-[#5E5E5E] hover:stroke-white">
+                        <div className="flex gap-2 items-center p-2 stroke-[#5E5E5E] hover:stroke-white group-disabled:stroke-[#ccc]">
                             {addSVG}
                             <p className="font-semibold text-sm">
                                 Add due date

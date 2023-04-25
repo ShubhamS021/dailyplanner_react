@@ -95,13 +95,14 @@ export const AddCardSubtasks: React.FC<AddCardSubtaskProps> = ({
                     ></input>
                 </div>
                 <button
-                    className="bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white font-semibold"
+                    className="group bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white disabled:bg-[#ECEEF8] disabled:text-[#ccc] font-semibold"
                     data-testid="addcard-subtask-button"
                     onClick={(_e) => {
                         handleAddNewTask();
                     }}
+                    disabled={title === ''}
                 >
-                    <div className="flex gap-2 items-center p-2 stroke-[#5E5E5E] hover:stroke-white">
+                    <div className="flex gap-2 items-center p-2 stroke-[#5E5E5E] hover:stroke-white group-disabled:stroke-[#ccc]">
                         {addSVG}
                         <p className="font-semibold text-sm">Add subtask</p>
                     </div>

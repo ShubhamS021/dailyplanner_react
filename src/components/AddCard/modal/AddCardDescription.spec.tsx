@@ -6,6 +6,7 @@ test('renders the basic AddCardDescription', () => {
         <AddCardDescription
             headline={'description'}
             explanation={'testing description'}
+            card={{ id: 1, title: 'card', description: 'card description' }}
             updateDescription={(description: string) => {
                 throw new Error('Function not implemented.');
             }}
@@ -25,6 +26,7 @@ test('changes description', () => {
         <AddCardDescription
             headline={'description'}
             explanation={'testing description'}
+            card={{ id: 1, title: 'card', description: 'card description' }}
             updateDescription={(description: string) => {
                 expect(description).not.toBe('');
             }}

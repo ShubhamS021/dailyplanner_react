@@ -1,12 +1,16 @@
+import { type Card } from 'interfaces/Card';
+
 export interface AddCardDescriptionProps {
     headline: string;
     explanation: string;
+    card: Card;
     updateDescription: (description: string) => void;
 }
 
 export const AddCardDescription: React.FC<AddCardDescriptionProps> = ({
     headline,
     explanation,
+    card,
     updateDescription,
 }) => {
     return (
@@ -27,6 +31,7 @@ export const AddCardDescription: React.FC<AddCardDescriptionProps> = ({
                     placeholder={'Define your task.'}
                     className="focus:outline-none text-sm w-full"
                     data-testid="addcard-description-input"
+                    value={card.description}
                     onChange={(e) => {
                         updateDescription(e.target.value);
                     }}

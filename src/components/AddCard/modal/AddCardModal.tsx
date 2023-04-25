@@ -114,6 +114,7 @@ export const AddCardModal: React.FC<AddCardModalProps> = ({
                             explanation={
                                 'Give a short description of the task you need to track.'
                             }
+                            card={card}
                             updateDescription={(description: string) => {
                                 updateDescription(description);
                             }}

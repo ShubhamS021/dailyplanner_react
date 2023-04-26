@@ -65,6 +65,7 @@ export const CardMoveModal: React.FC<CardMoveModalProps> = ({
                         <br />
                         <select
                             className="border border-[#f5f4f4] p-2 rounded-lg flex gap-2 items-center"
+                            data-testid="board-selection"
                             onChange={(event) => {
                                 handleBoardChange(+event.target.value);
                             }}

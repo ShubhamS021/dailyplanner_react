@@ -59,7 +59,7 @@ describe('MyBoardLanes', () => {
                 color: colors.sulzer33_blue,
                 cards: [],
             },
-            0
+            2
         );
     });
 
@@ -68,7 +68,7 @@ describe('MyBoardLanes', () => {
         fireEvent.click(removeButton);
 
         expect(mockRemoveLaneFromBoard).toHaveBeenCalledTimes(1);
-        expect(mockRemoveLaneFromBoard).toHaveBeenCalledWith(1, 0);
+        expect(mockRemoveLaneFromBoard).toHaveBeenCalledWith(1, 2);
     });
 
     it('enters the board when the "Start" button is clicked', () => {
@@ -78,6 +78,6 @@ describe('MyBoardLanes', () => {
         fireEvent.click(startButton);
 
         expect(mockEnterBoard).toHaveBeenCalledTimes(1);
-        expect(mockEnterBoard).toHaveBeenCalledWith(0);
+        expect(mockEnterBoard).toHaveBeenCalledWith(2);
     });
 });

@@ -7,9 +7,11 @@ import { type Board } from '../interfaces/Board';
 
 export const mockAddLaneToBoard = jest.fn();
 export const mockAddCardToLane = jest.fn();
+export const mockAddCardToInitialBoardLane = jest.fn();
 export const mockRemoveLaneFromBoard = jest.fn();
 export const mockRemoveCardFromLane = jest.fn();
 export const mockRemoveCardsFromLane = jest.fn();
+export const mockMoveCardToBoard = jest.fn();
 export const mockHandleDragEnd = jest.fn();
 export const mockClearBoard = jest.fn();
 export const mockExportBoardToJSON = jest.fn();
@@ -31,9 +33,14 @@ export const mockToggleCompactMode = jest.fn();
 export const mockToggleBoardMode = jest.fn();
 export const mockAddBoard = jest.fn();
 export const mockRemoveBoard = jest.fn();
+export const mockRenameBoard = jest.fn();
 export const mockEnterBoard = jest.fn();
 
-const initialBoards: Board[] = [{ ...initialBoardState, lanes: initialLanes }];
+const initialBoards: Board[] = [
+    { ...initialBoardState, lanes: initialLanes },
+    { ...initialBoardState, id: 1, lanes: initialLanes },
+    { ...initialBoardState, id: 2, lanes: initialLanes },
+];
 const initialBoard: Board = { ...initialBoardState, lanes: initialLanes };
 
 export const mockContext = {
@@ -43,9 +50,11 @@ export const mockContext = {
     boardMode: 'boardChooseMode' as BoardMode,
     addLaneToBoard: mockAddLaneToBoard,
     addCardToLane: mockAddCardToLane,
+    addCardToInitialBoardLane: mockAddCardToInitialBoardLane,
     removeLaneFromBoard: mockRemoveLaneFromBoard,
     removeCardFromLane: mockRemoveCardFromLane,
     removeCardsFromLane: mockRemoveCardsFromLane,
+    moveCardToBoard: mockMoveCardToBoard,
     handleDragEnd: mockHandleDragEnd,
     clearBoard: mockClearBoard,
     exportBoardToJSON: mockExportBoardToJSON,
@@ -57,5 +66,6 @@ export const mockContext = {
     toggleBoardMode: mockToggleBoardMode,
     addBoard: mockAddBoard,
     removeBoard: mockRemoveBoard,
+    renameBoard: mockRenameBoard,
     enterBoard: mockEnterBoard,
 };

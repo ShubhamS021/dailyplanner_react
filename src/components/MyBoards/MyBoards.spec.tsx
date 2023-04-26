@@ -28,7 +28,7 @@ describe('MyBoards', () => {
     test('renders the list of boards', () => {
         expect(
             screen.getAllByTestId('myboards-enterboard-button')
-        ).toHaveLength(1);
+        ).toHaveLength(3);
     });
 
     test('calls enterBoard when clicking the enter board button', () => {
@@ -53,7 +53,7 @@ describe('MyBoards', () => {
         )[0];
         fireEvent.click(removeBoardButton);
         expect(
-            screen.getByText(/warning: deleting board/i)
+            screen.getAllByText(/warning: deleting board/i)[0]
         ).toBeInTheDocument();
     });
 
@@ -62,7 +62,7 @@ describe('MyBoards', () => {
             'remove-board-button'
         )[0];
         fireEvent.click(removeBoardButton);
-        const deleteBoardButton = screen.getByText(/yes, delete board./i);
+        const deleteBoardButton = screen.getAllByText(/yes, delete board./i)[0];
         fireEvent.click(deleteBoardButton);
         expect(mockRemoveBoard).toHaveBeenCalledWith(0);
     });

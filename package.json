@@ -16,7 +16,13 @@
         "prepare": "husky install",
         "tauri": "tauri",
         "app:build": "tauri build",
-        "app:run": "tauri run"
+        "app:run": "tauri run",
+        "release:major": "commit-and-tag-version --release-as major",
+        "release:minor": "commit-and-tag-version --release-as minor",
+        "release:patch": "commit-and-tag-version --release-as patch",
+        "release:candidate:major": "commit-and-tag-version --prerelease rc --release-as major",
+        "release:candidate:minor": "commit-and-tag-version --prerelease rc --release-as minor",
+        "release:candidate:patch": "commit-and-tag-version --prerelease rc --release-as patch"
     },
     "dependencies": {
         "@tauri-apps/api": "^1.2.0",
@@ -40,6 +46,7 @@
         "@types/react-dom": "^18.0.11",
         "@typescript-eslint/eslint-plugin": "^5.59.0",
         "autoprefixer": "^10.4.14",
+        "commit-and-tag-version": "^11.2.1",
         "css-loader": "^6.7.3",
         "eslint": "^8.38.0",
         "eslint-config-prettier": "^8.8.0",

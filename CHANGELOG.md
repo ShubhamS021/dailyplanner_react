@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.1.1](https://git.sulzer.de/hahnk/dayplanner/compare/v0.1.0...v0.1.1) (2023-05-08)
+
+
+### Features
+
+* added commit-and-tag-version and scripts ([a8414d5](https://git.sulzer.de/hahnk/dayplanner/commit/a8414d51d42814159b24462afe36a974403df958))
+
 ## 0.1.0 (2023-05-08)
 
 

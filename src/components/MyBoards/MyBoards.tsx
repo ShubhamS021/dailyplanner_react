@@ -74,11 +74,15 @@ export const MyBoards = () => {
                             <div
                                 className="group border border-[#f5f4f4] p-2 rounded-lg grid grid-cols-[1fr,auto,auto] items-center gap-2"
                                 key={index}
+                                data-testid={`board-${index}`}
                             >
                                 <div className="group-hover:font-bold w-[20rem]">
                                     {board.title}
                                 </div>
-                                <div className="invisible group-hover:visible flex gap-2">
+                                <div
+                                    className="invisible group-hover:visible flex gap-2"
+                                    data-testid={`board-${index}-actions`}
+                                >
                                     <button
                                         className="w-10 inline-flex items-center justify-center transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline"
                                         onClick={() => {

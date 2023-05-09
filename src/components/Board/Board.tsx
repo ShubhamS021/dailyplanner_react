@@ -48,6 +48,7 @@ export const Board = () => {
             <div className="h-16 mb-6 grid grid-cols-[auto,1fr_auto] items-center">
                 <div
                     className="cursor-pointer mr-4 stroke-[#14161F]"
+                    data-testid="btnBackToBoards"
                     onClick={() => {
                         handleBackToBoards();
                     }}

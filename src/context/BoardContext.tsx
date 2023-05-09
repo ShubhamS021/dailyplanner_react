@@ -87,29 +87,27 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
     // Read the initial boards state from localStorage and toggle initial app mode
     useEffect(() => {
         const storedBoards = localStorage.getItem('boards');
-        if (storedBoards !== null && storedBoards !== undefined) {
-            const parsedBoards: Board[] = JSON.parse(storedBoards);
-            setBoards((prevBoards) => parsedBoards);
 
-            const currentBoardId: number = +(
-                localStorage.getItem('currentBoard') ?? '-1'
-            );
-            const currentBoard = parsedBoards.find(
-                (b) => b.id === currentBoardId
-            );
-            toggleBoardMode(
-                currentBoard != null
-                    ? 'boardDefaultMode'
-                    : parsedBoards.length === 0
-                    ? 'boardCreateMode'
-                    : 'boardDefaultMode'
-            );
-
-            if (currentBoard != null) {
-                setBoard(currentBoard);
-            }
-        } else {
+        if (storedBoards === null || storedBoards === undefined) {
             toggleBoardMode('boardCreateMode');
+            return;
+        }
+
+        const parsedBoards: Board[] = JSON.parse(storedBoards);
+        setBoards((prevBoards) => parsedBoards);
+
+        const currentBoardId: number = +(
+            localStorage.getItem('currentBoard') ?? '-1'
+        );
+        const currentBoard = parsedBoards.find((b) => b.id === currentBoardId);
+        toggleBoardMode(
+            currentBoard === null || parsedBoards.length === 0
+                ? 'boardCreateMode'
+                : 'boardDefaultMode'
+        );
+
+        if (currentBoard != null) {
+            setBoard(currentBoard);
         }
     }, []);
 
@@ -128,7 +126,7 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
     };
 
     const findLastCardIdInSpecificBoard = (targetBoard: Board) => {
-        let lastId = 1;
+        let lastId = 0;
 
         targetBoard.lanes.forEach((lane) => {
             lane.cards.forEach((card) => {

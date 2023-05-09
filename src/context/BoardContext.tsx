@@ -87,7 +87,7 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
     // Read the initial boards state from localStorage and toggle initial app mode
     useEffect(() => {
         const storedBoards = localStorage.getItem('boards');
-        if (storedBoards != null) {
+        if (storedBoards !== null && storedBoards !== undefined) {
             const parsedBoards: Board[] = JSON.parse(storedBoards);
             setBoards((prevBoards) => parsedBoards);
 
@@ -108,6 +108,8 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
             if (currentBoard != null) {
                 setBoard(currentBoard);
             }
+        } else {
+            toggleBoardMode('boardCreateMode');
         }
     }, []);
 

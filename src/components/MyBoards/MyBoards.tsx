@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import logo from '../../assets/logo.png';
 import { arrowNarrowRight } from '../../assets/svgs/arrow-narrow-right.svg';
 import { editSVG } from '../../assets/svgs/edit.svg';
@@ -6,6 +7,7 @@ import { gitlabSVG } from '../../assets/svgs/gitlab.svg';
 import { trashSVG } from '../../assets/svgs/trash.svg';
 import { BoardRenameModal } from '../../components/BoardRenameModal/BoardRenameModal';
 import { ConfirmationModal } from '../../components/ConfirmationModal/ConfirmationModal';
+import { LanguageChooser } from '../../components/LanguageChooser/LanguageChooser';
 import { BoardContext } from '../../context/BoardContext';
 
 export const MyBoards = () => {
@@ -14,16 +16,17 @@ export const MyBoards = () => {
     const [showModal, setShowModal] = useState(false);
     const [boardToEdit, setBoardToEdit] = useState(boards[0]);
     const [showEditModal, setShowEditModal] = useState(false);
+    const { t } = useTranslation();
 
     const renderDeleteConfirmationModal = (boardId: number) => {
         return (
             <>
                 <ConfirmationModal
-                    title={'Warning: Deleting board'}
-                    text={
-                        'Are you sure you want to delete this board? This action cannot be undone.'
+                    title={t('components.MyBoards.warningDeleteTitle')}
+                    text={t('components.MyBoards.warningDeleteText')}
+                    submitButtonText={
+                        t('components.MyBoards.warningDeleteSubmit') ?? ''
                     }
-                    submitButtonText={'Yes, delete board.'}
                     modalConfirmation={() => {
                         removeBoard(boardId);
                     }}
@@ -40,10 +43,12 @@ export const MyBoards = () => {
         return (
             <>
                 <BoardRenameModal
-                    title={'Rename board'}
-                    text={'Please change the information of the board.'}
+                    title={t('components.MyBoards.renameTitle')}
+                    text={t('components.MyBoards.renameText')}
                     board={boardToEdit}
-                    submitButtonText={'Save changes.'}
+                    submitButtonText={
+                        t('components.MyBoards.renameSubmit') ?? ''
+                    }
                     modalConfirmation={(title, subtitle) => {
                         renameBoard(boardToEdit.id, title, subtitle);
                     }}
@@ -66,7 +71,7 @@ export const MyBoards = () => {
                     className="text-3xl font-bold text-[#212121]"
                     data-testid="myboards-title"
                 >
-                    My boards
+                    {t('components.MyBoards.title')}
                 </div>
                 <div
                     className="w-full grid justify-center gap-2"
@@ -95,7 +100,9 @@ export const MyBoards = () => {
                                             setBoardToEdit(board);
                                             setShowEditModal(true);
                                         }}
-                                        title="Edit this Board."
+                                        title={
+                                            t('components.MyBoards.edit') ?? ''
+                                        }
                                         data-testid="edit-board-button"
                                     >
                                         <div className="flex gap-2 items-center p-2 stroke-white">
@@ -108,7 +115,10 @@ export const MyBoards = () => {
                                         onClick={() => {
                                             setShowModal(true);
                                         }}
-                                        title="Remove this Board."
+                                        title={
+                                            t('components.MyBoards.remove') ??
+                                            ''
+                                        }
                                         data-testid="remove-board-button"
                                     >
                                         <div className="flex gap-2 items-center p-2 stroke-white">
@@ -140,14 +150,16 @@ export const MyBoards = () => {
                 </div>
                 <div className="flex items-center justify-center w-1/3">
                     <hr className="border-t-1 border-gray-300 w-1/3 mr-4" />
-                    <span className="text-gray-600 font-semibold">or</span>
+                    <span className="text-gray-600 font-semibold">
+                        {t('components.MyBoards.or')}
+                    </span>
                     <hr className="border-t-1 border-gray-300 w-1/3 ml-4" />
                 </div>
                 <div
                     className="text-xl text-[#212121]"
                     data-testid="myboards-subtitle"
                 >
-                    Create a new board
+                    {t('components.MyBoards.create')}
                 </div>
 
                 <button
@@ -158,7 +170,7 @@ export const MyBoards = () => {
                         toggleBoardMode('boardCreateMode');
                     }}
                 >
-                    Start
+                    {t('components.MyBoards.start')}
                 </button>
             </div>
 
@@ -168,11 +180,12 @@ export const MyBoards = () => {
                     href="https://git.sulzer.de/hahnk/dayplanner"
                 >
                     {gitlabSVG}
-                    Dayplanner on
+                    {t('components.MyBoards.git')}
                     <b className="hover:text-[#FC6D27] transition-all duration-200">
                         git.sulzer.de
                     </b>
                 </a>
+                <LanguageChooser />
             </footer>
             {showEditModal ? renderEditBoardModal() : null}
         </main>

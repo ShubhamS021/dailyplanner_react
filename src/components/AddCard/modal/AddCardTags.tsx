@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { addSVG } from '../../../assets/svgs/add.svg';
 import { tagsSVG } from '../../../assets/svgs/tags.svg';
 import { TagComponent } from '../../../components/Tag/Tag';
@@ -22,6 +23,7 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
     const MAX_TAGS = 5;
     const [selectedColorIndex, setSelectedColorIndex] = useState(0);
     const [selectedColor, setSelectedColor] = useState(colors.sulzer33_blue);
+    const { t } = useTranslation();
 
     const [tag, setTag] = useState('');
 
@@ -124,7 +126,11 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
                     >
                         <div className="flex gap-2 items-center p-2 stroke-[#5E5E5E] hover:stroke-white group-disabled:stroke-[#ccc]">
                             {addSVG}
-                            <p className="font-semibold text-sm">Add tag</p>
+                            <p className="font-semibold text-sm">
+                                {t(
+                                    'components.AddCard.modal.AddCardTags.add'
+                                ) ?? ''}
+                            </p>
                         </div>
                     </button>
                 </div>
@@ -148,7 +154,9 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
                 })}
             </div>
             {card.upperTags?.length === MAX_TAGS && (
-                <small className="text-[#e0004d]">Tag limit reached.</small>
+                <small className="text-[#e0004d]">
+                    {t('components.AddCard.modal.AddCardTags.limit') ?? ''}
+                </small>
             )}
         </div>
     );

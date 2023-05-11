@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import logo from '../../assets/logo.png';
 import { layoutCardsSVG } from '../../assets/svgs/layoutCards.svg';
 import { plusSVG } from '../../assets/svgs/plus.svg';
@@ -14,6 +15,7 @@ export const MyBoardLanes = () => {
     const [laneValue, setLaneValue] = useState('');
     const [selectedColorIndex, setSelectedColorIndex] = useState(0);
     const [selectedColor, setSelectedColor] = useState(colors.sulzer33_blue);
+    const { t } = useTranslation();
 
     const handleTagColorSelection = (color: string) => {
         setSelectedColor(color);
@@ -56,19 +58,21 @@ export const MyBoardLanes = () => {
                     className="text-3xl font-bold text-[#212121]"
                     data-testid="myboardlanes-title"
                 >
-                    Define your lanes
+                    {t('components.MyBoardLanes.define')}
                 </div>
                 <div
                     className="text-xl text-[#212121]"
                     data-testid="myboardlanes-subtitle"
                 >
-                    Define the lanes to add your tasks to.
+                    {t('components.MyBoardLanes.subtitle')}
                 </div>
                 <div className="w-full grid justify-center gap-6">
                     <div className="border border-[#f5f4f4] p-2 rounded-lg flex gap-2 items-center ">
                         {layoutCardsSVG}
                         <input
-                            placeholder={'Enter a lane name.'}
+                            placeholder={
+                                t('components.MyBoardLanes.name') ?? ''
+                            }
                             className="focus:outline-none text-sm w-full"
                             data-testid="myboardlanes-lanename-input"
                             onChange={(e) => {
@@ -78,7 +82,7 @@ export const MyBoardLanes = () => {
                         ></input>
                     </div>
                     <div className="flex gap-2">
-                        Pick a lane color:
+                        {t('components.MyBoardLanes.color')}
                         {[
                             colors.sulzer33_blue,
                             colors.sulzer33_red,
@@ -117,7 +121,7 @@ export const MyBoardLanes = () => {
                             <div className="flex gap-2 items-center p-2 ">
                                 {plusSVG}
                                 <p className="font-semibold text-sm">
-                                    Add lane
+                                    {t('components.MyBoardLanes.add')}
                                 </p>
                             </div>
                         </button>
@@ -150,7 +154,7 @@ export const MyBoardLanes = () => {
                                 handleStart();
                             }}
                         >
-                            Start
+                            {t('components.MyBoardLanes.start')}
                         </button>
                     </div>
                 </div>

@@ -1,3 +1,4 @@
+import { t } from 'i18next';
 import { useContext } from 'react';
 import { editSVG } from '../../assets/svgs/edit.svg';
 import { routeSVG } from '../../assets/svgs/route.svg';
@@ -106,7 +107,7 @@ export const CardComponent: React.FC<CardProps> = ({
                             onClick={() => {
                                 onMoveCard();
                             }}
-                            title="Move this card."
+                            title={t('components.Card.move') ?? ''}
                             data-testid="move-card-button"
                         >
                             {routeSVG}
@@ -116,7 +117,7 @@ export const CardComponent: React.FC<CardProps> = ({
                             onClick={() => {
                                 onEditCard();
                             }}
-                            title="Edit this card."
+                            title={t('components.Card.edit') ?? ''}
                             data-testid="edit-card-button"
                         >
                             {editSVG}
@@ -127,7 +128,7 @@ export const CardComponent: React.FC<CardProps> = ({
                             onClick={() => {
                                 onRemoveCard();
                             }}
-                            title="Remove this card."
+                            title={t('components.Card.remove') ?? ''}
                             data-testid="remove-card-button"
                         >
                             {trashSVG}

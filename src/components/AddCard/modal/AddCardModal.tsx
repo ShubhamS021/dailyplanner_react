@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { closeSVG } from '../../../assets/svgs/close.svg';
 import { editSVG } from '../../../assets/svgs/edit.svg';
 import { infoCircleSVG } from '../../../assets/svgs/infoCircle.svg';
@@ -38,6 +39,7 @@ export const AddCardModal: React.FC<AddCardModalProps> = ({
 }) => {
     const [editTitle, setEditTitle] = useState(false);
     const title = useRef(card.title);
+    const { t } = useTranslation();
 
     return (
         <div
@@ -67,7 +69,11 @@ export const AddCardModal: React.FC<AddCardModalProps> = ({
                                             updateTitle(title.current);
                                             setEditTitle(false);
                                         }}
-                                        title="Save this task."
+                                        title={
+                                            t(
+                                                'components.AddCard.modal.AddCardModal.save'
+                                            ) ?? ''
+                                        }
                                         data-testid="addcard-title-edit-submit-button"
                                     >
                                         {saveSVG}
@@ -87,7 +93,11 @@ export const AddCardModal: React.FC<AddCardModalProps> = ({
                                         onClick={() => {
                                             setEditTitle(true);
                                         }}
-                                        title="Edit this task."
+                                        title={
+                                            t(
+                                                'components.AddCard.modal.AddCardModal.edit'
+                                            ) ?? ''
+                                        }
                                         data-testid="addcard-title-edit-button"
                                     >
                                         {editSVG}
@@ -110,9 +120,15 @@ export const AddCardModal: React.FC<AddCardModalProps> = ({
                     <div className="relative px-6 flex flex-col gap-2">
                         <hr className="border-t-1 border-[#C4C4C4] max-h-[1px] my-4"></hr>
                         <AddCardDescription
-                            headline={`What's your task?`}
+                            headline={
+                                t(
+                                    'components.AddCard.modal.AddCardModal.descriptionHeadline'
+                                ) ?? ''
+                            }
                             explanation={
-                                'Give a short description of the task you need to track.'
+                                t(
+                                    'components.AddCard.modal.AddCardModal.descriptionExplanation'
+                                ) ?? ''
                             }
                             card={card}
                             updateDescription={(description: string) => {
@@ -124,24 +140,44 @@ export const AddCardModal: React.FC<AddCardModalProps> = ({
                             updateTasks={(tasks: Task[]) => {
                                 updateTasks(tasks);
                             }}
-                            headline={'Subtasks'}
+                            headline={
+                                t(
+                                    'components.AddCard.modal.AddCardModal.subtasksHeadline'
+                                ) ?? ''
+                            }
                             explanation={
-                                'If your task has multiple steps, break it down into subtasks and list them here.'
+                                t(
+                                    'components.AddCard.modal.AddCardModal.subtasksExplanation'
+                                ) ?? ''
                             }
                         ></AddCardSubtasks>
                         <AddCardTags
                             card={card}
-                            headline={'Add Tags'}
+                            headline={
+                                t(
+                                    'components.AddCard.modal.AddCardModal.tagsHeadline'
+                                ) ?? ''
+                            }
                             explanation={
-                                'Choose or define tags to your task to make it easier to find and group with other similar tasks.'
+                                t(
+                                    'components.AddCard.modal.AddCardModal.tagsExplanation'
+                                ) ?? ''
                             }
                             updateTags={(tags: Tag[]) => {
                                 updateTags(tags);
                             }}
                         ></AddCardTags>
                         <AddCardDueDate
-                            headline={'Add due date'}
-                            explanation={'Define a due date for this task.'}
+                            headline={
+                                t(
+                                    'components.AddCard.modal.AddCardModal.dueDateHeadline'
+                                ) ?? ''
+                            }
+                            explanation={
+                                t(
+                                    'components.AddCard.modal.AddCardModal.dueDateExplanation'
+                                ) ?? ''
+                            }
                             card={card}
                             updateTags={(tags: Tag[]) => {
                                 updateLowerTags(tags);
@@ -159,7 +195,11 @@ export const AddCardModal: React.FC<AddCardModalProps> = ({
                                 closeModal();
                             }}
                         >
-                            {cancelButtonText ?? 'Cancel'}
+                            {cancelButtonText ??
+                                t(
+                                    'components.AddCard.modal.AddCardModal.cancel'
+                                ) ??
+                                ''}
                         </button>
                         <button
                             className="bg-[#17A2B8] text-white p-2 py-1.5 rounded-md font-semibold ease-linear transition-all duration-150"
@@ -170,7 +210,11 @@ export const AddCardModal: React.FC<AddCardModalProps> = ({
                                 closeModal();
                             }}
                         >
-                            {submitButtonText ?? 'Add task'}
+                            {submitButtonText ??
+                                t(
+                                    'components.AddCard.modal.AddCardModal.submit'
+                                ) ??
+                                ''}
                         </button>
                     </div>
                 </div>

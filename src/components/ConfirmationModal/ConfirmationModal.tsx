@@ -1,3 +1,4 @@
+import { t } from 'i18next';
 import { closeSVG } from '../../assets/svgs/close.svg';
 import { infoCircleSVG } from '../../assets/svgs/infoCircle.svg';
 
@@ -62,7 +63,8 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
                                 closeModal();
                             }}
                         >
-                            {cancelButtonText ?? 'Cancel'}
+                            {cancelButtonText ??
+                                t('components.ConfirmationModal.cancel')}
                         </button>
                         <button
                             className="bg-[#17A2B8] text-white p-2 py-1.5 rounded-md font-semibold ease-linear transition-all duration-150"
@@ -73,7 +75,8 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
                                 closeModal();
                             }}
                         >
-                            {submitButtonText ?? 'Ok'}
+                            {submitButtonText ??
+                                t('components.ConfirmationModal.ok')}
                         </button>
                     </div>
                 </div>

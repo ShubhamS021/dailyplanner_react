@@ -1,25 +1,30 @@
 import { useContext, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import logo from '../../assets/logo.png';
 import {
     BoardContext,
-    initialBoardState,
-    initialLanes,
+    getLocalizedInitialBoardState,
+    getLocalizedInitialLanesState,
 } from '../../context/BoardContext';
 
 export const AddBoard = () => {
     const { addBoard, toggleBoardMode } = useContext(BoardContext);
+    const { t } = useTranslation();
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
 
     const handleCreateStandardBoard = () => {
-        const newBoard = { ...initialBoardState, lanes: initialLanes };
+        const newBoard = {
+            ...getLocalizedInitialBoardState(),
+            lanes: getLocalizedInitialLanesState(),
+        };
         addBoard(newBoard);
         toggleBoardMode('boardDefaultMode');
     };
 
     const handleCreateCustomBoard = () => {
-        const customBoard = { ...initialBoardState };
+        const customBoard = { ...getLocalizedInitialBoardState() };
         customBoard.title = name;
         customBoard.subtitle = description;
 
@@ -49,13 +54,13 @@ export const AddBoard = () => {
                     className="text-3xl font-bold text-[#212121]"
                     data-testid="addboard-title"
                 >
-                    Welcome to Dayplanner
+                    {t('components.AddBoard.title')}
                 </div>
                 <div
                     className="text-xl text-[#212121]"
                     data-testid="addboard-standard-subtitle"
                 >
-                    Start with a standard board
+                    {t('components.AddBoard.standard')}
                 </div>
                 <div>
                     <button
@@ -66,24 +71,26 @@ export const AddBoard = () => {
                             handleCreateStandardBoard();
                         }}
                     >
-                        Create
+                        {t('components.AddBoard.create')}
                     </button>
                 </div>
                 <div className="flex items-center justify-center w-1/3">
                     <hr className="border-t-1 border-gray-300 w-1/3 mr-4" />
-                    <span className="text-gray-600 font-semibold">or</span>
+                    <span className="text-gray-600 font-semibold">
+                        {t('components.AddBoard.or')}
+                    </span>
                     <hr className="border-t-1 border-gray-300 w-1/3 ml-4" />
                 </div>
                 <div
                     className="text-xl text-[#212121]"
                     data-testid="addboard-custom-subtitle"
                 >
-                    Create your own board
+                    {t('components.AddBoard.custom')}
                 </div>
                 <div className="w-1/4">
                     <div className="border border-[#f5f4f4] p-2 rounded-lg flex gap-2 items-center w-full">
                         <input
-                            placeholder={'Enter a name.'}
+                            placeholder={t('components.AddBoard.name') ?? ''}
                             className="focus:outline-none text-sm w-full"
                             data-testid="addboard-enter-name-input"
                             onChange={(e) => {
@@ -91,12 +98,16 @@ export const AddBoard = () => {
                             }}
                         ></input>
                     </div>
-                    <small className="text-[#E1E4E8]">{`e.g. "My Tasks"`}</small>
+                    <small className="text-[#E1E4E8]">
+                        {t('components.AddBoard.exampleName')}
+                    </small>
                 </div>
                 <div className="w-1/4">
                     <div className="border border-[#f5f4f4] p-2 rounded-lg flex gap-2 items-center w-full">
                         <input
-                            placeholder={'Enter a description.'}
+                            placeholder={
+                                t('components.AddBoard.description') ?? ''
+                            }
                             className="focus:outline-none text-sm w-full"
                             data-testid="addboard-enter-description-input"
                             onChange={(e) => {
@@ -104,7 +115,9 @@ export const AddBoard = () => {
                             }}
                         ></input>
                     </div>
-                    <small className="text-[#E1E4E8]">{`e.g. "An overview of my tasks."`}</small>
+                    <small className="text-[#E1E4E8]">
+                        {t('components.AddBoard.exampleDescription')}
+                    </small>
                 </div>
                 <button
                     disabled={!isValid()}
@@ -115,7 +128,7 @@ export const AddBoard = () => {
                         handleCreateCustomBoard();
                     }}
                 >
-                    Create
+                    {t('components.AddBoard.create')}
                 </button>
             </div>
         </main>

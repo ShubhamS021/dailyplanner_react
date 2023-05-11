@@ -1,3 +1,4 @@
+import i18next from 'i18next';
 import { createContext, useEffect, useMemo, useState } from 'react';
 import { type DropResult } from 'react-beautiful-dnd';
 import { Board } from '../interfaces/Board';
@@ -16,6 +17,15 @@ export const initialBoardState: Board = {
     title: 'My tasks',
     subtitle: 'An overview of my tasks.',
     lanes: [],
+};
+
+export const getLocalizedInitialBoardState = () => {
+    return {
+        ...initialBoardState,
+        title: i18next.t('state.board.title') ?? 'My tasks',
+        subtitle:
+            i18next.t('state.board.subtitle') ?? 'An overview of my tasks.',
+    };
 };
 
 export const initialLanes: Lane[] = [
@@ -45,6 +55,20 @@ export const initialLanes: Lane[] = [
     },
 ];
 
+export const getLocalizedInitialLanesState = () => {
+    let localizedLanes = [...initialLanes];
+    const localizeKeys = [
+        'state.lanes.notStarted',
+        'state.lanes.inProgress',
+        'state.lanes.blocked',
+        'state.lanes.done',
+    ];
+    localizedLanes = localizedLanes.map((lane, index) => {
+        return { ...lane, title: i18next.t(localizeKeys[index]) };
+    });
+    return localizedLanes;
+};
+
 export const BoardContext = createContext({
     boards: new Array<Board>(),
     board: new Board(),
@@ -72,6 +96,7 @@ export const BoardContext = createContext({
     removeBoard: (boardId: number) => {},
     renameBoard: (boardId: number, title: string, subtitle: string) => {},
     enterBoard: (boardId: number) => {},
+    updateLanguage: (language: string) => {},
 });
 
 interface BoardProviderProps {
@@ -486,6 +511,10 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
         }
     };
 
+    const updateLanguage = (language: string) => {
+        localStorage.setItem('language', language);
+    };
+
     const value = useMemo(
         () => ({
             boards,
@@ -512,6 +541,7 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
             removeBoard,
             renameBoard,
             enterBoard,
+            updateLanguage,
         }),
         [boards, board, compactMode, boardMode]
     );

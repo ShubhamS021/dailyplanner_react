@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
+import { useTranslation } from 'react-i18next';
 import { trashSVG } from '../../assets/svgs/trash.svg';
 import { AddCardModal } from '../../components/AddCard/modal/AddCardModal';
 import { CardMoveModal } from '../../components/CardMoveModal/CardMoveModal';
@@ -33,6 +34,7 @@ export const LaneComponent: React.FC<LaneProps> = ({
     const [cardToEdit, setCardToEdit] = useState<Card>();
     const [cardToMove, setCardToMove] = useState<Card>();
     const boardContext = useContext(BoardContext);
+    const { t } = useTranslation();
 
     const renderDelete = () => {
         return (
@@ -41,21 +43,21 @@ export const LaneComponent: React.FC<LaneProps> = ({
             >
                 <div
                     className="flex gap-1 cursor-pointer hover:text-red-500 ease-linear transition-all duration-150"
-                    title="Delete all cards from lane"
+                    title={t('components.Lane.deleteTitle') ?? ''}
                     data-testid="delete-all-from-lane-button"
                     onClick={() => {
                         setShowModal(true);
                     }}
                 >
                     {trashSVG}
-                    delete all
+                    {t('components.Lane.deleteAll')}
                 </div>
             </div>
         );
     };
 
     const renderEmptyLane = () => {
-        return <Dropzone text="Place tasks here.." />;
+        return <Dropzone text={t('components.Lane.dropzone') ?? ''} />;
     };
 
     const renderCards = (cards: Card[] | undefined) => {
@@ -110,11 +112,9 @@ export const LaneComponent: React.FC<LaneProps> = ({
         return (
             <>
                 <ConfirmationModal
-                    title={'Warning: Deleting all cards from lane'}
-                    text={
-                        'Are you sure you want to delete all cards from this lane? This action cannot be undone.'
-                    }
-                    submitButtonText={'Yes, delete all.'}
+                    title={t('components.Lane.deletionTitle')}
+                    text={t('components.Lane.deletionText')}
+                    submitButtonText={t('components.Lane.deletionSubmit') ?? ''}
                     modalConfirmation={() => {
                         boardContext.removeCardsFromLane(id);
                     }}
@@ -132,9 +132,9 @@ export const LaneComponent: React.FC<LaneProps> = ({
         return (
             <>
                 <CardMoveModal
-                    title={'Move card to another board'}
-                    text={'Choose the board you want move your card to:'}
-                    submitButtonText={'Move the card'}
+                    title={t('components.Lane.moveTitle')}
+                    text={t('components.Lane.moveText')}
+                    submitButtonText={t('components.Lane.moveSubmit') ?? ''}
                     modalConfirmation={(newBoardId: number) => {
                         const newBoard = boardContext.boards.find(
                             (b) => b.id === newBoardId
@@ -174,7 +174,7 @@ export const LaneComponent: React.FC<LaneProps> = ({
             <>
                 <AddCardModal
                     card={cardToEdit}
-                    submitButtonText={'Save changes'}
+                    submitButtonText={t('components.Lane.editCardSubmit') ?? ''}
                     updateTitle={(title: string) => {
                         setCardToEdit((prevState) => {
                             if (prevState == null) return;

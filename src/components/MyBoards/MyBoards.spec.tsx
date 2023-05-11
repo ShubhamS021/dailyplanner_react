@@ -53,7 +53,7 @@ describe('MyBoards', () => {
         )[0];
         fireEvent.click(removeBoardButton);
         expect(
-            screen.getAllByText(/warning: deleting board/i)[0]
+            screen.getAllByText('components.MyBoards.warningDeleteTitle')[0]
         ).toBeInTheDocument();
     });
 
@@ -62,7 +62,9 @@ describe('MyBoards', () => {
             'remove-board-button'
         )[0];
         fireEvent.click(removeBoardButton);
-        const deleteBoardButton = screen.getAllByText(/yes, delete board./i)[0];
+        const deleteBoardButton = screen.getAllByText(
+            'components.MyBoards.warningDeleteSubmit'
+        )[0];
         fireEvent.click(deleteBoardButton);
         expect(mockRemoveBoard).toHaveBeenCalledWith(0);
     });

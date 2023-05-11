@@ -1,4 +1,5 @@
 import { type Card } from 'interfaces/Card';
+import { useTranslation } from 'react-i18next';
 
 export interface AddCardDescriptionProps {
     headline: string;
@@ -13,6 +14,8 @@ export const AddCardDescription: React.FC<AddCardDescriptionProps> = ({
     card,
     updateDescription,
 }) => {
+    const { t } = useTranslation();
+
     return (
         <div className="flex flex-col gap-2">
             <div className="text-sm text-[#5E5E5E]">
@@ -28,7 +31,11 @@ export const AddCardDescription: React.FC<AddCardDescriptionProps> = ({
             </div>
             <div className="border border-[#f5f4f4] p-2 rounded-lg">
                 <input
-                    placeholder={'Define your task.'}
+                    placeholder={
+                        t(
+                            'components.AddCard.modal.AddCardDescription.placeholder'
+                        ) ?? ''
+                    }
                     className="focus:outline-none text-sm w-full"
                     data-testid="addcard-description-input"
                     value={card.description}

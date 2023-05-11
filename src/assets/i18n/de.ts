@@ -1,0 +1,135 @@
+export const DEtranslation = {
+    components: {
+        AddBoard: {
+            title: 'Willkommen bei Dayplanner',
+            standard: 'Mit einem Standard-Board beginnen',
+            create: 'Erstellen',
+            or: 'oder',
+            custom: 'Eigenes Board erstellen',
+            name: 'Gib einen Namen an.',
+            exampleName: 'z.B. "Meine Aufgaben"',
+            description: 'Gib eine Beschreibung an.',
+            exampleDescription: 'z.B. "Eine Übersicht meiner Aufgaben"',
+        },
+        AddCard: {
+            modal: {
+                AddCardDescription: {
+                    placeholder: 'Definieren Sie Ihre Aufgabe.',
+                },
+                AddDueDate: {
+                    add: 'Fälligkeitsdatum hinzufügen',
+                },
+                AddCardModal: {
+                    save: 'Diese Aufgabe speichern.',
+                    edit: 'Diese Aufgabe bearbeiten.',
+                    descriptionHeadline: 'Was ist Ihre Aufgabe?',
+                    descriptionExplanation:
+                        'Geben Sie eine kurze Beschreibung der Aufgabe ein, die Sie verfolgen müssen.',
+                    subtasksHeadline: 'Teilaufgaben',
+                    subtasksExplanation:
+                        'Wenn Ihre Aufgabe aus mehreren Schritten besteht, unterteilen Sie sie in Teilaufgaben und listen Sie sie hier auf.',
+                    tagsHeadline: 'Tags hinzufügen',
+                    tagsExplanation:
+                        'Wählen Sie Tags für Ihre Aufgabe aus oder definieren Sie sie, um sie einfacher zu finden und mit anderen ähnlichen Aufgaben zu gruppieren.',
+                    dueDateHeadline: 'Fälligkeitsdatum hinzufügen',
+                    dueDateExplanation:
+                        'Legen Sie ein Fälligkeitsdatum für diese Aufgabe fest.',
+                    cancel: 'Abbrechen',
+                    submit: 'Aufgabe hinzufügen',
+                },
+                AddCardSubtasks: {
+                    define: 'Teilaufgabe definieren.',
+                    add: 'Teilaufgabe hinzufügen',
+                    edit: 'Diese Aufgabe bearbeiten.',
+                    remove: 'Diese Aufgabe entfernen.',
+                    save: 'Diese Aufgabe speichern.',
+                },
+                AddCardTags: {
+                    add: 'Tag hinzufügen',
+                    limit: 'Tag-Grenze erreicht.',
+                },
+            },
+        },
+        Board: {
+            add: 'Neue Aufgabe',
+            addSubmit: 'Hinzufügen',
+        },
+        BoardRenameModal: {
+            title: 'Titel aktualisieren.',
+            subtitle: 'Untertitel aktualisieren.',
+        },
+        Card: {
+            move: 'Diese Karte verschieben.',
+            edit: 'Diese Karte bearbeiten.',
+            remove: 'Diese Karte entfernen.',
+        },
+        CompactModeToggle: {
+            normal: 'Normaler Modus',
+            compact: 'Kompaktmodus',
+        },
+        ConfirmationModal: {
+            cancel: 'Abbrechen',
+            ok: 'Ok',
+        },
+        Export: {
+            export: 'Exportieren',
+        },
+        Import: {
+            import: 'Importieren',
+        },
+        Lane: {
+            deleteTitle: 'Alle Karten aus Spalte löschen',
+            deleteAll: 'alle löschen',
+            dropzone: 'Aufgaben hier platzieren..',
+            deletionTitle: 'Warnung: Alle Karten aus Spalte löschen',
+            deletionText:
+                'Sind Sie sicher, dass Sie alle Karten aus dieser Spalte löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.',
+            deletionSubmit: 'Ja, alles löschen.',
+            moveTitle: 'Karte in ein anderes Board verschieben',
+            moveText:
+                'Wählen Sie das Board aus, zu dem Sie Ihre Karte verschieben möchten:',
+            moveSubmit: 'Karte verschieben',
+            editCardSubmit: 'Änderungen speichern',
+        },
+        LanguageChooser: {
+            language: 'Sprache:',
+        },
+        MyBoardLanes: {
+            define: 'Definieren Sie Ihre Spalten',
+            subtitle:
+                'Definieren Sie die Spalten, um Ihre Aufgaben hinzuzufügen.',
+            name: 'Geben Sie einen Spaltennamen ein.',
+            color: 'Wählen Sie eine Spaltenfarbe:',
+            add: 'Spalte hinzufügen',
+            start: 'Start',
+        },
+        MyBoards: {
+            warningDeleteTitle: 'Warnung: Board löschen',
+            warningDeleteText:
+                'Sind Sie sicher, dass Sie dieses Board löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.',
+            warningDeleteSubmit: 'Ja, Board löschen.',
+            renameTitle: 'Board umbenennen',
+            renameText: 'Bitte ändern Sie die Informationen des Boards.',
+            renameSubmit: 'Änderungen speichern.',
+            title: 'Meine Boards',
+            edit: 'Dieses Board bearbeiten.',
+            remove: 'Dieses Board entfernen.',
+            or: 'oder',
+            create: 'Neues Board erstellen',
+            start: 'Start',
+            git: 'Dayplanner auf',
+        },
+    },
+    state: {
+        board: {
+            title: 'Meine Aufgaben',
+            subtitle: 'Ein Überblick meiner Aufgaben.',
+        },
+        lanes: {
+            notStarted: 'Nicht begonnen',
+            inProgress: 'In Bearbeitung',
+            blocked: 'Blockiert',
+            done: 'Fertig',
+        },
+    },
+};

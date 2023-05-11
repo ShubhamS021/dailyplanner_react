@@ -1,8 +1,10 @@
 import { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import { BoardContext } from '../../context/BoardContext';
 
 export const CompactModeToggle = () => {
     const { toggleCompactMode, compactMode } = useContext(BoardContext);
+    const { t } = useTranslation();
 
     return (
         <>
@@ -14,12 +16,11 @@ export const CompactModeToggle = () => {
                 }}
             >
                 <div className="flex gap-2 items-center p-2 stroke-[#5E5E5E] hover:stroke-white">
-                    {compactMode && (
-                        <p className="font-semibold text-sm">Normal mode</p>
-                    )}
-                    {!compactMode && (
-                        <p className="font-semibold text-sm">Compact mode</p>
-                    )}
+                    <p className="font-semibold text-sm">
+                        {compactMode
+                            ? t('components.CompactModeToggle.normal')
+                            : t('components.CompactModeToggle.compact')}
+                    </p>
                 </div>
             </button>
         </>

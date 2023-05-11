@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { useTranslation } from 'react-i18next';
 import { arrowLeftSVG } from '../../assets/svgs/arrow-left.svg';
 import CompactModeToggle from '../../components/CompactModeToggle/CompactModeToggle';
 import Export from '../../components/Export/Export';
@@ -12,6 +13,7 @@ import { LaneComponent } from '../Lane/Lane';
 
 export const Board = () => {
     const { toggleBoardMode, handleDragEnd, board } = useContext(BoardContext);
+    const { t } = useTranslation();
 
     const handleBackToBoards = () => {
         toggleBoardMode('boardChooseMode');
@@ -57,7 +59,10 @@ export const Board = () => {
                 </div>
                 <BoardTitle title={board.title} subtitle={board.subtitle} />
                 <div>
-                    <AddCard placeholder={'Write a new task'} text={'add'} />
+                    <AddCard
+                        placeholder={t('components.Board.add')}
+                        text={t('components.Board.addSubmit')}
+                    />
                 </div>
             </div>
             <div
@@ -71,6 +76,7 @@ export const Board = () => {
                     {renderLanes(board.lanes)}
                 </DragDropContext>
             </div>
+
             <div className="flex justify-end gap-2 mt-2">
                 <Export />
                 <Import />

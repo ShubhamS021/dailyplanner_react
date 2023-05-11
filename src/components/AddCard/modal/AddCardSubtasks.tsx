@@ -1,4 +1,5 @@
 import { useContext, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { addSVG } from '../../../assets/svgs/add.svg';
 import { editSVG } from '../../../assets/svgs/edit.svg';
 import { saveSVG } from '../../../assets/svgs/save.svg';
@@ -31,6 +32,7 @@ export const AddCardSubtasks: React.FC<AddCardSubtaskProps> = ({
     const [title, setTitle] = useState('');
     const [taskEditTitle, setTaskEditTitle] = useState('');
     const [taskEdit, setTaskEdit] = useState(initialEditTask);
+    const { t } = useTranslation();
 
     const handleAddNewTask = () => {
         if (card.tasks == null) card.tasks = [];
@@ -85,7 +87,11 @@ export const AddCardSubtasks: React.FC<AddCardSubtaskProps> = ({
                 <div className="border border-[#f5f4f4] p-2 rounded-lg flex gap-2 items-center">
                     {uncheckedSVG}
                     <input
-                        placeholder={'Define a subtask.'}
+                        placeholder={
+                            t(
+                                'components.AddCard.modal.AddCardSubtasks.define'
+                            ) ?? ''
+                        }
                         className="focus:outline-none text-sm w-full"
                         data-testid="addcard-subtask-input"
                         value={title}
@@ -104,7 +110,11 @@ export const AddCardSubtasks: React.FC<AddCardSubtaskProps> = ({
                 >
                     <div className="flex gap-2 items-center p-2 stroke-[#5E5E5E] hover:stroke-white group-disabled:stroke-[#ccc]">
                         {addSVG}
-                        <p className="font-semibold text-sm">Add subtask</p>
+                        <p className="font-semibold text-sm">
+                            {t(
+                                'components.AddCard.modal.AddCardSubtasks.add'
+                            ) ?? ''}
+                        </p>
                     </div>
                 </button>
             </div>
@@ -112,15 +122,15 @@ export const AddCardSubtasks: React.FC<AddCardSubtaskProps> = ({
                 className="max-h-44 overflow-auto"
                 data-testid="addcard-subtask-tasks"
             >
-                {card.tasks?.map((t, index) => {
+                {card.tasks?.map((task, index) => {
                     return (
                         <div
                             key={index}
                             className={`group border-b border-solid py-2 text-sm grid grid-cols-[auto,1fr,auto] gap-2 items-center`}
-                            data-testid={`addcard-subtask-${t.id}`}
+                            data-testid={`addcard-subtask-${task.id}`}
                         >
                             <div className="ml-1">{uncheckedSVG}</div>
-                            {isTaskInEditMode(t) && (
+                            {isTaskInEditMode(task) && (
                                 <>
                                     <input
                                         className="focus:outline-none text-sm w-full border border-[#f5f4f4] p-2 rounded-lg"
@@ -134,23 +144,27 @@ export const AddCardSubtasks: React.FC<AddCardSubtaskProps> = ({
                                     ></input>
                                 </>
                             )}
-                            {!isTaskInEditMode(t) && (
+                            {!isTaskInEditMode(task) && (
                                 <div className="task-description">
-                                    {t.description}
+                                    {task.description}
                                 </div>
                             )}
                             <div
                                 className="invisible group-hover:visible flex gap-2"
-                                data-testid={`addcard-subtask-${t.id}-actions`}
+                                data-testid={`addcard-subtask-${task.id}-actions`}
                             >
-                                {!isTaskInEditMode(t) && (
+                                {!isTaskInEditMode(task) && (
                                     <>
                                         <button
                                             className="inline-flex items-center justify-center w-8 h-8 transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline"
                                             onClick={() => {
-                                                handleEditTask(t);
+                                                handleEditTask(task);
                                             }}
-                                            title="Edit this task."
+                                            title={
+                                                t(
+                                                    'components.AddCard.modal.AddCardSubtasks.edit'
+                                                ) ?? ''
+                                            }
                                             data-testid="addcard-subtask-edit-button"
                                         >
                                             {editSVG}
@@ -159,23 +173,31 @@ export const AddCardSubtasks: React.FC<AddCardSubtaskProps> = ({
                                         <button
                                             className="inline-flex items-center justify-center w-8 h-8 transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline hover:bg-pink-600"
                                             onClick={() => {
-                                                handleRemoveTask(t);
+                                                handleRemoveTask(task);
                                             }}
-                                            title="Remove this task."
+                                            title={
+                                                t(
+                                                    'components.AddCard.modal.AddCardSubtasks.remove'
+                                                ) ?? ''
+                                            }
                                             data-testid="addcard-subtask-delete-button"
                                         >
                                             {trashSVG}
                                         </button>
                                     </>
                                 )}
-                                {isTaskInEditMode(t) && (
+                                {isTaskInEditMode(task) && (
                                     <>
                                         <button
                                             className="inline-flex items-center justify-center w-8 h-8 transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline"
                                             onClick={() => {
-                                                handleEditTaskSubmit(t);
+                                                handleEditTaskSubmit(task);
                                             }}
-                                            title="Save this task."
+                                            title={
+                                                t(
+                                                    'components.AddCard.modal.AddCardSubtasks.save'
+                                                ) ?? ''
+                                            }
                                             data-testid="addcard-subtask-edit-submit-button"
                                         >
                                             {saveSVG}

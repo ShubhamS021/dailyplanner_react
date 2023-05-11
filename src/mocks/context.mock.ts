@@ -35,6 +35,7 @@ export const mockAddBoard = jest.fn();
 export const mockRemoveBoard = jest.fn();
 export const mockRenameBoard = jest.fn();
 export const mockEnterBoard = jest.fn();
+export const mockUpdateLanguage = jest.fn();
 
 const initialBoards: Board[] = [
     { ...initialBoardState, lanes: initialLanes },
@@ -68,4 +69,5 @@ export const mockContext = {
     removeBoard: mockRemoveBoard,
     renameBoard: mockRenameBoard,
     enterBoard: mockEnterBoard,
+    updateLanguage: mockUpdateLanguage,
 };

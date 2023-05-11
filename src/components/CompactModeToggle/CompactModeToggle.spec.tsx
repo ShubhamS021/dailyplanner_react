@@ -12,7 +12,9 @@ describe('CompactModeToggle', () => {
         );
         const button = getByTestId(/compactmode-toggle-button/);
         expect(button).toBeInTheDocument();
-        expect(button).toHaveTextContent('Compact mode');
+        expect(button).toHaveTextContent(
+            'components.CompactModeToggle.compact'
+        );
     });
 
     test('clicking the button calls the toggleCompactMode function', () => {

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { closeSVG } from '../../assets/svgs/close.svg';
 import { infoCircleSVG } from '../../assets/svgs/infoCircle.svg';
 import { type Board } from '../../interfaces/Board';
@@ -24,6 +25,7 @@ export const BoardRenameModal: React.FC<BoardRenameModalProps> = ({
 }) => {
     const [boardTitle, setBoardTitle] = useState(board.title);
     const [boardSubTitle, setBoardSubTitle] = useState(board.subtitle);
+    const { t } = useTranslation();
 
     return (
         <div
@@ -61,7 +63,9 @@ export const BoardRenameModal: React.FC<BoardRenameModalProps> = ({
                         <br />
                         <div className="border border-[#f5f4f4] p-2 rounded-lg">
                             <input
-                                placeholder={'Update the title.'}
+                                placeholder={
+                                    t('components.BoardRenameModal.title') ?? ''
+                                }
                                 className="focus:outline-none text-sm w-full"
                                 data-testid="boardrename-title-input"
                                 value={boardTitle}
@@ -72,7 +76,10 @@ export const BoardRenameModal: React.FC<BoardRenameModalProps> = ({
                         </div>
                         <div className="border border-[#f5f4f4] p-2 rounded-lg">
                             <input
-                                placeholder={'Update the subtitle.'}
+                                placeholder={
+                                    t('components.BoardRenameModal.subtitle') ??
+                                    ''
+                                }
                                 className="focus:outline-none text-sm w-full"
                                 data-testid="boardrename-subtitle-input"
                                 value={boardSubTitle}

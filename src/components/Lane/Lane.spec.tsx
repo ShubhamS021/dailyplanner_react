@@ -123,9 +123,7 @@ it('should open the confirmation modal when delete all button is clicked', () =>
         </DragDropContext>
     );
     fireEvent.click(getByTestId('delete-all-from-lane-button'));
-    expect(
-        getByText('Warning: Deleting all cards from lane')
-    ).toBeInTheDocument();
+    expect(getByText('components.Lane.deletionTitle')).toBeInTheDocument();
     expect(
         getByText(
             'Are you sure you want to delete all cards from this lane? This action cannot be undone.'

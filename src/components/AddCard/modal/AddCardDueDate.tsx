@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { addSVG } from '../../../assets/svgs/add.svg';
 import { type Card } from '../../../interfaces/Card';
 import type Tag from '../../../interfaces/Tag';
@@ -19,6 +20,7 @@ export const AddCardDueDate: React.FC<AddCardDueDateProps> = ({
     updateTags,
 }) => {
     const [dueDate, setDueDate] = useState('');
+    const { t } = useTranslation();
 
     const handleDueDateChanges = (dueDate: string) => {
         setDueDate(dueDate);
@@ -76,7 +78,7 @@ export const AddCardDueDate: React.FC<AddCardDueDateProps> = ({
                         <div className="flex gap-2 items-center p-2 stroke-[#5E5E5E] hover:stroke-white group-disabled:stroke-[#ccc]">
                             {addSVG}
                             <p className="font-semibold text-sm">
-                                Add due date
+                                {t('components.AddCard.modal.AddDueDate.add')}
                             </p>
                         </div>
                     </button>

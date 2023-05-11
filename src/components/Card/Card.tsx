@@ -86,7 +86,7 @@ export const CardComponent: React.FC<CardProps> = ({
     return (
         <div
             className="group bg-white border border-solid rounded-lg border-[#DDDDDD] p-4 drop-shadow-[0_2px_4px_rgba(0,0,0,0.08)]"
-            data-testid="card"
+            data-testid={`card-${id}`}
         >
             <div className="flex flex-col gap-2 items-start w-full">
                 <div>{renderTags(upperTags)}</div>
@@ -97,7 +97,10 @@ export const CardComponent: React.FC<CardProps> = ({
                     >
                         {title}
                     </h3>
-                    <div className="invisible group-hover:visible flex gap-1">
+                    <div
+                        className="invisible group-hover:visible flex gap-1"
+                        data-testid={`card-${id}-actions`}
+                    >
                         <button
                             className="inline-flex items-center justify-center w-8 h-8 transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline"
                             onClick={() => {

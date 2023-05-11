@@ -31,12 +31,34 @@ Deletes the first board from the list of boards.
 @returns {void}
 */
 export const deleteFirstBoard = () => {
-    cy.get('[data-testid="board-0-actions"]').invoke(
-        'removeClass',
-        'invisible'
-    );
-    cy.get('[data-testid="remove-board-button"]').click();
-    cy.get('[data-testid="confirmation-modal-button"]').click();
+    deleteBoard('board-0');
+};
+
+/**
+
+Deletes a board by attribute [data-testid]:
+
+@param {string} boardTestId - The test ID of the board to be deleted.
+@returns {void}
+*/
+export const deleteBoard = (boardTestId: string) => {
+    cy.get(`[data-testid="${boardTestId}-actions"]`)
+        .as('board')
+        .invoke('removeClass', 'invisible');
+    cy.get('@board').find('[data-testid="remove-board-button"]').click();
+    cy.get('@board').find('[data-testid="confirmation-modal-button"]').click();
+};
+
+/**
+
+Deletes all boards.
+*/
+export const deleteAllBoards = () => {
+    const boards = cy.get('[data-testid="myboards-list"]').children();
+    boards.each((board) => {
+        const boardTestId = board.attr('data-testid') as string;
+        deleteBoard(boardTestId);
+    });
 };
 
 /**
@@ -95,4 +117,21 @@ export const createCustomLabels = (customLabels: string[]) => {
     });
 
     cy.get('[data-testid="myboardlanes-create-own-button"]').click();
+};
+
+/**
+
+Enters a specific board by name.
+@param {string} boardName - The name of the board to enter.
+*/
+export const enterBoard = (boardName: string) => {
+    const boards = cy.get('[data-testid="myboards-list"]').children();
+    boards.each((board) => {
+        const name = board.find('[data-testid="myboards-boardname"]').text();
+        if (name === boardName) {
+            cy.wrap(board)
+                .find('[data-testid="myboards-enterboard-button"]')
+                .click();
+        }
+    });
 };

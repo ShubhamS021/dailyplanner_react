@@ -26,7 +26,7 @@ export const AddCard: React.FC<AddCardProps> = ({
     const [showModal, setShowModal] = useState(showModalInitially ?? false);
 
     const saveCard = () => {
-        addCardToLane(card, 1);
+        addCardToLane(card, 0);
     };
 
     const resetToInitial = () => {

@@ -20,25 +20,25 @@ export const initialBoardState: Board = {
 
 export const initialLanes: Lane[] = [
     {
-        id: 1,
+        id: 0,
         title: 'Not Started',
         color: colors.light_grey,
         cards: [],
     },
     {
-        id: 2,
+        id: 1,
         title: 'In Progress',
         color: colors.lavender,
         cards: [],
     },
     {
-        id: 3,
+        id: 2,
         title: 'Blocked',
         color: colors.rose,
         cards: [],
     },
     {
-        id: 4,
+        id: 3,
         title: 'Done',
         color: colors.green,
         cards: [],

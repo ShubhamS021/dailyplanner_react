@@ -66,7 +66,7 @@ it('should render an empty lane', () => {
             isLastLane={false}
         />
     );
-    expect(getByText('Place tasks here..')).toBeInTheDocument();
+    expect(getByText('components.Lane.dropzone')).toBeInTheDocument();
 });
 
 it('should render cards', () => {
@@ -124,11 +124,7 @@ it('should open the confirmation modal when delete all button is clicked', () =>
     );
     fireEvent.click(getByTestId('delete-all-from-lane-button'));
     expect(getByText('components.Lane.deletionTitle')).toBeInTheDocument();
-    expect(
-        getByText(
-            'Are you sure you want to delete all cards from this lane? This action cannot be undone.'
-        )
-    ).toBeInTheDocument();
+    expect(getByText('components.Lane.deletionText')).toBeInTheDocument();
 });
 
 it('should cancel the confirmation modal when delete all button is clicked', () => {

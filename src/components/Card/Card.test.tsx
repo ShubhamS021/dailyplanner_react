@@ -16,6 +16,9 @@ test('renders basic card', () => {
                     throw new Error('Function not implemented.');
                 }}
                 id={0}
+                onMoveCard={function (): void {
+                    throw new Error('Function not implemented.');
+                }}
             />
         </DragDropContext>
     );
@@ -84,6 +87,11 @@ test('renders card with tags and tasks', () => {
                                             );
                                         }}
                                         id={0}
+                                        onMoveCard={function (): void {
+                                            throw new Error(
+                                                'Function not implemented.'
+                                            );
+                                        }}
                                     />
                                 </div>
                             )}
@@ -118,6 +126,9 @@ test('breaks render on card with empty title', () => {
                         throw new Error('Function not implemented.');
                     }}
                     id={0}
+                    onMoveCard={function (): void {
+                        throw new Error('Function not implemented.');
+                    }}
                 />
             )
         ).toThrowError('no title set');

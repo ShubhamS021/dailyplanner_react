@@ -108,12 +108,16 @@ export const AddCardSubtasks: React.FC<AddCardSubtaskProps> = ({
                     </div>
                 </button>
             </div>
-            <div className="max-h-44 overflow-auto">
+            <div
+                className="max-h-44 overflow-auto"
+                data-testid="addcard-subtask-tasks"
+            >
                 {card.tasks?.map((t, index) => {
                     return (
                         <div
                             key={index}
                             className={`group border-b border-solid py-2 text-sm grid grid-cols-[auto,1fr,auto] gap-2 items-center`}
+                            data-testid={`addcard-subtask-${t.id}`}
                         >
                             <div className="ml-1">{uncheckedSVG}</div>
                             {isTaskInEditMode(t) && (
@@ -130,8 +134,15 @@ export const AddCardSubtasks: React.FC<AddCardSubtaskProps> = ({
                                     ></input>
                                 </>
                             )}
-                            {!isTaskInEditMode(t) && <div>{t.description}</div>}
-                            <div className="invisible group-hover:visible flex gap-2">
+                            {!isTaskInEditMode(t) && (
+                                <div className="task-description">
+                                    {t.description}
+                                </div>
+                            )}
+                            <div
+                                className="invisible group-hover:visible flex gap-2"
+                                data-testid={`addcard-subtask-${t.id}-actions`}
+                            >
                                 {!isTaskInEditMode(t) && (
                                     <>
                                         <button

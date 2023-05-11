@@ -68,17 +68,27 @@ export const MyBoards = () => {
                 >
                     My boards
                 </div>
-                <div className="w-full grid justify-center gap-2">
+                <div
+                    className="w-full grid justify-center gap-2"
+                    data-testid="myboards-list"
+                >
                     {boards.map((board, index) => {
                         return (
                             <div
                                 className="group border border-[#f5f4f4] p-2 rounded-lg grid grid-cols-[1fr,auto,auto] items-center gap-2"
                                 key={index}
+                                data-testid={`board-${board.id}`}
                             >
-                                <div className="group-hover:font-bold w-[20rem]">
+                                <div
+                                    className="group-hover:font-bold w-[20rem]"
+                                    data-testid="myboards-boardname"
+                                >
                                     {board.title}
                                 </div>
-                                <div className="invisible group-hover:visible flex gap-2">
+                                <div
+                                    className="invisible group-hover:visible flex gap-2"
+                                    data-testid={`board-${board.id}-actions`}
+                                >
                                     <button
                                         className="w-10 inline-flex items-center justify-center transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline"
                                         onClick={() => {

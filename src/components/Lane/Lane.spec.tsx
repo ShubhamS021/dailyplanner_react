@@ -39,7 +39,7 @@ it('should render the correct lane text', () => {
             isLastLane={false}
         />
     );
-    const lane = getByTestId('lane');
+    const lane = getByTestId('lane-1');
     expect(lane).toHaveTextContent(laneText);
 });
 
@@ -87,7 +87,7 @@ it('should render cards', () => {
             </Droppable>
         </DragDropContext>
     );
-    const lane = getByTestId('lane');
+    const lane = getByTestId('lane-1');
     expect(lane).toContainElement(getByTestId('lane-1-card-1'));
     expect(lane).toContainElement(getByTestId('lane-1-card-2'));
 });
@@ -154,7 +154,7 @@ it('should cancel the confirmation modal when delete all button is clicked', () 
     fireEvent.click(getByTestId('delete-all-from-lane-button'));
     fireEvent.click(getByTestId('confirmation-modal-cancel-button'));
 
-    const lane = getByTestId('lane');
+    const lane = getByTestId('lane-1');
     expect(lane).toContainElement(getByTestId('lane-1-card-1'));
     expect(lane).toContainElement(getByTestId('lane-1-card-2'));
 });

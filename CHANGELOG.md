@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.2.0](https://git.sulzer.de/hahnk/dayplanner/compare/v0.1.1...v0.2.0) (2023-05-12)
+
+
+### Features
+
+* i18n integration, de/en version of app ([efa9e09](https://git.sulzer.de/hahnk/dayplanner/commit/efa9e09c590efc430f8c88de2f2dd5b9fd077353))
+* introducing cypress with 2 basic board tests ([612073f](https://git.sulzer.de/hahnk/dayplanner/commit/612073f4fb14f5c567aebca1b2ed41920aad90a4))
+* rework the AddCardModal ([5e29a14](https://git.sulzer.de/hahnk/dayplanner/commit/5e29a14e3b50edcc379dabc8a2fbf3938fbdae62))
+* simplified AddCardModal ([24ef299](https://git.sulzer.de/hahnk/dayplanner/commit/24ef2995b20acfaf87f4ab73bf70cd291ae441e9))
+
+
+### Bug Fixes
+
+* initial lane for new card for both boardtypes ([4b1b875](https://git.sulzer.de/hahnk/dayplanner/commit/4b1b875fee7a0e019b304e9f82d1d839dfb54543))
+* mode after deleting all boards ([8568077](https://git.sulzer.de/hahnk/dayplanner/commit/85680771a4e7b4b37d8bf1c7b0d98e9ad25d16e5))
+
 ## [0.1.1](https://git.sulzer.de/hahnk/dayplanner/compare/v0.1.0...v0.1.1) (2023-05-08)
 
 

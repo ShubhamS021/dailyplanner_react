@@ -26,7 +26,7 @@ export const MyBoardLanes = () => {
     };
 
     const handleStart = () => {
-        enterBoard(boards.length - 1);
+        enterBoard(boards[boards.length - 1].id);
     };
 
     const handleAddNewLane = () => {

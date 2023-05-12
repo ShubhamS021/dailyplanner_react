@@ -150,6 +150,17 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
         return findLastCardIdInSpecificBoard(board);
     };
 
+    const findLastBoardId = () => {
+        let lastId = 0;
+        boards.forEach((board) => {
+            if (board.id > lastId) {
+                lastId = board.id;
+            }
+        });
+
+        return lastId;
+    };
+
     const findLastCardIdInSpecificBoard = (targetBoard: Board) => {
         let lastId = 0;
 
@@ -255,7 +266,7 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
 
     const addBoard = (board: Board) => {
         const newBoard = { ...board };
-        newBoard.id = boards.length;
+        newBoard.id = findLastBoardId() + 1;
 
         setBoards((prevBoards) => {
             return [...prevBoards, newBoard];

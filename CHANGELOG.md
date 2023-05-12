@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.2.1](https://git.sulzer.de/hahnk/dayplanner/compare/v0.2.0...v0.2.1) (2023-05-12)
+
+
+### Bug Fixes
+
+* board creation fixed ([bf78f2d](https://git.sulzer.de/hahnk/dayplanner/commit/bf78f2d0bbe8ca9cf2977a51bda8da2ffa62cb8d))
+
 ## [0.2.0](https://git.sulzer.de/hahnk/dayplanner/compare/v0.1.1...v0.2.0) (2023-05-12)
 
 

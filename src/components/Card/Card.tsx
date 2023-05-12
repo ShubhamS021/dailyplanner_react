@@ -16,9 +16,12 @@ export interface CardProps {
     upperTags?: Tag[];
     lowerTags?: Tag[];
     tasks?: Task[];
-    onRemoveCard: () => void;
-    onEditCard: () => void;
-    onMoveCard: () => void;
+    inEditMode?: boolean;
+    onRemoveCard?: () => void;
+    onEditCard?: () => void;
+    onMoveCard?: () => void;
+    onRemoveTag?: (tag: Tag) => void;
+    onRemoveTask?: (task: Task) => void;
 }
 
 export const CardComponent: React.FC<CardProps> = ({
@@ -28,9 +31,12 @@ export const CardComponent: React.FC<CardProps> = ({
     upperTags,
     lowerTags,
     tasks,
+    inEditMode = false,
     onRemoveCard,
     onEditCard,
     onMoveCard,
+    onRemoveTag,
+    onRemoveTask,
 }) => {
     if (title === '') throw new Error('no title set');
     const { updateTask, compactMode } = useContext(BoardContext);
@@ -45,6 +51,12 @@ export const CardComponent: React.FC<CardProps> = ({
                             key={t.id}
                             color={t.color}
                             text={t.text}
+                            isRemoveable={inEditMode}
+                            onRemove={() => {
+                                if (onRemoveTag != null) {
+                                    onRemoveTag(t);
+                                }
+                            }}
                         />
                     ))}
                 </div>
@@ -62,8 +74,16 @@ export const CardComponent: React.FC<CardProps> = ({
                         key={t.id}
                         description={t.description}
                         fulfilled={t.fulfilled}
+                        isRemoveable={inEditMode}
                         onFulfillTask={(fulfilled: boolean) => {
-                            updateTask(id, t.id, fulfilled);
+                            if (!inEditMode) {
+                                updateTask(id, t.id, fulfilled);
+                            }
+                        }}
+                        onRemove={() => {
+                            if (onRemoveTask != null) {
+                                onRemoveTask(t);
+                            }
                         }}
                     />
                 ))}
@@ -98,42 +118,50 @@ export const CardComponent: React.FC<CardProps> = ({
                     >
                         {title}
                     </h3>
-                    <div
-                        className="invisible group-hover:visible flex gap-1"
-                        data-testid={`card-${id}-actions`}
-                    >
-                        <button
-                            className="inline-flex items-center justify-center w-8 h-8 transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline"
-                            onClick={() => {
-                                onMoveCard();
-                            }}
-                            title={t('components.Card.move') ?? ''}
-                            data-testid="move-card-button"
+                    {!inEditMode && (
+                        <div
+                            className="invisible group-hover:visible flex gap-1"
+                            data-testid={`card-${id}-actions`}
                         >
-                            {routeSVG}
-                        </button>
-                        <button
-                            className="inline-flex items-center justify-center w-8 h-8 transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline"
-                            onClick={() => {
-                                onEditCard();
-                            }}
-                            title={t('components.Card.edit') ?? ''}
-                            data-testid="edit-card-button"
-                        >
-                            {editSVG}
-                        </button>
+                            <button
+                                className="inline-flex items-center justify-center w-8 h-8 transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline"
+                                onClick={() => {
+                                    if (onMoveCard != null) {
+                                        onMoveCard();
+                                    }
+                                }}
+                                title={t('components.Card.move') ?? ''}
+                                data-testid="move-card-button"
+                            >
+                                {routeSVG}
+                            </button>
+                            <button
+                                className="inline-flex items-center justify-center w-8 h-8 transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline"
+                                onClick={() => {
+                                    if (onEditCard != null) {
+                                        onEditCard();
+                                    }
+                                }}
+                                title={t('components.Card.edit') ?? ''}
+                                data-testid="edit-card-button"
+                            >
+                                {editSVG}
+                            </button>
 
-                        <button
-                            className="inline-flex items-center justify-center w-8 h-8 transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline hover:bg-pink-600"
-                            onClick={() => {
-                                onRemoveCard();
-                            }}
-                            title={t('components.Card.remove') ?? ''}
-                            data-testid="remove-card-button"
-                        >
-                            {trashSVG}
-                        </button>
-                    </div>
+                            <button
+                                className="inline-flex items-center justify-center w-8 h-8 transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline hover:bg-pink-600"
+                                onClick={() => {
+                                    if (onRemoveCard != null) {
+                                        onRemoveCard();
+                                    }
+                                }}
+                                title={t('components.Card.remove') ?? ''}
+                                data-testid="remove-card-button"
+                            >
+                                {trashSVG}
+                            </button>
+                        </div>
+                    )}
                 </div>
 
                 {renderDescription()}

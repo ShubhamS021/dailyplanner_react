@@ -298,11 +298,23 @@ it('should submit edit a card from lane', () => {
         {
             description: 'NEW DESCRIPTION',
             id: 1,
-            lowerTags: [{ color: '#cbdfd8', id: 1, text: '2000-01-01' }],
+            lowerTags: [
+                {
+                    color: '#cbdfd8',
+                    id: 1,
+                    text: '2000-01-01',
+                    tagType: 'lower',
+                },
+            ],
             title: 'Card 1',
             tasks: [{ description: 'NEW TASK', id: 3, fulfilled: false }],
             upperTags: [
-                { color: 'rgba(0, 70, 128, 0.33)', id: 1, text: 'NEW TAG' },
+                {
+                    color: 'rgba(0, 70, 128, 0.33)',
+                    id: 1,
+                    text: 'NEW TAG',
+                    tagType: 'upper',
+                },
             ],
         },
         1

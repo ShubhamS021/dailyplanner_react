@@ -1,15 +1,20 @@
 import { useState } from 'react';
+import { tagCloseSVG } from '../../assets/svgs/tagClose.svg';
 
 export interface TaskProps {
     description: string;
     fulfilled?: boolean;
+    isRemoveable?: boolean;
     onFulfillTask: (fulfilled: boolean) => void;
+    onRemove?: () => void;
 }
 
 export const TaskComponent: React.FC<TaskProps> = ({
     description,
     fulfilled,
+    isRemoveable,
     onFulfillTask,
+    onRemove,
 }) => {
     const [checked, setChecked] = useState(fulfilled ?? false);
 
@@ -57,8 +62,11 @@ export const TaskComponent: React.FC<TaskProps> = ({
     );
 
     return (
-        <div className={`text-sm text-[#5A5A65]py-1`} data-testid="card-task">
-            <div className="flex items-center mr-4  cursor-pointer">
+        <div
+            className={`text-sm text-[#5A5A65] py-1 w-full`}
+            data-testid="card-task"
+        >
+            <div className="grid grid-cols-[auto,1fr,auto] items-center mr-4 cursor-pointer">
                 <input
                     type="checkbox"
                     className="opacity-0 absolute h-4 w-4 cursor-pointer"
@@ -81,6 +89,15 @@ export const TaskComponent: React.FC<TaskProps> = ({
                 >
                     {description}
                 </label>
+                {isRemoveable === true && (
+                    <div
+                        onClick={onRemove}
+                        data-testid="task-remove-button"
+                        className="items-end"
+                    >
+                        {tagCloseSVG}
+                    </div>
+                )}
             </div>
         </div>
     );

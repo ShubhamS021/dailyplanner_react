@@ -29,6 +29,7 @@ export const DEtranslation = {
                     dueDateHeadline: 'Fälligkeitsdatum',
                     cancel: 'Abbrechen',
                     submit: 'Aufgabe hinzufügen',
+                    newTask: 'Deine neue Aufgabe:',
                 },
                 AddCardSubtasks: {
                     define: 'Teilaufgabe definieren.',

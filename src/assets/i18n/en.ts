@@ -29,6 +29,7 @@ export const ENtranslation = {
                     dueDateHeadline: 'Due date',
                     cancel: 'Cancel',
                     submit: 'Add task',
+                    newTask: 'Your new task:',
                 },
                 AddCardSubtasks: {
                     define: 'Define a subtask.',

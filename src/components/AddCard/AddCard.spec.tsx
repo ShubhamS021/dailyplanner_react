@@ -68,22 +68,12 @@ describe('AddCard', () => {
 
         expect(input.value).toBe('NEW CARD');
 
-        // 1: via cancel button at bottom
+        // via cancel button at bottom
         const modalButton = getByTestId(/addcard-button/);
         fireEvent.click(modalButton);
 
         const button = getByTestId(/addcard-modal-cancel-button/);
         fireEvent.click(button);
-
-        expect(input.value).toBe('');
-
-        // 2: via close button at top
-        fireEvent.change(input, { target: { value: 'NEW CARD 2' } });
-        expect(input.value).toBe('NEW CARD 2');
-        fireEvent.click(modalButton);
-
-        const closeButton = getByTestId(/addcard-modal-close-button/);
-        fireEvent.click(closeButton);
 
         expect(input.value).toBe('');
     });

@@ -42,14 +42,10 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
             id: card.upperTags?.length + 1,
             text: tag,
             color: selectedColor,
+            tagType: 'upper',
         };
         updateTags([...card.upperTags, newTag]);
         setTag('');
-    };
-
-    const handleOnRemoveTag = (id: number) => {
-        if (card.upperTags == null) card.upperTags = [];
-        updateTags([...card.upperTags.filter((t) => t.id !== id)]);
     };
 
     return (
@@ -134,24 +130,6 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
                         ))}
                     </div>
                 </div>
-            </div>
-            <div
-                className="flex flex-row flex-wrap gap-2"
-                data-testid="addcardtags-list"
-            >
-                {card.upperTags?.map((t, index) => {
-                    return (
-                        <TagComponent
-                            key={index}
-                            color={t.color}
-                            text={t.text}
-                            isRemoveable={true}
-                            onRemove={() => {
-                                handleOnRemoveTag(t.id);
-                            }}
-                        ></TagComponent>
-                    );
-                })}
             </div>
             {card.upperTags?.length === MAX_TAGS && (
                 <small className="text-[#e0004d]">

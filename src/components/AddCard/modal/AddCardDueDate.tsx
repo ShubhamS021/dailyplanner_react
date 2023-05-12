@@ -4,7 +4,6 @@ import { addSVG } from '../../../assets/svgs/add.svg';
 import { type Card } from '../../../interfaces/Card';
 import type Tag from '../../../interfaces/Tag';
 import { colors } from '../../../theme/colors';
-import { TagComponent } from '../../Tag/Tag';
 
 export interface AddCardDueDateProps {
     headline: string;
@@ -17,6 +16,7 @@ export const AddCardDueDate: React.FC<AddCardDueDateProps> = ({
     card,
     updateTags,
 }) => {
+    const MAX_TAGS = 1;
     const [dueDate, setDueDate] = useState('');
     const { t } = useTranslation();
 
@@ -30,26 +30,27 @@ export const AddCardDueDate: React.FC<AddCardDueDateProps> = ({
             id: card.lowerTags.length + 1,
             text: dueDate,
             color: colors.green,
+            tagType: 'lower',
         };
         updateTags([...card.lowerTags, newTag]);
-    };
-
-    const handleOnRemoveTag = (id: number) => {
-        if (card.lowerTags == null) card.lowerTags = [];
-        updateTags([...card.lowerTags.filter((t) => t.id !== id)]);
     };
 
     return (
         <div className="flex flex-col gap-1">
             <div className="text-sm text-[#5E5E5E]">
                 <div
-                    className="font-bold"
+                    className="flex gap-1 font-bold"
                     data-testid="AddCardDueDate-headline"
                 >
                     {headline}
+                    <div
+                        className={`text-xs text-[#4d4d4d] font-semibold self-center place-self-end`}
+                    >
+                        ({card.lowerTags?.length ?? 0}/{MAX_TAGS})
+                    </div>
                 </div>
             </div>
-            <div className="grid grid-cols-[1fr,auto,auto,auto] gap-1">
+            <div className="grid grid-cols-[1fr,auto] gap-1">
                 <div className="self-center">
                     <div className="border border-[#f5f4f4] bg-white rounded-lg flex gap-2 items-center">
                         <input
@@ -69,7 +70,10 @@ export const AddCardDueDate: React.FC<AddCardDueDateProps> = ({
                         onClick={() => {
                             handleAddNewTag();
                         }}
-                        disabled={dueDate === ''}
+                        disabled={
+                            dueDate === '' ||
+                            card.lowerTags?.length === MAX_TAGS
+                        }
                     >
                         <div className="flex gap-2 items-center p-2 stroke-[#5E5E5E] hover:stroke-white group-disabled:stroke-[#ccc]">
                             {addSVG}
@@ -79,24 +83,6 @@ export const AddCardDueDate: React.FC<AddCardDueDateProps> = ({
                         </div>
                     </button>
                 </div>
-            </div>
-            <div
-                className="flex flex-row flex-wrap gap-2"
-                data-testid="AddCardDueDate-list"
-            >
-                {card.lowerTags?.map((t, index) => {
-                    return (
-                        <TagComponent
-                            key={index}
-                            color={t.color}
-                            text={t.text}
-                            isRemoveable={true}
-                            onRemove={() => {
-                                handleOnRemoveTag(t.id);
-                            }}
-                        ></TagComponent>
-                    );
-                })}
             </div>
         </div>
     );

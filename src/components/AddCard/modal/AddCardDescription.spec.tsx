@@ -5,9 +5,11 @@ test('renders the basic AddCardDescription', () => {
     const { getByTestId } = render(
         <AddCardDescription
             headline={'description'}
-            explanation={'testing description'}
             card={{ id: 1, title: 'card', description: 'card description' }}
             updateDescription={(description: string) => {
+                throw new Error('Function not implemented.');
+            }}
+            updateTitle={(title: string) => {
                 throw new Error('Function not implemented.');
             }}
         />
@@ -16,19 +18,18 @@ test('renders the basic AddCardDescription', () => {
     expect(getByTestId(/addcarddescription-headline/).textContent).toBe(
         'description'
     );
-    expect(getByTestId(/addcarddescription-explanation/).textContent).toBe(
-        'testing description'
-    );
 });
 
 test('changes description', () => {
     const { getByTestId } = render(
         <AddCardDescription
             headline={'description'}
-            explanation={'testing description'}
             card={{ id: 1, title: 'card', description: 'card description' }}
             updateDescription={(description: string) => {
                 expect(description).not.toBe('');
+            }}
+            updateTitle={(title: string) => {
+                throw new Error('Function not implemented.');
             }}
         />
     );

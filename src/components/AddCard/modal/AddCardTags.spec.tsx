@@ -18,7 +18,6 @@ test('renders the basic AddCardTags', () => {
     const { getByTestId } = render(
         <AddCardTags
             headline={'tags'}
-            explanation={'testing add card tags'}
             card={card}
             updateTags={function (tags: Tag[]): void {
                 throw new Error('Function not implemented.');
@@ -27,9 +26,6 @@ test('renders the basic AddCardTags', () => {
     );
 
     expect(getByTestId(/addcardtags-headline/).textContent).toBe('tags(2/5)');
-    expect(getByTestId(/addcardtags-explanation/).textContent).toBe(
-        'testing add card tags'
-    );
 });
 
 test('adds a tag and colors', () => {
@@ -46,16 +42,12 @@ test('adds a tag and colors', () => {
     const { getByTestId, getAllByTestId } = render(
         <AddCardTags
             headline={'tags'}
-            explanation={'testing add card tags'}
             card={card}
             updateTags={(tags: Tag[]) => {}}
         />
     );
 
     expect(getByTestId(/addcardtags-headline/).textContent).toBe('tags(2/5)');
-    expect(getByTestId(/addcardtags-explanation/).textContent).toBe(
-        'testing add card tags'
-    );
 
     const input = getByTestId(/addcard-tags-input/) as HTMLInputElement;
     fireEvent.change(input, { target: { value: 'NEW TAG' } });
@@ -77,7 +69,6 @@ test('adds a tag to empty array', () => {
     const { getByTestId, getAllByTestId } = render(
         <AddCardTags
             headline={'tags'}
-            explanation={'testing add card tags'}
             card={card}
             updateTags={(tags: Tag[]) => {
                 card.upperTags = [...tags];
@@ -86,9 +77,6 @@ test('adds a tag to empty array', () => {
     );
 
     expect(getByTestId(/addcardtags-headline/).textContent).toBe('tags(0/5)');
-    expect(getByTestId(/addcardtags-explanation/).textContent).toBe(
-        'testing add card tags'
-    );
 
     const input = getByTestId(/addcard-tags-input/) as HTMLInputElement;
     fireEvent.change(input, { target: { value: 'NEW TAG' } });
@@ -102,7 +90,6 @@ test('adds a tag to empty array', () => {
     render(
         <AddCardTags
             headline={'tags'}
-            explanation={'testing add card tags'}
             card={card}
             updateTags={(tags: Tag[]) => {
                 card.upperTags = [...tags];
@@ -125,7 +112,6 @@ test('removes a tag to empty array', () => {
     const { getByTestId, getAllByTestId } = render(
         <AddCardTags
             headline={'tags'}
-            explanation={'testing remove card tags'}
             card={card}
             updateTags={(tags: Tag[]) => {
                 card.upperTags = [...tags];
@@ -138,7 +124,6 @@ test('removes a tag to empty array', () => {
     render(
         <AddCardTags
             headline={'tags'}
-            explanation={'testing add card tags'}
             card={card}
             updateTags={(tags: Tag[]) => {
                 card.upperTags = [...tags];

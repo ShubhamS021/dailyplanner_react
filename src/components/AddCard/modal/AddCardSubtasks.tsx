@@ -1,6 +1,5 @@
 import { useContext, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { addSVG } from '../../../assets/svgs/add.svg';
 import { editSVG } from '../../../assets/svgs/edit.svg';
 import { saveSVG } from '../../../assets/svgs/save.svg';
 import { trashSVG } from '../../../assets/svgs/trash.svg';
@@ -11,14 +10,12 @@ import type Task from '../../../interfaces/Task';
 
 export interface AddCardSubtaskProps {
     headline: string;
-    explanation: string;
     card: Card;
     updateTasks: (tasks: Task[]) => void;
 }
 
 export const AddCardSubtasks: React.FC<AddCardSubtaskProps> = ({
     headline,
-    explanation,
     card,
     updateTasks,
 }) => {
@@ -81,11 +78,9 @@ export const AddCardSubtasks: React.FC<AddCardSubtaskProps> = ({
                 <div className="font-bold" data-testid="addcardtasks-headline">
                     {headline}
                 </div>
-                <p data-testid="addcardtasks-explanation">{explanation}</p>
             </div>
             <div className="grid grid-cols-[1fr,auto] gap-2">
-                <div className="border border-[#f5f4f4] p-2 rounded-lg flex gap-2 items-center">
-                    {uncheckedSVG}
+                <div className="border border-[#f5f4f4] bg-white p-2 rounded-lg flex gap-2 items-center">
                     <input
                         placeholder={
                             t(
@@ -108,8 +103,8 @@ export const AddCardSubtasks: React.FC<AddCardSubtaskProps> = ({
                     }}
                     disabled={title === ''}
                 >
-                    <div className="flex gap-2 items-center p-2 stroke-[#5E5E5E] hover:stroke-white group-disabled:stroke-[#ccc]">
-                        {addSVG}
+                    <div className="flex gap-2 items-center p-2 hover:stroke-[#f5f4f4]">
+                        {uncheckedSVG}
                         <p className="font-semibold text-sm">
                             {t(
                                 'components.AddCard.modal.AddCardSubtasks.add'

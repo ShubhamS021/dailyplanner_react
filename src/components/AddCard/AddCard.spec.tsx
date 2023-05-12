@@ -24,20 +24,6 @@ describe('AddCard', () => {
         expect(input.value).toBe('NEW CARD');
         fireEvent.click(getByTestId(/addcard-button/));
 
-        expect(getByTestId(/addcard-modal-title/).textContent).toBe('NEW CARD');
-
-        // updateTitle
-        fireEvent.click(getByTestId(/addcard-title-edit-button/));
-
-        const titleInput = getByTestId(
-            /addcard-title-edit-input/
-        ) as HTMLInputElement;
-        fireEvent.change(titleInput, {
-            target: { value: 'NEW TITLE' },
-        });
-
-        fireEvent.click(getByTestId(/addcard-title-edit-submit-button/));
-
         // updateDescription
         const descriptionInput = getByTestId(
             /addcard-description-input/
@@ -86,8 +72,6 @@ describe('AddCard', () => {
         const modalButton = getByTestId(/addcard-button/);
         fireEvent.click(modalButton);
 
-        expect(getByTestId(/addcard-modal-title/).textContent).toBe('NEW CARD');
-
         const button = getByTestId(/addcard-modal-cancel-button/);
         fireEvent.click(button);
 
@@ -97,10 +81,6 @@ describe('AddCard', () => {
         fireEvent.change(input, { target: { value: 'NEW CARD 2' } });
         expect(input.value).toBe('NEW CARD 2');
         fireEvent.click(modalButton);
-
-        expect(getByTestId(/addcard-modal-title/).textContent).toBe(
-            'NEW CARD 2'
-        );
 
         const closeButton = getByTestId(/addcard-modal-close-button/);
         fireEvent.click(closeButton);

@@ -3,16 +3,16 @@ import { useTranslation } from 'react-i18next';
 
 export interface AddCardDescriptionProps {
     headline: string;
-    explanation: string;
     card: Card;
     updateDescription: (description: string) => void;
+    updateTitle: (title: string) => void;
 }
 
 export const AddCardDescription: React.FC<AddCardDescriptionProps> = ({
     headline,
-    explanation,
     card,
     updateDescription,
+    updateTitle,
 }) => {
     const { t } = useTranslation();
 
@@ -25,15 +25,27 @@ export const AddCardDescription: React.FC<AddCardDescriptionProps> = ({
                 >
                     {headline}
                 </div>
-                <p data-testid="addcarddescription-explanation">
-                    {explanation}
-                </p>
             </div>
-            <div className="border border-[#f5f4f4] p-2 rounded-lg">
+            <div className="border border-[#f5f4f4] bg-white p-2 rounded-lg">
                 <input
                     placeholder={
                         t(
-                            'components.AddCard.modal.AddCardDescription.placeholder'
+                            'components.AddCard.modal.AddCardDescription.placeholderTitle'
+                        ) ?? ''
+                    }
+                    className="focus:outline-none text-sm w-full"
+                    data-testid="addcard-title-input"
+                    value={card.title}
+                    onChange={(e) => {
+                        updateTitle(e.target.value);
+                    }}
+                ></input>
+            </div>
+            <div className="border border-[#f5f4f4] bg-white p-2 rounded-lg">
+                <input
+                    placeholder={
+                        t(
+                            'components.AddCard.modal.AddCardDescription.placeholderDescription'
                         ) ?? ''
                     }
                     className="focus:outline-none text-sm w-full"

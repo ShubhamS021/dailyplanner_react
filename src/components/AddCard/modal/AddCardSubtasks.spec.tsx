@@ -13,7 +13,6 @@ test('renders the basic AddCardSubtasks', () => {
     const { getByTestId } = render(
         <AddCardSubtasks
             headline={'tasks'}
-            explanation={'testing add card tasks'}
             card={card}
             updateTasks={function (tasks: Task[]): void {
                 throw new Error('Function not implemented.');
@@ -22,9 +21,6 @@ test('renders the basic AddCardSubtasks', () => {
     );
 
     expect(getByTestId(/addcardtasks-headline/).textContent).toBe('tasks');
-    expect(getByTestId(/addcardtasks-explanation/).textContent).toBe(
-        'testing add card tasks'
-    );
 });
 
 test('adds a task', () => {
@@ -37,7 +33,6 @@ test('adds a task', () => {
     const { getByTestId } = render(
         <AddCardSubtasks
             headline={'tasks'}
-            explanation={'testing add card tasks'}
             card={card}
             updateTasks={(tasks: Task[]) => {}}
         />
@@ -60,7 +55,6 @@ test('edits a task', () => {
     const { getByTestId } = render(
         <AddCardSubtasks
             headline={'tasks'}
-            explanation={'testing add card tasks'}
             card={card}
             updateTasks={(tasks: Task[]) => {}}
         />
@@ -84,7 +78,6 @@ test('removes a task', () => {
     const { getByTestId } = render(
         <AddCardSubtasks
             headline={'tasks'}
-            explanation={'testing add card tasks'}
             card={card}
             updateTasks={(tasks: Task[]) => {}}
         />

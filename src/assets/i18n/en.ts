@@ -14,37 +14,31 @@ export const ENtranslation = {
         AddCard: {
             modal: {
                 AddCardDescription: {
-                    placeholder: 'Define your task.',
+                    placeholderTitle: 'Taskname',
+                    placeholderDescription: 'Define your task.',
                 },
                 AddDueDate: {
-                    add: 'Add due date',
+                    add: 'Add',
                 },
                 AddCardModal: {
                     save: 'Save this task.',
                     edit: 'Edit this task.',
                     descriptionHeadline: "What's your task?",
-                    descriptionExplanation:
-                        'Give a short description of the task you need to track.',
                     subtasksHeadline: 'Subtasks',
-                    subtasksExplanation:
-                        'If your task has multiple steps, break it down into subtasks and list them here.',
-                    tagsHeadline: 'Add Tags',
-                    tagsExplanation:
-                        'Choose or define tags to your task to make it easier to find and group with other similar tasks.',
-                    dueDateHeadline: 'Add due date',
-                    dueDateExplanation: 'Define a due date for this task.',
+                    tagsHeadline: 'Tags',
+                    dueDateHeadline: 'Due date',
                     cancel: 'Cancel',
                     submit: 'Add task',
                 },
                 AddCardSubtasks: {
                     define: 'Define a subtask.',
-                    add: 'Add subtask',
+                    add: 'Add',
                     edit: 'Edit this task.',
                     remove: 'Remove this task.',
                     save: 'Save this task.',
                 },
                 AddCardTags: {
-                    add: 'Add tag',
+                    add: 'Add',
                     limit: 'Tag limit reached.',
                 },
             },

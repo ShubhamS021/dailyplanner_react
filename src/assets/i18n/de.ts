@@ -14,38 +14,31 @@ export const DEtranslation = {
         AddCard: {
             modal: {
                 AddCardDescription: {
+                    placeholderTitle: 'Name der Aufgabe',
                     placeholder: 'Definieren Sie Ihre Aufgabe.',
                 },
                 AddDueDate: {
-                    add: 'Fälligkeitsdatum hinzufügen',
+                    add: 'hinzufügen',
                 },
                 AddCardModal: {
                     save: 'Diese Aufgabe speichern.',
                     edit: 'Diese Aufgabe bearbeiten.',
                     descriptionHeadline: 'Was ist Ihre Aufgabe?',
-                    descriptionExplanation:
-                        'Geben Sie eine kurze Beschreibung der Aufgabe ein, die Sie verfolgen müssen.',
                     subtasksHeadline: 'Teilaufgaben',
-                    subtasksExplanation:
-                        'Wenn Ihre Aufgabe aus mehreren Schritten besteht, unterteilen Sie sie in Teilaufgaben und listen Sie sie hier auf.',
-                    tagsHeadline: 'Tags hinzufügen',
-                    tagsExplanation:
-                        'Wählen Sie Tags für Ihre Aufgabe aus oder definieren Sie sie, um sie einfacher zu finden und mit anderen ähnlichen Aufgaben zu gruppieren.',
-                    dueDateHeadline: 'Fälligkeitsdatum hinzufügen',
-                    dueDateExplanation:
-                        'Legen Sie ein Fälligkeitsdatum für diese Aufgabe fest.',
+                    tagsHeadline: 'Tags',
+                    dueDateHeadline: 'Fälligkeitsdatum',
                     cancel: 'Abbrechen',
                     submit: 'Aufgabe hinzufügen',
                 },
                 AddCardSubtasks: {
                     define: 'Teilaufgabe definieren.',
-                    add: 'Teilaufgabe hinzufügen',
+                    add: 'hinzufügen',
                     edit: 'Diese Aufgabe bearbeiten.',
                     remove: 'Diese Aufgabe entfernen.',
                     save: 'Diese Aufgabe speichern.',
                 },
                 AddCardTags: {
-                    add: 'Tag hinzufügen',
+                    add: 'hinzufügen',
                     limit: 'Tag-Grenze erreicht.',
                 },
             },

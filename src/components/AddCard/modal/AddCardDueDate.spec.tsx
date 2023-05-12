@@ -9,7 +9,6 @@ describe('AddCardDueDate', () => {
         const { getByTestId } = render(
             <AddCardDueDate
                 headline="Add Due Date"
-                explanation="Enter a date to add a due date to the card"
                 card={mockCard}
                 updateTags={mockUpdateTags}
             />
@@ -18,16 +17,12 @@ describe('AddCardDueDate', () => {
         expect(getByTestId('AddCardDueDate-headline')).toHaveTextContent(
             'Add Due Date'
         );
-        expect(getByTestId('AddCardDueDate-explanation')).toHaveTextContent(
-            'Enter a date to add a due date to the card'
-        );
     });
 
     it('adds a new date when the "Add due date" button is clicked', () => {
         const { getByTestId } = render(
             <AddCardDueDate
                 headline="Add Due Date"
-                explanation="Enter a date to add a due date to the card"
                 card={mockCard}
                 updateTags={mockUpdateTags}
             />
@@ -49,7 +44,6 @@ describe('AddCardDueDate', () => {
         const { getByTestId } = render(
             <AddCardDueDate
                 headline="Add Due Date"
-                explanation="Enter a date to add a due date to the card"
                 card={mockCard}
                 updateTags={mockUpdateTags}
             />
@@ -71,7 +65,6 @@ describe('AddCardDueDate', () => {
         const { getByTestId } = render(
             <AddCardDueDate
                 headline="Add Due Date"
-                explanation="Enter a date to add a due date to the card"
                 card={mockCard}
                 updateTags={mockUpdateTags}
             />
@@ -94,7 +87,6 @@ describe('AddCardDueDate', () => {
         const { getByTestId } = render(
             <AddCardDueDate
                 headline="Add Due Date"
-                explanation="Enter a date to add a due date to the card"
                 card={mockCardWithTag}
                 updateTags={mockUpdateTags}
             />

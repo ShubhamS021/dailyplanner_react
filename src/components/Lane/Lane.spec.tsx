@@ -263,18 +263,6 @@ it('should submit edit a card from lane', () => {
     );
     fireEvent.click(getAllByTestId('edit-card-button')[0]);
 
-    // updateTitle
-    fireEvent.click(getByTestId(/addcard-title-edit-button/));
-
-    const titleInput = getByTestId(
-        /addcard-title-edit-input/
-    ) as HTMLInputElement;
-    fireEvent.change(titleInput, {
-        target: { value: 'NEW TITLE' },
-    });
-
-    fireEvent.click(getByTestId(/addcard-title-edit-submit-button/));
-
     // updateDescription
     const descriptionInput = getByTestId(
         /addcard-description-input/
@@ -311,8 +299,8 @@ it('should submit edit a card from lane', () => {
             description: 'NEW DESCRIPTION',
             id: 1,
             lowerTags: [{ color: '#cbdfd8', id: 1, text: '2000-01-01' }],
+            title: 'Card 1',
             tasks: [{ description: 'NEW TASK', id: 3, fulfilled: false }],
-            title: 'NEW TITLE',
             upperTags: [
                 { color: 'rgba(0, 70, 128, 0.33)', id: 1, text: 'NEW TAG' },
             ],

@@ -8,14 +8,12 @@ import { TagComponent } from '../../Tag/Tag';
 
 export interface AddCardDueDateProps {
     headline: string;
-    explanation: string;
     card: Card;
     updateTags: (tags: Tag[]) => void;
 }
 
 export const AddCardDueDate: React.FC<AddCardDueDateProps> = ({
     headline,
-    explanation,
     card,
     updateTags,
 }) => {
@@ -42,7 +40,7 @@ export const AddCardDueDate: React.FC<AddCardDueDateProps> = ({
     };
 
     return (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-1">
             <div className="text-sm text-[#5E5E5E]">
                 <div
                     className="font-bold"
@@ -50,14 +48,12 @@ export const AddCardDueDate: React.FC<AddCardDueDateProps> = ({
                 >
                     {headline}
                 </div>
-                <p data-testid="AddCardDueDate-explanation">{explanation}</p>
             </div>
-            <div className="grid grid-cols-[1fr,auto,auto,auto] gap-2">
+            <div className="grid grid-cols-[1fr,auto,auto,auto] gap-1">
                 <div className="self-center">
-                    <div className="border border-[#f5f4f4] p-2 rounded-lg flex gap-2 items-center">
+                    <div className="border border-[#f5f4f4] bg-white rounded-lg flex gap-2 items-center">
                         <input
-                            placeholder={'Enter a tag.'}
-                            className="focus:outline-none text-sm w-full border-none"
+                            className="focus:outline-none text-sm w-full border-none rounded-lg"
                             data-testid="addcard-lowertags-input"
                             type={'date'}
                             onChange={(e) => {

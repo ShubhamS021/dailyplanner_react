@@ -1,6 +1,6 @@
 [package]
 name = "app"
-version = "0.2.1"
+version = "0.3.0"
 description = "A kanban application to track your daily tasks."
 authors = ["Kevin Hahn"]
 license = ""

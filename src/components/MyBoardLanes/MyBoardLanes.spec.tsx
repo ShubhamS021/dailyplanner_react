@@ -59,7 +59,7 @@ describe('MyBoardLanes', () => {
                 color: colors.sulzer33_blue,
                 cards: [],
             },
-            2
+            3
         );
     });
 

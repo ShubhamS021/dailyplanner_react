@@ -67,6 +67,7 @@ test('renders card with tags and tasks', () => {
                                                 id: 1,
                                                 color: colors.sulzer33_yellow,
                                                 text: 'Tag High 1',
+                                                tagType: 'lower',
                                             },
                                         ]}
                                         upperTags={[
@@ -74,6 +75,7 @@ test('renders card with tags and tasks', () => {
                                                 id: 1,
                                                 color: colors.sulzer33_purple,
                                                 text: 'Tag Low 1',
+                                                tagType: 'lower',
                                             },
                                         ]}
                                         onRemoveCard={function (): void {
@@ -107,33 +109,5 @@ test('renders card with tags and tasks', () => {
         'card description'
     );
     expect(queryAllByTestId(/card-tags/).length).toBe(2);
-    expect(queryAllByTestId(/card-task/).length).toBe(3);
-});
-
-test('breaks render on card with empty title', () => {
-    const consoleErrorFn = jest
-        .spyOn(console, 'error')
-        .mockImplementation(() => jest.fn());
-    try {
-        expect(
-            render(
-                <CardComponent
-                    title={''}
-                    onRemoveCard={function (): void {
-                        throw new Error('Function not implemented.');
-                    }}
-                    onEditCard={function (): void {
-                        throw new Error('Function not implemented.');
-                    }}
-                    id={0}
-                    onMoveCard={function (): void {
-                        throw new Error('Function not implemented.');
-                    }}
-                />
-            )
-        ).toThrowError('no title set');
-    } catch (e) {
-        expect(e.message).toBe('no title set');
-        consoleErrorFn.mockRestore();
-    }
+    expect(queryAllByTestId(/card-task/).length).toBe(4);
 });

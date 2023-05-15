@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.3.0](https://git.sulzer.de/hahnk/dayplanner/compare/v0.2.1...v0.3.0) (2023-05-15)
+
+
+### Bug Fixes
+
+* laneID is now correct ([97784ab](https://git.sulzer.de/hahnk/dayplanner/commit/97784ab19e13d10d7ee1e114f4b0f3b1d08aec85))
+
 ## [0.2.1](https://git.sulzer.de/hahnk/dayplanner/compare/v0.2.0...v0.2.1) (2023-05-12)
 
 

@@ -118,7 +118,7 @@ export const ENtranslation = {
             subtitle: 'An overview of my tasks.',
         },
         lanes: {
-            notStarted: 'Not started',
+            notStarted: 'Not Started',
             inProgress: 'In Progress',
             blocked: 'Blocked',
             done: 'Done',

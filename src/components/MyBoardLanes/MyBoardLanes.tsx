@@ -36,7 +36,8 @@ export const MyBoardLanes = () => {
             color: selectedColor,
             cards: [],
         };
-        addLaneToBoard(newLane, boards.length - 1);
+
+        addLaneToBoard(newLane, boards.length);
         setLaneValue('');
     };
 

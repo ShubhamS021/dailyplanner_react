@@ -38,14 +38,16 @@ export const CardComponent: React.FC<CardProps> = ({
     onRemoveTag,
     onRemoveTask,
 }) => {
-    if (title === '') throw new Error('no title set');
     const { updateTask, compactMode } = useContext(BoardContext);
 
     const renderTags = (tags: Tag[] | undefined) => {
         if (tags === undefined) return;
         return (
             <>
-                <div className="flex gap-1" data-testid="card-tags">
+                <div
+                    className="flex gap-1"
+                    data-testid={inEditMode ? 'card-edit-tags' : 'card-tags'}
+                >
                     {tags.map((t) => (
                         <TagComponent
                             key={t.id}
@@ -68,7 +70,7 @@ export const CardComponent: React.FC<CardProps> = ({
         if (tasks === undefined) return;
         if (compactMode) return;
         return (
-            <>
+            <div data-testid={inEditMode ? 'card-edit-tasks' : 'card-tasks'}>
                 {tasks.map((t) => (
                     <TaskComponent
                         key={t.id}
@@ -87,7 +89,7 @@ export const CardComponent: React.FC<CardProps> = ({
                         }}
                     />
                 ))}
-            </>
+            </div>
         );
     };
 

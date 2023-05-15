@@ -123,16 +123,9 @@ export const editCard = (card: Card, cardUpdate: Card) => {
     cy.get('@card-actions').find('[data-testid="edit-card-button"]').click();
 
     // update title
-    // TODO: as the dialog leaves the view force is currently mandatory
-    // ! TODO: this needs to be resolved by a more small view friendly dialog
-    cy.get('[data-testid="addcard-title-edit-button"]').click({ force: true });
-    cy.get('[data-testid="addcard-title-edit-input"]').type(cardUpdate.title, {
-        force: true,
-    });
-    cy.get('[data-testid="addcard-title-edit-submit-button"]').click({
-        force: true,
-    });
-
+    cy.get('[data-testid="addcard-title-input"]')
+        .clear()
+        .type(cardUpdate.title);
     // update description
     if (
         cardUpdate.description !== null &&
@@ -149,7 +142,8 @@ export const editCard = (card: Card, cardUpdate: Card) => {
     if (cardUpdate.tasks !== undefined && cardUpdate.tasks?.length > 0) {
         // check existing tasks for deletion
         const tasks = cy
-            .get('[data-testid="addcard-subtask-tasks"]')
+            .get('[data-testid="card-edit-tasks"]')
+            .find('[data-testid="card-task"]')
             .children();
 
         tasks.each((task) => {
@@ -161,14 +155,8 @@ export const editCard = (card: Card, cardUpdate: Card) => {
                 (task) => task.description
             );
             if (!(updateTasks?.includes(taskdescription) ?? false)) {
-                cy.get(
-                    `[data-testid="${
-                        (task.attr('data-testid') as string) + '-actions'
-                    }"]`
-                ).as('task-actions');
-                cy.get('@task-actions').invoke('removeClass', 'invisible');
-                cy.get('@task-actions')
-                    .find('[data-testid="addcard-subtask-delete-button"]')
+                cy.wrap(task)
+                    .find(`[data-testid="task-remove-button"]`)
                     .click();
             }
         });
@@ -185,7 +173,7 @@ export const editCard = (card: Card, cardUpdate: Card) => {
     // update tags
     if (card.upperTags !== undefined && card.upperTags?.length > 0) {
         // check existing tasks for deletion
-        const tags = cy.get('[data-testid="addcardtags-list"]').children();
+        const tags = cy.get('[data-testid="card-edit-tags"]').children();
 
         tags.each((tag) => {
             const tagtext = tag.find('.tag-description').val() as string;

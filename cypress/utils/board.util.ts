@@ -31,7 +31,7 @@ Deletes the first board from the list of boards.
 @returns {void}
 */
 export const deleteFirstBoard = () => {
-    deleteBoard('board-0');
+    deleteBoard('board-1');
 };
 
 /**

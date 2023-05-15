@@ -62,7 +62,7 @@ describe('lane testing', () => {
 
         // Moving every card through all lanes
         [card, card2, card3].forEach((card) => {
-            [2, 3, 4].forEach((lane) => {
+            [1, 2, 3].forEach((lane) => {
                 moveCard(card, lane);
                 cy.wait(1000);
             });

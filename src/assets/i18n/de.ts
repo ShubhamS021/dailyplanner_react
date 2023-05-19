@@ -72,6 +72,9 @@ export const DEtranslation = {
             import: 'Importieren',
         },
         Lane: {
+            editTitle: 'Spalte umbenennen',
+            edit: 'umbenennen',
+            editText: 'Vergeben Sie einen neuen Spaltennamen:',
             deleteTitle: 'Alle Karten aus Spalte löschen',
             deleteAll: 'alle löschen',
             dropzone: 'Aufgaben hier platzieren..',
@@ -84,6 +87,9 @@ export const DEtranslation = {
                 'Wählen Sie das Board aus, zu dem Sie Ihre Karte verschieben möchten:',
             moveSubmit: 'Karte verschieben',
             editCardSubmit: 'Änderungen speichern',
+        },
+        LaneRenameModal: {
+            title: 'Neuer Name',
         },
         LanguageChooser: {
             language: 'Sprache:',

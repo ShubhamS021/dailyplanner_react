@@ -95,6 +95,7 @@ export const BoardContext = createContext({
     addBoard: (board: Board) => {},
     removeBoard: (boardId: number) => {},
     renameBoard: (boardId: number, title: string, subtitle: string) => {},
+    renameLane: (laneId: number, title: string) => {},
     enterBoard: (boardId: number) => {},
     updateLanguage: (language: string) => {},
 });
@@ -305,6 +306,18 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
 
         newBoard.title = title;
         newBoard.subtitle = subtitle;
+
+        updateBoards(newBoard);
+    };
+
+    const renameLane = (laneId: number, title: string) => {
+        const newBoard = { ...board };
+        const newLane = newBoard.lanes.find((l) => l.id === laneId);
+        if (newLane === undefined) {
+            throw new Error(`No lane with id ${laneId} found.`);
+        }
+
+        newLane.title = title;
 
         updateBoards(newBoard);
     };
@@ -551,6 +564,7 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
             addBoard,
             removeBoard,
             renameBoard,
+            renameLane,
             enterBoard,
             updateLanguage,
         }),

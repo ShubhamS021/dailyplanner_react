@@ -1,7 +1,6 @@
 export const editSVG = (
     <svg
-        width="20"
-        height="20"
+        className="h-4 w-4"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"

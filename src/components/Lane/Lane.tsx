@@ -1,10 +1,12 @@
 import { useContext, useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { useTranslation } from 'react-i18next';
+import { editSVG } from '../../assets/svgs/edit.svg';
 import { trashSVG } from '../../assets/svgs/trash.svg';
 import { AddCardModal } from '../../components/AddCard/modal/AddCardModal';
 import { CardMoveModal } from '../../components/CardMoveModal/CardMoveModal';
 import { ConfirmationModal } from '../../components/ConfirmationModal/ConfirmationModal';
+import { LaneRenameModal } from '../../components/LaneRenameModal/LaneRenameModal';
 import { BoardContext } from '../../context/BoardContext';
 import { type Card } from '../../interfaces/Card';
 import type Tag from '../../interfaces/Tag';
@@ -28,29 +30,54 @@ export const LaneComponent: React.FC<LaneProps> = ({
     cards,
     isLastLane,
 }) => {
-    const [showModal, setShowModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
+    const [showLaneEditModal, setShowLaneEditModal] = useState(false);
     const [showMoveModal, setShowMoveModal] = useState(false);
     const [cardToEdit, setCardToEdit] = useState<Card>();
     const [cardToMove, setCardToMove] = useState<Card>();
-    const boardContext = useContext(BoardContext);
+    const {
+        removeCardFromLane,
+        removeCardsFromLane,
+        moveCardToBoard,
+        renameLane,
+        updateCard,
+        boards,
+        board,
+    } = useContext(BoardContext);
     const { t } = useTranslation();
 
     const renderDelete = () => {
         return (
-            <div
-                className={`text-xs text-[#4d4d4d] font-semibold self-center place-self-end`}
-            >
+            <div className={`text-xs text-[#4d4d4d] font-semibold`}>
                 <div
                     className="flex gap-1 cursor-pointer hover:text-red-500 ease-linear transition-all duration-150"
                     title={t('components.Lane.deleteTitle') ?? ''}
                     data-testid="delete-all-from-lane-button"
                     onClick={() => {
-                        setShowModal(true);
+                        setShowDeleteModal(true);
                     }}
                 >
                     {trashSVG}
                     {t('components.Lane.deleteAll')}
+                </div>
+            </div>
+        );
+    };
+
+    const renderEdit = () => {
+        return (
+            <div className={`text-xs text-[#4d4d4d] font-semibold`}>
+                <div
+                    className="flex gap-1 cursor-pointer hover:text-[#17A2B8] ease-linear transition-all duration-150"
+                    title={t('components.Lane.editTitle') ?? ''}
+                    data-testid="edit-lane-button"
+                    onClick={() => {
+                        setShowLaneEditModal(true);
+                    }}
+                >
+                    {editSVG}
+                    {t('components.Lane.edit')}
                 </div>
             </div>
         );
@@ -86,10 +113,7 @@ export const LaneComponent: React.FC<LaneProps> = ({
                                     tasks={c.tasks}
                                     lowerTags={c.lowerTags}
                                     onRemoveCard={() => {
-                                        boardContext.removeCardFromLane(
-                                            c.id,
-                                            id
-                                        );
+                                        removeCardFromLane(c.id, id);
                                     }}
                                     onEditCard={() => {
                                         setCardToEdit(c);
@@ -116,10 +140,10 @@ export const LaneComponent: React.FC<LaneProps> = ({
                     text={t('components.Lane.deletionText')}
                     submitButtonText={t('components.Lane.deletionSubmit') ?? ''}
                     modalConfirmation={() => {
-                        boardContext.removeCardsFromLane(id);
+                        removeCardsFromLane(id);
                     }}
                     closeModal={() => {
-                        setShowModal(false);
+                        setShowDeleteModal(false);
                     }}
                 ></ConfirmationModal>
                 <div className="opacity-50 fixed inset-0 z-40 bg-black"></div>
@@ -136,14 +160,14 @@ export const LaneComponent: React.FC<LaneProps> = ({
                     text={t('components.Lane.moveText')}
                     submitButtonText={t('components.Lane.moveSubmit') ?? ''}
                     modalConfirmation={(newBoardId: number) => {
-                        const newBoard = boardContext.boards.find(
+                        const newBoard = boards.find(
                             (b) => b.id === newBoardId
                         );
 
                         if (newBoard === undefined)
                             throw new Error(`No board with id ${id} found.`);
 
-                        const currentLane = boardContext.board.lanes.find((l) =>
+                        const currentLane = board.lanes.find((l) =>
                             l.cards.some((c) => c.id === cardToMove.id)
                         );
 
@@ -153,11 +177,7 @@ export const LaneComponent: React.FC<LaneProps> = ({
                             );
                         }
 
-                        boardContext.moveCardToBoard(
-                            cardToMove,
-                            currentLane.id,
-                            newBoard
-                        );
+                        moveCardToBoard(cardToMove, currentLane.id, newBoard);
                     }}
                     closeModal={() => {
                         setShowMoveModal(false);
@@ -209,9 +229,29 @@ export const LaneComponent: React.FC<LaneProps> = ({
                         setShowEditModal(false);
                     }}
                     saveCard={() => {
-                        boardContext.updateCard(cardToEdit, id);
+                        updateCard(cardToEdit, id);
                     }}
                 ></AddCardModal>
+                <div className="opacity-50 fixed inset-0 z-40 bg-black"></div>
+            </>
+        );
+    };
+
+    const renderLaneEditCardModal = (laneId: number) => {
+        return (
+            <>
+                <LaneRenameModal
+                    title={t('components.Lane.editTitle')}
+                    text={t('components.Lane.editText')}
+                    board={board}
+                    laneId={laneId}
+                    modalConfirmation={(title: string) => {
+                        renameLane(laneId, title);
+                    }}
+                    closeModal={() => {
+                        setShowLaneEditModal(false);
+                    }}
+                ></LaneRenameModal>
                 <div className="opacity-50 fixed inset-0 z-40 bg-black"></div>
             </>
         );
@@ -222,16 +262,22 @@ export const LaneComponent: React.FC<LaneProps> = ({
             <div className="w-full grid grid-cols-[auto,auto,1fr] gap-1">
                 <LabelComponent color={color} text={text} />
                 <div
-                    className={`text-xs text-[#4d4d4d] font-semibold self-center place-self-end`}
+                    className={`text-xs text-[#4d4d4d] font-semibold self-center`}
                 >
                     ({cards?.length})
                 </div>
-                {isLastLane && renderDelete()}
+                <div className="group flex self-center place-self-end gap-2 items-center">
+                    <div className="invisible group-hover:visible">
+                        {renderEdit()}
+                    </div>
+                    {isLastLane && renderDelete()}
+                </div>
             </div>
             {renderCards(cards)}
-            {showModal ? renderDeleteConfirmationModal() : null}
+            {showDeleteModal ? renderDeleteConfirmationModal() : null}
             {showEditModal ? renderEditCardModal() : null}
             {showMoveModal ? renderMoveCardModal() : null}
+            {showLaneEditModal ? renderLaneEditCardModal(id) : null}
         </div>
     );
 };

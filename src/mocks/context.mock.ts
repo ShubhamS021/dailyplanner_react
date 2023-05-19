@@ -34,6 +34,7 @@ export const mockToggleBoardMode = jest.fn();
 export const mockAddBoard = jest.fn();
 export const mockRemoveBoard = jest.fn();
 export const mockRenameBoard = jest.fn();
+export const mockRenameLane = jest.fn();
 export const mockEnterBoard = jest.fn();
 export const mockUpdateLanguage = jest.fn();
 
@@ -68,6 +69,7 @@ export const mockContext = {
     addBoard: mockAddBoard,
     removeBoard: mockRemoveBoard,
     renameBoard: mockRenameBoard,
+    renameLane: mockRenameLane,
     enterBoard: mockEnterBoard,
     updateLanguage: mockUpdateLanguage,
 };

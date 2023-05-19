@@ -68,7 +68,7 @@ describe('MyBoardLanes', () => {
         fireEvent.click(removeButton);
 
         expect(mockRemoveLaneFromBoard).toHaveBeenCalledTimes(1);
-        expect(mockRemoveLaneFromBoard).toHaveBeenCalledWith(0, 2);
+        expect(mockRemoveLaneFromBoard).toHaveBeenCalledWith(0, 3);
     });
 
     it('enters the board when the "Start" button is clicked', () => {

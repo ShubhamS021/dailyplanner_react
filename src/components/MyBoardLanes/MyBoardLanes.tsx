@@ -42,7 +42,7 @@ export const MyBoardLanes = () => {
     };
 
     const handleLaneRemove = (laneId: number) => {
-        removeLaneFromBoard(laneId, boards.length - 1);
+        removeLaneFromBoard(laneId, boards.length);
     };
 
     const handleLaneChanges = (name: string) => {

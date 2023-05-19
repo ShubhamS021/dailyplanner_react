@@ -1,4 +1,4 @@
-export type TagType = 'upper' | 'lower';
+import { type TagType } from 'types/TagType';
 
 export interface Tag {
     id: number;

@@ -11,6 +11,7 @@ import { BoardContext } from '../../context/BoardContext';
 import { type Card } from '../../interfaces/Card';
 import type Tag from '../../interfaces/Tag';
 import type Task from '../../interfaces/Task';
+import { type Shirt } from '../../types/Shirt';
 import { CardComponent } from '../Card/Card';
 import { Dropzone } from '../Dropzone/Dropzone';
 import { LabelComponent } from '../Label/Label';
@@ -111,6 +112,7 @@ export const LaneComponent: React.FC<LaneProps> = ({
                                     description={c.description}
                                     upperTags={c.upperTags}
                                     tasks={c.tasks}
+                                    shirt={c.shirt}
                                     lowerTags={c.lowerTags}
                                     onRemoveCard={() => {
                                         removeCardFromLane(c.id, id);
@@ -223,6 +225,12 @@ export const LaneComponent: React.FC<LaneProps> = ({
                         setCardToEdit((prevState) => {
                             if (prevState == null) return;
                             return { ...prevState, lowerTags: tags };
+                        });
+                    }}
+                    updateEstimation={(shirt: Shirt) => {
+                        setCardToEdit((prevState) => {
+                            if (prevState == null) return;
+                            return { ...prevState, shirt };
                         });
                     }}
                     closeModal={() => {

@@ -3,6 +3,7 @@ import { BoardContext } from '../../context/BoardContext';
 import { type Card } from '../../interfaces/Card';
 import type Tag from '../../interfaces/Tag';
 import type Task from '../../interfaces/Task';
+import { type Shirt } from '../../types/Shirt';
 import { AddCardModal } from './modal/AddCardModal';
 
 export interface AddCardProps {
@@ -19,6 +20,7 @@ export const AddCard: React.FC<AddCardProps> = ({
     const initialCard: Card = {
         title: '',
         id: 0,
+        shirt: 'S',
     };
 
     const { addCardToLane } = useContext(BoardContext);
@@ -39,6 +41,10 @@ export const AddCard: React.FC<AddCardProps> = ({
 
     const updateDescription = (description: string) => {
         setCard({ ...card, description });
+    };
+
+    const updateEstimation = (shirt: Shirt) => {
+        setCard({ ...card, shirt });
     };
 
     const updateTasks = (tasks: Task[]) => {
@@ -91,6 +97,9 @@ export const AddCard: React.FC<AddCardProps> = ({
                         }}
                         updateDescription={(description: string) => {
                             updateDescription(description);
+                        }}
+                        updateEstimation={(shirt: Shirt) => {
+                            updateEstimation(shirt);
                         }}
                         updateTasks={(tasks: Task[]) => {
                             updateTasks(tasks);

@@ -26,6 +26,7 @@ export const DEtranslation = {
                     descriptionHeadline: 'Was ist Ihre Aufgabe?',
                     subtasksHeadline: 'Teilaufgaben',
                     tagsHeadline: 'Tags',
+                    estimationHeadline: 'Schätzung',
                     dueDateHeadline: 'Fälligkeitsdatum',
                     cancel: 'Abbrechen',
                     submit: 'Aufgabe hinzufügen',

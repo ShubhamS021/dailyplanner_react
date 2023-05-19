@@ -1,11 +1,11 @@
 import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import logo from '../../assets/logo.png';
 import {
-    BoardContext,
     getLocalizedInitialBoardState,
     getLocalizedInitialLanesState,
-} from '../../context/BoardContext';
+} from 'utils/context.util';
+import logo from '../../assets/logo.png';
+import { BoardContext } from '../../context/BoardContext';
 
 export const AddBoard = () => {
     const { addBoard, toggleBoardMode } = useContext(BoardContext);

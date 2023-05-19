@@ -1,9 +1,7 @@
-import {
-    initialBoardState,
-    initialLanes,
-    type BoardMode,
-} from '../context/BoardContext';
+import { initialBoardState } from '../context/initialBoard.state';
+import { initialLanes } from '../context/initialLanes.state';
 import { type Board } from '../interfaces/Board';
+import { type BoardMode } from '../types/BoardMode';
 
 export const mockAddLaneToBoard = jest.fn();
 export const mockAddCardToLane = jest.fn();

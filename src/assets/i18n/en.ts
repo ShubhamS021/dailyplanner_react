@@ -26,6 +26,7 @@ export const ENtranslation = {
                     descriptionHeadline: "What's your task?",
                     subtasksHeadline: 'Subtasks',
                     tagsHeadline: 'Tags',
+                    estimationHeadline: 'Estimation',
                     dueDateHeadline: 'Due date',
                     cancel: 'Cancel',
                     submit: 'Add task',

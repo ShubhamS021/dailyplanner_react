@@ -1,73 +1,9 @@
-import i18next from 'i18next';
 import { createContext, useEffect, useMemo, useState } from 'react';
 import { type DropResult } from 'react-beautiful-dnd';
 import { Board } from '../interfaces/Board';
 import { type Card } from '../interfaces/Card';
 import { type Lane } from '../interfaces/Lane';
-import { colors } from '../theme/colors';
-
-export type BoardMode =
-    | 'boardDefaultMode'
-    | 'boardChooseMode'
-    | 'boardCreateMode'
-    | 'boardCustomLanesMode';
-
-export const initialBoardState: Board = {
-    id: 0,
-    title: 'My tasks',
-    subtitle: 'An overview of my tasks.',
-    lanes: [],
-};
-
-export const getLocalizedInitialBoardState = () => {
-    return {
-        ...initialBoardState,
-        title: i18next.t('state.board.title') ?? 'My tasks',
-        subtitle:
-            i18next.t('state.board.subtitle') ?? 'An overview of my tasks.',
-    };
-};
-
-export const initialLanes: Lane[] = [
-    {
-        id: 0,
-        title: 'Not Started',
-        color: colors.light_grey,
-        cards: [],
-    },
-    {
-        id: 1,
-        title: 'In Progress',
-        color: colors.lavender,
-        cards: [],
-    },
-    {
-        id: 2,
-        title: 'Blocked',
-        color: colors.rose,
-        cards: [],
-    },
-    {
-        id: 3,
-        title: 'Done',
-        color: colors.green,
-        cards: [],
-    },
-];
-
-export const getLocalizedInitialLanesState = () => {
-    let localizedLanes = [...initialLanes];
-    const localizeKeys = [
-        'state.lanes.notStarted',
-        'state.lanes.inProgress',
-        'state.lanes.blocked',
-        'state.lanes.done',
-    ];
-    localizedLanes = localizedLanes.map((lane, index) => {
-        return { ...lane, title: i18next.t(localizeKeys[index]) };
-    });
-    return localizedLanes;
-};
+import { type BoardMode } from '../types/BoardMode';
 
 export const BoardContext = createContext({
     boards: new Array<Board>(),
@@ -120,7 +56,7 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
         }
 
         const parsedBoards: Board[] = JSON.parse(storedBoards);
-        setBoards((prevBoards) => parsedBoards);
+        setBoards((_prevBoards) => parsedBoards);
 
         const currentBoardId: number = +(
             localStorage.getItem('currentBoard') ?? '-1'

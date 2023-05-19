@@ -3,8 +3,10 @@ import { CardComponent } from '../../../components/Card/Card';
 import { type Card } from '../../../interfaces/Card';
 import type Tag from '../../../interfaces/Tag';
 import type Task from '../../../interfaces/Task';
+import { type Shirt } from '../../../types/Shirt';
 import { AddCardDescription } from './AddCardDescription';
 import { AddCardDueDate } from './AddCardDueDate';
+import { AddCardEstimation } from './AddCardEstimation';
 import { AddCardSubtasks } from './AddCardSubtasks';
 import { AddCardTags } from './AddCardTags';
 
@@ -16,6 +18,7 @@ export interface AddCardModalProps {
     updateDescription: (description: string) => void;
     updateTasks: (tasks: Task[]) => void;
     updateTags: (tags: Tag[]) => void;
+    updateEstimation: (shirt: Shirt) => void;
     updateLowerTags: (tags: Tag[]) => void;
     closeModal: () => void;
     saveCard: () => void;
@@ -29,6 +32,7 @@ export const AddCardModal: React.FC<AddCardModalProps> = ({
     updateDescription,
     updateTasks,
     updateTags,
+    updateEstimation,
     updateLowerTags,
     closeModal,
     saveCard,
@@ -92,7 +96,7 @@ export const AddCardModal: React.FC<AddCardModalProps> = ({
                                     ) ?? ''
                                 }
                             ></AddCardSubtasks>
-                            <div className="grid grid-cols-2 gap-2">
+                            <div className="grid grid-cols-[1fr,auto,auto] gap-2">
                                 <AddCardTags
                                     card={card}
                                     headline={
@@ -104,6 +108,17 @@ export const AddCardModal: React.FC<AddCardModalProps> = ({
                                         updateTags(tags);
                                     }}
                                 ></AddCardTags>
+                                <AddCardEstimation
+                                    headline={
+                                        t(
+                                            'components.AddCard.modal.AddCardModal.estimationHeadline'
+                                        ) ?? ''
+                                    }
+                                    card={card}
+                                    updateEstimation={(shirt: Shirt) => {
+                                        updateEstimation(shirt);
+                                    }}
+                                ></AddCardEstimation>
                                 <AddCardDueDate
                                     headline={
                                         t(
@@ -161,6 +176,7 @@ export const AddCardModal: React.FC<AddCardModalProps> = ({
                         description={card.description}
                         upperTags={card.upperTags}
                         tasks={card.tasks}
+                        shirt={card.shirt}
                         lowerTags={card.lowerTags}
                         inEditMode={true}
                         onRemoveTag={(tag: Tag) => {

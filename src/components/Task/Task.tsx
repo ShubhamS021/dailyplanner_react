@@ -66,7 +66,7 @@ export const TaskComponent: React.FC<TaskProps> = ({
             className={`text-sm text-[#5A5A65] py-1 w-full`}
             data-testid="card-task"
         >
-            <div className="grid grid-cols-[auto,1fr,auto] items-center mr-4 cursor-pointer">
+            <div className="grid grid-cols-[auto,1fr,auto] items-center cursor-pointer">
                 <input
                     type="checkbox"
                     className="opacity-0 absolute h-4 w-4 cursor-pointer"
@@ -93,7 +93,7 @@ export const TaskComponent: React.FC<TaskProps> = ({
                     <div
                         onClick={onRemove}
                         data-testid="task-remove-button"
-                        className="items-end"
+                        className="self-middle"
                     >
                         {tagCloseSVG}
                     </div>

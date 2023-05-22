@@ -73,7 +73,10 @@ export const CardComponent: React.FC<CardProps> = ({
         if (tasks === undefined) return;
         if (compactMode) return;
         return (
-            <div data-testid={inEditMode ? 'card-edit-tasks' : 'card-tasks'}>
+            <div
+                data-testid={inEditMode ? 'card-edit-tasks' : 'card-tasks'}
+                className="w-full"
+            >
                 {tasks.map((t) => (
                     <TaskComponent
                         key={t.id}

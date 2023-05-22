@@ -7,6 +7,7 @@ import {
     saveMovementToHistory,
     saveUpdateToHistory,
 } from 'utils/history.util';
+import { initDB } from 'utils/indexdb.util';
 import { Board } from '../interfaces/Board';
 import { type Card } from '../interfaces/Card';
 import { type Lane } from '../interfaces/Lane';
@@ -78,6 +79,8 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
         if (currentBoard != null) {
             setBoard(currentBoard);
         }
+
+        void initDB();
     }, []);
 
     // Update localStorage whenever the boards change

@@ -1,21 +1,22 @@
 import { type Card } from '../interfaces/Card';
 import { type HistoryType } from '../types/HistoryType';
+import { IDBStores, addData } from './indexdb.util';
 
-const saveToHistory = (type: HistoryType, params: any[]) => {
-    console.log(type, ...params);
-    // TODO: logging to an online system here possible
+const saveToHistory = (type: HistoryType, params: any) => {
+    const id = Date.now();
+    void addData(IDBStores.History, { id, type, data: { ...params } });
 };
 
 export const saveDeletionToHistory = (card: Card) => {
-    saveToHistory('DELETION', [card]);
+    saveToHistory('DELETION', { card });
 };
 
 export const saveUpdateToHistory = (card: Card) => {
-    saveToHistory('UPDATE', [card]);
+    saveToHistory('UPDATE', { card });
 };
 
 export const saveCreationToHistory = (card: Card) => {
-    saveToHistory('CREATION', [card]);
+    saveToHistory('CREATION', { card });
 };
 
 export const saveMovementToHistory = (
@@ -23,7 +24,7 @@ export const saveMovementToHistory = (
     laneStart: number,
     laneEnd: number
 ) => {
-    saveToHistory('CREATION', [card, laneStart, laneEnd]);
+    saveToHistory('MOVEMENT', { card, laneStart, laneEnd });
 };
 
 export const saveBoardMovementToHistory = (
@@ -31,5 +32,5 @@ export const saveBoardMovementToHistory = (
     boardStart: number,
     boardEnd: number
 ) => {
-    saveToHistory('BOARDMOVEMENT', [card, boardStart, boardEnd]);
+    saveToHistory('BOARDMOVEMENT', { card, boardStart, boardEnd });
 };

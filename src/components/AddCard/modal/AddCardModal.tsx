@@ -185,6 +185,9 @@ export const AddCardModal: React.FC<AddCardModalProps> = ({
                         onRemoveTask={(task: Task) => {
                             handleOnRemoveTask(task);
                         }}
+                        onUpdateTasks={(tasks: Task[]) => {
+                            updateTasks(tasks);
+                        }}
                     />
                 </div>
             </div>

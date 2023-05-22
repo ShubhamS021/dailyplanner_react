@@ -1,5 +1,11 @@
 import { t } from 'i18next';
 import { useContext } from 'react';
+import {
+    DragDropContext,
+    Draggable,
+    Droppable,
+    type DropResult,
+} from 'react-beautiful-dnd';
 import { editSVG } from '../../assets/svgs/edit.svg';
 import { routeSVG } from '../../assets/svgs/route.svg';
 import { trashSVG } from '../../assets/svgs/trash.svg';
@@ -24,6 +30,7 @@ export interface CardProps {
     onMoveCard?: () => void;
     onRemoveTag?: (tag: Tag) => void;
     onRemoveTask?: (task: Task) => void;
+    onUpdateTasks?: (tasks: Task[]) => void;
 }
 
 export const CardComponent: React.FC<CardProps> = ({
@@ -40,6 +47,7 @@ export const CardComponent: React.FC<CardProps> = ({
     onMoveCard,
     onRemoveTag,
     onRemoveTask,
+    onUpdateTasks,
 }) => {
     const { updateTask, compactMode } = useContext(BoardContext);
 
@@ -66,6 +74,102 @@ export const CardComponent: React.FC<CardProps> = ({
                     ))}
                 </div>
             </>
+        );
+    };
+
+    const reorder = (list: Task[], startIndex: number, endIndex: number) => {
+        const result = Array.from(list);
+        const [removed] = result.splice(startIndex, 1);
+        result.splice(endIndex, 0, removed);
+
+        return result;
+    };
+
+    const onDragEnd = (result: DropResult) => {
+        // no tasks to drag..
+        if (tasks == null || tasks === undefined) {
+            return;
+        }
+
+        // dropped outside the list
+        if (result.destination == null) {
+            return;
+        }
+
+        const reorderedTasks = reorder(
+            tasks,
+            result.source.index,
+            result.destination.index
+        );
+
+        if (reorderedTasks == null) {
+            return;
+        }
+
+        if (onUpdateTasks != null) {
+            onUpdateTasks(reorderedTasks);
+        }
+    };
+
+    const renderTasksDraggable = () => {
+        if (tasks === undefined) return;
+        if (compactMode) return;
+        return (
+            <DragDropContext onDragEnd={onDragEnd}>
+                <Droppable droppableId="droppable">
+                    {(droppableProvided, _droppableSnapshot) => (
+                        <div
+                            data-testid={
+                                inEditMode ? 'card-edit-tasks' : 'card-tasks'
+                            }
+                            className="w-full"
+                            ref={droppableProvided.innerRef}
+                        >
+                            {tasks.map((t, index) => (
+                                <Draggable
+                                    key={t.id}
+                                    draggableId={`card-${id}-task-${t.id}`}
+                                    index={index}
+                                >
+                                    {(
+                                        draggableProvided,
+                                        _draggableSnapshot
+                                    ) => (
+                                        <div
+                                            ref={draggableProvided.innerRef}
+                                            {...draggableProvided.draggableProps}
+                                            {...draggableProvided.dragHandleProps}
+                                        >
+                                            <TaskComponent
+                                                key={t.id}
+                                                description={t.description}
+                                                fulfilled={t.fulfilled}
+                                                isRemoveable={inEditMode}
+                                                onFulfillTask={(
+                                                    fulfilled: boolean
+                                                ) => {
+                                                    if (!inEditMode) {
+                                                        updateTask(
+                                                            id,
+                                                            t.id,
+                                                            fulfilled
+                                                        );
+                                                    }
+                                                }}
+                                                onRemove={() => {
+                                                    if (onRemoveTask != null) {
+                                                        onRemoveTask(t);
+                                                    }
+                                                }}
+                                            />
+                                        </div>
+                                    )}
+                                </Draggable>
+                            ))}
+                        </div>
+                    )}
+                </Droppable>
+            </DragDropContext>
         );
     };
 
@@ -189,7 +293,8 @@ export const CardComponent: React.FC<CardProps> = ({
                 </div>
 
                 {renderDescription()}
-                {renderTasks()}
+                {inEditMode && renderTasksDraggable()}
+                {!inEditMode && renderTasks()}
                 {renderTags(lowerTags)}
                 <div className="flex w-full justify-end">
                     {renderEstimation()}

@@ -49,6 +49,21 @@ export const MyBoardLanes = () => {
         setLaneValue(name);
     };
 
+    const sulzerColors =
+        localStorage.getItem('color-theme') === 'dark'
+            ? [
+                  colors.sulzer100_blue,
+                  colors.sulzer100_red,
+                  colors.sulzer100_purple,
+                  colors.sulzer100_yellow,
+              ]
+            : [
+                  colors.sulzer33_blue,
+                  colors.sulzer33_red,
+                  colors.sulzer33_purple,
+                  colors.sulzer33_yellow,
+              ];
+
     return (
         <main className="p-10 grid grid-cols-1 grid-rows-1 justify-center items-center">
             <div className="flex flex-col items-center gap-3">
@@ -56,25 +71,25 @@ export const MyBoardLanes = () => {
                     <img src={logo} alt="Dayplanner Logo"></img>
                 </div>
                 <div
-                    className="text-3xl font-bold text-[#212121]"
+                    className="text-3xl font-bold text-[#212121] dark:text-[#DEDEDE]"
                     data-testid="myboardlanes-title"
                 >
                     {t('components.MyBoardLanes.define')}
                 </div>
                 <div
-                    className="text-xl text-[#212121]"
+                    className="text-xl text-[#212121] dark:text-[#8B8B8B]"
                     data-testid="myboardlanes-subtitle"
                 >
                     {t('components.MyBoardLanes.subtitle')}
                 </div>
                 <div className="w-full grid justify-center gap-6">
-                    <div className="border border-[#f5f4f4] p-2 rounded-lg flex gap-2 items-center ">
+                    <div className="dark:bg-[#2E3842] border border-[#f5f4f4] dark:border-[#34414E]  p-2 rounded-lg flex gap-2 items-center ">
                         {layoutCardsSVG}
                         <input
                             placeholder={
                                 t('components.MyBoardLanes.name') ?? ''
                             }
-                            className="focus:outline-none text-sm w-full"
+                            className="focus:outline-none text-sm w-full dark:bg-[#2E3842] dark:text-white"
                             data-testid="myboardlanes-lanename-input"
                             onChange={(e) => {
                                 handleLaneChanges(e.target.value);
@@ -82,15 +97,12 @@ export const MyBoardLanes = () => {
                             value={laneValue}
                         ></input>
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 dark:text-[#8B8B8B]">
                         {t('components.MyBoardLanes.color')}
                         {[
-                            colors.sulzer33_blue,
-                            colors.sulzer33_red,
+                            ...sulzerColors,
                             colors.green,
                             colors.lavender,
-                            colors.sulzer33_purple,
-                            colors.sulzer33_yellow,
                             colors.rose,
                             colors.light_grey,
                         ].map((color, index) => (
@@ -113,7 +125,7 @@ export const MyBoardLanes = () => {
                     <div className="flex justify-center">
                         <button
                             disabled={laneValue === ''}
-                            className="bg-[#ECEEF8] disabled:bg-[#ECEEF8] disabled:text-white rounded-md hover:bg-[#17A2B8] hover:text-white font-semibold stroke-[#5E5E5E] hover:stroke-white disabled:stroke-white"
+                            className="button primary-button"
                             data-testid="myboardlanes-addlane-button"
                             onClick={() => {
                                 handleAddNewLane();
@@ -148,7 +160,7 @@ export const MyBoardLanes = () => {
                             disabled={
                                 boards[boards.length - 1].lanes.length === 0
                             }
-                            className="bg-[#17A2B8] disabled:bg-[#ECEEF8] text-white px-8 py-1.5 rounded-md font-semibold ease-linear transition-all duration-150"
+                            className="button primary-button px-8 py-1.5 soft"
                             type="button"
                             data-testid="myboardlanes-create-own-button"
                             onClick={() => {

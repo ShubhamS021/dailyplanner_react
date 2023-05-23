@@ -21,7 +21,7 @@ export const App = () => {
         }
     };
 
-    return renderBoards();
+    return <div className="dark:bg-[#171D23] h-full">{renderBoards()}</div>;
 };
 
 export default App;

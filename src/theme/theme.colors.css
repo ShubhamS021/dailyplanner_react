@@ -1,0 +1,17 @@
+:root {
+    /* light theme */
+    --light-main-background: #fff;
+    --light-button-background: #eceef8;
+    --light-button-background--primary: #17a2b8;
+    --light-button-stroke: #5e5e5e;
+    --light-button-background--disabled: #eceef8;
+    --light-main-border: #f5f4f4;
+
+    /* dark theme */
+    --dark-main-background: #2e3842;
+    --dark-modal-background: #212932;
+    --dark-button-background: #445566;
+    --dark-button-stroke: rgb(156 163 175);
+    --dark-button-background--disabled: #26303a;
+    --dark-main-border: #34414e;
+}

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { checkSVG } from '../../assets/svgs/check.svg';
 import { tagCloseSVG } from '../../assets/svgs/tagClose.svg';
 
 export interface TaskProps {
@@ -28,39 +29,6 @@ export const TaskComponent: React.FC<TaskProps> = ({
         onFulfillTask(!checked);
     }
 
-    const bulletSVG = (
-        <svg
-            viewBox="0 0 16 16"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="#5A5A65"
-            className="initial"
-        >
-            <circle cx="8" cy="8" r="2" />
-        </svg>
-    );
-
-    const checkSVG = (
-        <svg
-            className="fill-current hidden w-3 h-3 text-[#5A5A65] pointer-events-none"
-            version="1.1"
-            width="12"
-            height="8"
-            viewBox="0 0 12 8"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
-            <g fill="none" fillRule="evenodd">
-                <path
-                    d="M1.5 4L4.5 7L10.5 1"
-                    stroke="#5A5A65"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                />
-            </g>
-        </svg>
-    );
-
     return (
         <div
             className={`text-sm text-[#5A5A65] py-1 w-full`}
@@ -75,7 +43,6 @@ export const TaskComponent: React.FC<TaskProps> = ({
                     checked={checked}
                 />
                 <div className="bg-[#E1E4E8] rounded-md w-4 h-4 flex flex-shrink-0 justify-center items-center mr-2 cursor-pointer">
-                    {bulletSVG}
                     {checkSVG}
                 </div>
                 <label
@@ -83,7 +50,7 @@ export const TaskComponent: React.FC<TaskProps> = ({
                         handleLabelClick(checked);
                     }}
                     data-testid="task-label"
-                    className={`select-none cursor-pointer ${
+                    className={`select-none cursor-pointer dark:text-[#fff] ${
                         checked ? 'line-through opacity-60' : ''
                     }`}
                 >

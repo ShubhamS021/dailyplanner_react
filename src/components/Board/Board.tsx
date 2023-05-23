@@ -1,3 +1,4 @@
+import { DarkModeToggle } from 'components/DarkModeToggle/DarkModeToggle';
 import { useContext } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { useTranslation } from 'react-i18next';
@@ -49,7 +50,7 @@ export const Board = () => {
         <main className="p-10">
             <div className="h-16 mb-6 grid grid-cols-[auto,1fr_auto] items-center">
                 <div
-                    className="cursor-pointer mr-4 stroke-[#14161F]"
+                    className="cursor-pointer mr-4 stroke-[#14161F] dark:stroke-[#DEDEDE]"
                     data-testid="btnBackToBoards"
                     onClick={() => {
                         handleBackToBoards();
@@ -58,7 +59,7 @@ export const Board = () => {
                     {arrowLeftSVG}
                 </div>
                 <BoardTitle title={board.title} subtitle={board.subtitle} />
-                <div>
+                <div className="flex gap-2 items-center">
                     <AddCard
                         placeholder={t('components.Board.add')}
                         text={t('components.Board.addSubmit')}
@@ -66,7 +67,7 @@ export const Board = () => {
                 </div>
             </div>
             <div
-                className={`p-5 rounded-2xl bg-[#F8F8F8] grid gap-6`}
+                className={`p-5 rounded-2xl bg-[#F8F8F8] grid gap-6 dark:bg-[#212932]`}
                 style={{
                     gridTemplateColumns: `repeat(${board.lanes.length},minmax(200px,1fr)`,
                 }}
@@ -77,10 +78,11 @@ export const Board = () => {
                 </DragDropContext>
             </div>
 
-            <div className="flex justify-end gap-2 mt-2">
+            <div className="flex justify-end gap-2 mt-2 items-center">
+                <DarkModeToggle />
+                <CompactModeToggle />
                 <Export />
                 <Import />
-                <CompactModeToggle />
             </div>
         </main>
     );

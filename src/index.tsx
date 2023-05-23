@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './components/App/App';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
+import './theme/theme.colors.css';
 
 import './i18n';
 

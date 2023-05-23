@@ -1,3 +1,4 @@
+import { calculateIlluminance } from 'utils/color.util';
 import { tagCloseSVG } from '../../assets/svgs/tagClose.svg';
 
 export interface TagProps {
@@ -16,12 +17,18 @@ export const TagComponent: React.FC<TagProps> = ({
     onRemove,
 }) => {
     let style = { backgroundColor: color, border: '' };
+    const textColor =
+        calculateIlluminance(color) > 0.5 ? 'text-[#5A5A65]' : 'text-white';
+
     if (hasOutline === true) {
-        style = { ...style, border: '2px solid rgba(0,0,0,0.3)' };
+        style = {
+            ...style,
+            border: '2px solid var(--light-button-background--primary)',
+        };
     }
     return (
         <div
-            className={`text-sm text-[#5A5A65] px-2.5 py-1 rounded-lg font-medium min-h-[28px] min-w-[28px]`}
+            className={`text-sm ${textColor} px-2.5 py-1 rounded-lg font-medium min-h-[28px] min-w-[28px]`}
             style={style}
             data-testid="tag"
         >

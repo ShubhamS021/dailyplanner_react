@@ -17,14 +17,14 @@ export const LanguageChooser = () => {
     };
 
     return (
-        <div className="flex gap-2">
+        <div className="flex gap-2 dark:text-[#8B8B8B]">
             {t('components.LanguageChooser.language')}
             {Object.keys(languages).map((lng: string) => (
                 <button
                     key={lng}
                     className={`${
                         i18n.resolvedLanguage === lng
-                            ? 'font-bold text-[#5A5A65]'
+                            ? 'font-bold text-[#5A5A65] dark:text-[#8B8B8B]'
                             : 'font-normal'
                     }`}
                     type="submit"

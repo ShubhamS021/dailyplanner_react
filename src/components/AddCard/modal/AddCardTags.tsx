@@ -48,16 +48,31 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
         setTag('');
     };
 
+    const sulzerColors =
+        localStorage.getItem('color-theme') === 'dark'
+            ? [
+                  colors.sulzer100_blue,
+                  colors.sulzer100_red,
+                  colors.sulzer100_purple,
+                  colors.sulzer100_yellow,
+              ]
+            : [
+                  colors.sulzer33_blue,
+                  colors.sulzer33_red,
+                  colors.sulzer33_purple,
+                  colors.sulzer33_yellow,
+              ];
+
     return (
         <div className="flex flex-col gap-2">
-            <div className="text-sm text-[#5E5E5E]">
+            <div className="field-caption">
                 <div
                     className="flex gap-1 font-bold"
                     data-testid="addcardtags-headline"
                 >
                     {headline}
                     <div
-                        className={`text-xs text-[#4d4d4d] font-semibold self-center place-self-end`}
+                        className={`field-caption-additional self-center place-self-end`}
                     >
                         ({card.upperTags?.length ?? 0}/{MAX_TAGS})
                     </div>
@@ -66,7 +81,7 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
             <div className="grid grid-rows-2 gap-2">
                 <div className="flex gap-2">
                     <div className="self-center">
-                        <div className="border border-[#f5f4f4] bg-white p-2 rounded-lg flex gap-2 items-center">
+                        <div className="formField flex gap-2 items-center">
                             <input
                                 placeholder={'Enter a tag.'}
                                 className="focus:outline-none text-sm w-full"
@@ -80,7 +95,7 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
                     </div>
                     <div className="self-center">
                         <button
-                            className="group bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white disabled:bg-[#ECEEF8] disabled:text-[#ccc] font-semibold"
+                            className="group button"
                             data-testid="addcard-tag-button"
                             onClick={(_e) => {
                                 handleAddNewTag();
@@ -90,7 +105,7 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
                                 card.upperTags?.length === MAX_TAGS
                             }
                         >
-                            <div className="flex gap-2 items-center p-2 stroke-[#5E5E5E] hover:stroke-white group-disabled:stroke-[#ccc]">
+                            <div className="flex gap-2 items-center p-2">
                                 {tagsSVG}
                                 <p className="font-semibold text-sm">
                                     {t(
@@ -104,12 +119,9 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
                 <div>
                     <div className="flex gap-1">
                         {[
-                            colors.sulzer33_blue,
-                            colors.sulzer33_red,
+                            ...sulzerColors,
                             colors.green,
                             colors.lavender,
-                            colors.sulzer33_purple,
-                            colors.sulzer33_yellow,
                             colors.rose,
                             colors.light_grey,
                         ].map((color, index) => (

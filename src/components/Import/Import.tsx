@@ -21,7 +21,7 @@ export const Import = () => {
     return (
         <>
             <button
-                className="bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white font-semibold"
+                className="hover:text-[#17A2B8] dark:text-[#5E5E5E] dark:hover:text-[#17A2B8] font-semibold"
                 data-testid="import-button"
                 onClick={(_e) => {
                     handleClickImport();
@@ -34,7 +34,7 @@ export const Import = () => {
                     ref={inputRef}
                     data-testid="import-input"
                 />
-                <div className="flex gap-2 items-center p-2 stroke-[#5E5E5E] hover:stroke-white">
+                <div className="flex gap-2 items-center p-2 stroke-[#5E5E5E] hover:stroke-[#17A2B8] soft">
                     {fileImportSVG}
                     <p className="font-semibold text-sm">
                         {t('components.Import.import')}

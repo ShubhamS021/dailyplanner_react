@@ -39,13 +39,13 @@ export const AddCardSubtasks: React.FC<AddCardSubtaskProps> = ({
 
     return (
         <div className="flex flex-col gap-2">
-            <div className="text-sm text-[#5E5E5E]">
+            <div className="field-caption">
                 <div className="font-bold" data-testid="addcardtasks-headline">
                     {headline}
                 </div>
             </div>
             <div className="grid grid-cols-[1fr,auto] gap-2">
-                <div className="border border-[#f5f4f4] bg-white p-2 rounded-lg flex gap-2 items-center">
+                <div className="formField p-2 flex gap-2 items-center">
                     <input
                         placeholder={
                             t(
@@ -61,14 +61,14 @@ export const AddCardSubtasks: React.FC<AddCardSubtaskProps> = ({
                     ></input>
                 </div>
                 <button
-                    className="group bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white disabled:bg-[#ECEEF8] disabled:text-[#ccc] font-semibold"
+                    className="button"
                     data-testid="addcard-subtask-button"
                     onClick={(_e) => {
                         handleAddNewTask();
                     }}
                     disabled={title === ''}
                 >
-                    <div className="flex gap-2 items-center p-2 hover:stroke-[#f5f4f4]">
+                    <div className="flex gap-2 items-center p-2">
                         {uncheckedSVG}
                         <p className="font-semibold text-sm">
                             {t(

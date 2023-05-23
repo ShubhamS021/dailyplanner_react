@@ -49,7 +49,7 @@ export const CardComponent: React.FC<CardProps> = ({
     onRemoveTask,
     onUpdateTasks,
 }) => {
-    const { updateTask, compactMode } = useContext(BoardContext);
+    const { updateTask, compactMode, boards } = useContext(BoardContext);
 
     const renderTags = (tags: Tag[] | undefined) => {
         if (tags === undefined) return;
@@ -208,7 +208,7 @@ export const CardComponent: React.FC<CardProps> = ({
         if (compactMode) return;
         return (
             <p
-                className="text-sm text-[#5A5A65]"
+                className="text-sm text-[#5A5A65] dark:text-[#B8B8B8]"
                 data-testid="card-description"
             >
                 {description}
@@ -235,7 +235,7 @@ export const CardComponent: React.FC<CardProps> = ({
                 data-testid={`card-${id}-actions`}
             >
                 <button
-                    className="inline-flex items-center justify-center w-8 h-8 transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline"
+                    className="small-button"
                     onClick={() => {
                         if (onMoveCard != null) {
                             onMoveCard();
@@ -243,11 +243,12 @@ export const CardComponent: React.FC<CardProps> = ({
                     }}
                     title={t('components.Card.move') ?? ''}
                     data-testid="move-card-button"
+                    disabled={boards.length < 2}
                 >
                     {routeSVG}
                 </button>
                 <button
-                    className="inline-flex items-center justify-center w-8 h-8 transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline"
+                    className="small-button"
                     onClick={() => {
                         if (onEditCard != null) {
                             onEditCard();
@@ -260,7 +261,7 @@ export const CardComponent: React.FC<CardProps> = ({
                 </button>
 
                 <button
-                    className="inline-flex items-center justify-center w-8 h-8 transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline hover:bg-pink-600"
+                    className="small-button hover:bg-pink-600"
                     onClick={() => {
                         if (onRemoveCard != null) {
                             onRemoveCard();
@@ -276,15 +277,12 @@ export const CardComponent: React.FC<CardProps> = ({
     };
 
     return (
-        <div
-            className="group bg-white border border-solid rounded-lg border-[#DDDDDD] p-4 drop-shadow-[0_2px_4px_rgba(0,0,0,0.08)]"
-            data-testid={`card-${id}`}
-        >
+        <div className="group card" data-testid={`card-${id}`}>
             <div className="flex flex-col gap-2 items-start w-full">
                 <div>{renderTags(upperTags)}</div>
                 <div className="grid grid-cols-[1fr,auto] w-full">
                     <h3
-                        className="font-semibold text-base"
+                        className="font-semibold text-base dark:text-white"
                         data-testid="card-title"
                     >
                         {title}

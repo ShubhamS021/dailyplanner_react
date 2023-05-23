@@ -23,7 +23,7 @@ export const AddCardEstimation: React.FC<AddCardEstimationProps> = ({
 
     return (
         <div className="flex flex-col gap-2">
-            <div className="text-sm text-[#5E5E5E]">
+            <div className="field-caption">
                 <div
                     className="flex gap-1 font-bold"
                     data-testid="AddCardEstimation-headline"
@@ -32,28 +32,24 @@ export const AddCardEstimation: React.FC<AddCardEstimationProps> = ({
                 </div>
             </div>
             <div className="grid grid-cols-[1fr,auto] gap-1">
-                <div className="self-center">
-                    <div className="border border-[#f5f4f4] bg-white rounded-lg flex gap-2 items-center">
-                        <select
-                            className="focus:outline-none text-sm w-full border-none rounded-lg"
-                            data-testid="addcard-estimation-select"
-                            value={shirt}
-                            onChange={(e) => {
-                                handleEstimationChanges(
-                                    e.target.value as unknown as Shirt
-                                );
-                            }}
-                        >
-                            {shirts.map((s, index) => {
-                                return (
-                                    <option value={s} key={index}>
-                                        {s}
-                                    </option>
-                                );
-                            })}
-                        </select>
-                    </div>
-                </div>
+                <select
+                    className="formField focus:outline-none text-sm w-full border-none rounded-lg"
+                    data-testid="addcard-estimation-select"
+                    value={shirt}
+                    onChange={(e) => {
+                        handleEstimationChanges(
+                            e.target.value as unknown as Shirt
+                        );
+                    }}
+                >
+                    {shirts.map((s, index) => {
+                        return (
+                            <option value={s} key={index}>
+                                {s}
+                            </option>
+                        );
+                    })}
+                </select>
             </div>
         </div>
     );

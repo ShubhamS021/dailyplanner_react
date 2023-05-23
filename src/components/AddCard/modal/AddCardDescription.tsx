@@ -18,7 +18,7 @@ export const AddCardDescription: React.FC<AddCardDescriptionProps> = ({
 
     return (
         <div className="flex flex-col gap-2">
-            <div className="text-sm text-[#5E5E5E]">
+            <div className="field-caption">
                 <div
                     className="font-bold"
                     data-testid="addcarddescription-headline"
@@ -26,7 +26,7 @@ export const AddCardDescription: React.FC<AddCardDescriptionProps> = ({
                     {headline}
                 </div>
             </div>
-            <div className="border border-[#f5f4f4] bg-white p-2 rounded-lg">
+            <div className="formField">
                 <input
                     placeholder={
                         t(
@@ -41,7 +41,7 @@ export const AddCardDescription: React.FC<AddCardDescriptionProps> = ({
                     }}
                 ></input>
             </div>
-            <div className="border border-[#f5f4f4] bg-white p-2 rounded-lg">
+            <div className="formField">
                 <input
                     placeholder={
                         t(

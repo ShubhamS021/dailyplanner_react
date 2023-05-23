@@ -36,9 +36,6 @@ describe('MyBoardLanes', () => {
         fireEvent.click(blueColorButton);
 
         expect(laneNameInput).toHaveValue('New Lane');
-        expect(blueColorButton.children[0]).toHaveStyle(
-            'border: 2px solid rgba(0,0,0,0.3)'
-        );
     });
 
     it('adds a new lane to the board when the "Add lane" button is clicked', () => {

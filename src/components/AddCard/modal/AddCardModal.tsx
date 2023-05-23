@@ -61,16 +61,13 @@ export const AddCardModal: React.FC<AddCardModalProps> = ({
     };
 
     return (
-        <div
-            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
-            data-testid="addcard-modal"
-        >
+        <div className="modal" data-testid="addcard-modal">
             <div className="min-w-[80vw] relative w-auto mx-auto max-w-3xl flex gap-6">
                 {/* content */}
-                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <div className="modal-content">
                     {/* body */}
                     <div className="p-2">
-                        <div className="relative flex flex-col gap-2 p-5 rounded-2xl bg-[#F8F8F8]">
+                        <div className="relative flex flex-col gap-2 p-5 rounded-2xl bg-[#F8F8F8] dark:bg-[#1b2129]">
                             <AddCardDescription
                                 headline={
                                     t(
@@ -136,7 +133,7 @@ export const AddCardModal: React.FC<AddCardModalProps> = ({
                     {/* footer */}
                     <div className="flex items-center gap-2 justify-end px-2 pb-2 rounded-b">
                         <button
-                            className="bg-[#ECEEF8] text-black p-2 py-1.5 rounded-md font-semibold hover:text-red-500 ease-linear transition-all duration-150"
+                            className="button p-2 py-1.5 hover:text-red-500 soft"
                             type="button"
                             data-testid="addcard-modal-cancel-button"
                             onClick={() => {
@@ -150,7 +147,7 @@ export const AddCardModal: React.FC<AddCardModalProps> = ({
                                 ''}
                         </button>
                         <button
-                            className="bg-[#17A2B8] text-white p-2 py-1.5 rounded-md font-semibold ease-linear transition-all duration-150"
+                            className="button primary-button p-2 py-1.5 soft"
                             type="button"
                             data-testid="addcard-modal-button"
                             onClick={() => {

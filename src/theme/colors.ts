@@ -17,6 +17,12 @@ export const colors: Colors = {
     sulzer100_purple: '#5f249f',
 
     // sulzer colors: 33% transparency
+    sulzer66_yellow: 'rgba(255, 205, 0, 0.66)',
+    sulzer66_blue: 'rgba(0, 70, 128, 0.66)',
+    sulzer66_red: 'rgba(224, 0, 77, 0.66)',
+    sulzer66_purple: 'rgba(95, 36, 159, 0.66)',
+
+    // sulzer colors: 33% transparency
     sulzer33_yellow: 'rgba(255, 205, 0, 0.33)',
     sulzer33_blue: 'rgba(0, 70, 128, 0.33)',
     sulzer33_red: 'rgba(224, 0, 77, 0.33)',

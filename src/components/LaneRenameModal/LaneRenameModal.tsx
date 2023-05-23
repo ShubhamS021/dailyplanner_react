@@ -30,16 +30,13 @@ export const LaneRenameModal: React.FC<LaneRenameModalProps> = ({
     const { t } = useTranslation();
 
     return (
-        <div
-            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
-            data-testid="confirmation-modal"
-        >
+        <div className="modal" data-testid="confirmation-modal">
             <div className="relative w-auto my-6 mx-auto max-w-3xl">
                 {/* content */}
-                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <div className="modal-content">
                     {/* header */}
                     <div className="px-6 pt-6 rounded-t grid grid-cols-[1fr,auto] gap-2">
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 dark:stroke-[#fff] dark:fill-[#fff]">
                             {infoCircleSVG}
                             <h3
                                 className="text-base font-semibold"
@@ -63,7 +60,7 @@ export const LaneRenameModal: React.FC<LaneRenameModalProps> = ({
                     <div className="relative p-6 flex flex-col gap-2">
                         {text}
                         <br />
-                        <div className="border border-[#f5f4f4] p-2 rounded-lg">
+                        <div className="formField p-2 rounded-lg">
                             <input
                                 placeholder={
                                     t('components.LaneRenameModal.title') ?? ''
@@ -80,7 +77,7 @@ export const LaneRenameModal: React.FC<LaneRenameModalProps> = ({
                     {/* footer */}
                     <div className="flex items-center gap-2 justify-end px-6 pb-6 rounded-b">
                         <button
-                            className="bg-[#ECEEF8] text-black p-2 py-1.5 rounded-md font-semibold hover:text-gray-400 ease-linear transition-all duration-150"
+                            className="button p-2 py-1.5 soft"
                             type="button"
                             data-testid="confirmation-modal-cancel-button"
                             onClick={() => {
@@ -90,7 +87,7 @@ export const LaneRenameModal: React.FC<LaneRenameModalProps> = ({
                             {cancelButtonText ?? 'Cancel'}
                         </button>
                         <button
-                            className="bg-[#17A2B8] text-white p-2 py-1.5 rounded-md font-semibold ease-linear transition-all duration-150"
+                            className="button primary-button p-2 py-1.5 soft"
                             type="button"
                             data-testid="confirmation-modal-button"
                             onClick={() => {

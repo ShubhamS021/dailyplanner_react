@@ -68,7 +68,7 @@ export const MyBoards = () => {
                     <img src={logo} alt="Dayplanner Logo"></img>
                 </div>
                 <div
-                    className="text-3xl font-bold text-[#212121]"
+                    className="text-3xl font-bold text-[#212121] dark:text-[#DEDEDE]"
                     data-testid="myboards-title"
                 >
                     {t('components.MyBoards.title')}
@@ -80,7 +80,7 @@ export const MyBoards = () => {
                     {boards.map((board, index) => {
                         return (
                             <div
-                                className="group border border-[#f5f4f4] p-2 rounded-lg grid grid-cols-[1fr,auto,auto] items-center gap-2"
+                                className="group dark:bg-[#2E3842] dark:text-[#DEDEDE] border border-[#f5f4f4] dark:border-[#34414E] p-2 rounded-lg grid grid-cols-[1fr,auto,auto] items-center gap-2"
                                 key={index}
                                 data-testid={`board-${board.id}`}
                             >
@@ -105,7 +105,7 @@ export const MyBoards = () => {
                                         }
                                         data-testid="edit-board-button"
                                     >
-                                        <div className="flex gap-2 items-center p-2 stroke-white">
+                                        <div className="flex gap-2 items-center p-2 stroke-[#5A5A65] hover:stroke-white">
                                             {editSVG}
                                         </div>
                                     </button>
@@ -121,7 +121,7 @@ export const MyBoards = () => {
                                         }
                                         data-testid="remove-board-button"
                                     >
-                                        <div className="flex gap-2 items-center p-2 stroke-white">
+                                        <div className="flex gap-2 items-center p-2 stroke-[#5A5A65] hover:stroke-white">
                                             {trashSVG}
                                         </div>
                                     </button>
@@ -149,21 +149,21 @@ export const MyBoards = () => {
                     })}
                 </div>
                 <div className="flex items-center justify-center w-1/3">
-                    <hr className="border-t-1 border-gray-300 w-1/3 mr-4" />
-                    <span className="text-gray-600 font-semibold">
+                    <hr className="border-t-1 border-gray-300 w-1/3 mr-4 dark:border-[#585858]" />
+                    <span className="text-gray-600 font-semibold dark:text-[#8B8B8B]">
                         {t('components.MyBoards.or')}
                     </span>
-                    <hr className="border-t-1 border-gray-300 w-1/3 ml-4" />
+                    <hr className="border-t-1 border-gray-300 w-1/3 ml-4 dark:border-[#585858]" />
                 </div>
                 <div
-                    className="text-xl text-[#212121]"
+                    className="text-xl text-[#212121] dark:text-[#8B8B8B]"
                     data-testid="myboards-subtitle"
                 >
                     {t('components.MyBoards.create')}
                 </div>
 
                 <button
-                    className="bg-[#17A2B8] text-white px-8 py-1.5 rounded-md font-semibold ease-linear transition-all duration-150"
+                    className="button primary-button px-8 py-1.5 soft"
                     type="button"
                     data-testid="myboards-create-own-button"
                     onClick={() => {
@@ -176,7 +176,7 @@ export const MyBoards = () => {
 
             <footer className="flex flex-col items-center gap-3 self-end">
                 <a
-                    className="text-[#5A5A65] flex gap-2 items-center"
+                    className="text-[#5A5A65] dark:text-[#8B8B8B] flex gap-2 items-center"
                     href="https://git.sulzer.de/hahnk/dayplanner"
                 >
                     {gitlabSVG}

@@ -66,10 +66,10 @@ export const AddCard: React.FC<AddCardProps> = ({
 
     return (
         <>
-            <div className="bg-[#f8f8f8] border border-[#f5f4f4] p-2 rounded-lg">
+            <div className="formField rounded-lg">
                 <input
                     placeholder={placeholder}
-                    className="bg-[#f8f8f8] focus:outline-none"
+                    className="focus:outline-none"
                     data-testid="addcard-input"
                     value={card.title}
                     onChange={(e) => {
@@ -80,7 +80,7 @@ export const AddCard: React.FC<AddCardProps> = ({
                     disabled={card.title === ''}
                     type="button"
                     data-testid="addcard-button"
-                    className="bg-[#17A2B8] text-white px-2 py-1 rounded font-semibold hover:ring-2 hover:ring-[#057C8E] hover:shadow-[0_2px_4px_rgba(5,124,142,0.4)] disabled:bg-gray-400 disabled:ring-0 disabled:shadow-none ease-linear transition-all duration-150"
+                    className="button primary-button px-2 py-1 soft"
                     onClick={() => {
                         setShowModal(true);
                     }}

@@ -66,6 +66,10 @@ export const ENtranslation = {
             cancel: 'Cancel',
             ok: 'Ok',
         },
+        DarkModeToggle: {
+            light: 'Light',
+            dark: 'Dark',
+        },
         Export: {
             export: 'Export',
         },

@@ -5,6 +5,7 @@ import {
     getLocalizedInitialLanesState,
 } from 'utils/context.util';
 import logo from '../../assets/logo.png';
+import { arrowLeftSVG } from '../../assets/svgs/arrow-left.svg';
 import { BoardContext } from '../../context/BoardContext';
 
 export const AddBoard = () => {
@@ -32,6 +33,10 @@ export const AddBoard = () => {
         toggleBoardMode('boardCustomLanesMode');
     };
 
+    const handleBackToBoards = () => {
+        toggleBoardMode('boardChooseMode');
+    };
+
     const handleNameChanges = (name: string) => {
         setName(name);
     };
@@ -47,9 +52,21 @@ export const AddBoard = () => {
     return (
         <main className="p-10 grid grid-cols-1 grid-rows-1 justify-center items-center">
             <div className="flex flex-col items-center gap-3">
-                <div>
-                    <img src={logo} alt="Dayplanner Logo"></img>
+                <div className="h-16 mb-6 grid grid-cols-[auto,auto] items-center">
+                    <div
+                        className="cursor-pointer mr-4 stroke-[#14161F] dark:stroke-[#DEDEDE]"
+                        data-testid="btnBackToBoards"
+                        onClick={() => {
+                            handleBackToBoards();
+                        }}
+                    >
+                        {arrowLeftSVG}
+                    </div>
+                    <div>
+                        <img src={logo} alt="Dayplanner Logo"></img>
+                    </div>
                 </div>
+
                 <div
                     className="text-3xl font-bold text-[#212121] dark:text-[#DEDEDE]"
                     data-testid="addboard-title"

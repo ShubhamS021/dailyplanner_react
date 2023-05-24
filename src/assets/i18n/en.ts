@@ -77,9 +77,10 @@ export const ENtranslation = {
             import: 'Import',
         },
         Lane: {
-            editTitle: 'Rename lane',
-            edit: 'rename',
-            editText: 'Enter a new lane name:',
+            editTitle: 'Edit lane',
+            edit: 'edit',
+            editNameText: 'Enter a new lane name:',
+            editLabelText: 'Choose a new lane color:',
             deleteTitle: 'Delete all cards from lane',
             deleteAll: 'delete all',
             dropzone: 'Place tasks here..',
@@ -92,8 +93,8 @@ export const ENtranslation = {
             moveSubmit: 'Move the card',
             editCardSubmit: 'Save changes',
         },
-        LaneRenameModal: {
-            title: 'New name',
+        LaneEditModal: {
+            title: 'Edit lane',
         },
         LanguageChooser: {
             language: 'Language:',

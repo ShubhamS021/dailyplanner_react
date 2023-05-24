@@ -2,6 +2,7 @@ import { initialBoardState } from '../context/initialBoard.state';
 import { initialLanes } from '../context/initialLanes.state';
 import { type Board } from '../interfaces/Board';
 import { type BoardMode } from '../types/BoardMode';
+import { type ThemeMode } from '../types/ThemeMode';
 
 export const mockAddLaneToBoard = jest.fn();
 export const mockAddCardToLane = jest.fn();
@@ -33,6 +34,7 @@ export const mockAddBoard = jest.fn();
 export const mockRemoveBoard = jest.fn();
 export const mockRenameBoard = jest.fn();
 export const mockRenameLane = jest.fn();
+export const mockUpdateLaneColor = jest.fn();
 export const mockEnterBoard = jest.fn();
 export const mockUpdateLanguage = jest.fn();
 
@@ -48,6 +50,7 @@ export const mockContext = {
     board: initialBoard,
     compactMode: false,
     boardMode: 'boardChooseMode' as BoardMode,
+    themeMode: 'light' as ThemeMode,
     addLaneToBoard: mockAddLaneToBoard,
     addCardToLane: mockAddCardToLane,
     addCardToInitialBoardLane: mockAddCardToInitialBoardLane,
@@ -68,6 +71,7 @@ export const mockContext = {
     removeBoard: mockRemoveBoard,
     renameBoard: mockRenameBoard,
     renameLane: mockRenameLane,
+    updateLaneColor: mockUpdateLaneColor,
     enterBoard: mockEnterBoard,
     updateLanguage: mockUpdateLanguage,
 };

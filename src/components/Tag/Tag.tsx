@@ -1,4 +1,9 @@
-import { calculateIlluminance } from 'utils/color.util';
+import { BoardContext } from 'context/BoardContext';
+import { useContext, useEffect, useState } from 'react';
+import {
+    calculateIlluminance,
+    determineSulzerColorByMode,
+} from 'utils/color.util';
 import { tagCloseSVG } from '../../assets/svgs/tagClose.svg';
 
 export interface TagProps {
@@ -16,7 +21,16 @@ export const TagComponent: React.FC<TagProps> = ({
     isRemoveable,
     onRemove,
 }) => {
-    let style = { backgroundColor: color, border: '' };
+    const { themeMode } = useContext(BoardContext);
+    const [tagColor, setTagColor] = useState(
+        determineSulzerColorByMode(color, themeMode)
+    );
+
+    useEffect(() => {
+        setTagColor(determineSulzerColorByMode(color, themeMode));
+    }, [themeMode]);
+
+    let style = { backgroundColor: tagColor, border: '' };
     const textColor =
         calculateIlluminance(color) > 0.5 ? 'text-[#5A5A65]' : 'text-white';
 

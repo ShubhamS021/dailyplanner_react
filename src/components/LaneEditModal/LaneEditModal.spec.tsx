@@ -1,19 +1,20 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { mockContext } from '../../mocks/context.mock';
-import { LaneRenameModal } from './LaneRenameModal';
+import { LaneEditModal } from './LaneEditModal';
 
-describe('LaneRenameModal', () => {
+describe('LaneEditModal', () => {
     it('renders the title and text props', () => {
         const title = 'Rename Lane';
 
         render(
-            <LaneRenameModal
+            <LaneEditModal
                 title={title}
                 board={mockContext.board}
                 laneId={0}
                 modalConfirmation={jest.fn()}
                 closeModal={jest.fn()}
-                text={''}
+                editNameText={''}
+                editLabelText={''}
             />
         );
 
@@ -27,7 +28,7 @@ describe('LaneRenameModal', () => {
         const cancelButtonText = 'Cancel';
 
         render(
-            <LaneRenameModal
+            <LaneEditModal
                 title="Rename Lane"
                 board={mockContext.board}
                 laneId={0}
@@ -35,7 +36,8 @@ describe('LaneRenameModal', () => {
                 cancelButtonText={cancelButtonText}
                 modalConfirmation={jest.fn()}
                 closeModal={jest.fn()}
-                text={''}
+                editNameText={''}
+                editLabelText={''}
             />
         );
 
@@ -50,33 +52,35 @@ describe('LaneRenameModal', () => {
 
     it('renders the lane title as input values', () => {
         render(
-            <LaneRenameModal
+            <LaneEditModal
                 title="Rename Lane"
                 board={mockContext.board}
                 laneId={0}
                 modalConfirmation={jest.fn()}
                 closeModal={jest.fn()}
-                text={''}
+                editNameText={''}
+                editLabelText={''}
             />
         );
 
-        const titleInput = screen.getByTestId('LaneRename-title-input');
+        const titleInput = screen.getByTestId('LaneEdit-title-input');
         expect(titleInput).toHaveValue('Not Started');
     });
 
     it('updates the lane title when the inputs are changed', () => {
         render(
-            <LaneRenameModal
+            <LaneEditModal
                 title="Rename Lane"
                 board={mockContext.board}
                 laneId={0}
                 modalConfirmation={jest.fn()}
                 closeModal={jest.fn()}
-                text={''}
+                editNameText={''}
+                editLabelText={''}
             />
         );
 
-        const titleInput = screen.getByTestId('LaneRename-title-input');
+        const titleInput = screen.getByTestId('LaneEdit-title-input');
         const newTitle = 'New Lane Title';
         fireEvent.change(titleInput, { target: { value: newTitle } });
         expect(titleInput).toHaveValue(newTitle);
@@ -85,13 +89,14 @@ describe('LaneRenameModal', () => {
     it('should call closeModal when close button is clicked', () => {
         const closeModal = jest.fn();
         const { getByTestId } = render(
-            <LaneRenameModal
+            <LaneEditModal
                 title="Title"
                 board={mockContext.board}
                 laneId={0}
                 modalConfirmation={jest.fn()}
                 closeModal={closeModal}
-                text={''}
+                editNameText={''}
+                editLabelText={''}
             />
         );
 
@@ -104,13 +109,14 @@ describe('LaneRenameModal', () => {
     it('should call closeModal when cancel button is clicked', () => {
         const closeModal = jest.fn();
         const { getByTestId } = render(
-            <LaneRenameModal
+            <LaneEditModal
                 title="Title"
                 board={mockContext.board}
                 laneId={0}
                 modalConfirmation={jest.fn()}
                 closeModal={closeModal}
-                text={''}
+                editNameText={''}
+                editLabelText={''}
             />
         );
 
@@ -124,20 +130,24 @@ describe('LaneRenameModal', () => {
         const modalConfirmation = jest.fn();
         const closeModal = jest.fn();
         const { getByTestId } = render(
-            <LaneRenameModal
+            <LaneEditModal
                 title="Title"
                 board={mockContext.board}
                 laneId={0}
                 modalConfirmation={modalConfirmation}
                 closeModal={closeModal}
-                text={''}
+                editNameText={''}
+                editLabelText={''}
             />
         );
 
         const confirmButton = getByTestId('confirmation-modal-button');
         fireEvent.click(confirmButton);
 
-        expect(modalConfirmation).toHaveBeenCalledWith('Not Started');
+        expect(modalConfirmation).toHaveBeenCalledWith(
+            'Not Started',
+            '#e1e4e8'
+        );
         expect(closeModal).toHaveBeenCalled();
     });
 });

@@ -1,23 +1,34 @@
-import { type Board } from 'interfaces/Board';
-import { useState } from 'react';
+import { TagComponent } from 'components/Tag/Tag';
+import { BoardContext } from 'context/BoardContext';
+import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import {
+    BaseColors,
+    Sulzer100Colors,
+    Sulzer33Colors,
+    colors,
+} from 'theme/colors';
+import { determineSulzerColorByMode } from 'utils/color.util';
 import { closeSVG } from '../../assets/svgs/close.svg';
 import { infoCircleSVG } from '../../assets/svgs/infoCircle.svg';
+import { type Board } from '../../interfaces/Board';
 
-export interface LaneRenameModalProps {
+export interface LaneEditModalProps {
     title: string;
-    text: string;
+    editNameText: string;
+    editLabelText: string;
     board: Board;
     laneId: number;
     submitButtonText?: string;
     cancelButtonText?: string;
-    modalConfirmation: (title: string) => void;
+    modalConfirmation: (title: string, color: string) => void;
     closeModal: () => void;
 }
 
-export const LaneRenameModal: React.FC<LaneRenameModalProps> = ({
+export const LaneEditModal: React.FC<LaneEditModalProps> = ({
     title,
-    text,
+    editNameText,
+    editLabelText,
     board,
     laneId,
     submitButtonText,
@@ -25,9 +36,31 @@ export const LaneRenameModal: React.FC<LaneRenameModalProps> = ({
     closeModal,
     modalConfirmation,
 }) => {
+    const { themeMode } = useContext(BoardContext);
+    const sulzerColors =
+        localStorage.getItem('color-theme') === 'dark'
+            ? [...Sulzer100Colors]
+            : [...Sulzer33Colors];
+
+    const editColors = [...sulzerColors, ...BaseColors];
+
     const lane = board.lanes.find((l) => l.id === laneId);
     const [laneTitle, setLaneTitle] = useState(lane?.title ?? '');
+    const [selectedColor, setSelectedColor] = useState(
+        determineSulzerColorByMode(lane?.color ?? colors.light_grey, themeMode)
+    );
+    const [selectedColorIndex, setSelectedColorIndex] = useState(
+        editColors.indexOf(selectedColor)
+    );
     const { t } = useTranslation();
+
+    const handleTagColorSelection = (color: string) => {
+        setSelectedColor(color);
+    };
+
+    const handleTagColorSelectionIndex = (index: number) => {
+        setSelectedColorIndex(index);
+    };
 
     return (
         <div className="modal" data-testid="confirmation-modal">
@@ -58,20 +91,40 @@ export const LaneRenameModal: React.FC<LaneRenameModalProps> = ({
                     </div>
                     {/* body */}
                     <div className="relative p-6 flex flex-col gap-2">
-                        {text}
-                        <br />
+                        {editNameText}
                         <div className="formField p-2 rounded-lg">
                             <input
                                 placeholder={
-                                    t('components.LaneRenameModal.title') ?? ''
+                                    t('components.LaneEditModal.title') ?? ''
                                 }
                                 className="focus:outline-none text-sm w-full"
-                                data-testid="LaneRename-title-input"
+                                data-testid="LaneEdit-title-input"
                                 value={laneTitle}
                                 onChange={(e) => {
                                     setLaneTitle(e.target.value);
                                 }}
                             ></input>
+                        </div>
+                        {editLabelText}
+                        <div className="flex gap-2">
+                            {editColors.map((color, index) => (
+                                <div
+                                    key={index}
+                                    className={`cursor-pointer `}
+                                    data-testid="myboardlanes-lane-color-button"
+                                    onClick={() => {
+                                        handleTagColorSelectionIndex(index);
+                                        handleTagColorSelection(color);
+                                    }}
+                                >
+                                    <TagComponent
+                                        color={color}
+                                        hasOutline={
+                                            index === selectedColorIndex
+                                        }
+                                    ></TagComponent>
+                                </div>
+                            ))}
                         </div>
                     </div>
                     {/* footer */}
@@ -91,7 +144,7 @@ export const LaneRenameModal: React.FC<LaneRenameModalProps> = ({
                             type="button"
                             data-testid="confirmation-modal-button"
                             onClick={() => {
-                                modalConfirmation(laneTitle);
+                                modalConfirmation(laneTitle, selectedColor);
                                 closeModal();
                             }}
                         >

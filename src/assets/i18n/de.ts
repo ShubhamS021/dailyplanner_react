@@ -73,9 +73,10 @@ export const DEtranslation = {
             import: 'Importieren',
         },
         Lane: {
-            editTitle: 'Spalte umbenennen',
-            edit: 'umbenennen',
-            editText: 'Vergeben Sie einen neuen Spaltennamen:',
+            editTitle: 'Spalte bearbeiten',
+            edit: 'bearbeiten',
+            editNameText: 'Vergeben Sie einen neuen Spaltennamen:',
+            editLabelText: 'Wählen Sie eine Spaltenfarbe:',
             deleteTitle: 'Alle Karten aus Spalte löschen',
             deleteAll: 'alle löschen',
             dropzone: 'Aufgaben hier platzieren..',
@@ -89,8 +90,8 @@ export const DEtranslation = {
             moveSubmit: 'Karte verschieben',
             editCardSubmit: 'Änderungen speichern',
         },
-        LaneRenameModal: {
-            title: 'Neuer Name',
+        LaneEditModal: {
+            title: 'Spalte bearbeiten',
         },
         LanguageChooser: {
             language: 'Sprache:',

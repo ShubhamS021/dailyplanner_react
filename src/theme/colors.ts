@@ -28,3 +28,31 @@ export const colors: Colors = {
     sulzer33_red: 'rgba(224, 0, 77, 0.33)',
     sulzer33_purple: 'rgba(95, 36, 159, 0.33)',
 };
+
+export const BaseColors = [
+    colors.green,
+    colors.lavender,
+    colors.rose,
+    colors.light_grey,
+];
+
+export const Sulzer33Colors = [
+    colors.sulzer33_yellow,
+    colors.sulzer33_blue,
+    colors.sulzer33_red,
+    colors.sulzer33_purple,
+];
+
+export const Sulzer66Colors = [
+    colors.sulzer66_yellow,
+    colors.sulzer66_blue,
+    colors.sulzer66_red,
+    colors.sulzer66_purple,
+];
+
+export const Sulzer100Colors = [
+    colors.sulzer100_yellow,
+    colors.sulzer100_blue,
+    colors.sulzer100_red,
+    colors.sulzer100_purple,
+];

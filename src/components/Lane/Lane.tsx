@@ -6,7 +6,6 @@ import { trashSVG } from '../../assets/svgs/trash.svg';
 import { AddCardModal } from '../../components/AddCard/modal/AddCardModal';
 import { CardMoveModal } from '../../components/CardMoveModal/CardMoveModal';
 import { ConfirmationModal } from '../../components/ConfirmationModal/ConfirmationModal';
-import { LaneRenameModal } from '../../components/LaneRenameModal/LaneRenameModal';
 import { BoardContext } from '../../context/BoardContext';
 import { type Card } from '../../interfaces/Card';
 import type Tag from '../../interfaces/Tag';
@@ -15,6 +14,7 @@ import { type Shirt } from '../../types/Shirt';
 import { CardComponent } from '../Card/Card';
 import { Dropzone } from '../Dropzone/Dropzone';
 import { LabelComponent } from '../Label/Label';
+import { LaneEditModal } from '../LaneEditModal/LaneEditModal';
 
 export interface LaneProps {
     id: number;
@@ -42,6 +42,7 @@ export const LaneComponent: React.FC<LaneProps> = ({
         removeCardsFromLane,
         moveCardToBoard,
         renameLane,
+        updateLaneColor,
         updateCard,
         boards,
         board,
@@ -248,18 +249,20 @@ export const LaneComponent: React.FC<LaneProps> = ({
     const renderLaneEditCardModal = (laneId: number) => {
         return (
             <>
-                <LaneRenameModal
+                <LaneEditModal
                     title={t('components.Lane.editTitle')}
-                    text={t('components.Lane.editText')}
+                    editNameText={t('components.Lane.editNameText')}
+                    editLabelText={t('components.Lane.editLabelText')}
                     board={board}
                     laneId={laneId}
-                    modalConfirmation={(title: string) => {
+                    modalConfirmation={(title: string, color: string) => {
                         renameLane(laneId, title);
+                        updateLaneColor(laneId, color);
                     }}
                     closeModal={() => {
                         setShowLaneEditModal(false);
                     }}
-                ></LaneRenameModal>
+                ></LaneEditModal>
                 <div className="opacity-50 fixed inset-0 z-40 bg-black"></div>
             </>
         );

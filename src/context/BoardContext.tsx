@@ -12,11 +12,13 @@ import { Board } from '../interfaces/Board';
 import { type Card } from '../interfaces/Card';
 import { type Lane } from '../interfaces/Lane';
 import { type BoardMode } from '../types/BoardMode';
+import { type ThemeMode } from '../types/ThemeMode';
 
 export const BoardContext = createContext({
     boards: new Array<Board>(),
     board: new Board(),
     compactMode: false,
+    themeMode: 'light' as ThemeMode,
     boardMode: 'boardChooseMode' as BoardMode,
     addLaneToBoard: (lane: Lane, boardId: number) => {},
     addCardToLane: (card: Card, laneId: number) => {},
@@ -36,10 +38,12 @@ export const BoardContext = createContext({
     },
     toggleCompactMode: () => {},
     toggleBoardMode: (mode: BoardMode) => {},
+    toggleThemeMode: (mode: ThemeMode) => {},
     addBoard: (board: Board) => {},
     removeBoard: (boardId: number) => {},
     renameBoard: (boardId: number, title: string, subtitle: string) => {},
     renameLane: (laneId: number, title: string) => {},
+    updateLaneColor: (laneId: number, color: string) => {},
     enterBoard: (boardId: number) => {},
     updateLanguage: (language: string) => {},
 });
@@ -53,6 +57,9 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
     const [board, setBoard] = useState<Board>(new Board());
     const [compactMode, setCompactMode] = useState(false);
     const [boardMode, setBoardMode] = useState<BoardMode>('boardChooseMode');
+    const [themeMode, setThemeMode] = useState<ThemeMode>(
+        (localStorage.getItem('color-theme') as ThemeMode) ?? 'light'
+    );
 
     // Read the initial boards state from localStorage and toggle initial app mode
     useEffect(() => {
@@ -270,6 +277,18 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
         updateBoards(newBoard);
     };
 
+    const updateLaneColor = (laneId: number, color: string) => {
+        const newBoard = { ...board };
+        const newLane = newBoard.lanes.find((l) => l.id === laneId);
+        if (newLane === undefined) {
+            throw new Error(`No lane with id ${laneId} found.`);
+        }
+
+        newLane.color = color;
+
+        updateBoards(newBoard);
+    };
+
     const updateCard = (card: Card, laneId: number) => {
         setBoard((prevBoard) => {
             const laneIndex = prevBoard.lanes.findIndex(
@@ -438,6 +457,10 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
         setBoardMode(mode);
     };
 
+    const toggleThemeMode = (mode: ThemeMode) => {
+        setThemeMode(mode);
+    };
+
     const handleDragEnd = (result: DropResult) => {
         const { source, destination } = result;
         if (destination === null || destination === undefined) {
@@ -505,6 +528,7 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
             board,
             compactMode,
             boardMode,
+            themeMode,
             addCardToLane,
             addLaneToBoard,
             addCardToInitialBoardLane,
@@ -521,14 +545,16 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
             findLastTaskIdInSpecificCard,
             toggleCompactMode,
             toggleBoardMode,
+            toggleThemeMode,
             addBoard,
             removeBoard,
             renameBoard,
             renameLane,
+            updateLaneColor,
             enterBoard,
             updateLanguage,
         }),
-        [boards, board, compactMode, boardMode]
+        [boards, board, compactMode, boardMode, themeMode]
     );
 
     return (

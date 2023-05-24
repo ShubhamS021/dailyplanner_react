@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.4.1](https://git.sulzer.de/hahnk/dayplanner/compare/v0.4.0...v0.4.1) (2023-05-24)
+
+
+### Features
+
+* back arrow on board creation ([7697fa8](https://git.sulzer.de/hahnk/dayplanner/commit/7697fa8018518a0a2ee070917e0db5f35ed7b05c))
+* edit the lane color ([91a7bf9](https://git.sulzer.de/hahnk/dayplanner/commit/91a7bf9fdbfae0a64ee2631e16d02f341348eab3))
+
 ## [0.4.0](https://git.sulzer.de/hahnk/dayplanner/compare/v0.3.0...v0.4.0) (2023-05-24)
 
 

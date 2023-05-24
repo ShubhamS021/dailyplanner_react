@@ -12,8 +12,9 @@ input:checked + div svg.initial {
 
 html,
 body,
-#root {
-    height: 100%;
+#root,
+main {
+    min-height: 100vh;
 }
 
 .soft {

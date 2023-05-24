@@ -37,7 +37,7 @@ export const DarkModeToggle = () => {
                     toggleMode();
                 }}
             >
-                <div className="flex gap-2 items-center p-2 stroke-[#5E5E5E] hover:stroke-[#17A2B8] dark:text-[#5E5E5E] dark:hover:text-[#17A2B8] soft">
+                <div className="flex gap-2 items-center p-2 stroke-[#5E5E5E] dark:stroke-[#B5B5B5] hover:stroke-[#17A2B8] dark:hover:stroke-[#17A2B8] dark:text-[#B5B5B5] dark:hover:text-[#17A2B8] soft">
                     {themeMode === 'dark' && moonSVG}
                     {themeMode === 'light' && sunSVG}
                     <p className="font-semibold text-sm">

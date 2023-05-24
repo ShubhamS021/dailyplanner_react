@@ -89,6 +89,8 @@ export const DEtranslation = {
                 'Wählen Sie das Board aus, zu dem Sie Ihre Karte verschieben möchten:',
             moveSubmit: 'Karte verschieben',
             editCardSubmit: 'Änderungen speichern',
+            task: 'Aufgabe',
+            tasks: 'Aufgaben',
         },
         LaneEditModal: {
             title: 'Spalte bearbeiten',

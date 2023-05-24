@@ -51,9 +51,11 @@ export const LaneComponent: React.FC<LaneProps> = ({
 
     const renderDelete = () => {
         return (
-            <div className={`text-xs text-[#4d4d4d] font-semibold`}>
+            <div
+                className={`text-xs text-[#4d4d4d] dark:text-[#B5B5B5] font-semibold`}
+            >
                 <div
-                    className="flex gap-1 cursor-pointer hover:text-red-500 soft stroke-[#5A5A65] hover:stroke-red-500"
+                    className="flex gap-1 cursor-pointer hover:text-red-500 soft stroke-[#5A5A65] dark:stroke-[#B5B5B5] dark:hover:stroke-red-500 hover:stroke-red-500"
                     title={t('components.Lane.deleteTitle') ?? ''}
                     data-testid="delete-all-from-lane-button"
                     onClick={() => {
@@ -69,9 +71,11 @@ export const LaneComponent: React.FC<LaneProps> = ({
 
     const renderEdit = () => {
         return (
-            <div className={`text-xs text-[#4d4d4d] font-semibold`}>
+            <div
+                className={`text-xs text-[#4d4d4d] dark:text-[#B5B5B5] font-semibold`}
+            >
                 <div
-                    className="flex gap-1 cursor-pointer hover:text-[#17A2B8] soft stroke-[#5A5A65] hover:stroke-[#17A2B8]"
+                    className="flex gap-1 cursor-pointer hover:text-[#17A2B8] soft stroke-[#5A5A65] dark:stroke-[#B5B5B5] hover:stroke-[#17A2B8] dark:hover:stroke-[#17A2B8]"
                     title={t('components.Lane.editTitle') ?? ''}
                     data-testid="edit-lane-button"
                     onClick={() => {
@@ -273,9 +277,13 @@ export const LaneComponent: React.FC<LaneProps> = ({
             <div className="w-full grid grid-cols-[auto,auto,1fr] gap-1">
                 <LabelComponent color={color} text={text} />
                 <div
-                    className={`text-xs text-[#4d4d4d] font-semibold self-center dark:text-[#8B8B8B]`}
+                    className={`text-xs text-[#4d4d4d] font-semibold self-center dark:text-[#B5B5B5]`}
                 >
-                    ({cards?.length})
+                    ({cards?.length}{' '}
+                    {cards?.length === 1
+                        ? t('components.Lane.task')
+                        : t('components.Lane.tasks')}
+                    )
                 </div>
                 <div className="group flex self-center place-self-end gap-2 items-center">
                     <div className="invisible group-hover:visible">

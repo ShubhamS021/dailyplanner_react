@@ -92,6 +92,8 @@ export const ENtranslation = {
             moveText: 'Choose the board you want move your card to:',
             moveSubmit: 'Move the card',
             editCardSubmit: 'Save changes',
+            task: 'task',
+            tasks: 'tasks',
         },
         LaneEditModal: {
             title: 'Edit lane',

@@ -72,6 +72,7 @@ export const AddCard: React.FC<AddCardProps> = ({
                     className="focus:outline-none"
                     data-testid="addcard-input"
                     value={card.title}
+                    role="textbox"
                     onChange={(e) => {
                         updateTitle(e.target.value);
                     }}

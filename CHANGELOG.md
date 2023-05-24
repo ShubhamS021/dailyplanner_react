@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.4.0](https://git.sulzer.de/hahnk/dayplanner/compare/v0.3.0...v0.4.0) (2023-05-24)
+
+
+### Features
+
+* basic history logging ([747efa1](https://git.sulzer.de/hahnk/dayplanner/commit/747efa180fa5fb4aef904975b2f78a0b34847786))
+* dark-mode ([260b4db](https://git.sulzer.de/hahnk/dayplanner/commit/260b4db3c1edc411302b3b83fc9f8d06e62a122b))
+* estimations ([fdbac41](https://git.sulzer.de/hahnk/dayplanner/commit/fdbac41a610cc57b3288ee47ce9a71b7785353b8))
+* lanes can be renamed ([b953482](https://git.sulzer.de/hahnk/dayplanner/commit/b9534826a598b1883b550d8a9ac2b7deaf45039c))
+* reordering of tasks in edit mode ([e667561](https://git.sulzer.de/hahnk/dayplanner/commit/e667561a056c754589c12c2c1860907143309340))
+* save the history to the indexedDB storage ([b76e31d](https://git.sulzer.de/hahnk/dayplanner/commit/b76e31da83d15eef007b4cdf8b7ec3fac9ca723f))
+
+
+### Bug Fixes
+
+* correct removal of new lanes ([db7ff52](https://git.sulzer.de/hahnk/dayplanner/commit/db7ff5261e4577c950cf2a7edbd1845b99ecdf05))
+
 ## [0.3.0](https://git.sulzer.de/hahnk/dayplanner/compare/v0.2.1...v0.3.0) (2023-05-15)
 
 

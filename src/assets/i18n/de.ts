@@ -68,9 +68,11 @@ export const DEtranslation = {
         },
         Export: {
             export: 'Exportieren',
+            exportAll: 'Alles exportieren',
         },
         Import: {
             import: 'Importieren',
+            importAll: 'Alle importieren',
         },
         Lane: {
             editTitle: 'Spalte bearbeiten',

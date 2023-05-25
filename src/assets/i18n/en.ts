@@ -72,9 +72,11 @@ export const ENtranslation = {
         },
         Export: {
             export: 'Export',
+            exportAll: 'Export all',
         },
         Import: {
             import: 'Import',
+            importAll: 'Import all',
         },
         Lane: {
             editTitle: 'Edit lane',

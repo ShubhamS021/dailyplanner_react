@@ -164,3 +164,11 @@ main {
     @apply dark:disabled:hover:stroke-[#5A5A65];
     @apply disabled:hover:stroke-[#5A5A65];
 }
+
+.backdrop {
+    @apply opacity-50;
+    @apply fixed;
+    @apply inset-0;
+    @apply z-40;
+    @apply bg-black;
+}

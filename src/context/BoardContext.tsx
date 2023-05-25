@@ -29,8 +29,12 @@ export const BoardContext = createContext({
     moveCardToBoard: (card: Card, currentLaneId: number, newboard: Board) => {},
     handleDragEnd: (result: DropResult) => {},
     clearBoard: () => {},
-    exportBoardToJSON: () => {},
-    importBoardFromJSON: (e: React.ChangeEvent<HTMLInputElement>) => {},
+    exportBoardToJSON: (board: Board) => {},
+    exportBoardsToJSON: () => {},
+    importBoardFromJSON: (
+        e: React.ChangeEvent<HTMLInputElement>,
+        all: boolean
+    ) => {},
     updateCard: (card: Card, laneId: number) => {},
     updateTask: (cardId: number, taskId: number, fulfilled: boolean) => {},
     findLastTaskIdInSpecificCard: (card: Card): number => {
@@ -222,7 +226,9 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
 
     const addBoard = (board: Board) => {
         const newBoard = { ...board };
-        newBoard.id = findLastBoardId() + 1;
+        if (newBoard.id === 0) {
+            newBoard.id = findLastBoardId() + 1;
+        }
 
         setBoards((prevBoards) => {
             return [...prevBoards, newBoard];
@@ -420,21 +426,35 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
         });
     };
 
-    const importBoardFromJSON = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const fileReader = new FileReader();
+    const importBoardFromJSON = (
+        e: React.ChangeEvent<HTMLInputElement>,
+        all = false
+    ) => {
         if (e.target.files !== null) {
-            fileReader.readAsText(e.target.files[0], 'UTF-8');
-            fileReader.onload = () => {
-                const boardJSON = String(fileReader.result);
-                try {
-                    const parsedBoard = JSON.parse(boardJSON) as Board;
-                    restoreBoard(parsedBoard);
-                } catch (error) {}
-            };
+            let lastBoardId = findLastBoardId() + 1;
+            for (let i = 0; i < e.target.files.length; i++) {
+                const fileReader = new FileReader();
+                fileReader.readAsText(e.target.files[i], 'UTF-8');
+                fileReader.onload = () => {
+                    const boardJSON = String(fileReader.result);
+                    try {
+                        const parsedBoard = JSON.parse(boardJSON) as Board;
+                        if (all) {
+                            lastBoardId = lastBoardId + 1;
+                            parsedBoard.id = lastBoardId;
+                            addBoard(parsedBoard);
+                        } else {
+                            restoreBoard(parsedBoard);
+                        }
+                    } catch (error) {
+                        console.log(`importBoardFromJSON`, error);
+                    }
+                };
+            }
         }
     };
 
-    const exportBoardToJSON = () => {
+    const exportBoardToJSON = (board: Board) => {
         const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
             JSON.stringify(board)
         )}`;
@@ -447,6 +467,12 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
         )}-${currentDate.toLocaleString()}.json`;
 
         link.click();
+    };
+
+    const exportBoardsToJSON = () => {
+        boards.forEach((board) => {
+            exportBoardToJSON(board);
+        });
     };
 
     const toggleCompactMode = () => {
@@ -539,6 +565,7 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
             handleDragEnd,
             clearBoard,
             exportBoardToJSON,
+            exportBoardsToJSON,
             importBoardFromJSON,
             updateCard,
             updateTask,

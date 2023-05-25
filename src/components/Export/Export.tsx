@@ -3,12 +3,21 @@ import { useTranslation } from 'react-i18next';
 import { fileExportSVG } from '../../assets/svgs/file-export.svg';
 import { BoardContext } from '../../context/BoardContext';
 
-export const Export = () => {
-    const boardContext = useContext(BoardContext);
+interface ExportProps {
+    all?: boolean;
+}
+
+export const Export: React.FC<ExportProps> = ({ all = false }) => {
+    const { board, exportBoardToJSON, exportBoardsToJSON } =
+        useContext(BoardContext);
     const { t } = useTranslation();
 
     const handleExport = () => {
-        boardContext.exportBoardToJSON();
+        exportBoardToJSON(board);
+    };
+
+    const handleExportAll = () => {
+        exportBoardsToJSON();
     };
 
     return (
@@ -16,13 +25,19 @@ export const Export = () => {
             className="hover:text-[#17A2B8] font-semibold dark:text-[#B5B5B5] dark:hover:text-[#17A2B8]"
             data-testid="export-button"
             onClick={(_e) => {
-                handleExport();
+                if (all) {
+                    handleExportAll();
+                } else {
+                    handleExport();
+                }
             }}
         >
             <div className="flex gap-2 items-center p-2 stroke-[#5E5E5E] dark:stroke-[#B5B5B5] hover:stroke-[#17A2B8] dark:hover:stroke-[#17A2B8] soft">
                 {fileExportSVG}
                 <p className="font-semibold text-sm">
-                    {t('components.Export.export')}
+                    {all
+                        ? t('components.Export.exportAll')
+                        : t('components.Export.export')}
                 </p>
             </div>
         </button>

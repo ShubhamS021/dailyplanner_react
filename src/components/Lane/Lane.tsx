@@ -153,7 +153,7 @@ export const LaneComponent: React.FC<LaneProps> = ({
                         setShowDeleteModal(false);
                     }}
                 ></ConfirmationModal>
-                <div className="opacity-50 fixed inset-0 z-40 bg-black"></div>
+                <div className="backdrop"></div>
             </>
         );
     };
@@ -190,7 +190,7 @@ export const LaneComponent: React.FC<LaneProps> = ({
                         setShowMoveModal(false);
                     }}
                 ></CardMoveModal>
-                <div className="opacity-50 fixed inset-0 z-40 bg-black"></div>
+                <div className="backdrop"></div>
             </>
         );
     };
@@ -245,7 +245,7 @@ export const LaneComponent: React.FC<LaneProps> = ({
                         updateCard(cardToEdit, id);
                     }}
                 ></AddCardModal>
-                <div className="opacity-50 fixed inset-0 z-40 bg-black"></div>
+                <div className="backdrop"></div>
             </>
         );
     };
@@ -267,7 +267,7 @@ export const LaneComponent: React.FC<LaneProps> = ({
                         setShowLaneEditModal(false);
                     }}
                 ></LaneEditModal>
-                <div className="opacity-50 fixed inset-0 z-40 bg-black"></div>
+                <div className="backdrop"></div>
             </>
         );
     };

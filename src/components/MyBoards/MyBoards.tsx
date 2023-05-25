@@ -7,6 +7,8 @@ import { gitlabSVG } from '../../assets/svgs/gitlab.svg';
 import { trashSVG } from '../../assets/svgs/trash.svg';
 import { BoardRenameModal } from '../../components/BoardRenameModal/BoardRenameModal';
 import { ConfirmationModal } from '../../components/ConfirmationModal/ConfirmationModal';
+import Export from '../../components/Export/Export';
+import Import from '../../components/Import/Import';
 import { LanguageChooser } from '../../components/LanguageChooser/LanguageChooser';
 import { BoardContext } from '../../context/BoardContext';
 
@@ -34,7 +36,7 @@ export const MyBoards = () => {
                         setShowModal(false);
                     }}
                 ></ConfirmationModal>
-                <div className="opacity-50 fixed inset-0 z-40 bg-black"></div>
+                <div className="backdrop"></div>
             </>
         );
     };
@@ -56,7 +58,7 @@ export const MyBoards = () => {
                         setShowEditModal(false);
                     }}
                 ></BoardRenameModal>
-                <div className="opacity-50 fixed inset-0 z-40 bg-black"></div>
+                <div className="backdrop"></div>
             </>
         );
     };
@@ -147,6 +149,10 @@ export const MyBoards = () => {
                             </div>
                         );
                     })}
+                </div>
+                <div className="flex gap-2">
+                    <Export all={true} />
+                    <Import all={true} />
                 </div>
                 <div className="flex items-center justify-center w-1/3">
                     <hr className="border-t-1 border-gray-300 w-1/3 mr-4 dark:border-[#585858]" />

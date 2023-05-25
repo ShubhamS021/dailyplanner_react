@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import './theme/theme.colors.css';
 
 import './i18n';
+// import './wdyr';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement

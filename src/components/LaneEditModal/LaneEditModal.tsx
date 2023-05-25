@@ -38,9 +38,7 @@ export const LaneEditModal: React.FC<LaneEditModalProps> = ({
 }) => {
     const { themeMode } = useContext(BoardContext);
     const sulzerColors =
-        localStorage.getItem('color-theme') === 'dark'
-            ? [...Sulzer100Colors]
-            : [...Sulzer33Colors];
+        themeMode === 'dark' ? [...Sulzer100Colors] : [...Sulzer33Colors];
 
     const editColors = [...sulzerColors, ...BaseColors];
 

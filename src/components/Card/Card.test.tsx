@@ -19,6 +19,7 @@ test('renders basic card', () => {
                 onMoveCard={function (): void {
                     throw new Error('Function not implemented.');
                 }}
+                shirt={'XS'}
             />
         </DragDropContext>
     );
@@ -94,6 +95,7 @@ test('renders card with tags and tasks', () => {
                                                 'Function not implemented.'
                                             );
                                         }}
+                                        shirt={'XS'}
                                     />
                                 </div>
                             )}

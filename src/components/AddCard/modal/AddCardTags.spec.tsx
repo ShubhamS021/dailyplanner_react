@@ -15,6 +15,7 @@ test('renders the basic AddCardTags', () => {
         lowerTags: [
             { id: 1, color: colors.green, text: 'low1', tagType: 'lower' },
         ],
+        shirt: 'S',
     };
 
     const { getByTestId } = render(
@@ -41,6 +42,7 @@ test('adds a tag and colors', () => {
         lowerTags: [
             { id: 1, color: colors.green, text: 'low1', tagType: 'lower' },
         ],
+        shirt: 'S',
     };
 
     const { getByTestId, getAllByTestId } = render(
@@ -67,6 +69,7 @@ test('adds a tag to empty array', () => {
     const card: Card = {
         id: 1,
         title: 'test card',
+        shirt: 'S',
     };
 
     const { getByTestId, getAllByTestId } = render(

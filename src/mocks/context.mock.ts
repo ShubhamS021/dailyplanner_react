@@ -14,11 +14,14 @@ export const mockMoveCardToBoard = jest.fn();
 export const mockHandleDragEnd = jest.fn();
 export const mockClearBoard = jest.fn();
 export const mockExportBoardToJSON = jest.fn();
+export const mockExportBoardsToJSON = jest.fn();
 export const mockImportBoardFromJSON = jest
     .fn()
-    .mockImplementation((e: React.ChangeEvent<HTMLInputElement>) => {
-        mockImportBoardFromJSON.mock.calls.push([e]);
-    });
+    .mockImplementation(
+        (e: React.ChangeEvent<HTMLInputElement>, all: boolean) => {
+            mockImportBoardFromJSON.mock.calls.push([e]);
+        }
+    );
 export const mockUpdateCard = jest.fn();
 export const mockUpdateTask = jest.fn();
 
@@ -30,6 +33,7 @@ export const mockFindLastTaskIdInSpecificCard = jest.fn(() => {
 
 export const mockToggleCompactMode = jest.fn();
 export const mockToggleBoardMode = jest.fn();
+export const mockToggleThemeMode = jest.fn();
 export const mockAddBoard = jest.fn();
 export const mockRemoveBoard = jest.fn();
 export const mockRenameBoard = jest.fn();
@@ -49,8 +53,8 @@ export const mockContext = {
     boards: initialBoards,
     board: initialBoard,
     compactMode: false,
-    boardMode: 'boardChooseMode' as BoardMode,
     themeMode: 'light' as ThemeMode,
+    boardMode: 'boardChooseMode' as BoardMode,
     addLaneToBoard: mockAddLaneToBoard,
     addCardToLane: mockAddCardToLane,
     addCardToInitialBoardLane: mockAddCardToInitialBoardLane,
@@ -61,12 +65,14 @@ export const mockContext = {
     handleDragEnd: mockHandleDragEnd,
     clearBoard: mockClearBoard,
     exportBoardToJSON: mockExportBoardToJSON,
+    exportBoardsToJSON: mockExportBoardsToJSON,
     importBoardFromJSON: mockImportBoardFromJSON,
     updateCard: mockUpdateCard,
     updateTask: mockUpdateTask,
     findLastTaskIdInSpecificCard: mockFindLastTaskIdInSpecificCard,
     toggleCompactMode: mockToggleCompactMode,
     toggleBoardMode: mockToggleBoardMode,
+    toggleThemeMode: mockToggleThemeMode,
     addBoard: mockAddBoard,
     removeBoard: mockRemoveBoard,
     renameBoard: mockRenameBoard,

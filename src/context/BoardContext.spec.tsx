@@ -2,11 +2,9 @@ import { act, fireEvent, renderHook } from '@testing-library/react';
 import { useContext } from 'react';
 import { type DropResult } from 'react-beautiful-dnd';
 import { type Board } from '../interfaces/Board';
-import BoardContextProvider, {
-    BoardContext,
-    initialBoardState,
-    initialLanes,
-} from './BoardContext';
+import BoardContextProvider, { BoardContext } from './BoardContext';
+import { initialBoardState } from './initialBoard.state';
+import { initialLanes } from './initialLanes.state';
 
 let boardContext: any;
 

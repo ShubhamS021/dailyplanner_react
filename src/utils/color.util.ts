@@ -98,8 +98,8 @@ export const determineSulzerColorByMode = (
     if (index === -1) return color;
 
     if (themeMode === 'dark') {
-        return Sulzer33Colors[index];
-    } else {
         return Sulzer100Colors[index];
+    } else {
+        return Sulzer33Colors[index];
     }
 };

@@ -17,10 +17,8 @@
                     window.matchMedia('(prefers-color-scheme: dark)').matches)
             ) {
                 document.documentElement.classList.add('dark');
-                localStorage.setItem('color-theme', 'dark');
             } else {
                 document.documentElement.classList.remove('dark');
-                localStorage.setItem('color-theme', 'light');
             }
         </script>
     </head>

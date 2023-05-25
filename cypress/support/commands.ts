@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference types="cypress" />
 
 /** Adds custom command `cy.drag` to the global `cy` object  */

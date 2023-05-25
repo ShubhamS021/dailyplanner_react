@@ -18,6 +18,7 @@ const cards: Card[] = [
         upperTags: [],
         tasks: [],
         lowerTags: [],
+        shirt: 'S',
     },
     {
         id: 2,
@@ -26,6 +27,7 @@ const cards: Card[] = [
         upperTags: [],
         tasks: [],
         lowerTags: [],
+        shirt: 'S',
     },
 ];
 
@@ -316,6 +318,7 @@ it('should submit edit a card from lane', () => {
                     tagType: 'upper',
                 },
             ],
+            shirt: 'S',
         },
         1
     );

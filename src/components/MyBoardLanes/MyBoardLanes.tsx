@@ -9,8 +9,13 @@ import { type Lane } from '../../interfaces/Lane';
 import { colors } from '../../theme/colors';
 
 export const MyBoardLanes = () => {
-    const { addLaneToBoard, removeLaneFromBoard, enterBoard, boards } =
-        useContext(BoardContext);
+    const {
+        addLaneToBoard,
+        removeLaneFromBoard,
+        enterBoard,
+        boards,
+        themeMode,
+    } = useContext(BoardContext);
 
     const [laneValue, setLaneValue] = useState('');
     const [selectedColorIndex, setSelectedColorIndex] = useState(0);
@@ -50,7 +55,7 @@ export const MyBoardLanes = () => {
     };
 
     const sulzerColors =
-        localStorage.getItem('color-theme') === 'dark'
+        themeMode === 'dark'
             ? [
                   colors.sulzer100_blue,
                   colors.sulzer100_red,

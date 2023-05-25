@@ -104,6 +104,13 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
         updateBoards(board);
     }, [board]);
 
+    // Update localStorage whenever the color-theme change
+    useEffect(() => {
+        localStorage.setItem('color-theme', themeMode);
+        document.documentElement.classList.value = '';
+        document.documentElement.classList.add(themeMode);
+    }, [themeMode]);
+
     const findLastCardId = () => {
         return findLastCardIdInSpecificBoard(board);
     };

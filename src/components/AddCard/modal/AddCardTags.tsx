@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { BoardContext } from 'context/BoardContext';
+import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { tagsSVG } from '../../../assets/svgs/tags.svg';
 import { TagComponent } from '../../../components/Tag/Tag';
@@ -18,6 +19,7 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
     updateTags,
 }) => {
     const MAX_TAGS = 5;
+    const { themeMode } = useContext(BoardContext);
     const [selectedColorIndex, setSelectedColorIndex] = useState(0);
     const [selectedColor, setSelectedColor] = useState(colors.sulzer33_blue);
     const { t } = useTranslation();
@@ -49,7 +51,7 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
     };
 
     const sulzerColors =
-        localStorage.getItem('color-theme') === 'dark'
+        themeMode === 'dark'
             ? [
                   colors.sulzer100_blue,
                   colors.sulzer100_red,

@@ -8,6 +8,7 @@ test('renders the basic AddCardSubtasks', () => {
         id: 1,
         title: 'test card',
         tasks: [{ id: 1, description: 'Task 1' }],
+        shirt: 'S',
     };
 
     const { getByTestId } = render(
@@ -28,6 +29,7 @@ test('adds a task', () => {
         id: 1,
         title: 'test card',
         tasks: [{ id: 1, description: 'Task 1' }],
+        shirt: 'S',
     };
 
     const { getByTestId } = render(

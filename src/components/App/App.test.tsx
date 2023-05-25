@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react';
-import { BoardContext, type BoardMode } from '../../context/BoardContext';
+import { BoardContext } from '../../context/BoardContext';
 import { mockContext } from '../../mocks/context.mock';
+import { type BoardMode } from '../../types/BoardMode';
 import App from './App';
 
 describe('App component', () => {

@@ -2,6 +2,7 @@ import { fireEvent, render } from '@testing-library/react';
 import { type Card } from '../../../interfaces/Card';
 import type Tag from '../../../interfaces/Tag';
 import type Task from '../../../interfaces/Task';
+import { type Shirt } from '../../../types/Shirt';
 import { AddCardModal } from './AddCardModal';
 
 test('renders the basic AddCardModal', () => {
@@ -9,6 +10,7 @@ test('renders the basic AddCardModal', () => {
         id: 1,
         title: 'test card',
         tasks: [{ id: 1, description: 'Task 1' }],
+        shirt: 'S',
     };
 
     const { getByTestId, getAllByTestId } = render(
@@ -34,6 +36,9 @@ test('renders the basic AddCardModal', () => {
             }}
             updateLowerTags={function (tags: Tag[]): void {
                 expect(tags.length).toBe(1);
+            }}
+            updateEstimation={function (shirt: Shirt): void {
+                throw new Error('Function not implemented.');
             }}
         />
     );

@@ -26,5 +26,6 @@
         "noImplicitAny": true
     },
     "_types": ["cypress"],
-    "include": ["src", "./cypress/**/*.ts", "./cypress.config.ts"]
+    "include": ["src", "./cypress/**/*.ts", "./cypress.config.ts"],
+    "exclude": ["./src/wdyr.js"]
 }

@@ -220,7 +220,7 @@ export const CardComponent: React.FC<CardProps> = ({
         if (compactMode) return;
         return (
             <div
-                className="text-[10px] text-gray-400 "
+                className="text-[11px] text-gray-400 "
                 data-testid="card-estimation"
             >
                 {shirt ?? 'S'}
@@ -287,14 +287,14 @@ export const CardComponent: React.FC<CardProps> = ({
                     >
                         {title}
                     </h3>
-                    {!inEditMode && renderCardActions()}
                 </div>
 
                 {renderDescription()}
                 {inEditMode && renderTasksDraggable()}
                 {!inEditMode && renderTasks()}
                 {renderTags(lowerTags)}
-                <div className="flex w-full justify-end">
+                <div className="grid grid-cols-[1fr,auto] w-full items-center">
+                    {!inEditMode && renderCardActions()}
                     {renderEstimation()}
                 </div>
             </div>

@@ -2,7 +2,7 @@ export enum IDBStores {
     History = 'history',
 }
 const dbName = 'DayplannerDB';
-let dbVersion = -1;
+let dbVersion = 1;
 
 export const initDB = async (): Promise<boolean> => {
     return await new Promise((resolve) => {

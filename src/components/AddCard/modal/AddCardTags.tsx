@@ -1,8 +1,8 @@
-import { BoardContext } from 'context/BoardContext';
 import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { tagsSVG } from '../../../assets/svgs/tags.svg';
 import { TagComponent } from '../../../components/Tag/Tag';
+import { BoardContext } from '../../../context/BoardContext';
 import { type Card } from '../../../interfaces/Card';
 import type Tag from '../../../interfaces/Tag';
 import { colors } from '../../../theme/colors';

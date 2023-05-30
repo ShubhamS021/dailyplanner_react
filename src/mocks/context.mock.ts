@@ -33,7 +33,12 @@ export const mockFindLastTaskIdInSpecificCard = jest.fn(() => {
 
 export const mockToggleCompactMode = jest.fn();
 export const mockToggleBoardMode = jest.fn();
-export const mockToggleThemeMode = jest.fn();
+export const mockToggleThemeMode = jest
+    .fn()
+    .mockImplementation((current: ThemeMode) => {
+        if (current === 'light') return 'dark';
+        return 'light';
+    });
 export const mockAddBoard = jest.fn();
 export const mockRemoveBoard = jest.fn();
 export const mockRenameBoard = jest.fn();

@@ -7,7 +7,7 @@ import { type ThemeMode } from '../types/ThemeMode';
  * @param {string} hex - The hexadecimal color string to be converted.
  * @returns {RGB | null} The RGB representation of the color string, or null if the input string is invalid.
  */
-const hex2Rgb = (hex: string): RGB | null => {
+export const hex2Rgb = (hex: string): RGB | null => {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result != null
         ? {
@@ -23,7 +23,7 @@ const hex2Rgb = (hex: string): RGB | null => {
  * @param {string} rgbaString - The RGBA color string to be converted.
  * @returns {RGB | null} The RGB representation of the color string, or null if the input string is invalid.
  */
-const rgba2rgb = (rgbaString: string): RGB | null => {
+export const rgba2rgb = (rgbaString: string): RGB | null => {
     const rgbaRegex =
         /^rgba?\(\s*([01]?\d{1,2}|2[0-4]\d|25[0-5])\s*,\s*([01]?\d{1,2}|2[0-4]\d|25[0-5])\s*,\s*([01]?\d{1,2}|2[0-4]\d|25[0-5])\s*(,\s*(0|1|0?\.\d+))?\s*\)$/i;
 
@@ -44,7 +44,7 @@ const rgba2rgb = (rgbaString: string): RGB | null => {
  * @param color a color string e.g. #fff or rgba(...)
  * @returns boolean
  */
-const isHexColor = (color: string): boolean => {
+export const isHexColor = (color: string): boolean => {
     const hexRegex = /^#([0-9A-Fa-f]{3}){1,2}$/i;
     return hexRegex.test(color);
 };
@@ -54,7 +54,7 @@ const isHexColor = (color: string): boolean => {
  * @param color a color string e.g. #fff or rgba(...)
  * @returns boolean
  */
-const isRGBaColor = (color: string): boolean => {
+export const isRGBaColor = (color: string): boolean => {
     const rgbaRegex =
         /^rgba?\(\s*([01]?\d{1,2}|2[0-4]\d|25[0-5])\s*,\s*([01]?\d{1,2}|2[0-4]\d|25[0-5])\s*,\s*([01]?\d{1,2}|2[0-4]\d|25[0-5])\s*(,\s*(0|1|0?\.\d+))?\s*\)$/i;
     return rgbaRegex.test(color);

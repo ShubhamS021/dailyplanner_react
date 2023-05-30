@@ -16,39 +16,46 @@ test('renders the basic AddCardModal', () => {
     const { getByTestId, getAllByTestId } = render(
         <AddCardModal
             card={card}
-            updateTitle={function (title: string): void {
+            updateTitle={(_title: string): void => {
                 throw new Error('Function not implemented.');
             }}
-            updateDescription={function (description: string): void {
+            updateDescription={(_description: string): void => {
                 throw new Error('Function not implemented.');
             }}
-            updateTasks={function (tasks: Task[]): void {
+            updateTasks={(tasks: Task[]): void => {
                 expect(tasks.length).toBe(2);
             }}
-            updateTags={function (tags: Tag[]): void {
+            updateTags={(tags: Tag[]): void => {
                 expect(tags.length).toBe(1);
             }}
-            closeModal={function (): void {
+            closeModal={(): void => {
                 throw new Error('Function not implemented.');
             }}
-            saveCard={function (): void {
+            saveCard={(): void => {
                 throw new Error('Function not implemented.');
             }}
-            updateLowerTags={function (tags: Tag[]): void {
+            updateLowerTags={(tags: Tag[]): void => {
                 expect(tags.length).toBe(1);
             }}
-            updateEstimation={function (shirt: Shirt): void {
+            updateEstimation={(_shirt: Shirt): void => {
                 throw new Error('Function not implemented.');
             }}
         />
     );
 
-    const input = getByTestId(/addcard-subtask-input/) as HTMLInputElement;
-    fireEvent.change(input, { target: { value: 'NEW TAG' } });
+    const titleInput = getByTestId(/addcard-title-input/) as HTMLInputElement;
+    fireEvent.change(titleInput, { target: { value: 'NEW TITLE' } });
+
+    // add a subtask
+    const subtaskInput = getByTestId(
+        /addcard-subtask-input/
+    ) as HTMLInputElement;
+    fireEvent.change(subtaskInput, { target: { value: 'NEW SUBTASK' } });
 
     const button = getByTestId(/addcard-subtask-button/);
     fireEvent.click(button);
 
+    // add a tag
     const tagInput = getByTestId(/addcard-tags-input/) as HTMLInputElement;
     fireEvent.change(tagInput, { target: { value: 'NEW TAG' } });
 
@@ -58,8 +65,26 @@ test('renders the basic AddCardModal', () => {
     const tagButton = getByTestId(/addcard-tag-button/);
     fireEvent.click(tagButton);
 
+    // add a estimation
+    const estimationSelect = getByTestId(
+        /addcard-estimation-select/
+    ) as HTMLSelectElement;
+    fireEvent.change(estimationSelect, { target: { value: 'M' } });
+
+    // add a due date
     const lowerTagInput = getByTestId(
         /addcard-lowertags-input/
     ) as HTMLInputElement;
     fireEvent.change(lowerTagInput, { target: { value: '01.01.2000' } });
+
+    // remove a task from rendered card
+    const taskRemoveButton = getAllByTestId(/task-remove-button/)[0];
+    fireEvent.click(taskRemoveButton);
+
+    // remove a tag from rendered card
+    // TODO: isInEditMode is not recognized
+    // const tagRemoveButton = getAllByTestId(/tag-remove-button/)[0];
+    // fireEvent.click(tagRemoveButton);
+
+    // TODO: create 2 tasks to drag and drop them in the list
 });

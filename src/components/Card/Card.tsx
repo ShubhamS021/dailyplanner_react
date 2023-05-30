@@ -56,7 +56,7 @@ export const CardComponent: React.FC<CardProps> = ({
         return (
             <>
                 <div
-                    className="flex gap-1"
+                    className="flex gap-1 wrap w-full"
                     data-testid={inEditMode ? 'card-edit-tags' : 'card-tags'}
                 >
                     {tags.map((t) => (
@@ -279,7 +279,7 @@ export const CardComponent: React.FC<CardProps> = ({
     return (
         <div className="group card" data-testid={`card-${id}`}>
             <div className="flex flex-col gap-2 items-start w-full">
-                <div>{renderTags(upperTags)}</div>
+                {renderTags(upperTags)}
                 <div className="grid grid-cols-[1fr,auto] w-full">
                     <h3
                         className="font-semibold text-base dark:text-white"

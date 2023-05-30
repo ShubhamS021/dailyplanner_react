@@ -50,9 +50,10 @@ export const TaskComponent: React.FC<TaskProps> = ({
                         handleLabelClick(checked);
                     }}
                     data-testid="task-label"
-                    className={`select-none cursor-pointer dark:text-[#fff] ${
+                    className={`select-none cursor-pointer dark:text-[#fff] truncate ${
                         checked ? 'line-through opacity-60' : ''
                     }`}
+                    title={description}
                 >
                     {description}
                 </label>

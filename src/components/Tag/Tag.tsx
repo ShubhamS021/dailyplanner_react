@@ -47,7 +47,12 @@ export const TagComponent: React.FC<TagProps> = ({
             data-testid="tag"
         >
             <div className="flex gap-1 items-center">
-                <div className="tag-description">{text}</div>
+                <div
+                    className="tag-description max-w-[140px] truncate"
+                    title={text}
+                >
+                    {text}
+                </div>
                 {isRemoveable === true && (
                     <div onClick={onRemove} data-testid="tag-remove-button">
                         {tagCloseSVG}

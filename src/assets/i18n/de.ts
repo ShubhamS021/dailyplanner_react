@@ -49,6 +49,22 @@ export const DEtranslation = {
             add: 'Neue Aufgabe',
             addSubmit: 'Hinzufügen',
         },
+        BoardHistory: {
+            historyFor: 'Historie für: ',
+            historyForDescription: 'Was ist meinem Board passiert?',
+            movedFrom: 'Verschoben von Spalte',
+            movedTo: 'nach',
+            movedToBoard: 'Verschoben auf Board:',
+            time: 'Datum, Uhrzeit',
+            type: 'Art der Veränderung',
+            data: 'Daten',
+            additionaldata: 'Zusatzinformationen',
+            creation: 'Eine neue Aufgabe.',
+            movement: 'Aufgabe wurde zwischen Spalten bewegt.',
+            boardmovement: 'Aufgabe wurde auf anderes Board verschoben.',
+            update: 'Aufgabe aktualisiert.',
+            deletion: 'Aufgabe gelöscht.',
+        },
         BoardRenameModal: {
             title: 'Titel aktualisieren.',
             subtitle: 'Untertitel aktualisieren.',
@@ -73,6 +89,9 @@ export const DEtranslation = {
         Import: {
             import: 'Importieren',
             importAll: 'Alle importieren',
+        },
+        HistoryToggle: {
+            history: 'Historie',
         },
         Lane: {
             editTitle: 'Spalte bearbeiten',

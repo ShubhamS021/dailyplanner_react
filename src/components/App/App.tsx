@@ -1,3 +1,4 @@
+import { BoardHistory } from 'components/BoardHistory/BoardHistory';
 import { useContext } from 'react';
 import Board from '../../components/Board/Board';
 import MyBoardLanes from '../../components/MyBoardLanes/MyBoardLanes';
@@ -16,6 +17,8 @@ export const App = () => {
                 return <MyBoards />;
             case 'boardCustomLanesMode':
                 return <MyBoardLanes />;
+            case 'boardHistoryMode':
+                return <BoardHistory />;
             default:
                 return <Board />;
         }

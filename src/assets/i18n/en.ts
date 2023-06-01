@@ -49,6 +49,22 @@ export const ENtranslation = {
             add: 'Write a new task',
             addSubmit: 'add',
         },
+        BoardHistory: {
+            historyFor: 'History for: ',
+            historyForDescription: 'What happened to my board?',
+            movedFrom: 'Moved from lane',
+            movedTo: 'to',
+            movedToBoard: 'Moved to board:',
+            time: 'Date, Time',
+            type: 'Type of change',
+            data: 'Data',
+            additionaldata: 'Additional data',
+            creation: 'New task was added.',
+            movement: 'Task was moved between lanes.',
+            boardmovement: 'Task was moved to another board.',
+            update: 'Task was updated.',
+            deletion: 'Task was deleted.',
+        },
         BoardRenameModal: {
             title: 'Update the title.',
             subtitle: 'Update the subtitle.',
@@ -77,6 +93,9 @@ export const ENtranslation = {
         Import: {
             import: 'Import',
             importAll: 'Import all',
+        },
+        HistoryToggle: {
+            history: 'History',
         },
         Lane: {
             editTitle: 'Edit lane',

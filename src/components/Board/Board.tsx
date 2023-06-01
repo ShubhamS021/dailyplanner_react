@@ -1,3 +1,4 @@
+import { HistoryToggle } from 'HistoryToggle/HistoryToggle';
 import { DarkModeToggle } from 'components/DarkModeToggle/DarkModeToggle';
 import { useContext } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
@@ -79,6 +80,7 @@ export const Board = () => {
             </div>
 
             <div className="flex justify-end gap-2 mt-2 items-center">
+                <HistoryToggle />
                 <DarkModeToggle />
                 <CompactModeToggle />
                 <Export />

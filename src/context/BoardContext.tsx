@@ -165,7 +165,7 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
                 }),
             };
         });
-        saveCreationToHistory(card);
+        saveCreationToHistory(card, board.id);
     };
 
     const addCardToInitialBoardLane = (card: Card, boardId: number) => {
@@ -228,7 +228,7 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
         };
         addCardToInitialBoardLane(newCard, newboard.id);
         removeCardFromLane(card.id, currentLaneId);
-        saveBoardMovementToHistory(card, board.id, newboard.id);
+        saveBoardMovementToHistory(card, board.id, board.id, newboard.id);
     };
 
     const addBoard = (board: Board) => {
@@ -327,7 +327,7 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
             };
         });
 
-        saveUpdateToHistory(card);
+        saveUpdateToHistory(card, board.id);
     };
 
     const updateTask = (cardId: number, taskId: number, fulfilled: boolean) => {
@@ -381,7 +381,7 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
             ?.cards.find((c) => c.id === cardId);
 
         if (cardForHistory != null && cardForHistory !== undefined) {
-            saveDeletionToHistory(cardForHistory);
+            saveDeletionToHistory(cardForHistory, board.id);
         }
     };
 
@@ -519,7 +519,12 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
             const lane = board.lanes[laneIndex];
             const newCards = Array.from(lane.cards);
             const [removedCard] = newCards.splice(sourceCardIndex, 1);
-            saveMovementToHistory(removedCard, sourceLaneId, destLaneId);
+            saveMovementToHistory(
+                removedCard,
+                board.id,
+                sourceLaneId,
+                destLaneId
+            );
             newCards.splice(destCardIndex, 0, removedCard);
 
             const newLane = { ...lane, cards: newCards };
@@ -539,7 +544,12 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
             const sourceCards = Array.from(sourceLane.cards);
             const destCards = Array.from(destLane.cards);
             const [removedCard] = sourceCards.splice(sourceCardIndex, 1);
-            saveMovementToHistory(removedCard, sourceLaneId, destLaneId);
+            saveMovementToHistory(
+                removedCard,
+                board.id,
+                sourceLaneId,
+                destLaneId
+            );
             destCards.splice(destCardIndex, 0, removedCard);
 
             const newSourceLane = { ...sourceLane, cards: sourceCards };

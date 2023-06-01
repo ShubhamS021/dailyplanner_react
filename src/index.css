@@ -145,6 +145,19 @@ main {
     @apply drop-shadow-[0_2px_4px_rgba(0,0,0,0.08)];
 }
 
+.table {
+    @apply bg-white;
+    @apply dark:bg-[#344150];
+    @apply border;
+    @apply border-solid;
+    @apply border-[#DDDDDD];
+    @apply dark:border-[#344150];
+    @apply rounded-lg;
+    @apply p-4;
+    @apply drop-shadow-[0_2px_4px_rgba(0,0,0,0.08)];
+    @apply dark:text-[#DEDEDE];
+}
+
 .small-button {
     @apply inline-flex;
     @apply items-center;

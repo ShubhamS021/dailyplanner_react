@@ -312,7 +312,7 @@ it('should submit edit a card from lane', () => {
             tasks: [{ description: 'NEW TASK', id: 3, fulfilled: false }],
             upperTags: [
                 {
-                    color: 'rgba(0, 70, 128, 0.33)',
+                    color: '#cbdfd8',
                     id: 1,
                     text: 'NEW TAG',
                     tagType: 'upper',

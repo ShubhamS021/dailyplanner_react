@@ -66,7 +66,7 @@ test('renders card with tags and tasks', () => {
                                         lowerTags={[
                                             {
                                                 id: 1,
-                                                color: colors.sulzer33_yellow,
+                                                color: colors.green,
                                                 text: 'Tag High 1',
                                                 tagType: 'lower',
                                             },
@@ -74,9 +74,9 @@ test('renders card with tags and tasks', () => {
                                         upperTags={[
                                             {
                                                 id: 1,
-                                                color: colors.sulzer33_purple,
+                                                color: colors.green,
                                                 text: 'Tag Low 1',
-                                                tagType: 'lower',
+                                                tagType: 'upper',
                                             },
                                         ]}
                                         onRemoveCard={function (): void {

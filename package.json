@@ -6,7 +6,7 @@
     "homepage": "./public",
     "repository": {
         "type": "git",
-        "url": "https://git.sulzer.de/hahnk/dayplanner.git"
+        "url": "https://gitlab.com/Kevin.Hahn/dayplanner.git"
     },
     "scripts": {
         "start": "webpack serve --mode development",

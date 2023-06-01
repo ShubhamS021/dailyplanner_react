@@ -9,17 +9,12 @@ import { type Lane } from '../../interfaces/Lane';
 import { colors } from '../../theme/colors';
 
 export const MyBoardLanes = () => {
-    const {
-        addLaneToBoard,
-        removeLaneFromBoard,
-        enterBoard,
-        boards,
-        themeMode,
-    } = useContext(BoardContext);
+    const { addLaneToBoard, removeLaneFromBoard, enterBoard, boards } =
+        useContext(BoardContext);
 
     const [laneValue, setLaneValue] = useState('');
     const [selectedColorIndex, setSelectedColorIndex] = useState(0);
-    const [selectedColor, setSelectedColor] = useState(colors.sulzer33_blue);
+    const [selectedColor, setSelectedColor] = useState(colors.light_grey);
     const { t } = useTranslation();
 
     const handleTagColorSelection = (color: string) => {
@@ -53,21 +48,6 @@ export const MyBoardLanes = () => {
     const handleLaneChanges = (name: string) => {
         setLaneValue(name);
     };
-
-    const sulzerColors =
-        themeMode === 'dark'
-            ? [
-                  colors.sulzer100_blue,
-                  colors.sulzer100_red,
-                  colors.sulzer100_purple,
-                  colors.sulzer100_yellow,
-              ]
-            : [
-                  colors.sulzer33_blue,
-                  colors.sulzer33_red,
-                  colors.sulzer33_purple,
-                  colors.sulzer33_yellow,
-              ];
 
     return (
         <main className="p-10 grid grid-cols-1 grid-rows-1 justify-center items-center">
@@ -105,7 +85,6 @@ export const MyBoardLanes = () => {
                     <div className="flex gap-2 dark:text-[#8B8B8B]">
                         {t('components.MyBoardLanes.color')}
                         {[
-                            ...sulzerColors,
                             colors.green,
                             colors.lavender,
                             colors.rose,

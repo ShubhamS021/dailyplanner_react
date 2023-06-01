@@ -183,12 +183,12 @@ export const MyBoards = () => {
             <footer className="flex flex-col items-center gap-3 self-end">
                 <a
                     className="text-[#5A5A65] dark:text-[#8B8B8B] flex gap-2 items-center"
-                    href="https://git.sulzer.de/hahnk/dayplanner"
+                    href="https://gitlab.com/Kevin.Hahn/dayplanner"
                 >
                     {gitlabSVG}
                     {t('components.MyBoards.git')}
                     <b className="hover:text-[#FC6D27] transition-all duration-200">
-                        git.sulzer.de
+                        gitlab.com
                     </b>
                 </a>
                 <LanguageChooser />

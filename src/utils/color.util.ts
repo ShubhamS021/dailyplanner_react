@@ -1,6 +1,4 @@
 import { type RGB } from '../interfaces/RGB';
-import { Sulzer100Colors, Sulzer33Colors } from '../theme/colors';
-import { type ThemeMode } from '../types/ThemeMode';
 
 /**
  * Converts a hexadecimal color string to RGB format.
@@ -80,26 +78,4 @@ export const calculateIlluminance = (color: string) => {
         return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
     });
     return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
-};
-
-/**
- * Determines the Sulzer color based on the provided color and theme mode.
- *
- * @param {string} color - The input color to determine the Sulzer color.
- * @param {ThemeMode} themeMode - The theme mode ('dark' or 'light') to determine the Sulzer color.
- * @returns {string} - The determined Sulzer color based on the input color and theme mode.
- */
-export const determineSulzerColorByMode = (
-    color: string,
-    themeMode: ThemeMode
-) => {
-    const index = [...Sulzer33Colors, ...Sulzer100Colors].indexOf(color) % 4;
-
-    if (index === -1) return color;
-
-    if (themeMode === 'dark') {
-        return Sulzer100Colors[index];
-    } else {
-        return Sulzer33Colors[index];
-    }
 };

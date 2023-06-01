@@ -1,14 +1,10 @@
 import { TagComponent } from 'components/Tag/Tag';
-import { BoardContext } from 'context/BoardContext';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
     BaseColors,
-    Sulzer100Colors,
-    Sulzer33Colors,
     colors,
 } from 'theme/colors';
-import { determineSulzerColorByMode } from 'utils/color.util';
 import { closeSVG } from '../../assets/svgs/close.svg';
 import { infoCircleSVG } from '../../assets/svgs/infoCircle.svg';
 import { type Board } from '../../interfaces/Board';
@@ -36,16 +32,13 @@ export const LaneEditModal: React.FC<LaneEditModalProps> = ({
     closeModal,
     modalConfirmation,
 }) => {
-    const { themeMode } = useContext(BoardContext);
-    const sulzerColors =
-        themeMode === 'dark' ? [...Sulzer100Colors] : [...Sulzer33Colors];
 
-    const editColors = [...sulzerColors, ...BaseColors];
+    const editColors = [...BaseColors];
 
     const lane = board.lanes.find((l) => l.id === laneId);
     const [laneTitle, setLaneTitle] = useState(lane?.title ?? '');
     const [selectedColor, setSelectedColor] = useState(
-        determineSulzerColorByMode(lane?.color ?? colors.light_grey, themeMode)
+        lane?.color ?? colors.light_grey
     );
     const [selectedColorIndex, setSelectedColorIndex] = useState(
         editColors.indexOf(selectedColor)

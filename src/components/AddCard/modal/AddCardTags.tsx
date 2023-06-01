@@ -1,11 +1,10 @@
-import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { tagsSVG } from '../../../assets/svgs/tags.svg';
 import { TagComponent } from '../../../components/Tag/Tag';
-import { BoardContext } from '../../../context/BoardContext';
 import { type Card } from '../../../interfaces/Card';
 import type Tag from '../../../interfaces/Tag';
 import { colors } from '../../../theme/colors';
+import { useState } from 'react';
 
 export interface AddCardTagsProps {
     headline: string;
@@ -19,9 +18,8 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
     updateTags,
 }) => {
     const MAX_TAGS = 5;
-    const { themeMode } = useContext(BoardContext);
     const [selectedColorIndex, setSelectedColorIndex] = useState(0);
-    const [selectedColor, setSelectedColor] = useState(colors.sulzer33_blue);
+    const [selectedColor, setSelectedColor] = useState(colors.light_grey);
     const { t } = useTranslation();
 
     const [tag, setTag] = useState('');
@@ -49,21 +47,6 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
         updateTags([...card.upperTags, newTag]);
         setTag('');
     };
-
-    const sulzerColors =
-        themeMode === 'dark'
-            ? [
-                  colors.sulzer100_blue,
-                  colors.sulzer100_red,
-                  colors.sulzer100_purple,
-                  colors.sulzer100_yellow,
-              ]
-            : [
-                  colors.sulzer33_blue,
-                  colors.sulzer33_red,
-                  colors.sulzer33_purple,
-                  colors.sulzer33_yellow,
-              ];
 
     return (
         <div className="flex flex-col gap-2">
@@ -121,7 +104,6 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
                 <div>
                     <div className="flex gap-1">
                         {[
-                            ...sulzerColors,
                             colors.green,
                             colors.lavender,
                             colors.rose,

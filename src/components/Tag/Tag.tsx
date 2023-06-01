@@ -1,9 +1,6 @@
 import { BoardContext } from 'context/BoardContext';
 import { useContext, useEffect, useState } from 'react';
-import {
-    calculateIlluminance,
-    determineSulzerColorByMode,
-} from 'utils/color.util';
+import { calculateIlluminance } from 'utils/color.util';
 import { tagCloseSVG } from '../../assets/svgs/tagClose.svg';
 
 export interface TagProps {
@@ -22,12 +19,10 @@ export const TagComponent: React.FC<TagProps> = ({
     onRemove,
 }) => {
     const { themeMode } = useContext(BoardContext);
-    const [tagColor, setTagColor] = useState(
-        determineSulzerColorByMode(color, themeMode)
-    );
+    const [tagColor, setTagColor] = useState(color);
 
     useEffect(() => {
-        setTagColor(determineSulzerColorByMode(color, themeMode));
+        setTagColor(color);
     }, [themeMode]);
 
     let style = { backgroundColor: tagColor, border: '' };

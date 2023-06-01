@@ -29,7 +29,7 @@
                 "icons/icon.icns",
                 "icons/icon.ico"
             ],
-            "identifier": "de.sulzer.dayplanner.dev",
+            "identifier": "de.kevinhahn.dayplanner.dev",
             "longDescription": "",
             "macOS": {
                 "entitlements": null,

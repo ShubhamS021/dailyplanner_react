@@ -47,15 +47,15 @@ For building a new package manually you need to follow these steps:
 
 ### Release a new version in gitlab
 
-1. Head over to [gitlab Releases](https://git.sulzer.de/hahnk/dayplanner/-/releases)
+1. Head over to [gitlab Releases](https://gitlab.com/Kevin.Hahn/dayplanner-/releases)
 2. Create a new release
 3. Choose the new version from the tag dropdown and write the same into the 'Release title'
 4. Copy the last generated text from the CHANGELOG.md into the field 'Release notes' (compare structure with other releases, e.g. caption)
 5. Add both urls to the 'Release assets':
    |URL | Link title | Type |
    | --- | --- | --- |
-   | https://git.sulzer.de/hahnk/dayplanner/-/blob/develop/release/linux | Dayplanner.deb | Package |
-   | https://git.sulzer.de/hahnk/dayplanner/-/blob/develop/release/windows | Dayplanner.msi | Package |
+   | https://gitlab.com/Kevin.Hahn/dayplanner-/blob/develop/release/linux | Dayplanner.deb | Package |
+   | https://gitlab.com/Kevin.Hahn/dayplanner-/blob/develop/release/windows | Dayplanner.msi | Package |
 6. Finally create the release :)
 
 ## Learn More

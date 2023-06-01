@@ -53,7 +53,7 @@ describe('MyBoardLanes', () => {
             {
                 id: -1,
                 title: 'New Lane',
-                color: colors.sulzer33_blue,
+                color: colors.green,
                 cards: [],
             },
             3

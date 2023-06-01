@@ -1,4 +1,4 @@
-import { HistoryToggle } from 'HistoryToggle/HistoryToggle';
+import { HistoryToggle } from 'components/HistoryToggle/HistoryToggle';
 import { DarkModeToggle } from 'components/DarkModeToggle/DarkModeToggle';
 import { useContext } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';

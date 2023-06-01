@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { historyToggleSVG } from '../assets/svgs/history-toggle.svg';
-import { BoardContext } from '../context/BoardContext';
+import { historyToggleSVG } from '../../assets/svgs/history-toggle.svg';
+import { BoardContext } from '../../context/BoardContext';
 
 export const HistoryToggle = () => {
     const { t } = useTranslation();

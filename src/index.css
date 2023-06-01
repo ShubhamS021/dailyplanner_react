@@ -32,6 +32,7 @@ main {
     @apply p-2;
     @apply rounded-lg;
     @apply focus:outline-none;
+    @apply min-h-[40px];
 }
 
 .formField input {
@@ -67,12 +68,12 @@ main {
 
     /* light -- general */
     @apply disabled:bg-[var(--light-button-background--disabled)];
-    @apply disabled:stroke-gray-500;
 
     /* light -- hover */
     @apply hover:disabled:stroke-gray-500;
     @apply hover:disabled:brightness-100;
-    @apply hover:disabled:text-white;
+    @apply hover:disabled:text-gray-400;
+    @apply disabled:stroke-gray-500;
 
     /* dark -- general */
     @apply dark:disabled:stroke-gray-500;

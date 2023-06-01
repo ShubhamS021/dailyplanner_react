@@ -61,7 +61,7 @@ export const CardMoveModal: React.FC<CardMoveModalProps> = ({
                         {text}
                         <br />
                         <select
-                            className="border border-[#f5f4f4] p-2 rounded-lg flex gap-2 items-center"
+                            className="formField focus:outline-none text-sm w-full rounded-lg"
                             data-testid="board-selection"
                             onChange={(event) => {
                                 handleBoardChange(+event.target.value);

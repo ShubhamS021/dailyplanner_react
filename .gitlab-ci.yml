@@ -1,9 +1,9 @@
-image: current-alpine
-
 stages:
   - lint
   - test
   - deploy
+
+image: current-alpine
 
 before_script:
   - apt-get update -qq
@@ -32,21 +32,21 @@ test:
 
 # CD stages 
 
-deploy-qa:
+qa:
   stage: deploy
   environment:
     name: qa
-    url: planner-qa.der-hahn.net
+    url: https://planner-qa.der-hahn.net
   script:
     - bash deploy/deploy.sh
   # only:
     # - develop
 
-deploy:
+prod:
   stage: deploy
   environment:
     name: prod
-    url: planner.der-hahn.net
+    url: https://planner.der-hahn.net
   script:
     - bash deploy/deploy.sh
   when:

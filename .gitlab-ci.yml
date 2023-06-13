@@ -1,0 +1,53 @@
+image: current-alpine
+
+stages:
+  - lint
+  - test
+  - deploy
+
+before_script:
+  - apt-get update -qq
+  - apt-get install -qq git
+  - "which ssh-agent || ( apt-get install -qq openssh-client )"
+  - eval $(ssh-agent -s)
+  - ssh-add <(echo "$SSH_PRIVATE_KEY")
+  - mkdir -p ~/.ssh
+  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+# CI stages
+
+lint:
+  stage: lint
+  before_script:
+    - yarn install
+  script:
+    - yarn lint
+
+test:
+  stage: test
+  before_script:
+    - yarn install
+  script:
+    - yarn test
+
+# CD stages 
+
+deploy-qa:
+  stage: deploy
+  environment:
+    name: qa
+    url: planner-qa.der-hahn.net
+  script:
+    - bash deploy/deploy.sh
+  # only:
+    # - develop
+
+deploy:
+  stage: deploy
+  environment:
+    name: prod
+    url: planner.der-hahn.net
+  script:
+    - bash deploy/deploy.sh
+  when:
+    - manual

@@ -49,5 +49,4 @@ prod:
     url: https://planner.der-hahn.net
   script:
     - bash deploy/deploy.sh
-  when:
-    - manual
+  when: manual

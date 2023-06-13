@@ -3,7 +3,7 @@ stages:
   - test
   - deploy
 
-image: current-alpine
+image: alpine:3.18
 
 before_script:
   - apt-get update -qq

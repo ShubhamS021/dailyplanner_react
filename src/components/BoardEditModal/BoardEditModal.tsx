@@ -33,7 +33,7 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
     closeModal,
     modalConfirmation,
 }) => {
-    const { addLaneToBoard, removeLaneFromBoard, moveLane, themeMode } =
+    const { addLaneToBoard, removeLaneFromBoard, moveLane } =
         useContext(BoardContext);
     const [boardTitle, setBoardTitle] = useState(board.title);
     const [boardSubTitle, setBoardSubTitle] = useState(board.subtitle);

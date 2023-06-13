@@ -5,12 +5,12 @@ import { arrowNarrowRight } from '../../assets/svgs/arrow-narrow-right.svg';
 import { editSVG } from '../../assets/svgs/edit.svg';
 import { gitlabSVG } from '../../assets/svgs/gitlab.svg';
 import { trashSVG } from '../../assets/svgs/trash.svg';
-import { BoardRenameModal } from '../../components/BoardRenameModal/BoardRenameModal';
 import { ConfirmationModal } from '../../components/ConfirmationModal/ConfirmationModal';
 import Export from '../../components/Export/Export';
 import Import from '../../components/Import/Import';
 import { LanguageChooser } from '../../components/LanguageChooser/LanguageChooser';
 import { BoardContext } from '../../context/BoardContext';
+import { BoardEditModal } from '../BoardEditModal/BoardEditModal';
 
 export const MyBoards = () => {
     const { toggleBoardMode, removeBoard, renameBoard, enterBoard, boards } =
@@ -44,20 +44,18 @@ export const MyBoards = () => {
     const renderEditBoardModal = () => {
         return (
             <>
-                <BoardRenameModal
-                    title={t('components.MyBoards.renameTitle')}
-                    text={t('components.MyBoards.renameText')}
+                <BoardEditModal
                     board={boardToEdit}
-                    submitButtonText={
-                        t('components.MyBoards.renameSubmit') ?? ''
-                    }
+                    title={t('components.MyBoards.editTitle')}
+                    cancelButtonText={t('components.MyBoards.editCancel') ?? ''}
+                    submitButtonText={t('components.MyBoards.editSubmit') ?? ''}
                     modalConfirmation={(title, subtitle) => {
                         renameBoard(boardToEdit.id, title, subtitle);
                     }}
                     closeModal={() => {
                         setShowEditModal(false);
                     }}
-                ></BoardRenameModal>
+                ></BoardEditModal>
                 <div className="backdrop"></div>
             </>
         );

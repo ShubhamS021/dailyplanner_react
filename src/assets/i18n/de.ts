@@ -65,9 +65,17 @@ export const DEtranslation = {
             update: 'Aufgabe aktualisiert.',
             deletion: 'Aufgabe gelöscht.',
         },
-        BoardRenameModal: {
+        BoardEditModal: {
+            titleAndDescription: 'Titel und Beschreibung',
             title: 'Titel aktualisieren.',
             subtitle: 'Untertitel aktualisieren.',
+            add: 'hinzufügen',
+            addLane: 'Spalte hinzufügen',
+            addLaneText: 'Spaltennamen eingeben.',
+            moveRemoveLane: 'Spalten verschieben / löschen',
+            removeHint:
+                'Erfülle erst alle Aufgaben um die Spalte löschen zu können.',
+            tasks: 'Aufgaben',
         },
         Card: {
             move: 'Diese Karte verschieben.',
@@ -133,9 +141,9 @@ export const DEtranslation = {
             warningDeleteText:
                 'Sind Sie sicher, dass Sie dieses Board löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.',
             warningDeleteSubmit: 'Ja, Board löschen.',
-            renameTitle: 'Board umbenennen',
-            renameText: 'Bitte ändern Sie die Informationen des Boards.',
-            renameSubmit: 'Änderungen speichern.',
+            editTitle: 'Board editieren',
+            editSubmit: 'Änderungen speichern.',
+            editCancel: 'Abbrechen',
             title: 'Meine Boards',
             edit: 'Dieses Board bearbeiten.',
             remove: 'Dieses Board entfernen.',

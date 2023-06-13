@@ -97,10 +97,10 @@ describe('MyBoards', () => {
         const editModal = screen.getByTestId('confirmation-modal');
         expect(editModal).toBeInTheDocument();
 
-        const boardTitle = screen.getByTestId('boardrename-title-input');
+        const boardTitle = screen.getByTestId('boardedit-title-input');
         fireEvent.change(boardTitle, { target: { value: 'NEW TITLE' } });
 
-        const boardSubtitle = screen.getByTestId('boardrename-subtitle-input');
+        const boardSubtitle = screen.getByTestId('boardedit-subtitle-input');
         fireEvent.change(boardSubtitle, { target: { value: 'NEW SUBTITLE' } });
 
         const submitButton = screen.getByTestId('confirmation-modal-button');

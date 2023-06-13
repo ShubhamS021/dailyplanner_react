@@ -43,6 +43,7 @@ export const mockAddBoard = jest.fn();
 export const mockRemoveBoard = jest.fn();
 export const mockRenameBoard = jest.fn();
 export const mockRenameLane = jest.fn();
+export const mockMoveLane = jest.fn();
 export const mockUpdateLaneColor = jest.fn();
 export const mockEnterBoard = jest.fn();
 export const mockUpdateLanguage = jest.fn();
@@ -82,6 +83,7 @@ export const mockContext = {
     removeBoard: mockRemoveBoard,
     renameBoard: mockRenameBoard,
     renameLane: mockRenameLane,
+    moveLane: mockMoveLane,
     updateLaneColor: mockUpdateLaneColor,
     enterBoard: mockEnterBoard,
     updateLanguage: mockUpdateLanguage,

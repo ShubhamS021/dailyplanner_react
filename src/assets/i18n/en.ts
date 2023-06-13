@@ -65,9 +65,16 @@ export const ENtranslation = {
             update: 'Task was updated.',
             deletion: 'Task was deleted.',
         },
-        BoardRenameModal: {
+        BoardEditModal: {
+            titleAndDescription: 'Title and description',
             title: 'Update the title.',
             subtitle: 'Update the subtitle.',
+            add: 'add',
+            addLane: 'Add a lane',
+            addLaneText: 'Enter a lane name.',
+            moveRemoveLane: 'Move / Remove lane',
+            removeHint: 'Finish all tasks in lane to remove the lane.',
+            tasks: 'tasks',
         },
         Card: {
             move: 'Move this card.',
@@ -135,9 +142,9 @@ export const ENtranslation = {
             warningDeleteText:
                 'Are you sure you want to delete this board? This action cannot be undone.',
             warningDeleteSubmit: 'Yes, delete board.',
-            renameTitle: 'Rename board',
-            renameText: 'Please change the information of the board.',
-            renameSubmit: 'Save changes.',
+            editTitle: 'Edit board',
+            editSubmit: 'Save changes.',
+            editCancel: 'Cancel',
             title: 'My boards',
             edit: 'Edit this board.',
             remove: 'Remove this board.',

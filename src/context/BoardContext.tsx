@@ -47,6 +47,7 @@ export const BoardContext = createContext({
     removeBoard: (boardId: number) => {},
     renameBoard: (boardId: number, title: string, subtitle: string) => {},
     renameLane: (laneId: number, title: string) => {},
+    moveLane: (targetBoard: Board, laneId: number, newId: number) => {},
     updateLaneColor: (laneId: number, color: string) => {},
     enterBoard: (boardId: number) => {},
     updateLanguage: (language: string) => {},
@@ -288,6 +289,16 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
         newLane.title = title;
 
         updateBoards(newBoard);
+    };
+
+    const moveLane = (targetBoard: Board, laneId: number, newId: number) => {
+        const newBoard = { ...targetBoard };
+        const removedLane = newBoard.lanes.splice(laneId, 1);
+        newBoard.lanes.splice(newId, 0, ...removedLane);
+
+        console.log(newBoard);
+
+        // updateBoards(newBoard);
     };
 
     const updateLaneColor = (laneId: number, color: string) => {
@@ -594,6 +605,7 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
             removeBoard,
             renameBoard,
             renameLane,
+            moveLane,
             updateLaneColor,
             enterBoard,
             updateLanguage,

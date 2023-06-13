@@ -1,16 +1,14 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { mockContext } from '../../mocks/context.mock';
-import { BoardRenameModal } from './BoardRenameModal';
+import { BoardEditModal } from './BoardEditModal';
 
-describe('BoardRenameModal', () => {
+describe('boardeditModal', () => {
     it('renders the title and text props', () => {
         const title = 'Rename Board';
-        const text = 'Update the title and subtitle of the board.';
 
         render(
-            <BoardRenameModal
+            <BoardEditModal
                 title={title}
-                text={text}
                 board={mockContext.board}
                 modalConfirmation={jest.fn()}
                 closeModal={jest.fn()}
@@ -20,7 +18,6 @@ describe('BoardRenameModal', () => {
         expect(
             screen.getByTestId('confirmation-modal-title')
         ).toHaveTextContent(title);
-        expect(screen.getByText(text)).toBeInTheDocument();
     });
 
     it('renders the submit and cancel buttons with the correct text', () => {
@@ -28,9 +25,8 @@ describe('BoardRenameModal', () => {
         const cancelButtonText = 'Cancel';
 
         render(
-            <BoardRenameModal
+            <BoardEditModal
                 title="Rename Board"
-                text="Update the title and subtitle of the board."
                 board={mockContext.board}
                 submitButtonText={submitButtonText}
                 cancelButtonText={cancelButtonText}
@@ -50,39 +46,37 @@ describe('BoardRenameModal', () => {
 
     it('renders the board title and subtitle as input values', () => {
         render(
-            <BoardRenameModal
+            <BoardEditModal
                 title="Rename Board"
-                text="Update the title and subtitle of the board."
                 board={mockContext.board}
                 modalConfirmation={jest.fn()}
                 closeModal={jest.fn()}
             />
         );
 
-        const titleInput = screen.getByTestId('boardrename-title-input');
+        const titleInput = screen.getByTestId('boardedit-title-input');
         expect(titleInput).toHaveValue(mockContext.board.title);
 
-        const subtitleInput = screen.getByTestId('boardrename-subtitle-input');
+        const subtitleInput = screen.getByTestId('boardedit-subtitle-input');
         expect(subtitleInput).toHaveValue(mockContext.board.subtitle);
     });
 
     it('updates the board title and subtitle when the inputs are changed', () => {
         render(
-            <BoardRenameModal
+            <BoardEditModal
                 title="Rename Board"
-                text="Update the title and subtitle of the board."
                 board={mockContext.board}
                 modalConfirmation={jest.fn()}
                 closeModal={jest.fn()}
             />
         );
 
-        const titleInput = screen.getByTestId('boardrename-title-input');
+        const titleInput = screen.getByTestId('boardedit-title-input');
         const newTitle = 'New Board Title';
         fireEvent.change(titleInput, { target: { value: newTitle } });
         expect(titleInput).toHaveValue(newTitle);
 
-        const subtitleInput = screen.getByTestId('boardrename-subtitle-input');
+        const subtitleInput = screen.getByTestId('boardedit-subtitle-input');
         const newSubtitle = 'New Board Subtitle';
         fireEvent.change(subtitleInput, { target: { value: newSubtitle } });
         expect(subtitleInput).toHaveValue(newSubtitle);
@@ -91,9 +85,8 @@ describe('BoardRenameModal', () => {
     it('should call closeModal when close button is clicked', () => {
         const closeModal = jest.fn();
         const { getByTestId } = render(
-            <BoardRenameModal
+            <BoardEditModal
                 title="Title"
-                text="Text"
                 board={mockContext.board}
                 modalConfirmation={jest.fn()}
                 closeModal={closeModal}
@@ -109,9 +102,8 @@ describe('BoardRenameModal', () => {
     it('should call closeModal when cancel button is clicked', () => {
         const closeModal = jest.fn();
         const { getByTestId } = render(
-            <BoardRenameModal
+            <BoardEditModal
                 title="Title"
-                text="Text"
                 board={mockContext.board}
                 modalConfirmation={jest.fn()}
                 closeModal={closeModal}
@@ -128,9 +120,8 @@ describe('BoardRenameModal', () => {
         const modalConfirmation = jest.fn();
         const closeModal = jest.fn();
         const { getByTestId } = render(
-            <BoardRenameModal
+            <BoardEditModal
                 title="Title"
-                text="Text"
                 board={mockContext.board}
                 modalConfirmation={modalConfirmation}
                 closeModal={closeModal}

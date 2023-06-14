@@ -3,7 +3,7 @@ stages:
   - test
   - deploy
 
-image: node:alpine
+image: node:lts-alpine
 
 before_script:
   - apt-get update -qq

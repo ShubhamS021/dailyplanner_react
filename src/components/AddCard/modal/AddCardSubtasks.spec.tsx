@@ -15,8 +15,7 @@ test('renders the basic AddCardSubtasks', () => {
         <AddCardSubtasks
             headline={'tasks'}
             card={card}
-            updateTasks={function (tasks: Task[]): void {
-                throw new Error('Function not implemented.');
+            updateTasks={(tasks: Task[]): void => {
             }}
         />
     );

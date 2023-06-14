@@ -15,6 +15,7 @@ module.exports = {
         '^.\\.(css|less|scss)$': 'identity-obj-proxy',
         '^@/(.*)$': '<rootDir>/src/$1',
     },
+    coverageReporters: ["text-summary", "lcov"],
     coveragePathIgnorePatterns: [
         '<rootDir>/src/assets',
         '<rootDir>/src/assets/svgs',

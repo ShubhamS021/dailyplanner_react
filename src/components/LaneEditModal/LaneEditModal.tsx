@@ -1,4 +1,3 @@
-import { TagComponent } from 'components/Tag/Tag';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -7,6 +6,7 @@ import {
 } from 'theme/colors';
 import { closeSVG } from '../../assets/svgs/close.svg';
 import { infoCircleSVG } from '../../assets/svgs/infoCircle.svg';
+import { TagComponent } from '../../components/Tag/Tag';
 import { type Board } from '../../interfaces/Board';
 
 export interface LaneEditModalProps {

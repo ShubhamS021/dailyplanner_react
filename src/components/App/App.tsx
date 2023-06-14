@@ -1,6 +1,6 @@
-import { BoardHistory } from 'components/BoardHistory/BoardHistory';
 import { useContext } from 'react';
 import Board from '../../components/Board/Board';
+import { BoardHistory } from '../../components/BoardHistory/BoardHistory';
 import MyBoardLanes from '../../components/MyBoardLanes/MyBoardLanes';
 import MyBoards from '../../components/MyBoards/MyBoards';
 import { BoardContext } from '../../context/BoardContext';

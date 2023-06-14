@@ -1,11 +1,11 @@
-import { HistoryToggle } from 'components/HistoryToggle/HistoryToggle';
-import { DarkModeToggle } from 'components/DarkModeToggle/DarkModeToggle';
 import { useContext } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { useTranslation } from 'react-i18next';
 import { arrowLeftSVG } from '../../assets/svgs/arrow-left.svg';
 import CompactModeToggle from '../../components/CompactModeToggle/CompactModeToggle';
+import { DarkModeToggle } from '../../components/DarkModeToggle/DarkModeToggle';
 import Export from '../../components/Export/Export';
+import { HistoryToggle } from '../../components/HistoryToggle/HistoryToggle';
 import Import from '../../components/Import/Import';
 import { BoardContext } from '../../context/BoardContext';
 import { type Lane } from '../../interfaces/Lane';

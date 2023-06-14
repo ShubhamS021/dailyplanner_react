@@ -1,0 +1,59 @@
+stages:
+    - lint
+    - test
+    - deploy
+
+image: node:lts-alpine
+
+before_script: &add_bash
+    - apk add --no-cache bash
+
+before_script: &add_ssh
+    - 'which ssh-agent || (apk add --no-cache openssh-client)'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+# CI stages
+
+lint:
+    stage: lint
+    before_script:
+        - yarn install
+    script:
+        - yarn lint
+
+test:
+    stage: test
+    before_script:
+        - yarn install
+    script:
+        - yarn test
+
+# CD stages
+
+qa:
+    stage: deploy
+    before_script:
+        - *add_bash
+        - *add_ssh
+    environment:
+        name: qa
+        url: https://planner-qa.der-hahn.net
+    script:
+        - bash deploy/deploy.sh
+    # only:
+    # - develop
+
+prod:
+    stage: deploy
+    before_script:
+        - *add_bash
+        - *add_ssh
+    environment:
+        name: prod
+        url: https://planner.der-hahn.net
+    script:
+        - bash deploy/deploy.sh
+    when: manual

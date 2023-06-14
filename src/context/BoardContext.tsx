@@ -1,18 +1,18 @@
 import { createContext, useEffect, useMemo, useState } from 'react';
 import { type DropResult } from 'react-beautiful-dnd';
+import { Board } from '../interfaces/Board';
+import { type Card } from '../interfaces/Card';
+import { type Lane } from '../interfaces/Lane';
+import { type BoardMode } from '../types/BoardMode';
+import { type ThemeMode } from '../types/ThemeMode';
 import {
     saveBoardMovementToHistory,
     saveCreationToHistory,
     saveDeletionToHistory,
     saveMovementToHistory,
     saveUpdateToHistory,
-} from 'utils/history.util';
-import { initDB } from 'utils/indexdb.util';
-import { Board } from '../interfaces/Board';
-import { type Card } from '../interfaces/Card';
-import { type Lane } from '../interfaces/Lane';
-import { type BoardMode } from '../types/BoardMode';
-import { type ThemeMode } from '../types/ThemeMode';
+} from '../utils/history.util';
+import { initDB } from '../utils/indexdb.util';
 
 export const BoardContext = createContext({
     boards: new Array<Board>(),
@@ -90,8 +90,8 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
 
         if (currentBoard != null) {
             setBoard(currentBoard);
-        }
-
+        }      
+        
         void initDB();
     }, []);
 

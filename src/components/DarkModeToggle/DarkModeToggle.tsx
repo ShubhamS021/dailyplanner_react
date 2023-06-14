@@ -1,8 +1,8 @@
-import { moonSVG } from 'assets/svgs/moon.svg';
-import { sunSVG } from 'assets/svgs/sun.svg';
-import { BoardContext } from 'context/BoardContext';
 import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
+import { moonSVG } from '../../assets/svgs/moon.svg';
+import { sunSVG } from '../../assets/svgs/sun.svg';
+import { BoardContext } from '../../context/BoardContext';
 
 export const DarkModeToggle = () => {
     const { t } = useTranslation();

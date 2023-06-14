@@ -5,12 +5,12 @@ test('renders the basic AddCardDescription', () => {
     const { getByTestId } = render(
         <AddCardDescription
             headline={'description'}
-            card={{ id: 1, title: 'card', description: 'card description' }}
+            card={{ id: 1, title: 'card', description: 'card description', shirt: 'S' }}
             updateDescription={(description: string) => {
-                throw new Error('Function not implemented.');
+               
             }}
             updateTitle={(title: string) => {
-                throw new Error('Function not implemented.');
+               
             }}
         />
     );
@@ -24,12 +24,12 @@ test('changes description', () => {
     const { getByTestId } = render(
         <AddCardDescription
             headline={'description'}
-            card={{ id: 1, title: 'card', description: 'card description' }}
+            card={{ id: 1, title: 'card', description: 'card description', shirt: 'S'}}
             updateDescription={(description: string) => {
                 expect(description).not.toBe('');
             }}
-            updateTitle={(title: string) => {
-                throw new Error('Function not implemented.');
+            updateTitle={() => {
+                
             }}
         />
     );

@@ -1,6 +1,6 @@
-import { compactModeSVG } from 'assets/svgs/compactMode.svg';
 import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
+import { compactModeSVG } from '../../assets/svgs/compactMode.svg';
 import { BoardContext } from '../../context/BoardContext';
 
 export const CompactModeToggle = () => {

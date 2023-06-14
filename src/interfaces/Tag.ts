@@ -1,4 +1,4 @@
-import { type TagType } from 'types/TagType';
+import { type TagType } from '../types/TagType';
 
 export interface Tag {
     id: number;

@@ -1,7 +1,7 @@
-import { BoardContext } from 'context/BoardContext';
 import { useContext, useEffect, useState } from 'react';
-import { calculateIlluminance } from 'utils/color.util';
 import { tagCloseSVG } from '../../assets/svgs/tagClose.svg';
+import { BoardContext } from '../../context/BoardContext';
+import { calculateIlluminance } from '../../utils/color.util';
 
 export interface TagProps {
     color: string;

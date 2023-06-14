@@ -1,12 +1,12 @@
 import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-    getLocalizedInitialBoardState,
-    getLocalizedInitialLanesState,
-} from 'utils/context.util';
 import logo from '../../assets/logo.png';
 import { arrowLeftSVG } from '../../assets/svgs/arrow-left.svg';
 import { BoardContext } from '../../context/BoardContext';
+import {
+    getLocalizedInitialBoardState,
+    getLocalizedInitialLanesState,
+} from '../../utils/context.util';
 
 export const AddBoard = () => {
     const { addBoard, toggleBoardMode } = useContext(BoardContext);

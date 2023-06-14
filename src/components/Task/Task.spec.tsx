@@ -8,7 +8,6 @@ test('renders unchecked basic task', () => {
             description="test unchecked task"
             fulfilled={false}
             onFulfillTask={(fulfilled: boolean) => {
-                throw new Error('Function not implemented.');
             }}
         />
     );
@@ -21,7 +20,6 @@ test('renders checked basic task without prop', () => {
         <TaskComponent
             description="test unchecked task"
             onFulfillTask={(fulfilled: boolean) => {
-                throw new Error('Function not implemented.');
             }}
         />
     );
@@ -34,7 +32,6 @@ test('renders checked basic task', () => {
             description="test checked task"
             fulfilled={true}
             onFulfillTask={(fulfilled: boolean) => {
-                throw new Error('Function not implemented.');
             }}
         />
     );

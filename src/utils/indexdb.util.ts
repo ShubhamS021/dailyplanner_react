@@ -8,7 +8,9 @@ let db: IDBDatabase | null = null;
 
 const createStores = (db: IDBDatabase) => {
     if (!db.objectStoreNames.contains(IDBStores.History)) {
-        console.log('Creating history store');
+        if (process.env.NODE_ENV === 'development') {
+            console.log('Creating history store');
+        }
         const store = db.createObjectStore(IDBStores.History, {
             keyPath: 'id',
         });
@@ -31,7 +33,12 @@ export const initDB = async (): Promise<boolean> => {
             db = request.result;
             dbVersion = db.version;
 
-            console.log('initDB - request.onsuccess - dbVersion', dbVersion);
+            if (process.env.NODE_ENV === 'development') {
+                console.log(
+                    'initDB - request.onsuccess - dbVersion',
+                    dbVersion
+                );
+            }
             resolve(true);
         };
 
@@ -49,11 +56,13 @@ export const addData = async <T>(
         const request = indexedDB.open(dbName, dbVersion);
 
         request.onsuccess = () => {
-            console.log(
-                'addData - request.onsuccess - dbVersion',
-                dbVersion,
-                data
-            );
+            if (process.env.NODE_ENV === 'development') {
+                console.log(
+                    'addData - request.onsuccess - dbVersion',
+                    dbVersion,
+                    data
+                );
+            }
             const db = request.result;
             const tx = db.transaction(storeName, 'readwrite');
             const store = tx.objectStore(storeName);
@@ -80,7 +89,9 @@ export const getData = async <T>(
         const request = indexedDB.open(dbName, dbVersion);
 
         request.onsuccess = () => {
-            console.log('request.onsuccess - getData', id);
+            if (process.env.NODE_ENV === 'development') {
+                console.log('request.onsuccess - getData', id);
+            }
             const db = request.result;
             const tx = db.transaction(storeName, 'readonly');
             const store = tx.objectStore(storeName);
@@ -121,7 +132,9 @@ export const getDataByIndex = async <T>(
         const request = indexedDB.open(dbName, dbVersion);
 
         request.onsuccess = () => {
-            console.log('request.onsuccess - getDataByIndex', queryValue);
+            if (process.env.NODE_ENV === 'development') {
+                console.log('request.onsuccess - getDataByIndex', queryValue);
+            }
             const db = request.result;
             const tx = db.transaction(storeName, 'readonly');
             const store = tx.objectStore(storeName);

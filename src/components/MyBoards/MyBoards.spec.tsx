@@ -53,7 +53,7 @@ describe('MyBoards', () => {
         )[0];
         fireEvent.click(removeBoardButton);
         expect(
-            screen.getAllByText('components.MyBoards.warningDeleteTitle')[0]
+            screen.getAllByText('Warning: Deleting board')[0]
         ).toBeInTheDocument();
     });
 
@@ -63,7 +63,7 @@ describe('MyBoards', () => {
         )[0];
         fireEvent.click(removeBoardButton);
         const deleteBoardButton = screen.getAllByText(
-            'components.MyBoards.warningDeleteSubmit'
+            'Yes, delete board.'
         )[0];
         fireEvent.click(deleteBoardButton);
         expect(mockRemoveBoard).toHaveBeenCalledWith(0);

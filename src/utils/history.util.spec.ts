@@ -1,4 +1,4 @@
-import { card } from 'mocks/cards.mock';
+import { card } from '../mocks/cards.mock';
 import {
     saveBoardMovementToHistory,
     saveCreationToHistory,

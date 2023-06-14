@@ -17,10 +17,10 @@ test('renders the basic AddCardModal', () => {
         <AddCardModal
             card={card}
             updateTitle={(_title: string): void => {
-                throw new Error('Function not implemented.');
+                
             }}
             updateDescription={(_description: string): void => {
-                throw new Error('Function not implemented.');
+                
             }}
             updateTasks={(tasks: Task[]): void => {
                 expect(tasks.length).toBe(2);
@@ -29,16 +29,16 @@ test('renders the basic AddCardModal', () => {
                 expect(tags.length).toBe(1);
             }}
             closeModal={(): void => {
-                throw new Error('Function not implemented.');
+                
             }}
             saveCard={(): void => {
-                throw new Error('Function not implemented.');
+               
             }}
             updateLowerTags={(tags: Tag[]): void => {
                 expect(tags.length).toBe(1);
             }}
             updateEstimation={(_shirt: Shirt): void => {
-                throw new Error('Function not implemented.');
+                
             }}
         />
     );

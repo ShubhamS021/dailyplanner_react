@@ -9,15 +9,12 @@ test('renders basic card', () => {
             <CardComponent
                 title={'card title'}
                 description="card description"
-                onRemoveCard={function (): void {
-                    throw new Error('Function not implemented.');
+                onRemoveCard={() => {
                 }}
-                onEditCard={function (): void {
-                    throw new Error('Function not implemented.');
+                onEditCard={() => {
                 }}
                 id={0}
-                onMoveCard={function (): void {
-                    throw new Error('Function not implemented.');
+                onMoveCard={() => {
                 }}
                 shirt={'XS'}
             />

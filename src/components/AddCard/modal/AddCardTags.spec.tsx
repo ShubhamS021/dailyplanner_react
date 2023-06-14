@@ -22,8 +22,7 @@ test('renders the basic AddCardTags', () => {
         <AddCardTags
             headline={'tags'}
             card={card}
-            updateTags={function (tags: Tag[]): void {
-                throw new Error('Function not implemented.');
+            updateTags={(tags: Tag[]) => {
             }}
         />
     );

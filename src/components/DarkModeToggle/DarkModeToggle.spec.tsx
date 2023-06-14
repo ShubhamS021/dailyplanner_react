@@ -1,6 +1,6 @@
 import { fireEvent, render } from '@testing-library/react';
-import { BoardContext } from 'context/BoardContext';
-import { mockContext } from 'mocks/context.mock';
+import { BoardContext } from '../../context/BoardContext';
+import { mockContext } from '../../mocks/context.mock';
 import { DarkModeToggle } from './DarkModeToggle';
 
 // Mock react-i18next useTranslation hook

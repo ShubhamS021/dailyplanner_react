@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { BoardContext } from 'context/BoardContext';
-import { mockContext } from 'mocks/context.mock';
+import { BoardContext } from '../../context/BoardContext';
+import { mockContext } from '../../mocks/context.mock';
 import { LanguageChooser } from './LanguageChooser';
 
 // Mock react-i18next useTranslation hook

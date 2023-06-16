@@ -23,7 +23,7 @@ export const hex2Rgb = (hex: string): RGB | null => {
  */
 export const rgba2rgb = (rgbaString: string): RGB | null => {
     const rgbaRegex =
-        /^rgba?\(\s*([01]?\d{1,2}|2[0-4]\d|25[0-5])\s*,\s*([01]?\d{1,2}|2[0-4]\d|25[0-5])\s*,\s*([01]?\d{1,2}|2[0-4]\d|25[0-5])\s*(,\s*(0|1|0?\.\d+))?\s*\)$/i;
+        /^rgba?\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*(,\s*(\d(?:\.\d+)?))?\s*\)$/i;
 
     const matches = rgbaRegex.exec(rgbaString);
 
@@ -31,6 +31,11 @@ export const rgba2rgb = (rgbaString: string): RGB | null => {
         const r = parseInt(matches[1], 10);
         const g = parseInt(matches[2], 10);
         const b = parseInt(matches[3], 10);
+
+        if (r > 255 || g > 255 || b > 255) {
+            return null;
+        }
+
         return { r, g, b };
     }
 
@@ -54,8 +59,20 @@ export const isHexColor = (color: string): boolean => {
  */
 export const isRGBaColor = (color: string): boolean => {
     const rgbaRegex =
-        /^rgba?\(\s*([01]?\d{1,2}|2[0-4]\d|25[0-5])\s*,\s*([01]?\d{1,2}|2[0-4]\d|25[0-5])\s*,\s*([01]?\d{1,2}|2[0-4]\d|25[0-5])\s*(,\s*(0|1|0?\.\d+))?\s*\)$/i;
-    return rgbaRegex.test(color);
+        /^rgba?\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*(,\s*(\d(?:\.\d+)?))?\s*\)$/i;
+
+    const matches = rgbaRegex.exec(color);
+
+    if (matches != null) {
+        const red = parseInt(matches[1], 10);
+        const green = parseInt(matches[2], 10);
+        const blue = parseInt(matches[3], 10);
+        const alpha = matches[5] !== undefined ? parseFloat(matches[5]) : 1.0;
+
+        return red <= 255 && green <= 255 && blue <= 255 && alpha <= 1.0;
+    }
+
+    return false;
 };
 
 /**

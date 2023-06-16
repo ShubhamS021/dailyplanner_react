@@ -5,10 +5,10 @@ stages:
 
 image: node:lts-alpine
 
-before_script: &add_bash
+.add_bash: &add_bash
     - apk add --no-cache bash
 
-before_script: &add_ssh
+.add_ssh: &add_ssh
     - 'which ssh-agent || (apk add --no-cache openssh-client)'
     - eval $(ssh-agent -s)
     - ssh-add <(echo "$SSH_PRIVATE_KEY")
@@ -42,7 +42,7 @@ qa:
         name: qa
         url: https://planner-qa.der-hahn.net
     script:
-        - bash deploy/deploy.sh
+        - ENVIRONMENT_NAME=qa bash deploy/deploy.sh 
     # only:
     # - develop
 
@@ -55,5 +55,5 @@ prod:
         name: prod
         url: https://planner.der-hahn.net
     script:
-        - bash deploy/deploy.sh
+        - ENVIRONMENT_NAME=prod bash deploy/deploy.sh
     when: manual

@@ -91,7 +91,7 @@ export const MyBoardLanes = () => {
                             colors.light_grey,
                         ].map((color, index) => (
                             <div
-                                key={index}
+                                key={color}
                                 className={`cursor-pointer `}
                                 data-testid="myboardlanes-lane-color-button"
                                 onClick={() => {

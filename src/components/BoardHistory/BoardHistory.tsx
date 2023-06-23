@@ -53,10 +53,10 @@ export const BoardHistory = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {history.map((h, index) => {
+                        {history.map((h) => {
                             return (
                                 <tr
-                                    key={index}
+                                    key={h.id}
                                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                                 >
                                     <th

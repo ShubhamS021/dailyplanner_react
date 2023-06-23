@@ -69,9 +69,12 @@ export const CardMoveModal: React.FC<CardMoveModalProps> = ({
                         >
                             {boardContext.boards
                                 .filter((b) => b.id !== boardContext.board.id)
-                                .map((b, index) => {
+                                .map((b) => {
                                     return (
-                                        <option key={index} value={b.id}>
+                                        <option
+                                            key={`board-${b.id}`}
+                                            value={b.id}
+                                        >
                                             {b.title}
                                         </option>
                                     );

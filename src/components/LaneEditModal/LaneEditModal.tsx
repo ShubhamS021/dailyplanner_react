@@ -1,9 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-    BaseColors,
-    colors,
-} from 'theme/colors';
+import { BaseColors, colors } from 'theme/colors';
 import { closeSVG } from '../../assets/svgs/close.svg';
 import { infoCircleSVG } from '../../assets/svgs/infoCircle.svg';
 import { TagComponent } from '../../components/Tag/Tag';
@@ -32,7 +29,6 @@ export const LaneEditModal: React.FC<LaneEditModalProps> = ({
     closeModal,
     modalConfirmation,
 }) => {
-
     const editColors = [...BaseColors];
 
     const lane = board.lanes.find((l) => l.id === laneId);
@@ -100,7 +96,7 @@ export const LaneEditModal: React.FC<LaneEditModalProps> = ({
                         <div className="flex gap-2">
                             {editColors.map((color, index) => (
                                 <div
-                                    key={index}
+                                    key={color}
                                     className={`cursor-pointer `}
                                     data-testid="myboardlanes-lane-color-button"
                                     onClick={() => {

@@ -145,8 +145,6 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
         );
     };
 
-
-
     const renderColorSelector = () => {
         return (
             <div className="flex gap-2 dark:text-[#8B8B8B]">
@@ -157,7 +155,7 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
                     colors.light_grey,
                 ].map((color, index) => (
                     <div
-                        key={index}
+                        key={color}
                         className={`cursor-pointer `}
                         data-testid="myboardlanes-lane-color-button"
                         onClick={() => {

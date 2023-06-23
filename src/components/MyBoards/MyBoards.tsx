@@ -77,11 +77,11 @@ export const MyBoards = () => {
                     className="w-full grid justify-center gap-2"
                     data-testid="myboards-list"
                 >
-                    {boards.map((board, index) => {
+                    {boards.map((board) => {
                         return (
                             <div
                                 className="group dark:bg-[#2E3842] dark:text-[#DEDEDE] border border-[#f5f4f4] dark:border-[#34414E] p-2 rounded-lg grid grid-cols-[1fr,auto,auto] items-center gap-2"
-                                key={index}
+                                key={`board-${board.id}`}
                                 data-testid={`board-${board.id}`}
                             >
                                 <div

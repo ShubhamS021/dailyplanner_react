@@ -110,7 +110,7 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
                             colors.light_grey,
                         ].map((color, index) => (
                             <div
-                                key={index}
+                                key={color}
                                 className={`cursor-pointer `}
                                 data-testid="addcard-tag-color-button"
                                 onClick={() => {

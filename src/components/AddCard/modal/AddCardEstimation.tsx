@@ -42,9 +42,9 @@ export const AddCardEstimation: React.FC<AddCardEstimationProps> = ({
                         );
                     }}
                 >
-                    {shirts.map((s, index) => {
+                    {shirts.map((s) => {
                         return (
-                            <option value={s} key={index}>
+                            <option value={s} key={s}>
                                 {s}
                             </option>
                         );

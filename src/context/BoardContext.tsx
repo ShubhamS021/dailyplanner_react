@@ -90,8 +90,8 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
 
         if (currentBoard != null) {
             setBoard(currentBoard);
-        }      
-        
+        }
+
         void initDB();
     }, []);
 
@@ -117,26 +117,16 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
     };
 
     const findLastBoardId = () => {
-        let lastId = 0;
-        boards.forEach((board) => {
-            if (board.id > lastId) {
-                lastId = board.id;
-            }
-        });
-
-        return lastId;
+        return Math.max(...boards.map((board) => board.id), 0);
     };
 
     const findLastCardIdInSpecificBoard = (targetBoard: Board) => {
-        let lastId = 0;
-
-        targetBoard.lanes.forEach((lane) => {
-            lane.cards.forEach((card) => {
-                if (card.id > lastId) lastId = card.id;
-            });
-        });
-
-        return lastId;
+        return Math.max(
+            ...targetBoard.lanes.flatMap((lane) =>
+                lane.cards.map((card) => card.id)
+            ),
+            0
+        );
     };
 
     const findLastTaskIdInSpecificCard = (card: Card): number => {
@@ -296,9 +286,7 @@ const BoardContextProvider: React.FC<BoardProviderProps> = ({ children }) => {
         const removedLane = newBoard.lanes.splice(laneId, 1);
         newBoard.lanes.splice(newId, 0, ...removedLane);
 
-        console.log(newBoard);
-
-        // updateBoards(newBoard);
+        updateBoards(newBoard);
     };
 
     const updateLaneColor = (laneId: number, color: string) => {

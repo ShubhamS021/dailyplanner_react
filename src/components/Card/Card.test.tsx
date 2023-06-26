@@ -9,13 +9,10 @@ test('renders basic card', () => {
             <CardComponent
                 title={'card title'}
                 description="card description"
-                onRemoveCard={() => {
-                }}
-                onEditCard={() => {
-                }}
+                onRemoveCard={() => {}}
+                onEditCard={() => {}}
                 id={0}
-                onMoveCard={() => {
-                }}
+                onMoveCard={() => {}}
                 shirt={'XS'}
             />
         </DragDropContext>
@@ -63,7 +60,7 @@ test('renders card with tags and tasks', () => {
                                         lowerTags={[
                                             {
                                                 id: 1,
-                                                color: colors.green,
+                                                color: colors.Green,
                                                 text: 'Tag High 1',
                                                 tagType: 'lower',
                                             },
@@ -71,7 +68,7 @@ test('renders card with tags and tasks', () => {
                                         upperTags={[
                                             {
                                                 id: 1,
-                                                color: colors.green,
+                                                color: colors.Green,
                                                 text: 'Tag Low 1',
                                                 tagType: 'upper',
                                             },

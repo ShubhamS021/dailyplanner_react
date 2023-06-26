@@ -53,7 +53,7 @@ describe('MyBoardLanes', () => {
             {
                 id: -1,
                 title: 'New Lane',
-                color: colors.green,
+                color: colors.Green,
                 cards: [],
             },
             3

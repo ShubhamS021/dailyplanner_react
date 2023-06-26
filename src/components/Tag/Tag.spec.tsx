@@ -6,12 +6,12 @@ import { TagComponent } from './Tag';
 test('renders basic tag', () => {
     const { getByTestId } = render(
         <TagComponent
-            color={colors.green}
+            color={colors.Green}
             text="Tag ABC"
             isRemoveable={false}
         />
     );
 
     expect(getByTestId('tag').textContent).toBe('Tag ABC');
-    expect(getByTestId('tag')).toHaveStyle(`background-color: ${colors.green}`);
+    expect(getByTestId('tag')).toHaveStyle(`background-color: ${colors.Green}`);
 });

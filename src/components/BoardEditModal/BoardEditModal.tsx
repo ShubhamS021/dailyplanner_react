@@ -14,7 +14,7 @@ import { TagComponent } from '../../components/Tag/Tag';
 import { BoardContext } from '../../context/BoardContext';
 import { type Board } from '../../interfaces/Board';
 import { type Lane } from '../../interfaces/Lane';
-import { colors } from '../../theme/colors';
+import { BaseColors, colors } from '../../theme/colors';
 
 export interface BoardEditModalProps {
     board: Board;
@@ -39,7 +39,7 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
     const [boardSubTitle, setBoardSubTitle] = useState(board.subtitle);
     const [boardLaneTitle, setBoardLaneTitle] = useState('');
     const [selectedColorIndex, setSelectedColorIndex] = useState(0);
-    const [selectedColor, setSelectedColor] = useState(colors.sulzer33_blue);
+    const [selectedColor, setSelectedColor] = useState(colors.Green);
     const { t } = useTranslation();
 
     const handleLaneTitleChanges = (title: string) => {
@@ -148,12 +148,7 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
     const renderColorSelector = () => {
         return (
             <div className="flex gap-2 dark:text-[#8B8B8B]">
-                {[
-                    colors.green,
-                    colors.lavender,
-                    colors.rose,
-                    colors.light_grey,
-                ].map((color, index) => (
+                {BaseColors.map((color, index) => (
                     <div
                         key={color}
                         className={`cursor-pointer `}

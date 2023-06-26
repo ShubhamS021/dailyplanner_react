@@ -34,7 +34,7 @@ export const LaneEditModal: React.FC<LaneEditModalProps> = ({
     const lane = board.lanes.find((l) => l.id === laneId);
     const [laneTitle, setLaneTitle] = useState(lane?.title ?? '');
     const [selectedColor, setSelectedColor] = useState(
-        lane?.color ?? colors.light_grey
+        lane?.color ?? colors.Light_Grey
     );
     const [selectedColorIndex, setSelectedColorIndex] = useState(
         editColors.indexOf(selectedColor)

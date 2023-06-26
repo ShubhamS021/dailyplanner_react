@@ -3,7 +3,7 @@ import { tagsSVG } from '../../../assets/svgs/tags.svg';
 import { TagComponent } from '../../../components/Tag/Tag';
 import { type Card } from '../../../interfaces/Card';
 import type Tag from '../../../interfaces/Tag';
-import { colors } from '../../../theme/colors';
+import { BaseColors, colors } from '../../../theme/colors';
 import { useState } from 'react';
 
 export interface AddCardTagsProps {
@@ -19,7 +19,7 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
 }) => {
     const MAX_TAGS = 5;
     const [selectedColorIndex, setSelectedColorIndex] = useState(0);
-    const [selectedColor, setSelectedColor] = useState(colors.light_grey);
+    const [selectedColor, setSelectedColor] = useState(colors.Light_Grey);
     const { t } = useTranslation();
 
     const [tag, setTag] = useState('');
@@ -103,12 +103,7 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
                 </div>
                 <div>
                     <div className="flex gap-1">
-                        {[
-                            colors.green,
-                            colors.lavender,
-                            colors.rose,
-                            colors.light_grey,
-                        ].map((color, index) => (
+                        {BaseColors.map((color, index) => (
                             <div
                                 key={color}
                                 className={`cursor-pointer `}

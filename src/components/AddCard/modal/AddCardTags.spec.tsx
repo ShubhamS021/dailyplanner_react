@@ -9,11 +9,11 @@ test('renders the basic AddCardTags', () => {
         id: 1,
         title: 'test card',
         upperTags: [
-            { id: 1, color: colors.green, text: 'up1', tagType: 'upper' },
-            { id: 2, color: colors.green, text: 'up2', tagType: 'upper' },
+            { id: 1, color: colors.Green, text: 'up1', tagType: 'upper' },
+            { id: 2, color: colors.Green, text: 'up2', tagType: 'upper' },
         ],
         lowerTags: [
-            { id: 1, color: colors.green, text: 'low1', tagType: 'lower' },
+            { id: 1, color: colors.Green, text: 'low1', tagType: 'lower' },
         ],
         shirt: 'S',
     };
@@ -22,8 +22,7 @@ test('renders the basic AddCardTags', () => {
         <AddCardTags
             headline={'tags'}
             card={card}
-            updateTags={(tags: Tag[]) => {
-            }}
+            updateTags={(tags: Tag[]) => {}}
         />
     );
 
@@ -35,11 +34,11 @@ test('adds a tag and colors', () => {
         id: 1,
         title: 'test card',
         upperTags: [
-            { id: 1, color: colors.green, text: 'up1', tagType: 'upper' },
-            { id: 2, color: colors.green, text: 'up2', tagType: 'upper' },
+            { id: 1, color: colors.Green, text: 'up1', tagType: 'upper' },
+            { id: 2, color: colors.Green, text: 'up2', tagType: 'upper' },
         ],
         lowerTags: [
-            { id: 1, color: colors.green, text: 'low1', tagType: 'lower' },
+            { id: 1, color: colors.Green, text: 'low1', tagType: 'lower' },
         ],
         shirt: 'S',
     };

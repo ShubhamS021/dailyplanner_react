@@ -29,7 +29,7 @@ export const AddCardDueDate: React.FC<AddCardDueDateProps> = ({
         const newTag: Tag = {
             id: card.lowerTags.length + 1,
             text: dueDate,
-            color: colors.green,
+            color: colors.Green,
             tagType: 'lower',
         };
         updateTags([...card.lowerTags, newTag]);

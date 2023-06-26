@@ -6,7 +6,7 @@ import { plusSVG } from '../../assets/svgs/plus.svg';
 import { TagComponent } from '../../components/Tag/Tag';
 import { BoardContext } from '../../context/BoardContext';
 import { type Lane } from '../../interfaces/Lane';
-import { colors } from '../../theme/colors';
+import { BaseColors, colors } from '../../theme/colors';
 
 export const MyBoardLanes = () => {
     const { addLaneToBoard, removeLaneFromBoard, enterBoard, boards } =
@@ -84,12 +84,7 @@ export const MyBoardLanes = () => {
                     </div>
                     <div className="flex gap-2 dark:text-[#8B8B8B]">
                         {t('components.MyBoardLanes.color')}
-                        {[
-                            colors.green,
-                            colors.lavender,
-                            colors.rose,
-                            colors.light_grey,
-                        ].map((color, index) => (
+                        {BaseColors.map((color, index) => (
                             <div
                                 key={color}
                                 className={`cursor-pointer `}

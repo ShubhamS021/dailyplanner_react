@@ -5,25 +5,25 @@ export const initialLanes: Lane[] = [
     {
         id: 0,
         title: 'Not Started',
-        color: colors.light_grey,
+        color: colors.Light_Grey,
         cards: [],
     },
     {
         id: 1,
         title: 'In Progress',
-        color: colors.lavender,
+        color: colors.Lavender,
         cards: [],
     },
     {
         id: 2,
         title: 'Blocked',
-        color: colors.rose,
+        color: colors.Rose,
         cards: [],
     },
     {
         id: 3,
         title: 'Done',
-        color: colors.green,
+        color: colors.Green,
         cards: [],
     },
 ];

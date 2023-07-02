@@ -4,7 +4,7 @@
         "baseUrl": "./src",
         "module": "esnext",
         "lib": ["dom", "dom.iterable", "esnext"],
-        "target": "es5",
+        "target": "es2015",
         "removeComments": true,
         "jsx": "react-jsx",
         "moduleResolution": "node",

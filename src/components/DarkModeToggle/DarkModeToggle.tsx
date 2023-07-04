@@ -1,12 +1,16 @@
-import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { moonSVG } from '../../assets/svgs/moon.svg';
 import { sunSVG } from '../../assets/svgs/sun.svg';
-import { BoardContext } from '../../context/BoardContext';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { shallow } from 'zustand/shallow';
 
 export const DarkModeToggle = () => {
     const { t } = useTranslation();
-    const { themeMode, toggleThemeMode } = useContext(BoardContext);
+
+    const [themeMode, toggleThemeMode] = useBoardStore(
+        (state) => [state.themeMode, state.toggleThemeMode],
+        shallow
+    );
 
     const toggleMode = () => {
         if (themeMode === 'dark') {

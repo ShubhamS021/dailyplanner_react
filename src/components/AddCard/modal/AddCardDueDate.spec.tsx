@@ -1,16 +1,15 @@
 import { fireEvent, render } from '@testing-library/react';
-import { type Card } from '../../../interfaces/Card';
 import { AddCardDueDate } from './AddCardDueDate';
+import { card } from '../../../../__mocks__/cards.mock';
 
 describe('AddCardDueDate', () => {
-    const mockCard = { id: 1, title: 'test-card', lowerTags: [] };
     const mockUpdateTags = jest.fn();
 
     it('renders the headline and explanation', () => {
         const { getByTestId } = render(
             <AddCardDueDate
                 headline="Add Due Date"
-                card={mockCard}
+                card={card}
                 updateTags={mockUpdateTags}
             />
         );
@@ -24,7 +23,7 @@ describe('AddCardDueDate', () => {
         const { getByTestId } = render(
             <AddCardDueDate
                 headline="Add Due Date"
-                card={mockCard}
+                card={card}
                 updateTags={mockUpdateTags}
             />
         );
@@ -45,7 +44,7 @@ describe('AddCardDueDate', () => {
         const { getByTestId } = render(
             <AddCardDueDate
                 headline="Add Due Date"
-                card={mockCard}
+                card={card}
                 updateTags={mockUpdateTags}
             />
         );
@@ -66,7 +65,7 @@ describe('AddCardDueDate', () => {
         const { getByTestId } = render(
             <AddCardDueDate
                 headline="Add Due Date"
-                card={mockCard}
+                card={card}
                 updateTags={mockUpdateTags}
             />
         );
@@ -79,18 +78,10 @@ describe('AddCardDueDate', () => {
     });
 
     it('removes a tag when the remove button is clicked', () => {
-        const mockCardWithTag: Card = {
-            id: 1,
-            title: 'test-card',
-            lowerTags: [
-                { id: 1, text: 'Some tag', color: '#00b341', tagType: 'lower' },
-            ],
-        };
-
         render(
             <AddCardDueDate
                 headline="Add Due Date"
-                card={mockCardWithTag}
+                card={card}
                 updateTags={mockUpdateTags}
             />
         );

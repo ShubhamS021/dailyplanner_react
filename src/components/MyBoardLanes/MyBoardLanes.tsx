@@ -1,16 +1,25 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import logo from '../../assets/logo.png';
 import { layoutCardsSVG } from '../../assets/svgs/layoutCards.svg';
 import { plusSVG } from '../../assets/svgs/plus.svg';
 import { TagComponent } from '../../components/Tag/Tag';
-import { BoardContext } from '../../context/BoardContext';
 import { type Lane } from '../../interfaces/Lane';
 import { BaseColors, colors } from '../../theme/colors';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { shallow } from 'zustand/shallow';
 
 export const MyBoardLanes = () => {
-    const { addLaneToBoard, removeLaneFromBoard, enterBoard, boards } =
-        useContext(BoardContext);
+    const [boards, addLaneToBoard, removeLaneFromBoard, enterBoard] =
+        useBoardStore(
+            (state) => [
+                state.boards,
+                state.addLaneToBoard,
+                state.removeLaneFromBoard,
+                state.enterBoard,
+            ],
+            shallow
+        );
 
     const [laneValue, setLaneValue] = useState('');
     const [selectedColorIndex, setSelectedColorIndex] = useState(0);

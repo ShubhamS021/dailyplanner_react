@@ -1,21 +1,33 @@
-import { fireEvent, render, screen } from '@testing-library/react';
-import { BoardContext } from '../../context/BoardContext';
 import {
-    mockAddLaneToBoard,
-    mockContext,
-    mockEnterBoard,
-    mockRemoveLaneFromBoard,
-} from '../../mocks/context.mock';
+    act,
+    fireEvent,
+    render,
+    renderHook,
+    screen,
+} from '@testing-library/react';
 import { colors } from '../../theme/colors';
 import { MyBoardLanes } from './MyBoardLanes';
+import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
+import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 
 describe('MyBoardLanes', () => {
+    // add a default board with some columns
     beforeEach(() => {
-        render(
-            <BoardContext.Provider value={mockContext}>
-                <MyBoardLanes />
-            </BoardContext.Provider>
-        );
+        const { result } = renderHook(() => useBoardStore());
+
+        act(() => {
+            const boardId = 0;
+            result.current.addBoard({
+                ...initialBoardState,
+                lanes: [...initialLanes],
+                id: boardId,
+            });
+        });
+    });
+
+    beforeEach(() => {
+        render(<MyBoardLanes />);
     });
 
     afterEach(() => {
@@ -39,6 +51,9 @@ describe('MyBoardLanes', () => {
     });
 
     it('adds a new lane to the board when the "Add lane" button is clicked', () => {
+        const { result } = renderHook(() => useBoardStore());
+        const spy = jest.spyOn(result.current, 'addLaneToBoard');
+
         const laneNameInput = screen.getByTestId('myboardlanes-lanename-input');
         const blueColorButton = screen.getAllByTestId(
             'myboardlanes-lane-color-button'
@@ -48,8 +63,8 @@ describe('MyBoardLanes', () => {
         fireEvent.click(blueColorButton);
         fireEvent.click(addLaneButton);
 
-        expect(mockAddLaneToBoard).toHaveBeenCalledTimes(1);
-        expect(mockAddLaneToBoard).toHaveBeenCalledWith(
+        expect(spy).toHaveBeenCalledTimes(1);
+        expect(spy).toHaveBeenCalledWith(
             {
                 id: -1,
                 title: 'New Lane',
@@ -61,20 +76,44 @@ describe('MyBoardLanes', () => {
     });
 
     it('removes a lane from the board when the remove button is clicked', () => {
+        const { result } = renderHook(() => useBoardStore());
+        const spy = jest.spyOn(result.current, 'removeLaneFromBoard');
+
+        const laneNameInput = screen.getByTestId('myboardlanes-lanename-input');
+        const blueColorButton = screen.getAllByTestId(
+            'myboardlanes-lane-color-button'
+        )[0];
+        const addLaneButton = screen.getByTestId('myboardlanes-addlane-button');
+        fireEvent.change(laneNameInput, { target: { value: 'New Lane' } });
+        fireEvent.click(blueColorButton);
+        fireEvent.click(addLaneButton);
+
         const removeButton = screen.getAllByTestId('tag-remove-button')[0];
         fireEvent.click(removeButton);
 
-        expect(mockRemoveLaneFromBoard).toHaveBeenCalledTimes(1);
-        expect(mockRemoveLaneFromBoard).toHaveBeenCalledWith(0, 3);
+        expect(spy).toHaveBeenCalledTimes(1);
+        expect(spy).toHaveBeenCalledWith(0, 4);
     });
 
     it('enters the board when the "Start" button is clicked', () => {
+        const { result } = renderHook(() => useBoardStore());
+        const spy = jest.spyOn(result.current, 'enterBoard');
+
+        const laneNameInput = screen.getByTestId('myboardlanes-lanename-input');
+        const blueColorButton = screen.getAllByTestId(
+            'myboardlanes-lane-color-button'
+        )[0];
+        const addLaneButton = screen.getByTestId('myboardlanes-addlane-button');
+        fireEvent.change(laneNameInput, { target: { value: 'New Lane' } });
+        fireEvent.click(blueColorButton);
+        fireEvent.click(addLaneButton);
+
         const startButton = screen.getByTestId(
             'myboardlanes-create-own-button'
         );
         fireEvent.click(startButton);
 
-        expect(mockEnterBoard).toHaveBeenCalledTimes(1);
-        expect(mockEnterBoard).toHaveBeenCalledWith(2);
+        expect(spy).toHaveBeenCalledTimes(1);
+        expect(spy).toHaveBeenCalledWith(5);
     });
 });

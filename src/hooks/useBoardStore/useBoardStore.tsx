@@ -42,9 +42,12 @@ export const useBoardStore = create<State & Actions>((set) => ({
                     1,
             };
 
-            state.board.lanes = [...state.board.lanes, newLane];
-
-            return state;
+            return {
+                board: {
+                    ...state.board,
+                    lanes: [...state.board.lanes, newLane],
+                },
+            };
         });
     },
 
@@ -57,19 +60,19 @@ export const useBoardStore = create<State & Actions>((set) => ({
         set((state) => {
             card.id = findLastCardId(state.board) + 1;
 
-            state.board = {
-                ...state.board,
-                lanes: state.board.lanes.map((lane) => {
-                    if (lane.id === laneId) {
-                        return { ...lane, cards: [...lane.cards, card] };
-                    }
-                    return lane;
-                }),
-            };
-
             saveCreationToHistory(card, state.board.id);
 
-            return state;
+            return {
+                board: {
+                    ...state.board,
+                    lanes: state.board.lanes.map((lane) => {
+                        if (lane.id === laneId) {
+                            return { ...lane, cards: [...lane.cards, card] };
+                        }
+                        return lane;
+                    }),
+                },
+            };
         });
     },
 
@@ -88,9 +91,7 @@ export const useBoardStore = create<State & Actions>((set) => ({
             const [firstLane] = board.lanes;
             firstLane.cards.push(card);
 
-            state.boards = [...state.boards, board];
-
-            return state;
+            return { boards: [...state.boards, { ...board }] };
         });
     },
 
@@ -110,9 +111,7 @@ export const useBoardStore = create<State & Actions>((set) => ({
                 lanes: [...board.lanes.filter((l) => l.id !== laneId)],
             };
 
-            state.board = { ...newBoard };
-
-            return state;
+            return { board: { ...newBoard } };
         });
     },
 
@@ -146,9 +145,7 @@ export const useBoardStore = create<State & Actions>((set) => ({
                 saveDeletionToHistory(cardForHistory, updatedBoard.id);
             }
 
-            state.board = updatedBoard;
-
-            return state;
+            return { board: { ...updatedBoard } };
         });
     },
 
@@ -163,7 +160,7 @@ export const useBoardStore = create<State & Actions>((set) => ({
             );
 
             if (laneIndex === -1) {
-                return state;
+                return { ...state };
             }
 
             const newLanes = [...state.board.lanes];
@@ -172,9 +169,7 @@ export const useBoardStore = create<State & Actions>((set) => ({
                 cards: [],
             };
 
-            state.board.lanes = newLanes;
-
-            return state;
+            return { board: { ...state.board, lanes: newLanes } };
         });
     },
 
@@ -198,8 +193,7 @@ export const useBoardStore = create<State & Actions>((set) => ({
                 state.board.id,
                 newboard.id
             );
-
-            return state;
+            return { ...state };
         });
     },
 
@@ -211,13 +205,13 @@ export const useBoardStore = create<State & Actions>((set) => ({
         set((state) => {
             const { source, destination } = result;
             if (destination === null || destination === undefined) {
-                return state;
+                return { ...state };
             }
             if (
                 source.droppableId === destination.droppableId &&
                 source.index === destination.index
             ) {
-                return state;
+                return { ...state };
             }
 
             const sourceLaneId = parseInt(source.droppableId);
@@ -247,7 +241,7 @@ export const useBoardStore = create<State & Actions>((set) => ({
                     lanes: [...state.board.lanes],
                 };
                 newBoard.lanes.splice(laneIndex, 1, newLane);
-                state.board = newBoard;
+                return { board: { ...newBoard } };
             } else {
                 // Move card to a different lane
                 const sourceLaneIndex = state.board.lanes.findIndex(
@@ -277,10 +271,8 @@ export const useBoardStore = create<State & Actions>((set) => ({
                 };
                 newBoard.lanes.splice(sourceLaneIndex, 1, newSourceLane);
                 newBoard.lanes.splice(destLaneIndex, 1, newDestLane);
-                state.board = newBoard;
+                return { board: { ...newBoard } };
             }
-
-            return state;
         });
     },
 
@@ -289,16 +281,17 @@ export const useBoardStore = create<State & Actions>((set) => ({
      */
     clearBoard: () => {
         set((state) => {
-            state.board = {
-                ...state.board,
-                lanes: state.board.lanes.map((lane) => {
-                    return {
-                        ...lane,
-                        cards: [],
-                    };
-                }),
+            return {
+                board: {
+                    ...state.board,
+                    lanes: state.board.lanes.map((lane) => {
+                        return {
+                            ...lane,
+                            cards: [],
+                        };
+                    }),
+                },
             };
-            return state;
         });
     },
 
@@ -309,7 +302,7 @@ export const useBoardStore = create<State & Actions>((set) => ({
     exportBoardToJSON: (board: Board) => {
         set((state) => {
             exportBoardToJson(board);
-            return state;
+            return { ...state };
         });
     },
 
@@ -321,7 +314,7 @@ export const useBoardStore = create<State & Actions>((set) => ({
             state.boards.forEach((board) => {
                 state.exportBoardToJSON(board);
             });
-            return state;
+            return { ...state };
         });
     },
 
@@ -357,7 +350,7 @@ export const useBoardStore = create<State & Actions>((set) => ({
                     };
                 }
             }
-            return state;
+            return { ...state };
         });
     },
 
@@ -367,14 +360,14 @@ export const useBoardStore = create<State & Actions>((set) => ({
      */
     restoreBoard: (board: Board) => {
         set((state) => {
-            state.board = {
-                ...state.board,
-                title: board.title,
-                subtitle: board.subtitle,
-                lanes: board.lanes,
+            return {
+                board: {
+                    ...state.board,
+                    title: board.title,
+                    subtitle: board.subtitle,
+                    lanes: board.lanes,
+                },
             };
-
-            return state;
         });
     },
 
@@ -390,7 +383,7 @@ export const useBoardStore = create<State & Actions>((set) => ({
             );
 
             if (laneIndex === -1) {
-                return state;
+                return { ...state };
             }
 
             const newLanes = [...state.board.lanes];
@@ -403,14 +396,14 @@ export const useBoardStore = create<State & Actions>((set) => ({
                 cards: newLaneCards,
             };
 
-            state.board = {
-                ...state.board,
-                lanes: newLanes,
-            };
-
             saveUpdateToHistory(card, state.board.id);
 
-            return state;
+            return {
+                board: {
+                    ...state.board,
+                    lanes: newLanes,
+                },
+            };
         });
     },
 
@@ -444,7 +437,7 @@ export const useBoardStore = create<State & Actions>((set) => ({
                 state.updateCard(card, lane.id);
             }
 
-            return state;
+            return { ...state };
         });
     },
 
@@ -453,8 +446,7 @@ export const useBoardStore = create<State & Actions>((set) => ({
      */
     toggleCompactMode: () => {
         set((state) => {
-            state.compactMode = !state.compactMode;
-            return state;
+            return { ...state, compactMode: !state.compactMode };
         });
     },
 
@@ -464,8 +456,7 @@ export const useBoardStore = create<State & Actions>((set) => ({
      */
     toggleBoardMode: (mode: BoardMode) => {
         set((state) => {
-            state.boardMode = mode;
-            return state;
+            return { ...state, boardMode: mode };
         });
     },
 
@@ -475,8 +466,7 @@ export const useBoardStore = create<State & Actions>((set) => ({
      */
     toggleThemeMode: (mode: ThemeMode) => {
         set((state) => {
-            state.themeMode = mode;
-            return state;
+            return { ...state, themeMode: mode };
         });
     },
 
@@ -491,10 +481,12 @@ export const useBoardStore = create<State & Actions>((set) => ({
                 newBoard.id = findLastBoardId(state.boards) + 1;
             }
 
-            state.boards = [...state.boards, newBoard];
-            state.board = { ...newBoard };
-
-            return state;
+            return {
+                boards: [...state.boards, newBoard],
+                board: {
+                    ...newBoard,
+                },
+            };
         });
     },
 
@@ -508,9 +500,9 @@ export const useBoardStore = create<State & Actions>((set) => ({
             if (newBoards.length === 0) {
                 state.toggleBoardMode('boardCreateMode');
             }
-            state.boards = newBoards;
-
-            return state;
+            return {
+                boards: [...newBoards],
+            };
         });
     },
 
@@ -531,8 +523,7 @@ export const useBoardStore = create<State & Actions>((set) => ({
             newBoard.subtitle = subtitle;
 
             state.updateBoards(newBoard);
-
-            return state;
+            return { ...state };
         });
     },
 
@@ -543,13 +534,13 @@ export const useBoardStore = create<State & Actions>((set) => ({
     updateBoards: (board: Board) => {
         set((state) => {
             const updatedBoard = { ...board };
-            state.boards = [
-                ...state.boards.map((b) => {
-                    return b.id === board.id ? updatedBoard : b;
-                }),
-            ];
-
-            return state;
+            return {
+                boards: [
+                    ...state.boards.map((b) => {
+                        return b.id === board.id ? updatedBoard : b;
+                    }),
+                ],
+            };
         });
     },
 
@@ -569,7 +560,7 @@ export const useBoardStore = create<State & Actions>((set) => ({
             newLane.title = title;
 
             state.updateBoards(newBoard);
-            return state;
+            return { ...state };
         });
     },
 
@@ -586,7 +577,7 @@ export const useBoardStore = create<State & Actions>((set) => ({
             newBoard.lanes.splice(newId, 0, ...removedLane);
 
             state.updateBoards(newBoard);
-            return state;
+            return { ...state };
         });
     },
 
@@ -606,7 +597,7 @@ export const useBoardStore = create<State & Actions>((set) => ({
             newLane.color = color;
 
             state.updateBoards(newBoard);
-            return state;
+            return { ...state };
         });
     },
 
@@ -620,11 +611,11 @@ export const useBoardStore = create<State & Actions>((set) => ({
             if (targetBoard === undefined) {
                 throw new Error(`No board with id ${boardId} found.`);
             }
-            state.board = targetBoard;
+
             state.toggleBoardMode('boardDefaultMode');
             localStorage.setItem('currentBoard', boardId.toString());
 
-            return state;
+            return { board: { ...targetBoard } };
         });
     },
 
@@ -635,7 +626,7 @@ export const useBoardStore = create<State & Actions>((set) => ({
     updateLanguage: (language: string) => {
         set((state) => {
             localStorage.setItem('language', language);
-            return state;
+            return { ...state };
         });
     },
 }));

@@ -1,17 +1,32 @@
-import { fireEvent, render } from '@testing-library/react';
-import { BoardContext } from '../../context/BoardContext';
-import { mockContext, mockExportBoardToJSON } from '../../mocks/context.mock';
+import { act, fireEvent, render, renderHook } from '@testing-library/react';
 import Export from './Export';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
+import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
 
-test('exports a board context', () => {
-    const { getByTestId } = render(
-        <BoardContext.Provider value={mockContext}>
-            <Export />
-        </BoardContext.Provider>
-    );
+describe('Export', () => {
+    // add a default board with some columns
+    beforeEach(() => {
+        const { result } = renderHook(() => useBoardStore());
 
-    const exportButton = getByTestId('export-button');
-    fireEvent.click(exportButton);
+        act(() => {
+            const boardId = 0;
+            result.current.addBoard({
+                ...initialBoardState,
+                lanes: [...initialLanes],
+                id: boardId,
+            });
+        });
+    });
 
-    expect(mockExportBoardToJSON).toHaveBeenCalledTimes(1);
+    it('exports a board', () => {
+        const { result } = renderHook(() => useBoardStore());
+        const spy = jest.spyOn(result.current, 'exportBoardToJSON');
+        const { getByTestId } = render(<Export />);
+
+        const exportButton = getByTestId('export-button');
+        fireEvent.click(exportButton);
+
+        expect(spy).toHaveBeenCalledTimes(1);
+    });
 });

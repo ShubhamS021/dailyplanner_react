@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { useTranslation } from 'react-i18next';
 import { editSVG } from '../../assets/svgs/edit.svg';
@@ -6,7 +6,6 @@ import { trashSVG } from '../../assets/svgs/trash.svg';
 import { AddCardModal } from '../../components/AddCard/modal/AddCardModal';
 import { CardMoveModal } from '../../components/CardMoveModal/CardMoveModal';
 import { ConfirmationModal } from '../../components/ConfirmationModal/ConfirmationModal';
-import { BoardContext } from '../../context/BoardContext';
 import { type Card } from '../../interfaces/Card';
 import type Tag from '../../interfaces/Tag';
 import type Task from '../../interfaces/Task';
@@ -15,6 +14,8 @@ import { CardComponent } from '../Card/Card';
 import { Dropzone } from '../Dropzone/Dropzone';
 import { LabelComponent } from '../Label/Label';
 import { LaneEditModal } from '../LaneEditModal/LaneEditModal';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { shallow } from 'zustand/shallow';
 
 export interface LaneProps {
     id: number;
@@ -31,22 +32,36 @@ export const LaneComponent: React.FC<LaneProps> = ({
     cards,
     isLastLane,
 }) => {
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [showEditModal, setShowEditModal] = useState(false);
-    const [showLaneEditModal, setShowLaneEditModal] = useState(false);
-    const [showMoveModal, setShowMoveModal] = useState(false);
-    const [cardToEdit, setCardToEdit] = useState<Card>();
-    const [cardToMove, setCardToMove] = useState<Card>();
-    const {
+    const [
+        boards,
+        board,
         removeCardFromLane,
         removeCardsFromLane,
         moveCardToBoard,
         renameLane,
         updateLaneColor,
         updateCard,
-        boards,
-        board,
-    } = useContext(BoardContext);
+    ] = useBoardStore(
+        (state) => [
+            state.boards,
+            state.board,
+            state.removeCardFromLane,
+            state.removeCardsFromLane,
+            state.moveCardToBoard,
+            state.renameLane,
+            state.updateLaneColor,
+            state.updateCard,
+        ],
+        shallow
+    );
+
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [showLaneEditModal, setShowLaneEditModal] = useState(false);
+    const [showMoveModal, setShowMoveModal] = useState(false);
+    const [cardToEdit, setCardToEdit] = useState<Card>();
+    const [cardToMove, setCardToMove] = useState<Card>();
+
     const { t } = useTranslation();
 
     const renderDelete = () => {

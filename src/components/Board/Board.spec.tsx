@@ -1,14 +1,27 @@
-import { render } from '@testing-library/react';
-import { BoardContext } from '../../context/BoardContext';
-import { mockContext } from '../../mocks/context.mock';
+import { act, render, renderHook } from '@testing-library/react';
 import Board from './Board';
+import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
+import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 
-test('renders the basic board', () => {
-    const { getByTestId } = render(
-        <BoardContext.Provider value={mockContext}>
-            <Board />
-        </BoardContext.Provider>
-    );
+describe('Board', () => {
+    // add a default board with some columns
+    beforeEach(() => {
+        const { result } = renderHook(() => useBoardStore());
 
-    expect(getByTestId(/page-board/)).toBeInTheDocument();
+        act(() => {
+            const boardId = 0;
+            result.current.addBoard({
+                ...initialBoardState,
+                lanes: [...initialLanes],
+                id: boardId,
+            });
+        });
+    });
+
+    it('renders the basic board', () => {
+        const { getByTestId } = render(<Board />);
+
+        expect(getByTestId(/page-board/)).toBeInTheDocument();
+    });
 });

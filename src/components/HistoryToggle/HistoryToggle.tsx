@@ -1,11 +1,15 @@
-import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { historyToggleSVG } from '../../assets/svgs/history-toggle.svg';
-import { BoardContext } from '../../context/BoardContext';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { shallow } from 'zustand/shallow';
 
 export const HistoryToggle = () => {
     const { t } = useTranslation();
-    const { toggleBoardMode } = useContext(BoardContext);
+
+    const [toggleBoardMode] = useBoardStore(
+        (state) => [state.toggleBoardMode],
+        shallow
+    );
 
     const handleHistoryToggle = () => {
         toggleBoardMode('boardHistoryMode');

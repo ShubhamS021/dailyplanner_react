@@ -1,10 +1,11 @@
-import { useContext, useState } from 'react';
-import { BoardContext } from '../../context/BoardContext';
+import { useState } from 'react';
 import { type Card } from '../../interfaces/Card';
 import type Tag from '../../interfaces/Tag';
 import type Task from '../../interfaces/Task';
 import { type Shirt } from '../../types/Shirt';
 import { AddCardModal } from './modal/AddCardModal';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { shallow } from 'zustand/shallow';
 
 export interface AddCardProps {
     placeholder: string;
@@ -23,7 +24,11 @@ export const AddCard: React.FC<AddCardProps> = ({
         shirt: 'S',
     };
 
-    const { addCardToLane } = useContext(BoardContext);
+    const [addCardToLane] = useBoardStore(
+        (state) => [state.addCardToLane],
+        shallow
+    );
+
     const [card, setCard] = useState(initialCard);
     const [showModal, setShowModal] = useState(showModalInitially ?? false);
 

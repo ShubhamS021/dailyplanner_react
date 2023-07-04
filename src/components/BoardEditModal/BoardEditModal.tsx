@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import {
     DragDropContext,
     Draggable,
@@ -11,10 +11,11 @@ import { gripVerticalSVG } from '../../assets/svgs/grip-vertical.svg';
 import { infoCircleSVG } from '../../assets/svgs/infoCircle.svg';
 import { trashSVG } from '../../assets/svgs/trash.svg';
 import { TagComponent } from '../../components/Tag/Tag';
-import { BoardContext } from '../../context/BoardContext';
 import { type Board } from '../../interfaces/Board';
 import { type Lane } from '../../interfaces/Lane';
 import { BaseColors, colors } from '../../theme/colors';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { shallow } from 'zustand/shallow';
 
 export interface BoardEditModalProps {
     board: Board;
@@ -33,8 +34,15 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
     closeModal,
     modalConfirmation,
 }) => {
-    const { addLaneToBoard, removeLaneFromBoard, moveLane } =
-        useContext(BoardContext);
+    const [addLaneToBoard, removeLaneFromBoard, moveLane] = useBoardStore(
+        (state) => [
+            state.addLaneToBoard,
+            state.removeLaneFromBoard,
+            state.moveLane,
+        ],
+        shallow
+    );
+
     const [boardTitle, setBoardTitle] = useState(board.title);
     const [boardSubTitle, setBoardSubTitle] = useState(board.subtitle);
     const [boardLaneTitle, setBoardLaneTitle] = useState('');

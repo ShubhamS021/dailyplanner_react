@@ -335,17 +335,14 @@ export const useBoardStore = create<State & Actions>((set) => ({
                     fileReader.readAsText(file, 'UTF-8');
                     fileReader.onload = () => {
                         const boardJSON = String(fileReader.result);
-                        try {
-                            const parsedBoard = JSON.parse(boardJSON) as Board;
-                            if (all) {
-                                lastBoardId = lastBoardId + 1;
-                                parsedBoard.id = lastBoardId;
-                                state.addBoard(parsedBoard);
-                            } else {
-                                state.restoreBoard(parsedBoard);
-                            }
-                        } catch (error) {
-                            console.log(`importBoardFromJSON`, error);
+
+                        const parsedBoard = JSON.parse(boardJSON) as Board;
+                        if (all) {
+                            lastBoardId = lastBoardId + 1;
+                            parsedBoard.id = lastBoardId;
+                            state.addBoard(parsedBoard);
+                        } else {
+                            state.restoreBoard(parsedBoard);
                         }
                     };
                 }

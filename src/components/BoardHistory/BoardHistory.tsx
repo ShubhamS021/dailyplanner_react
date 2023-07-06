@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { arrowLeftSVG } from '../../assets/svgs/arrow-left.svg';
 import BoardTitle from '../../components/Board/BoardTitle/BoardTitle';
-import useHistory from '../../hooks/useHistory';
-import { type HistoryListEntry } from '../../interfaces/HistoryListEntry';
+import useHistory from '../../hooks/useHistory/useHistory';
+import { type HistoryListEntry } from '../../hooks/useHistory/interfaces/HistoryListEntry';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
 

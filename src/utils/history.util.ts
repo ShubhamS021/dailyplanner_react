@@ -1,5 +1,5 @@
 import { type Card } from '../interfaces/Card';
-import { type HistoryListEntry } from '../interfaces/HistoryListEntry';
+import { type HistoryListEntry } from '../hooks/useHistory/interfaces/HistoryListEntry';
 import { type HistoryType } from '../types/HistoryType';
 import { IDBStores, addData, getDataByIndex } from './indexdb.util';
 

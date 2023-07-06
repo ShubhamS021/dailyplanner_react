@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { type HistoryListEntry } from '../interfaces/HistoryListEntry';
-import { getHistory } from '../utils/history.util';
+import { type HistoryListEntry } from './interfaces/HistoryListEntry';
+import { getHistory } from '../../utils/history.util';
 
 const useHistory = (boardId: number) => {
     const [history, setHistory] = useState<HistoryListEntry[]>([]);

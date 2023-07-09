@@ -1,10 +1,11 @@
-import { renderHook, act } from '@testing-library/react';
+import { renderHook, act, cleanup } from '@testing-library/react';
 import { useBoardStore } from './useBoardStore';
 import { type Lane } from 'interfaces/Lane';
 import { card } from '../../../__mocks__/cards.mock';
 import { initialLanes } from './data/initialLanes.state';
 import { initialBoardState } from './data/initialBoard.state';
 import { initDB } from 'utils/indexdb.util';
+import { type DropResult } from 'react-beautiful-dnd';
 
 describe('useBoardStore', () => {
     // add a default board with some columns
@@ -20,6 +21,11 @@ describe('useBoardStore', () => {
                 id: boardId,
             });
         });
+    });
+
+    afterEach(() => {
+        jest.resetAllMocks();
+        cleanup();
     });
 
     test('addLaneToBoard adds a lane to the board', () => {
@@ -64,7 +70,7 @@ describe('useBoardStore', () => {
         const boardId = 1;
 
         act(() => {
-            result.current.addCardToInitialBoardLane(card, boardId);
+            result.current.addCardToInitialBoardLane({ ...card }, boardId);
         });
 
         const board = result.current.board;
@@ -89,28 +95,94 @@ describe('useBoardStore', () => {
         expect(lane).toBeUndefined();
     });
 
-    // test('updateCard updates the properties of a card', () => {
-    //     const { result } = renderHook(() => useBoardStore());
+    test('Moves a card to a different board', () => {
+        const { result } = renderHook(() => useBoardStore());
+        const newCard = { ...card, id: 1 };
 
-    //     const laneId = 1;
-    //     const cardId = 1;
+        act(() => {
+            // add a second board
+            result.current.addBoard({
+                ...initialBoardState,
+                lanes: [...initialLanes],
+                id: 2,
+            });
 
-    //     act(() => {
-    //         result.current.addCardToLane(card, laneId);
-    //     });
+            // move the card to the first board
+            const newBoard = result.current.boards.find((b) => b.id === 1);
+            if (newBoard !== undefined) {
+                result.current.moveCardToBoard(newCard, 1, newBoard);
+            }
+        });
 
-    //     act(() => {
-    //         result.current.updateCard(cardUpdate, laneId);
-    //     });
+        act(() => {
+            const [firstBoard] = result.current.boards;
+            const [initialLane] = firstBoard.lanes;
+            expect(initialLane.cards.some((c) => c.id === newCard.id)).toBe(
+                true
+            );
+        });
+    });
 
-    //     act(() => {
-    //         const lane = result.current.board.lanes.find(
-    //             (lane) => lane.id === laneId
-    //         );
-    //         const cardResult = lane?.cards.find((card) => card.id === cardId);
+    test('Clears a board', () => {
+        const { result } = renderHook(() => useBoardStore());
 
-    //         expect(cardResult?.title).toBe(cardUpdate.title);
-    //         expect(cardResult?.description).toBe(cardUpdate.description);
-    //     });
-    // });
+        act(() => {
+            result.current.addCardToLane({ ...card }, 0);
+            result.current.clearBoard();
+        });
+
+        act(() => {
+            const [initialLane] = result.current.board.lanes;
+            expect(initialLane.cards.includes(card)).toBe(false);
+        });
+    });
+
+    test('Exports all boards', () => {
+        const { result } = renderHook(() => useBoardStore());
+        const spy = jest.spyOn(result.current, 'exportBoardToJSON');
+
+        act(() => {
+            result.current.addCardToLane({ ...card }, 0);
+        });
+
+        act(() => {
+            result.current.exportBoardsToJSON();
+            expect(spy).toHaveBeenCalled();
+        });
+    });
+
+    test('Move a card to a different lane', () => {
+        const { result } = renderHook(() => useBoardStore());
+
+        act(() => {
+            result.current.addCardToLane({ ...card }, 0);
+        });
+        const source = {
+            droppableId: '1',
+            index: 0,
+        };
+        const destination = {
+            droppableId: '2',
+            index: 0,
+        };
+        act(() => {
+            const dropResult: DropResult = {
+                source,
+                destination,
+                reason: 'DROP',
+                combine: undefined,
+                mode: 'FLUID',
+                draggableId: '1',
+                type: '',
+            };
+            result.current.handleDragEnd(dropResult);
+        });
+
+        act(() => {
+            expect(result.current.board.lanes[0].cards.includes(card)).toBe(
+                false
+            );
+            expect(result.current.board.lanes[2].cards.length).toEqual(1);
+        });
+    });
 });

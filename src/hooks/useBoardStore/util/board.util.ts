@@ -10,6 +10,7 @@ export const findLastBoardId = (boards: Board[]) => {
 };
 
 export const findLastCardIdInBoard = (board: Board) => {
+    if (board.lanes === undefined) return 0;
     return Math.max(
         ...board.lanes.flatMap((lane) => lane.cards.map((card) => card.id)),
         0

@@ -44,7 +44,7 @@ describe('CardMoveModal', () => {
     });
 
     test('renders the title', () => {
-        const { result } = renderHook(() => useBoardStore());
+        renderHook(() => useBoardStore());
         render(<CardMoveModal {...defaultProps} />);
         const titleElement = screen.getByTestId('confirmation-modal-title');
         expect(titleElement).toBeInTheDocument();
@@ -52,7 +52,7 @@ describe('CardMoveModal', () => {
     });
 
     test('renders the text', () => {
-        const { result } = renderHook(() => useBoardStore());
+        renderHook(() => useBoardStore());
         render(<CardMoveModal {...defaultProps} />);
         const textElement = screen.getByText(
             'Select a board to move this card to:'
@@ -61,7 +61,7 @@ describe('CardMoveModal', () => {
     });
 
     test('renders the cancel button with default text', () => {
-        const { result } = renderHook(() => useBoardStore());
+        renderHook(() => useBoardStore());
         render(<CardMoveModal {...defaultProps} />);
         const cancelButtonElement = screen.getByTestId(
             'confirmation-modal-cancel-button'
@@ -71,7 +71,7 @@ describe('CardMoveModal', () => {
     });
 
     test('renders the submit button with default text', () => {
-        const { result } = renderHook(() => useBoardStore());
+        renderHook(() => useBoardStore());
         render(<CardMoveModal {...defaultProps} />);
         const submitButtonElement = screen.getByTestId(
             'confirmation-modal-button'
@@ -81,7 +81,7 @@ describe('CardMoveModal', () => {
     });
 
     test('calls the modalConfirmation function when the submit button is clicked', () => {
-        const { result } = renderHook(() => useBoardStore());
+        renderHook(() => useBoardStore());
         render(<CardMoveModal {...defaultProps} />);
         const submitButtonElement = screen.getByTestId(
             'confirmation-modal-button'
@@ -92,7 +92,7 @@ describe('CardMoveModal', () => {
     });
 
     test('calls the closeModal function when the close button is clicked', () => {
-        const { result } = renderHook(() => useBoardStore());
+        renderHook(() => useBoardStore());
         render(<CardMoveModal {...defaultProps} />);
         const closeButtonElement = screen.getByTestId(
             'confirmation-modal-close-button'

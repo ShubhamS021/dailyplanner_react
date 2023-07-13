@@ -7,15 +7,15 @@ import {
     cleanup,
 } from '@testing-library/react';
 import { BoardHistory } from './BoardHistory';
-import { initDB } from '../../utils/indexdb.util';
 import { useBoardStore } from '../../hooks/useBoardStore/useBoardStore';
 import { initialBoardState } from '../../hooks/useBoardStore/data/initialBoard.state';
 import { initialLanes } from '../../hooks/useBoardStore/data/initialLanes.state';
+import { useDayplannerDB } from 'hooks/useDayplannerDB/useDayplannerDB';
 
 describe('BoardHistory', () => {
     // add a default board with some columns
     beforeEach(() => {
-        void initDB();
+        renderHook(() => useDayplannerDB('history'));
         const { result } = renderHook(() => useBoardStore());
 
         act(() => {

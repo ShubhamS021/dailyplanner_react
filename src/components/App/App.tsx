@@ -6,7 +6,6 @@ import MyBoards from '../../components/MyBoards/MyBoards';
 import AddBoard from '../AddBoard/AddBoard';
 import { type Board as BordType } from 'interfaces/Board';
 import { useEffect } from 'react';
-import { initDB } from 'utils/indexdb.util';
 import { shallow } from 'zustand/shallow';
 
 export const App = () => {
@@ -51,8 +50,6 @@ export const App = () => {
         if (currentBoard != null) {
             updateBoards(currentBoard);
         }
-
-        void initDB();
     }, []);
 
     // Update localStorage whenever the boards change

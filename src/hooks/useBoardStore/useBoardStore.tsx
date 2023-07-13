@@ -13,13 +13,6 @@ import {
     findLastCardId,
     findLastCardIdInBoard,
 } from './util/board.util';
-import {
-    saveBoardMovementToHistory,
-    saveCreationToHistory,
-    saveDeletionToHistory,
-    saveMovementToHistory,
-    saveUpdateToHistory,
-} from 'utils/history.util';
 
 export const useBoardStore = create<State & Actions>((set) => ({
     boards: new Array<Board>(),
@@ -59,8 +52,6 @@ export const useBoardStore = create<State & Actions>((set) => ({
     addCardToLane: (card: Card, laneId: number) => {
         set((state) => {
             card.id = findLastCardId(state.board) + 1;
-
-            saveCreationToHistory(card, state.board.id);
 
             return {
                 board: {
@@ -137,14 +128,6 @@ export const useBoardStore = create<State & Actions>((set) => ({
                 lanes: updatedLanes,
             };
 
-            const cardForHistory = updatedBoard.lanes
-                .find((l) => l.id === laneId)
-                ?.cards.find((c) => c.id === cardId);
-
-            if (cardForHistory != null) {
-                saveDeletionToHistory(cardForHistory, updatedBoard.id);
-            }
-
             return { board: { ...updatedBoard } };
         });
     },
@@ -187,12 +170,7 @@ export const useBoardStore = create<State & Actions>((set) => ({
             };
             state.addCardToInitialBoardLane(newCard, newboard.id);
             state.removeCardFromLane(card.id, currentLaneId);
-            saveBoardMovementToHistory(
-                card,
-                state.board.id,
-                state.board.id,
-                newboard.id
-            );
+
             return { ...state };
         });
     },
@@ -227,12 +205,6 @@ export const useBoardStore = create<State & Actions>((set) => ({
                 const lane = state.board.lanes[laneIndex];
                 const newCards = Array.from(lane.cards);
                 const [removedCard] = newCards.splice(sourceCardIndex, 1);
-                saveMovementToHistory(
-                    removedCard,
-                    state.board.id,
-                    sourceLaneId,
-                    destLaneId
-                );
                 newCards.splice(destCardIndex, 0, removedCard);
 
                 const newLane = { ...lane, cards: newCards };
@@ -255,12 +227,6 @@ export const useBoardStore = create<State & Actions>((set) => ({
                 const sourceCards = Array.from(sourceLane.cards);
                 const destCards = Array.from(destLane.cards);
                 const [removedCard] = sourceCards.splice(sourceCardIndex, 1);
-                saveMovementToHistory(
-                    removedCard,
-                    state.board.id,
-                    sourceLaneId,
-                    destLaneId
-                );
                 destCards.splice(destCardIndex, 0, removedCard);
 
                 const newSourceLane = { ...sourceLane, cards: sourceCards };
@@ -392,8 +358,6 @@ export const useBoardStore = create<State & Actions>((set) => ({
                 ...newLanes[laneIndex],
                 cards: newLaneCards,
             };
-
-            saveUpdateToHistory(card, state.board.id);
 
             return {
                 board: {

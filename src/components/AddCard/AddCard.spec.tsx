@@ -3,12 +3,12 @@ import { AddCard } from './AddCard';
 import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
 import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
-import { initDB } from 'utils/indexdb.util';
+import { useDayplannerDB } from 'hooks/useDayplannerDB/useDayplannerDB';
 
 describe('AddCard', () => {
     // add a default board with some columns
     beforeEach(() => {
-        void initDB();
+        renderHook(() => useDayplannerDB('history'));
         const { result } = renderHook(() => useBoardStore());
 
         act(() => {

@@ -16,6 +16,7 @@ import { LabelComponent } from '../Label/Label';
 import { LaneEditModal } from '../LaneEditModal/LaneEditModal';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
+import useHistory from 'hooks/useHistory/useHistory';
 
 export interface LaneProps {
     id: number;
@@ -54,6 +55,12 @@ export const LaneComponent: React.FC<LaneProps> = ({
         ],
         shallow
     );
+
+    const {
+        addDeletionToHistory,
+        addBoardMovementToHistory,
+        addUpdateToHistory,
+    } = useHistory(board.id);
 
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
@@ -136,6 +143,7 @@ export const LaneComponent: React.FC<LaneProps> = ({
                                     lowerTags={c.lowerTags}
                                     onRemoveCard={() => {
                                         removeCardFromLane(c.id, id);
+                                        addDeletionToHistory(c, board.id);
                                     }}
                                     onEditCard={() => {
                                         setCardToEdit(c);
@@ -200,6 +208,12 @@ export const LaneComponent: React.FC<LaneProps> = ({
                         }
 
                         moveCardToBoard(cardToMove, currentLane.id, newBoard);
+                        addBoardMovementToHistory(
+                            cardToMove,
+                            board.id,
+                            board.id,
+                            newBoard.id
+                        );
                     }}
                     closeModal={() => {
                         setShowMoveModal(false);
@@ -258,6 +272,7 @@ export const LaneComponent: React.FC<LaneProps> = ({
                     }}
                     saveCard={() => {
                         updateCard(cardToEdit, id);
+                        addUpdateToHistory(cardToEdit, board.id);
                     }}
                 ></AddCardModal>
                 <div className="backdrop"></div>

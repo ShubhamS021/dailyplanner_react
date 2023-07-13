@@ -4,15 +4,16 @@ import { type Lane } from 'interfaces/Lane';
 import { card } from '../../../__mocks__/cards.mock';
 import { initialLanes } from './data/initialLanes.state';
 import { initialBoardState } from './data/initialBoard.state';
-import { initDB } from 'utils/indexdb.util';
+
 import { type DropResult } from 'react-beautiful-dnd';
 import { fulfilledTask, task } from '../../../__mocks__/tasks.mock';
 import { type Card } from 'interfaces/Card';
+import { useDayplannerDB } from 'hooks/useDayplannerDB/useDayplannerDB';
 
 describe('useBoardStore', () => {
     // add a default board with some columns
     beforeEach(() => {
-        void initDB();
+        renderHook(() => useDayplannerDB('history'));
         const { result } = renderHook(() => useBoardStore());
 
         act(() => {

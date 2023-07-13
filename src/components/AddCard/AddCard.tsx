@@ -6,6 +6,7 @@ import { type Shirt } from '../../types/Shirt';
 import { AddCardModal } from './modal/AddCardModal';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
+import useHistory from 'hooks/useHistory/useHistory';
 
 export interface AddCardProps {
     placeholder: string;
@@ -24,16 +25,19 @@ export const AddCard: React.FC<AddCardProps> = ({
         shirt: 'S',
     };
 
-    const [addCardToLane] = useBoardStore(
-        (state) => [state.addCardToLane],
+    const [addCardToLane, board] = useBoardStore(
+        (state) => [state.addCardToLane, state.board],
         shallow
     );
+
+    const { addCreationToHistory } = useHistory(board.id);
 
     const [card, setCard] = useState(initialCard);
     const [showModal, setShowModal] = useState(showModalInitially ?? false);
 
     const saveCard = () => {
         addCardToLane(card, 0);
+        addCreationToHistory(card, board.id);
     };
 
     const resetToInitial = () => {

@@ -17,10 +17,14 @@ module.exports = {
     },
     coverageReporters: ['text-summary', 'lcov'],
     coveragePathIgnorePatterns: [
-        '<rootDir>/src/assets',
-        '<rootDir>/src/assets/svgs',
-        '<rootDir>/src/interfaces',
+        '<rootDir>/src/assets/',
+        '<rootDir>/src/assets/svgs/',
+        '<rootDir>/src/interfaces/',
         '<rootDir>/src/setupTests.ts',
+    ],
+    collectCoverageFrom: [
+        '!<rootDir>/src/assets/**',
+        '!<rootDir>/src/interfaces/**',
     ],
     transform: {
         '\\.[jt]sx?$': 'babel-jest',

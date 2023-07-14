@@ -1,7 +1,8 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { tagCloseSVG } from '../../assets/svgs/tagClose.svg';
-import { BoardContext } from '../../context/BoardContext';
 import { calculateIlluminance } from '../../utils/color.util';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { shallow } from 'zustand/shallow';
 
 export interface TagProps {
     color: string;
@@ -18,7 +19,8 @@ export const TagComponent: React.FC<TagProps> = ({
     isRemoveable,
     onRemove,
 }) => {
-    const { themeMode } = useContext(BoardContext);
+    const [themeMode] = useBoardStore((state) => [state.themeMode], shallow);
+
     const [tagColor, setTagColor] = useState(color);
 
     useEffect(() => {

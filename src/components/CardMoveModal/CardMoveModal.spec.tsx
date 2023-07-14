@@ -1,6 +1,13 @@
-import { fireEvent, render, screen } from '@testing-library/react';
-import { BoardContext } from '../../context/BoardContext';
-import { mockContext } from '../../mocks/context.mock';
+import {
+    act,
+    fireEvent,
+    render,
+    renderHook,
+    screen,
+} from '@testing-library/react';
+import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
+import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { CardMoveModal, type CardMoveModalProps } from './CardMoveModal';
 
 const modalConfirmationMock = jest.fn();
@@ -14,25 +21,39 @@ const defaultProps: CardMoveModalProps = {
 };
 
 describe('CardMoveModal', () => {
-    test('renders the title', () => {
-        render(
-            <BoardContext.Provider value={mockContext}>
-                <CardMoveModal {...defaultProps} />
-            </BoardContext.Provider>
-        );
+    // add a default board with some columns
+    beforeEach(() => {
+        const { result } = renderHook(() => useBoardStore());
 
+        act(() => {
+            const boardId = 0;
+            const first = {
+                ...initialBoardState,
+                lanes: [...initialLanes],
+                id: boardId,
+            };
+
+            const second = {
+                ...initialBoardState,
+                lanes: [...initialLanes],
+                id: boardId + 2,
+            };
+            result.current.addBoard(first);
+            result.current.addBoard(second);
+        });
+    });
+
+    test('renders the title', () => {
+        renderHook(() => useBoardStore());
+        render(<CardMoveModal {...defaultProps} />);
         const titleElement = screen.getByTestId('confirmation-modal-title');
         expect(titleElement).toBeInTheDocument();
         expect(titleElement).toHaveTextContent('Move Card');
     });
 
     test('renders the text', () => {
-        render(
-            <BoardContext.Provider value={mockContext}>
-                <CardMoveModal {...defaultProps} />
-            </BoardContext.Provider>
-        );
-
+        renderHook(() => useBoardStore());
+        render(<CardMoveModal {...defaultProps} />);
         const textElement = screen.getByText(
             'Select a board to move this card to:'
         );
@@ -40,12 +61,8 @@ describe('CardMoveModal', () => {
     });
 
     test('renders the cancel button with default text', () => {
-        render(
-            <BoardContext.Provider value={mockContext}>
-                <CardMoveModal {...defaultProps} />
-            </BoardContext.Provider>
-        );
-
+        renderHook(() => useBoardStore());
+        render(<CardMoveModal {...defaultProps} />);
         const cancelButtonElement = screen.getByTestId(
             'confirmation-modal-cancel-button'
         );
@@ -54,12 +71,8 @@ describe('CardMoveModal', () => {
     });
 
     test('renders the submit button with default text', () => {
-        render(
-            <BoardContext.Provider value={mockContext}>
-                <CardMoveModal {...defaultProps} />
-            </BoardContext.Provider>
-        );
-
+        renderHook(() => useBoardStore());
+        render(<CardMoveModal {...defaultProps} />);
         const submitButtonElement = screen.getByTestId(
             'confirmation-modal-button'
         );
@@ -68,12 +81,8 @@ describe('CardMoveModal', () => {
     });
 
     test('calls the modalConfirmation function when the submit button is clicked', () => {
-        render(
-            <BoardContext.Provider value={mockContext}>
-                <CardMoveModal {...defaultProps} />
-            </BoardContext.Provider>
-        );
-
+        renderHook(() => useBoardStore());
+        render(<CardMoveModal {...defaultProps} />);
         const submitButtonElement = screen.getByTestId(
             'confirmation-modal-button'
         );
@@ -83,12 +92,8 @@ describe('CardMoveModal', () => {
     });
 
     test('calls the closeModal function when the close button is clicked', () => {
-        render(
-            <BoardContext.Provider value={mockContext}>
-                <CardMoveModal {...defaultProps} />
-            </BoardContext.Provider>
-        );
-
+        renderHook(() => useBoardStore());
+        render(<CardMoveModal {...defaultProps} />);
         const closeButtonElement = screen.getByTestId(
             'confirmation-modal-close-button'
         );

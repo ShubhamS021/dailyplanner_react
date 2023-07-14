@@ -1,13 +1,17 @@
-import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { arrowLeftSVG } from '../../assets/svgs/arrow-left.svg';
 import BoardTitle from '../../components/Board/BoardTitle/BoardTitle';
-import { BoardContext } from '../../context/BoardContext';
-import useHistory from '../../hooks/useHistory';
-import { type HistoryListEntry } from '../../interfaces/HistoryListEntry';
+import useHistory from '../../hooks/useHistory/useHistory';
+import { type HistoryListEntry } from '../../hooks/useHistory/interfaces/HistoryListEntry';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { shallow } from 'zustand/shallow';
 
 export const BoardHistory = () => {
-    const { board, toggleBoardMode } = useContext(BoardContext);
+    const [board, toggleBoardMode] = useBoardStore(
+        (state) => [state.board, state.toggleBoardMode],
+        shallow
+    );
+
     const { history } = useHistory(board.id);
     const { t } = useTranslation();
 

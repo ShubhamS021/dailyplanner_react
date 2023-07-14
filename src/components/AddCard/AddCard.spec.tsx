@@ -1,7 +1,26 @@
-import { fireEvent, render } from '@testing-library/react';
+import { act, fireEvent, render, renderHook } from '@testing-library/react';
 import { AddCard } from './AddCard';
+import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
+import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { useDayplannerDB } from 'hooks/useDayplannerDB/useDayplannerDB';
 
 describe('AddCard', () => {
+    // add a default board with some columns
+    beforeEach(() => {
+        renderHook(() => useDayplannerDB('history'));
+        const { result } = renderHook(() => useBoardStore());
+
+        act(() => {
+            const boardId = 0;
+            result.current.addBoard({
+                ...initialBoardState,
+                lanes: [...initialLanes],
+                id: boardId,
+            });
+        });
+    });
+
     test('renders the basic addCard', () => {
         const { getByTestId } = render(
             <AddCard placeholder={'add a card'} text={'button text'} />

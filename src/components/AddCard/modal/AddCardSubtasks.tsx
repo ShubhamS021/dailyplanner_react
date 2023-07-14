@@ -1,9 +1,9 @@
-import { useContext, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { uncheckedSVG } from '../../../assets/svgs/unchecked.svg';
-import { BoardContext } from '../../../context/BoardContext';
 import { type Card } from '../../../interfaces/Card';
 import type Task from '../../../interfaces/Task';
+import { findLastTaskIdInCard } from 'hooks/useBoardStore/util/board.util';
 
 export interface AddCardSubtaskProps {
     headline: string;
@@ -16,7 +16,6 @@ export const AddCardSubtasks: React.FC<AddCardSubtaskProps> = ({
     card,
     updateTasks,
 }) => {
-    const { findLastTaskIdInSpecificCard } = useContext(BoardContext);
     const taskTitle = useRef('');
     const [title, setTitle] = useState('');
     const { t } = useTranslation();
@@ -24,7 +23,7 @@ export const AddCardSubtasks: React.FC<AddCardSubtaskProps> = ({
     const handleAddNewTask = () => {
         if (card.tasks == null) card.tasks = [];
         const newTask: Task = {
-            id: findLastTaskIdInSpecificCard(card) + 1,
+            id: findLastTaskIdInCard(card) + 1,
             description: taskTitle.current,
             fulfilled: false,
         };

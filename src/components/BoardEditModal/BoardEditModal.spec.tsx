@@ -1,15 +1,45 @@
-import { fireEvent, render, screen } from '@testing-library/react';
-import { mockContext } from '../../mocks/context.mock';
+import {
+    act,
+    fireEvent,
+    render,
+    renderHook,
+    screen,
+} from '@testing-library/react';
 import { BoardEditModal } from './BoardEditModal';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
+import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
 
 describe('boardeditModal', () => {
+    // add a default board with some columns
+    beforeEach(() => {
+        const { result } = renderHook(() => useBoardStore());
+
+        act(() => {
+            const boardId = 0;
+            result.current.addBoard({
+                ...initialBoardState,
+                lanes: [...initialLanes],
+                id: boardId,
+            });
+        });
+    });
+
     it('renders the title and text props', () => {
+        const { result } = renderHook(() => useBoardStore());
+
+        const boardId = 1;
         const title = 'Rename Board';
+        const subtitle = 'Subtitle';
+
+        act(() => {
+            result.current.renameBoard(boardId, title, subtitle);
+        });
 
         render(
             <BoardEditModal
                 title={title}
-                board={mockContext.board}
+                board={result.current.board}
                 modalConfirmation={jest.fn()}
                 closeModal={jest.fn()}
             />
@@ -21,13 +51,15 @@ describe('boardeditModal', () => {
     });
 
     it('renders the submit and cancel buttons with the correct text', () => {
+        const { result } = renderHook(() => useBoardStore());
+
         const submitButtonText = 'Update';
         const cancelButtonText = 'Cancel';
 
         render(
             <BoardEditModal
                 title="Rename Board"
-                board={mockContext.board}
+                board={result.current.board}
                 submitButtonText={submitButtonText}
                 cancelButtonText={cancelButtonText}
                 modalConfirmation={jest.fn()}
@@ -45,27 +77,30 @@ describe('boardeditModal', () => {
     });
 
     it('renders the board title and subtitle as input values', () => {
+        const { result } = renderHook(() => useBoardStore());
+
         render(
             <BoardEditModal
                 title="Rename Board"
-                board={mockContext.board}
+                board={result.current.board}
                 modalConfirmation={jest.fn()}
                 closeModal={jest.fn()}
             />
         );
 
         const titleInput = screen.getByTestId('boardedit-title-input');
-        expect(titleInput).toHaveValue(mockContext.board.title);
+        expect(titleInput).toHaveValue(result.current.board.title);
 
         const subtitleInput = screen.getByTestId('boardedit-subtitle-input');
-        expect(subtitleInput).toHaveValue(mockContext.board.subtitle);
+        expect(subtitleInput).toHaveValue(result.current.board.subtitle);
     });
 
     it('updates the board title and subtitle when the inputs are changed', () => {
+        const { result } = renderHook(() => useBoardStore());
         render(
             <BoardEditModal
                 title="Rename Board"
-                board={mockContext.board}
+                board={result.current.board}
                 modalConfirmation={jest.fn()}
                 closeModal={jest.fn()}
             />
@@ -83,11 +118,13 @@ describe('boardeditModal', () => {
     });
 
     it('should call closeModal when close button is clicked', () => {
+        const { result } = renderHook(() => useBoardStore());
+
         const closeModal = jest.fn();
         const { getByTestId } = render(
             <BoardEditModal
                 title="Title"
-                board={mockContext.board}
+                board={result.current.board}
                 modalConfirmation={jest.fn()}
                 closeModal={closeModal}
             />
@@ -100,11 +137,13 @@ describe('boardeditModal', () => {
     });
 
     it('should call closeModal when cancel button is clicked', () => {
+        const { result } = renderHook(() => useBoardStore());
+
         const closeModal = jest.fn();
         const { getByTestId } = render(
             <BoardEditModal
                 title="Title"
-                board={mockContext.board}
+                board={result.current.board}
                 modalConfirmation={jest.fn()}
                 closeModal={closeModal}
             />
@@ -117,12 +156,14 @@ describe('boardeditModal', () => {
     });
 
     it('should call modalConfirmation and closeModal when confirmation button is clicked', () => {
+        const { result } = renderHook(() => useBoardStore());
+
         const modalConfirmation = jest.fn();
         const closeModal = jest.fn();
         const { getByTestId } = render(
             <BoardEditModal
                 title="Title"
-                board={mockContext.board}
+                board={result.current.board}
                 modalConfirmation={modalConfirmation}
                 closeModal={closeModal}
             />

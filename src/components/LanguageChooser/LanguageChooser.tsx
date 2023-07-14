@@ -1,11 +1,14 @@
-import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { BoardContext } from '../../context/BoardContext';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { shallow } from 'zustand/shallow';
 
 export const LanguageChooser = () => {
-    const { t, i18n } = useTranslation();
-    const { updateLanguage } = useContext(BoardContext);
+    const [updateLanguage] = useBoardStore(
+        (state) => [state.updateLanguage],
+        shallow
+    );
 
+    const { t, i18n } = useTranslation();
     const languages: Record<string, { nativeName: string }> = {
         en: { nativeName: 'English' },
         de: { nativeName: 'Deutsch' },

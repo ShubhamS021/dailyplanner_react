@@ -1,13 +1,18 @@
-import { useContext, useRef } from 'react';
+import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { fileImportSVG } from '../../assets/svgs/file-import.svg';
-import { BoardContext } from '../../context/BoardContext';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { shallow } from 'zustand/shallow';
 
 interface ImportProps {
     all?: boolean;
 }
 export const Import: React.FC<ImportProps> = ({ all = false }) => {
-    const { importBoardFromJSON } = useContext(BoardContext);
+    const [importBoardFromJSON] = useBoardStore(
+        (state) => [state.importBoardFromJSON],
+        shallow
+    );
+
     const { t } = useTranslation();
     const inputRef: React.RefObject<HTMLInputElement> = useRef(null);
 

@@ -1,6 +1,6 @@
 import i18next from 'i18next';
-import { initialBoardState } from '../context/initialBoard.state';
-import { initialLanes } from '../context/initialLanes.state';
+import { initialBoardState } from '../hooks/useBoardStore/data/initialBoard.state';
+import { initialLanes } from '../hooks/useBoardStore/data/initialLanes.state';
 
 export const getLocalizedInitialBoardState = () => {
     return {

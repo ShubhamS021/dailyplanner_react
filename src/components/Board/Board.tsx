@@ -1,5 +1,8 @@
-import { useContext } from 'react';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import {
+    DragDropContext,
+    type DropResult,
+    Droppable,
+} from 'react-beautiful-dnd';
 import { useTranslation } from 'react-i18next';
 import { arrowLeftSVG } from '../../assets/svgs/arrow-left.svg';
 import CompactModeToggle from '../../components/CompactModeToggle/CompactModeToggle';
@@ -7,14 +10,22 @@ import { DarkModeToggle } from '../../components/DarkModeToggle/DarkModeToggle';
 import Export from '../../components/Export/Export';
 import { HistoryToggle } from '../../components/HistoryToggle/HistoryToggle';
 import Import from '../../components/Import/Import';
-import { BoardContext } from '../../context/BoardContext';
 import { type Lane } from '../../interfaces/Lane';
 import { AddCard } from '../AddCard/AddCard';
 import { BoardTitle } from '../Board/BoardTitle/BoardTitle';
 import { LaneComponent } from '../Lane/Lane';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { shallow } from 'zustand/shallow';
+import useHistory from 'hooks/useHistory/useHistory';
 
 export const Board = () => {
-    const { toggleBoardMode, handleDragEnd, board } = useContext(BoardContext);
+    const [board, toggleBoardMode, handleDragEnd] = useBoardStore(
+        (state) => [state.board, state.toggleBoardMode, state.handleDragEnd],
+        shallow
+    );
+
+    const { addMovementToHistory } = useHistory(board.id);
+
     const { t } = useTranslation();
 
     const handleBackToBoards = () => {
@@ -47,6 +58,37 @@ export const Board = () => {
         );
     };
 
+    const handleDrag = (result: DropResult) => {
+        console.log(board, result);
+
+        const { draggableId, source, destination } = result;
+        const details = draggableId.split('-');
+        const laneId = +details[1];
+        const cardId = +details[3];
+        const card = board.lanes
+            .find((l) => l.id === laneId)
+            ?.cards.find((c) => c.id === cardId);
+
+        if (card !== null && card !== undefined) {
+            console.log(
+                card,
+                board.id,
+                source.droppableId,
+                destination?.droppableId ?? source.droppableId
+            );
+
+            addMovementToHistory(
+                card,
+                board.id,
+                +source.droppableId,
+                destination?.droppableId != null
+                    ? +destination?.droppableId
+                    : +source.droppableId
+            );
+        }
+        handleDragEnd(result);
+    };
+
     return (
         <main className="p-10">
             <div className="h-16 mb-6 grid grid-cols-[auto,1fr_auto] items-center">
@@ -74,7 +116,7 @@ export const Board = () => {
                 }}
                 data-testid="page-board"
             >
-                <DragDropContext onDragEnd={handleDragEnd}>
+                <DragDropContext onDragEnd={handleDrag}>
                     {renderLanes(board.lanes)}
                 </DragDropContext>
             </div>

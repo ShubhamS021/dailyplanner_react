@@ -1,15 +1,20 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import logo from '../../assets/logo.png';
 import { arrowLeftSVG } from '../../assets/svgs/arrow-left.svg';
-import { BoardContext } from '../../context/BoardContext';
 import {
     getLocalizedInitialBoardState,
     getLocalizedInitialLanesState,
 } from '../../utils/context.util';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { shallow } from 'zustand/shallow';
 
 export const AddBoard = () => {
-    const { addBoard, toggleBoardMode } = useContext(BoardContext);
+    const [addBoard, toggleBoardMode] = useBoardStore(
+        (state) => [state.addBoard, state.toggleBoardMode],
+        shallow
+    );
+
     const { t } = useTranslation();
 
     const [name, setName] = useState('');

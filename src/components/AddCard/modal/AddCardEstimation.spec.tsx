@@ -1,10 +1,9 @@
 import { fireEvent, render } from '@testing-library/react';
-import { type Shirt } from '../../../types/Shirt';
 import { AddCardEstimation } from './AddCardEstimation';
+import { card } from '../../../../__mocks__/cards.mock';
 
 describe('AddCardEstimation', () => {
     const headline = 'Test Headline';
-    const card = { id: 1, title: 'Test Card', shirt: 'M' as Shirt };
     const updateEstimationMock = jest.fn();
 
     it('renders the headline', () => {

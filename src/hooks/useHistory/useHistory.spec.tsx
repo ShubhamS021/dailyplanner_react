@@ -1,10 +1,10 @@
-import { act, render, renderHook } from '@testing-library/react';
-import Board from './Board';
+import useHistory from './useHistory';
+import { act, renderHook } from '@testing-library/react';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
 import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
-import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 
-describe('Board', () => {
+describe('useHistory', () => {
     // add a default board with some columns
     beforeEach(() => {
         const { result } = renderHook(() => useBoardStore());
@@ -19,9 +19,8 @@ describe('Board', () => {
         });
     });
 
-    it('renders the basic board', () => {
-        const { getByTestId } = render(<Board />);
-
-        expect(getByTestId(/page-board/)).toBeInTheDocument();
+    test('gets the history for board', () => {
+        const { result } = renderHook(() => useHistory(1));
+        expect(result.current.history).toBeDefined();
     });
 });

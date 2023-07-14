@@ -1,4 +1,4 @@
-import { type Card } from './Card';
+import { type Card } from '../../../interfaces/Card';
 
 export class HistoryEntry {
     date: Date;

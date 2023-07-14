@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import logo from '../../assets/logo.png';
 import { arrowNarrowRight } from '../../assets/svgs/arrow-narrow-right.svg';
@@ -9,12 +9,23 @@ import { ConfirmationModal } from '../../components/ConfirmationModal/Confirmati
 import Export from '../../components/Export/Export';
 import Import from '../../components/Import/Import';
 import { LanguageChooser } from '../../components/LanguageChooser/LanguageChooser';
-import { BoardContext } from '../../context/BoardContext';
 import { BoardEditModal } from '../BoardEditModal/BoardEditModal';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { shallow } from 'zustand/shallow';
 
 export const MyBoards = () => {
-    const { toggleBoardMode, removeBoard, renameBoard, enterBoard, boards } =
-        useContext(BoardContext);
+    const [boards, enterBoard, renameBoard, removeBoard, toggleBoardMode] =
+        useBoardStore(
+            (state) => [
+                state.boards,
+                state.enterBoard,
+                state.renameBoard,
+                state.removeBoard,
+                state.toggleBoardMode,
+            ],
+            shallow
+        );
+
     const [showModal, setShowModal] = useState(false);
     const [boardToEdit, setBoardToEdit] = useState(boards[0]);
     const [showEditModal, setShowEditModal] = useState(false);

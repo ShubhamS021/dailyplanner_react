@@ -4,7 +4,7 @@
         "baseUrl": "./src",
         "module": "esnext",
         "lib": ["dom", "dom.iterable", "esnext"],
-        "target": "es5",
+        "target": "es2015",
         "removeComments": true,
         "jsx": "react-jsx",
         "moduleResolution": "node",
@@ -25,7 +25,12 @@
         "allowSyntheticDefaultImports": true,
         "noImplicitAny": true
     },
-    "_types": ["cypress"],
-    "include": ["src", "./cypress/**/*.ts", "./cypress.config.ts"],
+    "_types": ["cypress", "node", "jest", "@testing-library/jest-dom"],
+    "include": [
+        "src",
+        "./cypress/**/*.ts",
+        "./cypress.config.ts",
+        "__mocks__/**/*"
+    ],
     "exclude": ["./src/wdyr.js"]
 }

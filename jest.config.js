@@ -15,11 +15,12 @@ module.exports = {
         '^.\\.(css|less|scss)$': 'identity-obj-proxy',
         '^@/(.*)$': '<rootDir>/src/$1',
     },
-    coverageReporters: ["text-summary", "lcov"],
+    coverageReporters: ['text-summary', 'lcov'],
     coveragePathIgnorePatterns: [
         '<rootDir>/src/assets',
         '<rootDir>/src/assets/svgs',
         '<rootDir>/src/interfaces',
+        '<rootDir>/src/setupTests.ts',
     ],
     transform: {
         '\\.[jt]sx?$': 'babel-jest',

@@ -1,54 +1,50 @@
-import { render } from '@testing-library/react';
-import { BoardContext } from '../../context/BoardContext';
-import { mockContext } from '../../mocks/context.mock';
-import { type BoardMode } from '../../types/BoardMode';
+import { act, render, renderHook } from '@testing-library/react';
 import App from './App';
+import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
+import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 
 describe('App component', () => {
-    it('renders Board component by default', () => {
-        const { getByTestId } = render(<App />);
+    // add a default board with some columns
+    beforeEach(() => {
+        const { result } = renderHook(() => useBoardStore());
 
-        expect(getByTestId(/myboards-title/)).toBeInTheDocument();
+        act(() => {
+            const boardId = 0;
+            result.current.addBoard({
+                ...initialBoardState,
+                lanes: [...initialLanes],
+                id: boardId,
+            });
+        });
     });
 
     it('renders AddBoard component when in boardCreateMode', () => {
-        const boardContextValue = {
-            ...mockContext,
-            boardMode: 'boardCreateMode' as BoardMode,
-        };
-        const { getByTestId } = render(
-            <BoardContext.Provider value={boardContextValue}>
-                <App />
-            </BoardContext.Provider>
-        );
+        const { result } = renderHook(() => useBoardStore());
+        act(() => {
+            result.current.toggleBoardMode('boardCreateMode');
+        });
+        const { getByTestId } = render(<App />);
 
         expect(getByTestId(/addboard-title/)).toBeInTheDocument();
     });
 
     it('renders MyBoards component when in boardChooseMode', () => {
-        const boardContextValue = {
-            ...mockContext,
-            boardMode: 'boardChooseMode' as BoardMode,
-        };
-        const { getByTestId } = render(
-            <BoardContext.Provider value={boardContextValue}>
-                <App />
-            </BoardContext.Provider>
-        );
+        const { result } = renderHook(() => useBoardStore());
+        const { getByTestId } = render(<App />);
+        act(() => {
+            result.current.toggleBoardMode('boardChooseMode');
+        });
 
         expect(getByTestId(/myboards-title/)).toBeInTheDocument();
     });
 
     it('renders MyBoardLanes component when in boardCustomLanesMode', () => {
-        const boardContextValue = {
-            ...mockContext,
-            boardMode: 'boardCustomLanesMode' as BoardMode,
-        };
-        const { getByTestId } = render(
-            <BoardContext.Provider value={boardContextValue}>
-                <App />
-            </BoardContext.Provider>
-        );
+        const { result } = renderHook(() => useBoardStore());
+        const { getByTestId } = render(<App />);
+        act(() => {
+            result.current.toggleBoardMode('boardCustomLanesMode');
+        });
 
         expect(getByTestId(/myboardlanes-title/)).toBeInTheDocument();
     });

@@ -1,15 +1,38 @@
-import { fireEvent, render, screen } from '@testing-library/react';
-import { mockContext } from '../../mocks/context.mock';
+import {
+    act,
+    fireEvent,
+    render,
+    renderHook,
+    screen,
+} from '@testing-library/react';
 import { LaneEditModal } from './LaneEditModal';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
+import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
 
 describe('LaneEditModal', () => {
+    // add a default board with some columns
+    beforeEach(() => {
+        const { result } = renderHook(() => useBoardStore());
+
+        act(() => {
+            const boardId = 0;
+            result.current.addBoard({
+                ...initialBoardState,
+                lanes: [...initialLanes],
+                id: boardId,
+            });
+        });
+    });
+
     it('renders the title and text props', () => {
+        const { result } = renderHook(() => useBoardStore());
         const title = 'Rename Lane';
 
         render(
             <LaneEditModal
                 title={title}
-                board={mockContext.board}
+                board={result.current.board}
                 laneId={0}
                 modalConfirmation={jest.fn()}
                 closeModal={jest.fn()}
@@ -24,13 +47,14 @@ describe('LaneEditModal', () => {
     });
 
     it('renders the submit and cancel buttons with the correct text', () => {
+        const { result } = renderHook(() => useBoardStore());
         const submitButtonText = 'Update';
         const cancelButtonText = 'Cancel';
 
         render(
             <LaneEditModal
                 title="Rename Lane"
-                board={mockContext.board}
+                board={result.current.board}
                 laneId={0}
                 submitButtonText={submitButtonText}
                 cancelButtonText={cancelButtonText}
@@ -51,10 +75,12 @@ describe('LaneEditModal', () => {
     });
 
     it('renders the lane title as input values', () => {
+        const { result } = renderHook(() => useBoardStore());
+
         render(
             <LaneEditModal
                 title="Rename Lane"
-                board={mockContext.board}
+                board={result.current.board}
                 laneId={0}
                 modalConfirmation={jest.fn()}
                 closeModal={jest.fn()}
@@ -68,10 +94,12 @@ describe('LaneEditModal', () => {
     });
 
     it('updates the lane title when the inputs are changed', () => {
+        const { result } = renderHook(() => useBoardStore());
+
         render(
             <LaneEditModal
                 title="Rename Lane"
-                board={mockContext.board}
+                board={result.current.board}
                 laneId={0}
                 modalConfirmation={jest.fn()}
                 closeModal={jest.fn()}
@@ -87,11 +115,13 @@ describe('LaneEditModal', () => {
     });
 
     it('should call closeModal when close button is clicked', () => {
+        const { result } = renderHook(() => useBoardStore());
+
         const closeModal = jest.fn();
         const { getByTestId } = render(
             <LaneEditModal
                 title="Title"
-                board={mockContext.board}
+                board={result.current.board}
                 laneId={0}
                 modalConfirmation={jest.fn()}
                 closeModal={closeModal}
@@ -107,11 +137,13 @@ describe('LaneEditModal', () => {
     });
 
     it('should call closeModal when cancel button is clicked', () => {
+        const { result } = renderHook(() => useBoardStore());
+
         const closeModal = jest.fn();
         const { getByTestId } = render(
             <LaneEditModal
                 title="Title"
-                board={mockContext.board}
+                board={result.current.board}
                 laneId={0}
                 modalConfirmation={jest.fn()}
                 closeModal={closeModal}
@@ -127,12 +159,14 @@ describe('LaneEditModal', () => {
     });
 
     it('should call modalConfirmation and closeModal when confirmation button is clicked', () => {
+        const { result } = renderHook(() => useBoardStore());
+
         const modalConfirmation = jest.fn();
         const closeModal = jest.fn();
         const { getByTestId } = render(
             <LaneEditModal
                 title="Title"
-                board={mockContext.board}
+                board={result.current.board}
                 laneId={0}
                 modalConfirmation={modalConfirmation}
                 closeModal={closeModal}

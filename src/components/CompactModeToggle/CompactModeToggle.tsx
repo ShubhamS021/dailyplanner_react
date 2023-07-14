@@ -1,10 +1,14 @@
-import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { compactModeSVG } from '../../assets/svgs/compactMode.svg';
-import { BoardContext } from '../../context/BoardContext';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { shallow } from 'zustand/shallow';
 
 export const CompactModeToggle = () => {
-    const { toggleCompactMode, compactMode } = useContext(BoardContext);
+    const [compactMode, toggleCompactMode] = useBoardStore(
+        (state) => [state.compactMode, state.toggleCompactMode],
+        shallow
+    );
+
     const { t } = useTranslation();
 
     return (

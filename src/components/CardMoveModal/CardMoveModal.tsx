@@ -1,7 +1,8 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { closeSVG } from '../../assets/svgs/close.svg';
 import { infoCircleSVG } from '../../assets/svgs/infoCircle.svg';
-import { BoardContext } from '../../context/BoardContext';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { shallow } from 'zustand/shallow';
 
 export interface CardMoveModalProps {
     title: string;
@@ -20,9 +21,13 @@ export const CardMoveModal: React.FC<CardMoveModalProps> = ({
     closeModal,
     modalConfirmation,
 }) => {
-    const boardContext = useContext(BoardContext);
+    const [boards, board] = useBoardStore(
+        (state) => [state.boards, state.board],
+        shallow
+    );
+
     const [selectedBoardId, setSelectedBoardId] = useState(
-        boardContext.boards.filter((b) => b.id !== boardContext.board.id)[0].id
+        boards.filter((b) => b.id !== board.id)[0].id
     );
 
     const handleBoardChange = (boardId: number) => {
@@ -67,8 +72,8 @@ export const CardMoveModal: React.FC<CardMoveModalProps> = ({
                                 handleBoardChange(+event.target.value);
                             }}
                         >
-                            {boardContext.boards
-                                .filter((b) => b.id !== boardContext.board.id)
+                            {boards
+                                .filter((b) => b.id !== board.id)
                                 .map((b) => {
                                     return (
                                         <option

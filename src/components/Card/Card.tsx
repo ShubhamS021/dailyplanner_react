@@ -1,5 +1,4 @@
 import { t } from 'i18next';
-import { useContext } from 'react';
 import {
     DragDropContext,
     Draggable,
@@ -9,12 +8,13 @@ import {
 import { editSVG } from '../../assets/svgs/edit.svg';
 import { routeSVG } from '../../assets/svgs/route.svg';
 import { trashSVG } from '../../assets/svgs/trash.svg';
-import { BoardContext } from '../../context/BoardContext';
 import { type Tag } from '../../interfaces/Tag';
 import { type Task } from '../../interfaces/Task';
 import { type Shirt } from '../../types/Shirt';
 import { TagComponent } from '../Tag/Tag';
 import { TaskComponent } from '../Task/Task';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { shallow } from 'zustand/shallow';
 
 export interface CardProps {
     id: number;
@@ -49,7 +49,10 @@ export const CardComponent: React.FC<CardProps> = ({
     onRemoveTask,
     onUpdateTasks,
 }) => {
-    const { updateTask, compactMode, boards } = useContext(BoardContext);
+    const [boards, compactMode, updateTask] = useBoardStore(
+        (state) => [state.boards, state.compactMode, state.updateTask],
+        shallow
+    );
 
     const renderTags = (tags: Tag[] | undefined) => {
         if (tags === undefined) return;

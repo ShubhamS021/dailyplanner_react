@@ -1,7 +1,8 @@
-import { fireEvent, render } from '@testing-library/react';
-import { BoardContext } from '../../context/BoardContext';
-import { mockContext } from '../../mocks/context.mock';
+import { act, fireEvent, render, renderHook } from '@testing-library/react';
 import { DarkModeToggle } from './DarkModeToggle';
+import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
+import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 
 // Mock react-i18next useTranslation hook
 jest.mock('react-i18next', () => ({
@@ -11,12 +12,22 @@ jest.mock('react-i18next', () => ({
 }));
 
 describe('DarkModeToggle', () => {
+    // add a default board with some columns
+    beforeEach(() => {
+        const { result } = renderHook(() => useBoardStore());
+
+        act(() => {
+            const boardId = 0;
+            result.current.addBoard({
+                ...initialBoardState,
+                lanes: [...initialLanes],
+                id: boardId,
+            });
+        });
+    });
+
     it('should render the dark mode toggle component with correct text', () => {
-        const { getByTestId, getByText } = render(
-            <BoardContext.Provider value={mockContext}>
-                <DarkModeToggle />
-            </BoardContext.Provider>
-        );
+        const { getByTestId, getByText } = render(<DarkModeToggle />);
 
         const toggleButton = getByTestId('theme-mode-button');
         const toggleText = getByText('components.DarkModeToggle.dark');
@@ -26,13 +37,13 @@ describe('DarkModeToggle', () => {
     });
 
     it('should render the light mode toggle component with correct text', () => {
-        const { getByTestId, getByText } = render(
-            <BoardContext.Provider
-                value={{ ...mockContext, themeMode: 'dark' }}
-            >
-                <DarkModeToggle />
-            </BoardContext.Provider>
-        );
+        const { result } = renderHook(() => useBoardStore());
+
+        act(() => {
+            result.current.toggleThemeMode('dark');
+        });
+
+        const { getByTestId, getByText } = render(<DarkModeToggle />);
 
         const toggleButton = getByTestId('theme-mode-button');
         const toggleText = getByText('components.DarkModeToggle.light');
@@ -42,30 +53,30 @@ describe('DarkModeToggle', () => {
     });
 
     it('should call toggleThemeMode function for dark mode when the toggle button is clicked', () => {
-        const { getByTestId } = render(
-            <BoardContext.Provider value={mockContext}>
-                <DarkModeToggle />
-            </BoardContext.Provider>
-        );
+        const { result } = renderHook(() => useBoardStore());
+        const spy = jest.spyOn(result.current, 'toggleThemeMode');
+
+        const { getByTestId } = render(<DarkModeToggle />);
 
         const toggleButton = getByTestId('theme-mode-button');
         fireEvent.click(toggleButton);
 
-        expect(mockContext.toggleThemeMode).toHaveBeenCalled();
+        expect(spy).toHaveBeenCalled();
     });
 
     it('should call toggleThemeMode function for light mode when the toggle button is clicked', () => {
-        const { getByTestId } = render(
-            <BoardContext.Provider
-                value={{ ...mockContext, themeMode: 'dark' }}
-            >
-                <DarkModeToggle />
-            </BoardContext.Provider>
-        );
+        const { result } = renderHook(() => useBoardStore());
+        const spy = jest.spyOn(result.current, 'toggleThemeMode');
+
+        act(() => {
+            result.current.toggleThemeMode('dark');
+        });
+
+        const { getByTestId } = render(<DarkModeToggle />);
 
         const toggleButton = getByTestId('theme-mode-button');
         fireEvent.click(toggleButton);
 
-        expect(mockContext.toggleThemeMode).toHaveBeenCalled();
+        expect(spy).toHaveBeenCalled();
     });
 });

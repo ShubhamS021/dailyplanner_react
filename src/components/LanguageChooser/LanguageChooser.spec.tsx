@@ -1,7 +1,14 @@
-import { fireEvent, render, screen } from '@testing-library/react';
-import { BoardContext } from '../../context/BoardContext';
-import { mockContext } from '../../mocks/context.mock';
+import {
+    act,
+    fireEvent,
+    render,
+    renderHook,
+    screen,
+} from '@testing-library/react';
 import { LanguageChooser } from './LanguageChooser';
+import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
+import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 
 // Mock react-i18next useTranslation hook
 jest.mock('react-i18next', () => ({
@@ -16,12 +23,22 @@ describe('LanguageChooser', () => {
         jest.clearAllMocks();
     });
 
+    // add a default board with some columns
+    beforeEach(() => {
+        const { result } = renderHook(() => useBoardStore());
+
+        act(() => {
+            const boardId = 0;
+            result.current.addBoard({
+                ...initialBoardState,
+                lanes: [...initialLanes],
+                id: boardId,
+            });
+        });
+    });
+
     it('should render the language chooser component with correct options', () => {
-        render(
-            <BoardContext.Provider value={mockContext}>
-                <LanguageChooser />
-            </BoardContext.Provider>
-        );
+        render(<LanguageChooser />);
         const languageText = screen.getByText(
             'components.LanguageChooser.language'
         );
@@ -34,21 +51,20 @@ describe('LanguageChooser', () => {
     });
 
     it('should call updateLanguage and changeLanguage when a language button is clicked', async () => {
-        render(
-            <BoardContext.Provider value={mockContext}>
-                <LanguageChooser />
-            </BoardContext.Provider>
-        );
+        const { result } = renderHook(() => useBoardStore());
+        const spy = jest.spyOn(result.current, 'updateLanguage');
+
+        render(<LanguageChooser />);
         let languageButton = screen.getByText('English');
 
         fireEvent.click(languageButton);
 
-        expect(mockContext.updateLanguage).toHaveBeenCalledWith('en');
+        expect(spy).toHaveBeenCalledWith('en');
 
         languageButton = screen.getByText('Deutsch');
 
         fireEvent.click(languageButton);
 
-        expect(mockContext.updateLanguage).toHaveBeenCalledWith('de');
+        expect(spy).toHaveBeenCalledWith('de');
     });
 });

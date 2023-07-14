@@ -1,30 +1,38 @@
-import { fireEvent, render } from '@testing-library/react';
-import { BoardContext } from '../../context/BoardContext';
-import { mockContext, mockToggleCompactMode } from '../../mocks/context.mock';
+import { act, fireEvent, render, renderHook } from '@testing-library/react';
 import CompactModeToggle from './CompactModeToggle';
+import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
+import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 
 describe('CompactModeToggle', () => {
+    // add a default board with some columns
+    beforeEach(() => {
+        const { result } = renderHook(() => useBoardStore());
+
+        act(() => {
+            const boardId = 0;
+            result.current.addBoard({
+                ...initialBoardState,
+                lanes: [...initialLanes],
+                id: boardId,
+            });
+        });
+    });
+
     test('renders the button with the correct text', () => {
-        const { getByTestId } = render(
-            <BoardContext.Provider value={mockContext}>
-                <CompactModeToggle />
-            </BoardContext.Provider>
-        );
+        const { getByTestId } = render(<CompactModeToggle />);
         const button = getByTestId(/compactmode-toggle-button/);
         expect(button).toBeInTheDocument();
-        expect(button).toHaveTextContent(
-            'Compact mode'
-        );
+        expect(button).toHaveTextContent('Compact mode');
     });
 
     test('clicking the button calls the toggleCompactMode function', () => {
-        const { getByTestId } = render(
-            <BoardContext.Provider value={mockContext}>
-                <CompactModeToggle />
-            </BoardContext.Provider>
-        );
+        const { result } = renderHook(() => useBoardStore());
+        const spy = jest.spyOn(result.current, 'toggleCompactMode');
+
+        const { getByTestId } = render(<CompactModeToggle />);
         const button = getByTestId(/compactmode-toggle-button/);
         fireEvent.click(button);
-        expect(mockToggleCompactMode).toHaveBeenCalledTimes(1);
+        expect(spy).toHaveBeenCalledTimes(1);
     });
 });

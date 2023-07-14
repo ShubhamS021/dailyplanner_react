@@ -1,33 +1,37 @@
-import { fireEvent, render } from '@testing-library/react';
-import { BoardContext } from '../../context/BoardContext';
-import { mockContext, mockImportBoardFromJSON } from '../../mocks/context.mock';
+import { act, fireEvent, render, renderHook } from '@testing-library/react';
 import Import from './Import';
+import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
+import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 
-test('triggers the import', () => {
-    const { getByTestId } = render(
-        <BoardContext.Provider value={mockContext}>
-            <Import />
-        </BoardContext.Provider>
-    );
+describe('Import', () => {
+    // add a default board with some columns
+    beforeEach(() => {
+        const { result } = renderHook(() => useBoardStore());
 
-    const button = getByTestId('import-button');
-    button.click();
-});
+        act(() => {
+            const boardId = 0;
+            result.current.addBoard({
+                ...initialBoardState,
+                lanes: [...initialLanes],
+                id: boardId,
+            });
+        });
+    });
 
-test('imports a board context', () => {
-    const { getByTestId } = render(
-        <BoardContext.Provider value={mockContext}>
-            <Import />
-        </BoardContext.Provider>
-    );
+    it('imports a board', () => {
+        const { result } = renderHook(() => useBoardStore());
+        const spy = jest.spyOn(result.current, 'importBoardFromJSON');
+        const { getByTestId } = render(<Import />);
 
-    const input = getByTestId('import-input') as HTMLInputElement;
-    const file = new File([''], 'test.json', { type: 'application/json' });
-    const event = {
-        target: { files: [file] },
-    } as unknown as React.ChangeEvent<HTMLInputElement>;
+        const input = getByTestId('import-input') as HTMLInputElement;
+        const file = new File([''], 'test.json', { type: 'application/json' });
+        const event = {
+            target: { files: [file] },
+        } as unknown as React.ChangeEvent<HTMLInputElement>;
 
-    fireEvent.change(input, event);
+        fireEvent.change(input, event);
 
-    expect(mockImportBoardFromJSON).toHaveBeenCalledTimes(2);
+        expect(spy).toHaveBeenCalledTimes(1);
+    });
 });

@@ -1,19 +1,26 @@
-import { fireEvent, render } from '@testing-library/react';
-import { BoardContext } from '../../context/BoardContext';
-import {
-    mockAddBoard,
-    mockContext,
-    mockToggleBoardMode,
-} from '../../mocks/context.mock';
+import { act, fireEvent, render, renderHook } from '@testing-library/react';
 import AddBoard from './AddBoard';
+import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
+import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 
 describe('AddBoard component', () => {
+    // add a default board with some columns
+    beforeEach(() => {
+        const { result } = renderHook(() => useBoardStore());
+
+        act(() => {
+            const boardId = 0;
+            result.current.addBoard({
+                ...initialBoardState,
+                lanes: [...initialLanes],
+                id: boardId,
+            });
+        });
+    });
+
     test('renders the component', () => {
-        const { getByTestId } = render(
-            <BoardContext.Provider value={mockContext}>
-                <AddBoard />
-            </BoardContext.Provider>
-        );
+        const { getByTestId } = render(<AddBoard />);
 
         expect(getByTestId('addboard-title')).toBeInTheDocument();
         expect(getByTestId('addboard-standard-subtitle')).toBeInTheDocument();
@@ -29,57 +36,62 @@ describe('AddBoard component', () => {
     });
 
     test('calls addBoard and toggleBoardMode with the correct arguments when standard board is created', () => {
-        const { getByTestId } = render(
-            <BoardContext.Provider value={mockContext}>
-                <AddBoard />
-            </BoardContext.Provider>
+        const { result } = renderHook(() => useBoardStore());
+        const spyAddBoard = jest.spyOn(result.current, 'addBoard');
+        const spyToggleBoardMode = jest.spyOn(
+            result.current,
+            'toggleBoardMode'
         );
+        const { getByTestId } = render(<AddBoard />);
 
         fireEvent.click(getByTestId('addboard-create-standard-button'));
 
-        expect(mockAddBoard).toHaveBeenCalledTimes(1);
-        expect(mockAddBoard).toHaveBeenCalledWith({
+        expect(spyAddBoard).toHaveBeenCalledTimes(1);
+        expect(spyAddBoard).toHaveBeenCalledWith({
             id: 0,
             lanes: [
                 {
                     cards: [],
                     color: '#e1e4e8',
                     id: 0,
-                    title: "Not Started",
+                    title: 'Not Started',
                 },
                 {
                     cards: [],
                     color: '#f0e7f6',
                     id: 1,
-                    title: "In Progress",
+                    title: 'In Progress',
                 },
                 {
                     cards: [],
                     color: '#ffdce0',
                     id: 2,
-                    title: "Blocked",
+                    title: 'Blocked',
                 },
                 {
                     cards: [],
                     color: '#cbdfd8',
                     id: 3,
-                    title: "Done",
+                    title: 'Done',
                 },
             ],
             subtitle: 'An overview of my tasks.',
             title: 'My tasks',
         });
 
-        expect(mockToggleBoardMode).toHaveBeenCalledTimes(1);
-        expect(mockToggleBoardMode).toHaveBeenCalledWith('boardDefaultMode');
+        expect(spyToggleBoardMode).toHaveBeenCalledTimes(1);
+        expect(spyToggleBoardMode).toHaveBeenCalledWith('boardDefaultMode');
     });
 
     test('calls addBoard and toggleBoardMode with the correct arguments when custom board is created', () => {
-        const { getByTestId } = render(
-            <BoardContext.Provider value={mockContext}>
-                <AddBoard />
-            </BoardContext.Provider>
+        const { result } = renderHook(() => useBoardStore());
+        const spyAddBoard = jest.spyOn(result.current, 'addBoard');
+        const spyToggleBoardMode = jest.spyOn(
+            result.current,
+            'toggleBoardMode'
         );
+
+        const { getByTestId } = render(<AddBoard />);
 
         const nameInput = getByTestId('addboard-enter-name-input');
         const descriptionInput = getByTestId(
@@ -93,17 +105,15 @@ describe('AddBoard component', () => {
         });
         fireEvent.click(createOwnButton);
 
-        expect(mockAddBoard).toHaveBeenCalledTimes(2);
-        expect(mockAddBoard).toHaveBeenCalledWith({
+        expect(spyAddBoard).toHaveBeenCalledTimes(3);
+        expect(spyAddBoard).toHaveBeenCalledWith({
             id: 0,
             lanes: [],
             subtitle: 'A custom subtitle.',
             title: 'A custom title',
         });
 
-        expect(mockToggleBoardMode).toHaveBeenCalledTimes(2);
-        expect(mockToggleBoardMode).toHaveBeenCalledWith(
-            'boardCustomLanesMode'
-        );
+        expect(spyToggleBoardMode).toHaveBeenCalledTimes(2);
+        expect(spyToggleBoardMode).toHaveBeenCalledWith('boardCustomLanesMode');
     });
 });

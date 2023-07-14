@@ -1,15 +1,22 @@
-import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { fileExportSVG } from '../../assets/svgs/file-export.svg';
-import { BoardContext } from '../../context/BoardContext';
+import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { shallow } from 'zustand/shallow';
 
 interface ExportProps {
     all?: boolean;
 }
 
 export const Export: React.FC<ExportProps> = ({ all = false }) => {
-    const { board, exportBoardToJSON, exportBoardsToJSON } =
-        useContext(BoardContext);
+    const [board, exportBoardToJSON, exportBoardsToJSON] = useBoardStore(
+        (state) => [
+            state.board,
+            state.exportBoardToJSON,
+            state.exportBoardsToJSON,
+        ],
+        shallow
+    );
+
     const { t } = useTranslation();
 
     const handleExport = () => {

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { useTranslation } from 'react-i18next';
-import { editSVG } from '../../assets/svgs/edit.svg';
-import { trashSVG } from '../../assets/svgs/trash.svg';
+import editSVG from '../../assets/svgs/edit.svg';
+import trashSVG from '../../assets/svgs/trash.svg';
 import { AddCardModal } from '../../components/AddCard/modal/AddCardModal';
 import { CardMoveModal } from '../../components/CardMoveModal/CardMoveModal';
 import { ConfirmationModal } from '../../components/ConfirmationModal/ConfirmationModal';
@@ -84,7 +84,8 @@ export const LaneComponent: React.FC<LaneProps> = ({
                         setShowDeleteModal(true);
                     }}
                 >
-                    {trashSVG}
+                    <img src={trashSVG} className="svg" loading="lazy" />
+
                     {t('components.Lane.deleteAll')}
                 </div>
             </div>
@@ -104,7 +105,8 @@ export const LaneComponent: React.FC<LaneProps> = ({
                         setShowLaneEditModal(true);
                     }}
                 >
-                    {editSVG}
+                    <img src={editSVG} className="svg" loading="lazy" />
+
                     {t('components.Lane.edit')}
                 </div>
             </div>

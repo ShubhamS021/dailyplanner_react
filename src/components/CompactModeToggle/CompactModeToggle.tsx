@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { compactModeSVG } from '../../assets/svgs/compactMode.svg';
+import compactModeSVG from '../../assets/svgs/compactMode.svg';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
 
@@ -21,7 +21,7 @@ export const CompactModeToggle = () => {
                 }}
             >
                 <div className="flex gap-2 items-center p-2 stroke-[#5E5E5E] dark:stroke-[#B5B5B5] dark:hover:stroke-[#17A2B8] hover:stroke-[#17A2B8] soft">
-                    {compactModeSVG}
+                    <img src={compactModeSVG} className="svg" loading="lazy" />
                     <p className="font-semibold text-sm">
                         {compactMode
                             ? t('components.CompactModeToggle.normal')

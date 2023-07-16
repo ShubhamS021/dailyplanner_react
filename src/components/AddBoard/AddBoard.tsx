@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import logo from '../../assets/logo.png';
-import { arrowLeftSVG } from '../../assets/svgs/arrow-left.svg';
+import arrowLeftSVG from '../../assets/svgs/arrow-left.svg';
 import {
     getLocalizedInitialBoardState,
     getLocalizedInitialLanesState,
@@ -65,7 +65,11 @@ export const AddBoard = () => {
                             handleBackToBoards();
                         }}
                     >
-                        {arrowLeftSVG}
+                        <img
+                            src={arrowLeftSVG}
+                            className="svg"
+                            loading="lazy"
+                        />
                     </div>
                     <div>
                         <img src={logo} alt="Dayplanner Logo"></img>

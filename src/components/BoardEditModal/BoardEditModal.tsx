@@ -6,10 +6,10 @@ import {
     type DropResult,
 } from 'react-beautiful-dnd';
 import { useTranslation } from 'react-i18next';
-import { closeSVG } from '../../assets/svgs/close.svg';
-import { gripVerticalSVG } from '../../assets/svgs/grip-vertical.svg';
-import { infoCircleSVG } from '../../assets/svgs/infoCircle.svg';
-import { trashSVG } from '../../assets/svgs/trash.svg';
+import closeSVG from '../../assets/svgs/close.svg';
+import gripVerticalSVG from '../../assets/svgs/grip-vertical.svg';
+import infoCircleSVG from '../../assets/svgs/infoCircle.svg';
+import trashSVG from '../../assets/svgs/trash.svg';
 import { TagComponent } from '../../components/Tag/Tag';
 import { type Board } from '../../interfaces/Board';
 import { type Lane } from '../../interfaces/Lane';
@@ -214,7 +214,11 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
                                                 {...draggableProvided.dragHandleProps}
                                             >
                                                 <div className="dark:stroke-[#DEDEDE]">
-                                                    {gripVerticalSVG}
+                                                    <img
+                                                        src={gripVerticalSVG}
+                                                        className="svg"
+                                                        loading="lazy"
+                                                    />
                                                 </div>
                                                 <div>
                                                     <TagComponent
@@ -240,7 +244,11 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
                                                             0
                                                         }
                                                     >
-                                                        {trashSVG}
+                                                        <img
+                                                            src={trashSVG}
+                                                            className="svg"
+                                                            loading="lazy"
+                                                        />
                                                     </button>
                                                 </div>
                                             </div>
@@ -265,7 +273,12 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
                     {/* header */}
                     <div className="px-6 pt-6 rounded-t grid grid-cols-[1fr,auto] gap-2">
                         <div className="flex gap-2 dark:stroke-[#fff] dark:fill-[#fff]">
-                            {infoCircleSVG}
+                            <img
+                                src={infoCircleSVG}
+                                className="svg"
+                                loading="lazy"
+                            />
+
                             <h3
                                 className="text-base font-semibold"
                                 data-testid="confirmation-modal-title"
@@ -280,7 +293,11 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
                                     closeModal();
                                 }}
                             >
-                                {closeSVG}
+                                <img
+                                    src={closeSVG}
+                                    className="svg"
+                                    loading="lazy"
+                                />
                             </button>
                         </div>
                     </div>

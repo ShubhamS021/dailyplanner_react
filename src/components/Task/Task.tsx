@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { checkSVG } from '../../assets/svgs/check.svg';
-import { tagCloseSVG } from '../../assets/svgs/tagClose.svg';
+import checkSVG from '../../assets/svgs/check.svg';
+import tagCloseSVG from '../../assets/svgs/tagClose.svg';
 
 export interface TaskProps {
     description: string;
@@ -43,7 +43,7 @@ export const TaskComponent: React.FC<TaskProps> = ({
                     checked={checked}
                 />
                 <div className="bg-[#E1E4E8] rounded-md w-4 h-4 flex flex-shrink-0 justify-center items-center mr-2 cursor-pointer">
-                    {checkSVG}
+                    <img src={checkSVG} className="svg" loading="lazy" />
                 </div>
                 <label
                     onClick={() => {
@@ -63,7 +63,7 @@ export const TaskComponent: React.FC<TaskProps> = ({
                         data-testid="task-remove-button"
                         className="self-middle"
                     >
-                        {tagCloseSVG}
+                        <img src={tagCloseSVG} className="svg" loading="lazy" />
                     </div>
                 )}
             </div>

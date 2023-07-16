@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { arrowLeftSVG } from '../../assets/svgs/arrow-left.svg';
+import arrowLeftSVG from '../../assets/svgs/arrow-left.svg';
 import BoardTitle from '../../components/Board/BoardTitle/BoardTitle';
 import useHistory from '../../hooks/useHistory/useHistory';
 import { type HistoryListEntry } from '../../hooks/useHistory/interfaces/HistoryListEntry';
@@ -102,7 +102,7 @@ export const BoardHistory = () => {
                         handleBackToBoard();
                     }}
                 >
-                    {arrowLeftSVG}
+                    <img src={arrowLeftSVG} className="svg" loading="lazy" />
                 </div>
                 <BoardTitle
                     title={`${t('components.BoardHistory.historyFor')} ${

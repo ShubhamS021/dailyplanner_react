@@ -186,3 +186,12 @@ main {
     @apply z-40;
     @apply bg-black;
 }
+
+.svg {
+    @apply stroke-1;
+    @apply fill-none;
+    @apply stroke-[#14161F];
+    @apply dark:stroke-[#DEDEDE];
+    @apply h-4;
+    @apply w-4;
+}

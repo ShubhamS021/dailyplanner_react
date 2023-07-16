@@ -5,9 +5,9 @@ import {
     Droppable,
     type DropResult,
 } from 'react-beautiful-dnd';
-import { editSVG } from '../../assets/svgs/edit.svg';
-import { routeSVG } from '../../assets/svgs/route.svg';
-import { trashSVG } from '../../assets/svgs/trash.svg';
+import editSVG from '../../assets/svgs/edit.svg';
+import routeSVG from '../../assets/svgs/route.svg';
+import trashSVG from '../../assets/svgs/trash.svg';
 import { type Tag } from '../../interfaces/Tag';
 import { type Task } from '../../interfaces/Task';
 import { type Shirt } from '../../types/Shirt';
@@ -248,7 +248,7 @@ export const CardComponent: React.FC<CardProps> = ({
                     data-testid="move-card-button"
                     disabled={boards.length < 2}
                 >
-                    {routeSVG}
+                    <img src={routeSVG} className="svg" loading="lazy" />
                 </button>
                 <button
                     className="small-button"
@@ -260,7 +260,7 @@ export const CardComponent: React.FC<CardProps> = ({
                     title={t('components.Card.edit') ?? ''}
                     data-testid="edit-card-button"
                 >
-                    {editSVG}
+                    <img src={editSVG} className="svg" loading="lazy" />
                 </button>
 
                 <button
@@ -273,7 +273,7 @@ export const CardComponent: React.FC<CardProps> = ({
                     title={t('components.Card.remove') ?? ''}
                     data-testid="remove-card-button"
                 >
-                    {trashSVG}
+                    <img src={trashSVG} className="svg" loading="lazy" />
                 </button>
             </div>
         );

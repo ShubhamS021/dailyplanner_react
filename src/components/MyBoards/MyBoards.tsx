@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import logo from '../../assets/logo.png';
-import { arrowNarrowRight } from '../../assets/svgs/arrow-narrow-right.svg';
-import { editSVG } from '../../assets/svgs/edit.svg';
-import { gitlabSVG } from '../../assets/svgs/gitlab.svg';
-import { trashSVG } from '../../assets/svgs/trash.svg';
+import arrowNarrowRight from '../../assets/svgs/arrow-narrow-right.svg';
+import editSVG from '../../assets/svgs/edit.svg';
+import gitlabSVG from '../../assets/svgs/gitlab.svg';
+import trashSVG from '../../assets/svgs/trash.svg';
 import { ConfirmationModal } from '../../components/ConfirmationModal/ConfirmationModal';
 import Export from '../../components/Export/Export';
 import Import from '../../components/Import/Import';
@@ -117,7 +117,11 @@ export const MyBoards = () => {
                                         data-testid="edit-board-button"
                                     >
                                         <div className="flex gap-2 items-center p-2 stroke-[#5A5A65] hover:stroke-white">
-                                            {editSVG}
+                                            <img
+                                                src={editSVG}
+                                                className="svg"
+                                                loading="lazy"
+                                            />
                                         </div>
                                     </button>
 
@@ -133,7 +137,11 @@ export const MyBoards = () => {
                                         data-testid="remove-board-button"
                                     >
                                         <div className="flex gap-2 items-center p-2 stroke-[#5A5A65] hover:stroke-white">
-                                            {trashSVG}
+                                            <img
+                                                src={trashSVG}
+                                                className="svg"
+                                                loading="lazy"
+                                            />
                                         </div>
                                     </button>
                                     {showModal
@@ -151,7 +159,11 @@ export const MyBoards = () => {
                                         }}
                                     >
                                         <div className="flex gap-2 items-center p-2 stroke-white">
-                                            {arrowNarrowRight}
+                                            <img
+                                                src={arrowNarrowRight}
+                                                className="svg"
+                                                loading="lazy"
+                                            />
                                         </div>
                                     </button>
                                 </div>
@@ -194,7 +206,8 @@ export const MyBoards = () => {
                     className="text-[#5A5A65] dark:text-[#8B8B8B] flex gap-2 items-center"
                     href="https://gitlab.com/Kevin.Hahn/dayplanner"
                 >
-                    {gitlabSVG}
+                    <img src={gitlabSVG} className="svg" loading="lazy" />
+
                     {t('components.MyBoards.git')}
                     <b className="hover:text-[#FC6D27] transition-all duration-200">
                         gitlab.com

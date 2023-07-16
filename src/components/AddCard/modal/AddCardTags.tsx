@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { tagsSVG } from '../../../assets/svgs/tags.svg';
+import tagsSVG from '../../../assets/svgs/tags.svg';
 import { TagComponent } from '../../../components/Tag/Tag';
 import { type Card } from '../../../interfaces/Card';
 import type Tag from '../../../interfaces/Tag';
@@ -91,7 +91,11 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
                             }
                         >
                             <div className="flex gap-2 items-center p-2">
-                                {tagsSVG}
+                                <img
+                                    src={tagsSVG}
+                                    className="svg"
+                                    loading="lazy"
+                                />
                                 <p className="font-semibold text-sm">
                                     {t(
                                         'components.AddCard.modal.AddCardTags.add'

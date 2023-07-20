@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CheckIcon, TagCloseIcon } from 'ui/Icons';
+import { CheckIcon, TagCloseIcon } from 'ui/Icons/Icons';
 
 export interface TaskProps {
     description: string;

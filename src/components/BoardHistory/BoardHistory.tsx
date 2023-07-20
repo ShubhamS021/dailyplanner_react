@@ -4,7 +4,7 @@ import useHistory from '../../hooks/useHistory/useHistory';
 import { type HistoryListEntry } from '../../hooks/useHistory/interfaces/HistoryListEntry';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
-import { ArrowLeftIcon } from 'ui/Icons';
+import { ArrowLeftIcon } from 'ui/Icons/Icons';
 
 export const BoardHistory = () => {
     const [board, toggleBoardMode] = useBoardStore(

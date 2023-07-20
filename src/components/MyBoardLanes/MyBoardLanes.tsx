@@ -6,7 +6,7 @@ import { type Lane } from '../../interfaces/Lane';
 import { BaseColors, colors } from '../../theme/colors';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
-import { LayoutCardsIcon, PlusIcon } from 'ui/Icons';
+import { LayoutCardsIcon, PlusIcon } from 'ui/Icons/Icons';
 
 export const MyBoardLanes = () => {
     const [boards, addLaneToBoard, removeLaneFromBoard, enterBoard] =

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { BaseColors, colors } from 'theme/colors';
 import { TagComponent } from '../../components/Tag/Tag';
 import { type Board } from '../../interfaces/Board';
-import { CloseIcon, InfoCircleIcon } from 'ui/Icons';
+import { CloseIcon, InfoCircleIcon } from 'ui/Icons/Icons';
 
 export interface LaneEditModalProps {
     title: string;

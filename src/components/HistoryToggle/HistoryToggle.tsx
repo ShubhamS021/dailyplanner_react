@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
-import { HistoryIcon } from 'ui/Icons';
+import { HistoryIcon } from 'ui/Icons/Icons';
 
 export const HistoryToggle = () => {
     const { t } = useTranslation();

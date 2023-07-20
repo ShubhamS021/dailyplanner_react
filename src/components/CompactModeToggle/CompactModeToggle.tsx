@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
-import { CompactModeIcon } from 'ui/Icons';
+import { CompactModeIcon } from 'ui/Icons/Icons';
 
 export const CompactModeToggle = () => {
     const [compactMode, toggleCompactMode] = useBoardStore(

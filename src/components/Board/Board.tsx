@@ -16,7 +16,7 @@ import { LaneComponent } from '../Lane/Lane';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
 import useHistory from 'hooks/useHistory/useHistory';
-import { ArrowLeftIcon } from 'ui/Icons';
+import { ArrowLeftIcon } from 'ui/Icons/Icons';
 
 export const Board = () => {
     const [board, toggleBoardMode, handleDragEnd] = useBoardStore(

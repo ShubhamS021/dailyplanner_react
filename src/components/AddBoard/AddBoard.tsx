@@ -7,7 +7,7 @@ import {
 } from '../../utils/context.util';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
-import { ArrowLeftIcon } from 'ui/Icons';
+import { ArrowLeftIcon } from 'ui/Icons/Icons';
 
 export const AddBoard = () => {
     const [addBoard, toggleBoardMode] = useBoardStore(

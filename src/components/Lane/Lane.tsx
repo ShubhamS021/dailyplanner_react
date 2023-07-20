@@ -15,7 +15,7 @@ import { LaneEditModal } from '../LaneEditModal/LaneEditModal';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
 import useHistory from 'hooks/useHistory/useHistory';
-import { EditIcon, TrashIcon } from 'ui/Icons';
+import { EditIcon, TrashIcon } from 'ui/Icons/Icons';
 
 export interface LaneProps {
     id: number;
@@ -76,7 +76,7 @@ export const LaneComponent: React.FC<LaneProps> = ({
                 className={`text-xs text-[#4d4d4d] dark:text-[#B5B5B5] font-semibold`}
             >
                 <div
-                    className="flex gap-1 cursor-pointer"
+                    className="flex gap-1 cursor-pointer hover:text-red-500 soft stroke-[#5A5A65] dark:stroke-[#B5B5B5] dark:hover:stroke-red-500 hover:stroke-red-500"
                     title={t('components.Lane.deleteTitle') ?? ''}
                     data-testid="delete-all-from-lane-button"
                     onClick={() => {

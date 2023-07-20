@@ -17,7 +17,7 @@ import {
     GripVerticalIcon,
     InfoCircleIcon,
     TrashIcon,
-} from 'ui/Icons';
+} from 'ui/Icons/Icons';
 
 export interface BoardEditModalProps {
     board: Board;

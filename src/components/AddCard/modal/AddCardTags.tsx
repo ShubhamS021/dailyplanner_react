@@ -4,7 +4,7 @@ import { type Card } from '../../../interfaces/Card';
 import type Tag from '../../../interfaces/Tag';
 import { BaseColors, colors } from '../../../theme/colors';
 import { useState } from 'react';
-import { TagsIcon } from 'ui/Icons';
+import { TagsIcon } from 'ui/Icons/Icons';
 
 export interface AddCardTagsProps {
     headline: string;

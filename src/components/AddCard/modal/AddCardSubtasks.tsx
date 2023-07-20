@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { type Card } from '../../../interfaces/Card';
 import type Task from '../../../interfaces/Task';
 import { findLastTaskIdInCard } from 'hooks/useBoardStore/util/board.util';
-import { UncheckedIcon } from 'ui/Icons';
+import { UncheckedIcon } from 'ui/Icons/Icons';
 
 export interface AddCardSubtaskProps {
     headline: string;

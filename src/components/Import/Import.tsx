@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
-import { FileImportIcon } from 'ui/Icons';
+import { FileImportIcon } from 'ui/Icons/Icons';
 
 interface ImportProps {
     all?: boolean;

@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
-import { MoonIcon, SunIcon } from 'ui/Icons';
+import { MoonIcon, SunIcon } from 'ui/Icons/Icons';
 
 export const DarkModeToggle = () => {
     const { t } = useTranslation();

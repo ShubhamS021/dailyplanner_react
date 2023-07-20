@@ -1,47 +1,4 @@
-import icons from '../assets/svgs/icons.svg';
-
-type IconType =
-    | 'add'
-    | 'arrowLeft'
-    | 'arrowNarrowRight'
-    | 'check'
-    | 'close'
-    | 'compactMode'
-    | 'edit'
-    | 'fileExport'
-    | 'fileImport'
-    | 'gitlab'
-    | 'gripVertical'
-    | 'history'
-    | 'infoCircle'
-    | 'layoutCards'
-    | 'moon'
-    | 'plus'
-    | 'route'
-    | 'save'
-    | 'sun'
-    | 'tagClose'
-    | 'tags'
-    | 'trash'
-    | 'unchecked';
-
-interface IconProps {
-    name: IconType;
-    className?: string;
-}
-
-const Icon: React.FC<IconProps> = ({ name, className = '' }) => {
-    return (
-        <>
-            <svg viewBox="0 0 24 24" width={24} height={24}>
-                <use
-                    href={`${icons}#${name}`}
-                    className={`${name} ${className}`.trimEnd()}
-                />
-            </svg>
-        </>
-    );
-};
+import { Icon } from './Icon';
 
 export const AddIcon = () => <Icon name="add" />;
 export const ArrowLeftIcon = () => <Icon name="arrowLeft" />;

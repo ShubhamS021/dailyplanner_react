@@ -13,7 +13,7 @@ import {
     EditIcon,
     GitlabIcon,
     TrashIcon,
-} from 'ui/Icons';
+} from 'ui/Icons/Icons';
 
 export const MyBoards = () => {
     const [boards, enterBoard, renameBoard, removeBoard, toggleBoardMode] =
@@ -118,7 +118,7 @@ export const MyBoards = () => {
                                         }
                                         data-testid="edit-board-button"
                                     >
-                                        <div className="flex gap-2 items-center p-2 stroke-[#5A5A65] hover:stroke-white">
+                                        <div className="flex gap-2 items-center text-xs p-2 stroke-[#5A5A65] hover:stroke-white">
                                             <EditIcon />
                                         </div>
                                     </button>
@@ -134,7 +134,7 @@ export const MyBoards = () => {
                                         }
                                         data-testid="remove-board-button"
                                     >
-                                        <div className="flex gap-2 items-center p-2 stroke-[#5A5A65] hover:stroke-white">
+                                        <div className="flex gap-2 items-center text-xs p-2 stroke-[#5A5A65] hover:stroke-white">
                                             <TrashIcon />
                                         </div>
                                     </button>

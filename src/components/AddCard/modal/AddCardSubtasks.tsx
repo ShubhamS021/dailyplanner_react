@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import uncheckedSVG from '../../../assets/svgs/unchecked.svg';
 import { type Card } from '../../../interfaces/Card';
 import type Task from '../../../interfaces/Task';
 import { findLastTaskIdInCard } from 'hooks/useBoardStore/util/board.util';
+import { UncheckedIcon } from 'ui/Icons';
 
 export interface AddCardSubtaskProps {
     headline: string;
@@ -68,11 +68,7 @@ export const AddCardSubtasks: React.FC<AddCardSubtaskProps> = ({
                     disabled={title === ''}
                 >
                     <div className="flex gap-2 items-center p-2">
-                        <img
-                            src={uncheckedSVG}
-                            className="svg"
-                            loading="lazy"
-                        />
+                        <UncheckedIcon />
                         <p className="font-semibold text-sm">
                             {t(
                                 'components.AddCard.modal.AddCardSubtasks.add'

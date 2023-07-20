@@ -4,7 +4,6 @@ import {
     Droppable,
 } from 'react-beautiful-dnd';
 import { useTranslation } from 'react-i18next';
-import arrowLeftSVG from '../../assets/svgs/arrow-left.svg';
 import CompactModeToggle from '../../components/CompactModeToggle/CompactModeToggle';
 import { DarkModeToggle } from '../../components/DarkModeToggle/DarkModeToggle';
 import Export from '../../components/Export/Export';
@@ -17,6 +16,7 @@ import { LaneComponent } from '../Lane/Lane';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
 import useHistory from 'hooks/useHistory/useHistory';
+import { ArrowLeftIcon } from 'ui/Icons';
 
 export const Board = () => {
     const [board, toggleBoardMode, handleDragEnd] = useBoardStore(
@@ -100,7 +100,7 @@ export const Board = () => {
                         handleBackToBoards();
                     }}
                 >
-                    <img src={arrowLeftSVG} className="svg" loading="lazy" />
+                    <ArrowLeftIcon />
                 </div>
                 <BoardTitle title={board.title} subtitle={board.subtitle} />
                 <div className="flex gap-2 items-center">

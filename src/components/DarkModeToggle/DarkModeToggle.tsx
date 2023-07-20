@@ -1,8 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import moonSVG from '../../assets/svgs/moon.svg';
-import sunSVG from '../../assets/svgs/sun.svg';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
+import { MoonIcon, SunIcon } from 'ui/Icons';
 
 export const DarkModeToggle = () => {
     const { t } = useTranslation();
@@ -30,12 +29,8 @@ export const DarkModeToggle = () => {
                 }}
             >
                 <div className="flex gap-2 items-center p-2 stroke-[#5E5E5E] dark:stroke-[#B5B5B5] hover:stroke-[#17A2B8] dark:hover:stroke-[#17A2B8] dark:text-[#B5B5B5] dark:hover:text-[#17A2B8] soft">
-                    {themeMode === 'dark' && (
-                        <img src={sunSVG} className="svg" loading="lazy" />
-                    )}
-                    {themeMode === 'light' && (
-                        <img src={moonSVG} className="svg" loading="lazy" />
-                    )}
+                    {themeMode === 'dark' && <SunIcon />}
+                    {themeMode === 'light' && <MoonIcon />}
                     <p className="font-semibold text-sm">
                         {themeMode === 'light'
                             ? t('components.DarkModeToggle.dark')

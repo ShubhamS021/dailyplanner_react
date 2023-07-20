@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import tagCloseSVG from '../../assets/svgs/tagClose.svg';
 import { calculateIlluminance } from '../../utils/color.util';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
+import { TagCloseIcon } from 'ui/Icons';
 
 export interface TagProps {
     color: string;
@@ -52,7 +52,7 @@ export const TagComponent: React.FC<TagProps> = ({
                 </div>
                 {isRemoveable === true && (
                     <div onClick={onRemove} data-testid="tag-remove-button">
-                        <img src={tagCloseSVG} className="svg" loading="lazy" />
+                        <TagCloseIcon />
                     </div>
                 )}
             </div>

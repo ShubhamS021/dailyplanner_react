@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { useTranslation } from 'react-i18next';
-import editSVG from '../../assets/svgs/edit.svg';
-import trashSVG from '../../assets/svgs/trash.svg';
 import { AddCardModal } from '../../components/AddCard/modal/AddCardModal';
 import { CardMoveModal } from '../../components/CardMoveModal/CardMoveModal';
 import { ConfirmationModal } from '../../components/ConfirmationModal/ConfirmationModal';
@@ -17,6 +15,7 @@ import { LaneEditModal } from '../LaneEditModal/LaneEditModal';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
 import useHistory from 'hooks/useHistory/useHistory';
+import { EditIcon, TrashIcon } from 'ui/Icons';
 
 export interface LaneProps {
     id: number;
@@ -77,14 +76,14 @@ export const LaneComponent: React.FC<LaneProps> = ({
                 className={`text-xs text-[#4d4d4d] dark:text-[#B5B5B5] font-semibold`}
             >
                 <div
-                    className="flex gap-1 cursor-pointer hover:text-red-500 soft stroke-[#5A5A65] dark:stroke-[#B5B5B5] dark:hover:stroke-red-500 hover:stroke-red-500"
+                    className="flex gap-1 cursor-pointer"
                     title={t('components.Lane.deleteTitle') ?? ''}
                     data-testid="delete-all-from-lane-button"
                     onClick={() => {
                         setShowDeleteModal(true);
                     }}
                 >
-                    <img src={trashSVG} className="svg" loading="lazy" />
+                    <TrashIcon />
 
                     {t('components.Lane.deleteAll')}
                 </div>
@@ -98,15 +97,14 @@ export const LaneComponent: React.FC<LaneProps> = ({
                 className={`text-xs text-[#4d4d4d] dark:text-[#B5B5B5] font-semibold`}
             >
                 <div
-                    className="flex gap-1 cursor-pointer hover:text-[#17A2B8] soft stroke-[#5A5A65] dark:stroke-[#B5B5B5] hover:stroke-[#17A2B8] dark:hover:stroke-[#17A2B8]"
+                    className="flex gap-1 cursor-pointer"
                     title={t('components.Lane.editTitle') ?? ''}
                     data-testid="edit-lane-button"
                     onClick={() => {
                         setShowLaneEditModal(true);
                     }}
                 >
-                    <img src={editSVG} className="svg" loading="lazy" />
-
+                    <EditIcon />
                     {t('components.Lane.edit')}
                 </div>
             </div>

@@ -83,7 +83,7 @@ export const LaneComponent: React.FC<LaneProps> = ({
                         setShowDeleteModal(true);
                     }}
                 >
-                    <TrashIcon />
+                    <TrashIcon classes="h-4 w-4" />
 
                     {t('components.Lane.deleteAll')}
                 </div>
@@ -97,14 +97,14 @@ export const LaneComponent: React.FC<LaneProps> = ({
                 className={`text-xs text-[#4d4d4d] dark:text-[#B5B5B5] font-semibold`}
             >
                 <div
-                    className="flex gap-1 cursor-pointer"
+                    className="flex gap-1 cursor-pointer hover:text-[#17A2B8] soft stroke-[#5A5A65] dark:stroke-[#B5B5B5] hover:stroke-[#17A2B8] dark:hover:stroke-[#17A2B8]"
                     title={t('components.Lane.editTitle') ?? ''}
                     data-testid="edit-lane-button"
                     onClick={() => {
                         setShowLaneEditModal(true);
                     }}
                 >
-                    <EditIcon />
+                    <EditIcon classes="h-4 w-4" />
                     {t('components.Lane.edit')}
                 </div>
             </div>

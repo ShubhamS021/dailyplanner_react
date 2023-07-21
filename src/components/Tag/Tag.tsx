@@ -52,7 +52,10 @@ export const TagComponent: React.FC<TagProps> = ({
                 </div>
                 {isRemoveable === true && (
                     <div onClick={onRemove} data-testid="tag-remove-button">
-                        <TagCloseIcon />
+                        <TagCloseIcon
+                            classes="w-3 h-3 sm:h-4 sm:w-4 text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300 hover:cursor-pointer"
+                            viewBox={{ x: 0, y: 0, width: 20, height: 20 }}
+                        />
                     </div>
                 )}
             </div>

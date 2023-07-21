@@ -119,7 +119,7 @@ export const MyBoards = () => {
                                         data-testid="edit-board-button"
                                     >
                                         <div className="flex gap-2 items-center text-xs p-2 stroke-[#5A5A65] hover:stroke-white">
-                                            <EditIcon />
+                                            <EditIcon classes="h-4 w-4" />
                                         </div>
                                     </button>
 
@@ -135,7 +135,7 @@ export const MyBoards = () => {
                                         data-testid="remove-board-button"
                                     >
                                         <div className="flex gap-2 items-center text-xs p-2 stroke-[#5A5A65] hover:stroke-white">
-                                            <TrashIcon />
+                                            <TrashIcon classes="h-4 w-4" />
                                         </div>
                                     </button>
                                     {showModal

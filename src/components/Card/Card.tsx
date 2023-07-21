@@ -246,7 +246,7 @@ export const CardComponent: React.FC<CardProps> = ({
                     data-testid="move-card-button"
                     disabled={boards.length < 2}
                 >
-                    <RouteIcon />
+                    <RouteIcon classes="mt-1 ml-1 h-5 w-6" />
                 </button>
                 <button
                     className="small-button"
@@ -258,7 +258,7 @@ export const CardComponent: React.FC<CardProps> = ({
                     title={t('components.Card.edit') ?? ''}
                     data-testid="edit-card-button"
                 >
-                    <EditIcon />
+                    <EditIcon classes="h-4 w-4" />
                 </button>
 
                 <button
@@ -271,7 +271,7 @@ export const CardComponent: React.FC<CardProps> = ({
                     title={t('components.Card.remove') ?? ''}
                     data-testid="remove-card-button"
                 >
-                    <TrashIcon />
+                    <TrashIcon classes="h-4 w-4" />
                 </button>
             </div>
         );

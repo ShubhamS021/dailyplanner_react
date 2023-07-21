@@ -242,7 +242,7 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
                                                             0
                                                         }
                                                     >
-                                                        <TrashIcon />
+                                                        <TrashIcon classes="h-4 w-4" />
                                                     </button>
                                                 </div>
                                             </div>
@@ -283,7 +283,14 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
                                     closeModal();
                                 }}
                             >
-                                <CloseIcon />
+                                <CloseIcon
+                                    viewBox={{
+                                        x: 0,
+                                        y: 0,
+                                        width: 20,
+                                        height: 20,
+                                    }}
+                                />
                             </button>
                         </div>
                     </div>

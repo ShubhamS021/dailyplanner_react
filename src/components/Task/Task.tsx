@@ -42,7 +42,7 @@ export const TaskComponent: React.FC<TaskProps> = ({
                     checked={checked}
                 />
                 <div className="bg-[#E1E4E8] rounded-md w-4 h-4 flex flex-shrink-0 justify-center items-center mr-2 cursor-pointer">
-                    <CheckIcon />
+                    <CheckIcon classes="hidden" />
                 </div>
                 <label
                     onClick={() => {
@@ -62,7 +62,7 @@ export const TaskComponent: React.FC<TaskProps> = ({
                         data-testid="task-remove-button"
                         className="self-middle"
                     >
-                        <TagCloseIcon />
+                        <TagCloseIcon classes="w-3 h-3 sm:h-4 sm:w-4 fill-gray-500 hover:fill-gray-600 dark:fill-gray-400 dark:hover:fill-gray-300 hover:cursor-pointer" />
                     </div>
                 )}
             </div>

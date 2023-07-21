@@ -91,7 +91,14 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
                             }
                         >
                             <div className="flex gap-2 items-center p-2">
-                                <TagsIcon />
+                                <TagsIcon
+                                    viewBox={{
+                                        x: 0,
+                                        y: 0,
+                                        width: 16,
+                                        height: 16,
+                                    }}
+                                />
                                 <p className="font-semibold text-sm">
                                     {t(
                                         'components.AddCard.modal.AddCardTags.add'

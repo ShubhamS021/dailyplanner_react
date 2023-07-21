@@ -1,25 +1,123 @@
 import { Icon } from './Icon';
+import { defaultViewBox } from './data/defaultViewBox';
+import { type ViewBox } from './interfaces/ViewBox.interface';
 
-export const AddIcon = () => <Icon name="add" />;
-export const ArrowLeftIcon = () => <Icon name="arrowLeft" />;
-export const ArrowNarrowRightIcon = () => <Icon name="arrowNarrowRight" />;
-export const CheckIcon = () => <Icon name="check" />;
-export const CloseIcon = () => <Icon name="close" />;
-export const CompactModeIcon = () => <Icon name="compactMode" />;
-export const EditIcon = () => <Icon name="edit" />;
-export const FileExportIcon = () => <Icon name="fileExport" />;
-export const FileImportIcon = () => <Icon name="fileImport" />;
-export const GitlabIcon = () => <Icon name="gitlab" />;
-export const GripVerticalIcon = () => <Icon name="gripVertical" />;
-export const HistoryIcon = () => <Icon name="history" />;
-export const InfoCircleIcon = () => <Icon name="infoCircle" />;
-export const LayoutCardsIcon = () => <Icon name="layoutCards" />;
-export const MoonIcon = () => <Icon name="moon" />;
-export const PlusIcon = () => <Icon name="plus" />;
-export const RouteIcon = () => <Icon name="route" />;
-export const SaveIcon = () => <Icon name="save" />;
-export const SunIcon = () => <Icon name="sun" />;
-export const TagCloseIcon = () => <Icon name="tagClose" />;
-export const TagsIcon = () => <Icon name="tags" />;
-export const TrashIcon = () => <Icon name="trash" />;
-export const UncheckedIcon = () => <Icon name="unchecked" />;
+interface IconsProps {
+    classes?: string;
+    viewBox?: ViewBox;
+}
+
+export const AddIcon: React.FC<IconsProps> = ({
+    classes = '',
+    viewBox = defaultViewBox,
+}) => <Icon name="add" options={{ classes, viewBox }} />;
+
+export const ArrowLeftIcon: React.FC<IconsProps> = ({
+    classes = '',
+    viewBox = defaultViewBox,
+}) => <Icon name="arrowLeft" options={{ classes, viewBox }} />;
+
+export const ArrowNarrowRightIcon: React.FC<IconsProps> = ({
+    classes = '',
+    viewBox = defaultViewBox,
+}) => <Icon name="arrowNarrowRight" options={{ classes, viewBox }} />;
+
+export const CheckIcon: React.FC<IconsProps> = ({
+    classes = '',
+    viewBox = defaultViewBox,
+}) => <Icon name="check" options={{ classes, viewBox }} />;
+
+export const CloseIcon: React.FC<IconsProps> = ({
+    classes = '',
+    viewBox = defaultViewBox,
+}) => <Icon name="close" options={{ classes, viewBox }} />;
+
+export const CompactModeIcon: React.FC<IconsProps> = ({
+    classes = '',
+    viewBox = defaultViewBox,
+}) => <Icon name="compactMode" options={{ classes, viewBox }} />;
+
+export const EditIcon: React.FC<IconsProps> = ({
+    classes = '',
+    viewBox = defaultViewBox,
+}) => <Icon name="edit" options={{ classes, viewBox }} />;
+
+export const FileExportIcon: React.FC<IconsProps> = ({
+    classes = '',
+    viewBox = defaultViewBox,
+}) => <Icon name="fileExport" options={{ classes, viewBox }} />;
+
+export const FileImportIcon: React.FC<IconsProps> = ({
+    classes = '',
+    viewBox = defaultViewBox,
+}) => <Icon name="fileImport" options={{ classes, viewBox }} />;
+
+export const GitlabIcon: React.FC<IconsProps> = ({
+    classes = '',
+    viewBox = defaultViewBox,
+}) => <Icon name="gitlab" options={{ classes, viewBox }} />;
+
+export const GripVerticalIcon: React.FC<IconsProps> = ({
+    classes = '',
+    viewBox = defaultViewBox,
+}) => <Icon name="gripVertical" options={{ classes, viewBox }} />;
+
+export const HistoryIcon: React.FC<IconsProps> = ({
+    classes = '',
+    viewBox = defaultViewBox,
+}) => <Icon name="history" options={{ classes, viewBox }} />;
+
+export const InfoCircleIcon: React.FC<IconsProps> = ({
+    classes = '',
+    viewBox = defaultViewBox,
+}) => <Icon name="infoCircle" options={{ classes, viewBox }} />;
+
+export const LayoutCardsIcon: React.FC<IconsProps> = ({
+    classes = '',
+    viewBox = defaultViewBox,
+}) => <Icon name="layoutCards" options={{ classes, viewBox }} />;
+
+export const MoonIcon: React.FC<IconsProps> = ({
+    classes = '',
+    viewBox = defaultViewBox,
+}) => <Icon name="moon" options={{ classes, viewBox }} />;
+
+export const PlusIcon: React.FC<IconsProps> = ({
+    classes = '',
+    viewBox = defaultViewBox,
+}) => <Icon name="plus" options={{ classes, viewBox }} />;
+
+export const RouteIcon: React.FC<IconsProps> = ({
+    classes = '',
+    viewBox = defaultViewBox,
+}) => <Icon name="route" options={{ classes, viewBox }} />;
+
+export const SaveIcon: React.FC<IconsProps> = ({
+    classes = '',
+    viewBox = defaultViewBox,
+}) => <Icon name="save" options={{ classes, viewBox }} />;
+
+export const SunIcon: React.FC<IconsProps> = ({
+    classes = '',
+    viewBox = defaultViewBox,
+}) => <Icon name="sun" options={{ classes, viewBox }} />;
+
+export const TagCloseIcon: React.FC<IconsProps> = ({
+    classes = '',
+    viewBox = defaultViewBox,
+}) => <Icon name="tagClose" options={{ classes, viewBox }} />;
+
+export const TagsIcon: React.FC<IconsProps> = ({
+    classes = '',
+    viewBox = defaultViewBox,
+}) => <Icon name="tags" options={{ classes, viewBox }} />;
+
+export const TrashIcon: React.FC<IconsProps> = ({
+    classes = '',
+    viewBox = defaultViewBox,
+}) => <Icon name="trash" options={{ classes, viewBox }} />;
+
+export const UncheckedIcon: React.FC<IconsProps> = ({
+    classes = '',
+    viewBox = defaultViewBox,
+}) => <Icon name="unchecked" options={{ classes, viewBox }} />;

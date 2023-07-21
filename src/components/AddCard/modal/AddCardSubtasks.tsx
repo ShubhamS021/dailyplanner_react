@@ -68,7 +68,9 @@ export const AddCardSubtasks: React.FC<AddCardSubtaskProps> = ({
                     disabled={title === ''}
                 >
                     <div className="flex gap-2 items-center p-2">
-                        <UncheckedIcon />
+                        <UncheckedIcon
+                            viewBox={{ x: 0, y: 0, width: 18, height: 18 }}
+                        />
                         <p className="font-semibold text-sm">
                             {t(
                                 'components.AddCard.modal.AddCardSubtasks.add'

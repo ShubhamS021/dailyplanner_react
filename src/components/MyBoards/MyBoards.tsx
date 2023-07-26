@@ -1,10 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import logo from '../../assets/logo.png';
-import { arrowNarrowRight } from '../../assets/svgs/arrow-narrow-right.svg';
-import { editSVG } from '../../assets/svgs/edit.svg';
-import { gitlabSVG } from '../../assets/svgs/gitlab.svg';
-import { trashSVG } from '../../assets/svgs/trash.svg';
 import { ConfirmationModal } from '../../components/ConfirmationModal/ConfirmationModal';
 import Export from '../../components/Export/Export';
 import Import from '../../components/Import/Import';
@@ -12,6 +8,12 @@ import { LanguageChooser } from '../../components/LanguageChooser/LanguageChoose
 import { BoardEditModal } from '../BoardEditModal/BoardEditModal';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
+import {
+    ArrowNarrowRightIcon,
+    EditIcon,
+    GitlabIcon,
+    TrashIcon,
+} from 'ui/Icons/Icons';
 
 export const MyBoards = () => {
     const [boards, enterBoard, renameBoard, removeBoard, toggleBoardMode] =
@@ -116,8 +118,8 @@ export const MyBoards = () => {
                                         }
                                         data-testid="edit-board-button"
                                     >
-                                        <div className="flex gap-2 items-center p-2 stroke-[#5A5A65] hover:stroke-white">
-                                            {editSVG}
+                                        <div className="flex gap-2 items-center text-xs p-2 stroke-[#5A5A65] hover:stroke-white">
+                                            <EditIcon classes="h-4 w-4" />
                                         </div>
                                     </button>
 
@@ -132,8 +134,8 @@ export const MyBoards = () => {
                                         }
                                         data-testid="remove-board-button"
                                     >
-                                        <div className="flex gap-2 items-center p-2 stroke-[#5A5A65] hover:stroke-white">
-                                            {trashSVG}
+                                        <div className="flex gap-2 items-center text-xs p-2 stroke-[#5A5A65] hover:stroke-white">
+                                            <TrashIcon classes="h-4 w-4" />
                                         </div>
                                     </button>
                                     {showModal
@@ -151,7 +153,7 @@ export const MyBoards = () => {
                                         }}
                                     >
                                         <div className="flex gap-2 items-center p-2 stroke-white">
-                                            {arrowNarrowRight}
+                                            <ArrowNarrowRightIcon />
                                         </div>
                                     </button>
                                 </div>
@@ -194,7 +196,8 @@ export const MyBoards = () => {
                     className="text-[#5A5A65] dark:text-[#8B8B8B] flex gap-2 items-center"
                     href="https://gitlab.com/Kevin.Hahn/dayplanner"
                 >
-                    {gitlabSVG}
+                    <GitlabIcon />
+
                     {t('components.MyBoards.git')}
                     <b className="hover:text-[#FC6D27] transition-all duration-200">
                         gitlab.com

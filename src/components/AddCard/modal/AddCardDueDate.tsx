@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { addSVG } from '../../../assets/svgs/add.svg';
 import { type Card } from '../../../interfaces/Card';
 import type Tag from '../../../interfaces/Tag';
 import { colors } from '../../../theme/colors';
+import { AddIcon } from 'ui/Icons/Icons';
 
 export interface AddCardDueDateProps {
     headline: string;
@@ -72,7 +72,7 @@ export const AddCardDueDate: React.FC<AddCardDueDateProps> = ({
                         }
                     >
                         <div className="flex gap-2 items-center p-2">
-                            {addSVG}
+                            <AddIcon />
                             <p className="font-semibold text-sm">
                                 {t('components.AddCard.modal.AddDueDate.add')}
                             </p>

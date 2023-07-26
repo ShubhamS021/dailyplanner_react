@@ -1,10 +1,10 @@
 import { useTranslation } from 'react-i18next';
-import { arrowLeftSVG } from '../../assets/svgs/arrow-left.svg';
 import BoardTitle from '../../components/Board/BoardTitle/BoardTitle';
 import useHistory from '../../hooks/useHistory/useHistory';
 import { type HistoryListEntry } from '../../hooks/useHistory/interfaces/HistoryListEntry';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
+import { ArrowLeftIcon } from 'ui/Icons/Icons';
 
 export const BoardHistory = () => {
     const [board, toggleBoardMode] = useBoardStore(
@@ -102,7 +102,7 @@ export const BoardHistory = () => {
                         handleBackToBoard();
                     }}
                 >
-                    {arrowLeftSVG}
+                    <ArrowLeftIcon />
                 </div>
                 <BoardTitle
                     title={`${t('components.BoardHistory.historyFor')} ${

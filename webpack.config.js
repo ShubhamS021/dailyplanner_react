@@ -74,7 +74,11 @@ module.exports = (_env, argv) => {
                     ],
                 },
                 {
-                    test: /\.(png|svg|jpg|jpeg|gif|ico)$/,
+                    test: /\.svg/,
+                    type: 'asset/resource',
+                },
+                {
+                    test: /\.(png|jpg|jpeg|gif|ico)$/,
                     exclude: /node_modules/,
                     use: ['file-loader?name=[name].[ext]'],
                 },

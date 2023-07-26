@@ -1,8 +1,8 @@
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { fileImportSVG } from '../../assets/svgs/file-import.svg';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
+import { FileImportIcon } from 'ui/Icons/Icons';
 
 interface ImportProps {
     all?: boolean;
@@ -45,7 +45,7 @@ export const Import: React.FC<ImportProps> = ({ all = false }) => {
                 />
 
                 <div className="flex gap-2 items-center p-2 stroke-[#5E5E5E] dark:stroke-[#B5B5B5] hover:stroke-[#17A2B8] dark:hover:stroke-[#17A2B8] soft">
-                    {fileImportSVG}
+                    <FileImportIcon />
                     <p className="font-semibold text-sm">
                         {all
                             ? t('components.Import.importAll')

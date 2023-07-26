@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import { historyToggleSVG } from '../../assets/svgs/history-toggle.svg';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
+import { HistoryIcon } from 'ui/Icons/Icons';
 
 export const HistoryToggle = () => {
     const { t } = useTranslation();
@@ -24,7 +24,7 @@ export const HistoryToggle = () => {
             }}
         >
             <div className="flex gap-2 items-center p-2 stroke-[#5E5E5E] dark:stroke-[#B5B5B5] hover:stroke-[#17A2B8] dark:hover:stroke-[#17A2B8] soft">
-                {historyToggleSVG}
+                <HistoryIcon />
                 <p className="font-semibold text-sm">
                     {t('components.HistoryToggle.history')}
                 </p>

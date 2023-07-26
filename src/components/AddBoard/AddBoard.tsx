@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import logo from '../../assets/logo.png';
-import { arrowLeftSVG } from '../../assets/svgs/arrow-left.svg';
 import {
     getLocalizedInitialBoardState,
     getLocalizedInitialLanesState,
 } from '../../utils/context.util';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
+import { ArrowLeftIcon } from 'ui/Icons/Icons';
 
 export const AddBoard = () => {
     const [addBoard, toggleBoardMode] = useBoardStore(
@@ -65,7 +65,7 @@ export const AddBoard = () => {
                             handleBackToBoards();
                         }}
                     >
-                        {arrowLeftSVG}
+                        <ArrowLeftIcon />
                     </div>
                     <div>
                         <img src={logo} alt="Dayplanner Logo"></img>

@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import logo from '../../assets/logo.png';
-import { layoutCardsSVG } from '../../assets/svgs/layoutCards.svg';
-import { plusSVG } from '../../assets/svgs/plus.svg';
 import { TagComponent } from '../../components/Tag/Tag';
 import { type Lane } from '../../interfaces/Lane';
 import { BaseColors, colors } from '../../theme/colors';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
+import { LayoutCardsIcon, PlusIcon } from 'ui/Icons/Icons';
 
 export const MyBoardLanes = () => {
     const [boards, addLaneToBoard, removeLaneFromBoard, enterBoard] =
@@ -78,7 +77,7 @@ export const MyBoardLanes = () => {
                 </div>
                 <div className="w-full grid justify-center gap-6">
                     <div className="dark:bg-[#2E3842] border border-[#f5f4f4] dark:border-[#34414E]  p-2 rounded-lg flex gap-2 items-center ">
-                        {layoutCardsSVG}
+                        <LayoutCardsIcon />
                         <input
                             placeholder={
                                 t('components.MyBoardLanes.name') ?? ''
@@ -120,7 +119,7 @@ export const MyBoardLanes = () => {
                             }}
                         >
                             <div className="flex gap-2 items-center p-2 ">
-                                {plusSVG}
+                                <PlusIcon />
                                 <p className="font-semibold text-sm">
                                     {t('components.MyBoardLanes.add')}
                                 </p>

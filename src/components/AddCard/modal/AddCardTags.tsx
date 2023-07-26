@@ -1,10 +1,10 @@
 import { useTranslation } from 'react-i18next';
-import { tagsSVG } from '../../../assets/svgs/tags.svg';
 import { TagComponent } from '../../../components/Tag/Tag';
 import { type Card } from '../../../interfaces/Card';
 import type Tag from '../../../interfaces/Tag';
 import { BaseColors, colors } from '../../../theme/colors';
 import { useState } from 'react';
+import { TagsIcon } from 'ui/Icons/Icons';
 
 export interface AddCardTagsProps {
     headline: string;
@@ -91,7 +91,14 @@ export const AddCardTags: React.FC<AddCardTagsProps> = ({
                             }
                         >
                             <div className="flex gap-2 items-center p-2">
-                                {tagsSVG}
+                                <TagsIcon
+                                    viewBox={{
+                                        x: 0,
+                                        y: 0,
+                                        width: 16,
+                                        height: 16,
+                                    }}
+                                />
                                 <p className="font-semibold text-sm">
                                     {t(
                                         'components.AddCard.modal.AddCardTags.add'

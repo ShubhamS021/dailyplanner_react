@@ -5,9 +5,6 @@ import {
     Droppable,
     type DropResult,
 } from 'react-beautiful-dnd';
-import { editSVG } from '../../assets/svgs/edit.svg';
-import { routeSVG } from '../../assets/svgs/route.svg';
-import { trashSVG } from '../../assets/svgs/trash.svg';
 import { type Tag } from '../../interfaces/Tag';
 import { type Task } from '../../interfaces/Task';
 import { type Shirt } from '../../types/Shirt';
@@ -15,6 +12,7 @@ import { TagComponent } from '../Tag/Tag';
 import { TaskComponent } from '../Task/Task';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
+import { EditIcon, RouteIcon, TrashIcon } from 'ui/Icons/Icons';
 
 export interface CardProps {
     id: number;
@@ -248,7 +246,7 @@ export const CardComponent: React.FC<CardProps> = ({
                     data-testid="move-card-button"
                     disabled={boards.length < 2}
                 >
-                    {routeSVG}
+                    <RouteIcon classes="mt-1 ml-1 h-5 w-6" />
                 </button>
                 <button
                     className="small-button"
@@ -260,7 +258,7 @@ export const CardComponent: React.FC<CardProps> = ({
                     title={t('components.Card.edit') ?? ''}
                     data-testid="edit-card-button"
                 >
-                    {editSVG}
+                    <EditIcon classes="h-4 w-4" />
                 </button>
 
                 <button
@@ -273,7 +271,7 @@ export const CardComponent: React.FC<CardProps> = ({
                     title={t('components.Card.remove') ?? ''}
                     data-testid="remove-card-button"
                 >
-                    {trashSVG}
+                    <TrashIcon classes="h-4 w-4" />
                 </button>
             </div>
         );

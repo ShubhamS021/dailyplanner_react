@@ -4,7 +4,6 @@ import {
     Droppable,
 } from 'react-beautiful-dnd';
 import { useTranslation } from 'react-i18next';
-import { arrowLeftSVG } from '../../assets/svgs/arrow-left.svg';
 import CompactModeToggle from '../../components/CompactModeToggle/CompactModeToggle';
 import { DarkModeToggle } from '../../components/DarkModeToggle/DarkModeToggle';
 import Export from '../../components/Export/Export';
@@ -17,6 +16,7 @@ import { LaneComponent } from '../Lane/Lane';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
 import useHistory from 'hooks/useHistory/useHistory';
+import { ArrowLeftIcon } from 'ui/Icons/Icons';
 
 export const Board = () => {
     const [board, toggleBoardMode, handleDragEnd] = useBoardStore(
@@ -33,6 +33,7 @@ export const Board = () => {
     };
 
     const renderLanes = (lanes: Lane[]) => {
+        if (lanes === null) return;
         return (
             <>
                 {lanes.map((l, index) => (
@@ -99,7 +100,7 @@ export const Board = () => {
                         handleBackToBoards();
                     }}
                 >
-                    {arrowLeftSVG}
+                    <ArrowLeftIcon />
                 </div>
                 <BoardTitle title={board.title} subtitle={board.subtitle} />
                 <div className="flex gap-2 items-center">
@@ -112,7 +113,7 @@ export const Board = () => {
             <div
                 className={`p-5 rounded-2xl bg-[#F8F8F8] grid gap-6 dark:bg-[#212932]`}
                 style={{
-                    gridTemplateColumns: `repeat(${board.lanes.length},minmax(200px,1fr)`,
+                    gridTemplateColumns: `repeat(${board.lanes?.length},minmax(200px,1fr)`,
                 }}
                 data-testid="page-board"
             >

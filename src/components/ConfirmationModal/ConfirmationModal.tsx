@@ -1,6 +1,5 @@
 import { t } from 'i18next';
-import { closeSVG } from '../../assets/svgs/close.svg';
-import { infoCircleSVG } from '../../assets/svgs/infoCircle.svg';
+import { CloseIcon, InfoCircleIcon } from 'ui/Icons/Icons';
 
 export interface ConfirmationModalProps {
     title: string;
@@ -27,7 +26,7 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
                     {/* header */}
                     <div className="px-6 pt-6 rounded-t grid grid-cols-[1fr,auto] gap-2">
                         <div className="flex gap-2 dark:stroke-[#fff] dark:fill-[#fff]">
-                            {infoCircleSVG}
+                            <InfoCircleIcon />
                             <h3
                                 className="text-base font-semibold"
                                 data-testid="confirmation-modal-title"
@@ -42,7 +41,7 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
                                     closeModal();
                                 }}
                             >
-                                {closeSVG}
+                                <CloseIcon />
                             </button>
                         </div>
                     </div>

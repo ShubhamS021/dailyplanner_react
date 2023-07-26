@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { useTranslation } from 'react-i18next';
-import { editSVG } from '../../assets/svgs/edit.svg';
-import { trashSVG } from '../../assets/svgs/trash.svg';
 import { AddCardModal } from '../../components/AddCard/modal/AddCardModal';
 import { CardMoveModal } from '../../components/CardMoveModal/CardMoveModal';
 import { ConfirmationModal } from '../../components/ConfirmationModal/ConfirmationModal';
@@ -17,6 +15,7 @@ import { LaneEditModal } from '../LaneEditModal/LaneEditModal';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
 import useHistory from 'hooks/useHistory/useHistory';
+import { EditIcon, TrashIcon } from 'ui/Icons/Icons';
 
 export interface LaneProps {
     id: number;
@@ -84,7 +83,8 @@ export const LaneComponent: React.FC<LaneProps> = ({
                         setShowDeleteModal(true);
                     }}
                 >
-                    {trashSVG}
+                    <TrashIcon classes="h-4 w-4" />
+
                     {t('components.Lane.deleteAll')}
                 </div>
             </div>
@@ -104,7 +104,7 @@ export const LaneComponent: React.FC<LaneProps> = ({
                         setShowLaneEditModal(true);
                     }}
                 >
-                    {editSVG}
+                    <EditIcon classes="h-4 w-4" />
                     {t('components.Lane.edit')}
                 </div>
             </div>

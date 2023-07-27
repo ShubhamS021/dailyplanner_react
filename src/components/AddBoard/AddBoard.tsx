@@ -68,7 +68,11 @@ export const AddBoard = () => {
                         <ArrowLeftIcon />
                     </div>
                     <div>
-                        <img src={logo} alt="Dayplanner Logo"></img>
+                        <img
+                            src={logo}
+                            alt="Dayplanner Logo"
+                            className="h-20 w-20"
+                        ></img>
                     </div>
                 </div>
 

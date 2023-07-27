@@ -78,7 +78,11 @@ export const MyBoards = () => {
         <main className="p-10 h-screen grid grid-cols-1 grid-rows-[1fr,auto] justify-center items-center">
             <div className="flex flex-col items-center gap-3">
                 <div>
-                    <img src={logo} alt="Dayplanner Logo"></img>
+                    <img
+                        src={logo}
+                        alt="Dayplanner Logo"
+                        className="h-20 w-20"
+                    ></img>
                 </div>
                 <div
                     className="text-3xl font-bold text-[#212121] dark:text-[#DEDEDE]"

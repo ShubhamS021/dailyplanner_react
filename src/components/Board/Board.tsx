@@ -60,8 +60,6 @@ export const Board = () => {
     };
 
     const handleDrag = (result: DropResult) => {
-        console.log(board, result);
-
         const { draggableId, source, destination } = result;
         const details = draggableId.split('-');
         const laneId = +details[1];
@@ -71,13 +69,6 @@ export const Board = () => {
             ?.cards.find((c) => c.id === cardId);
 
         if (card !== null && card !== undefined) {
-            console.log(
-                card,
-                board.id,
-                source.droppableId,
-                destination?.droppableId ?? source.droppableId
-            );
-
             addMovementToHistory(
                 card,
                 board.id,

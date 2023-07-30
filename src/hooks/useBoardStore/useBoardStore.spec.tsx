@@ -332,7 +332,7 @@ describe('useBoardStore', () => {
 
         const boardId = 777;
         act(() => {
-            result.current.restoreBoard({
+            result.current.updateBoard({
                 ...initialBoardState,
                 lanes: [...initialLanes],
                 id: boardId,

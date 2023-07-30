@@ -38,6 +38,6 @@ export interface Actions {
     updateLaneColor: (laneId: number, color: string) => void;
     enterBoard: (boardId: number) => void;
     updateLanguage: (language: string) => void;
-    restoreBoard: (board: Board) => void;
     updateBoards: (board: Board) => void;
+    updateBoard: (board: Board) => void;
 }

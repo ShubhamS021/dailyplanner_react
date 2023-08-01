@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { calculateIlluminance } from '../../utils/color.util';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
@@ -20,7 +20,6 @@ export const TagComponent: React.FC<TagProps> = ({
     onRemove,
 }) => {
     const [themeMode] = useBoardStore((state) => [state.themeMode], shallow);
-
     const [tagColor, setTagColor] = useState(color);
 
     useEffect(() => {
@@ -28,8 +27,11 @@ export const TagComponent: React.FC<TagProps> = ({
     }, [themeMode]);
 
     let style = { backgroundColor: tagColor, border: '' };
-    const textColor =
-        calculateIlluminance(color) > 0.5 ? 'text-[#5A5A65]' : 'text-white';
+    const textColor = useMemo(
+        () =>
+            calculateIlluminance(color) > 0.5 ? 'text-[#5A5A65]' : 'text-white',
+        []
+    );
 
     if (hasOutline === true) {
         style = {

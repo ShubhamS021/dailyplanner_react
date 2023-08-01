@@ -22,7 +22,7 @@ export const MyBoardLanes = () => {
 
     const [laneValue, setLaneValue] = useState('');
     const [selectedColorIndex, setSelectedColorIndex] = useState(0);
-    const [selectedColor, setSelectedColor] = useState(colors.light_grey);
+    const [selectedColor, setSelectedColor] = useState(colors.Green);
     const { t } = useTranslation();
 
     const handleTagColorSelection = (color: string) => {

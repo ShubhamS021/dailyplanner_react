@@ -6,10 +6,10 @@ import {
     type DropResult,
 } from 'react-beautiful-dnd';
 import { useTranslation } from 'react-i18next';
-import { TagComponent } from '../../components/Tag/Tag';
-import { type Board } from '../../interfaces/Board';
-import { type Lane } from '../../interfaces/Lane';
-import { BaseColors, colors } from '../../theme/colors';
+import { TagComponent } from '../../../../ui/Tag/Tag';
+import { type Board } from '../../../../interfaces/Board';
+import { type Lane } from '../../../../interfaces/Lane';
+import { BaseColors, colors } from '../../../../theme/colors';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
 import {

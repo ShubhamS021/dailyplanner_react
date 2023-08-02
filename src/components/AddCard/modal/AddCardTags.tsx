@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { TagComponent } from '../../../components/Tag/Tag';
+import { TagComponent } from '../../../ui/Tag/Tag';
 import { type Card } from '../../../interfaces/Card';
 import type Tag from '../../../interfaces/Tag';
 import { BaseColors, colors } from '../../../theme/colors';

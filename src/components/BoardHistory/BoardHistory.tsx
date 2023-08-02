@@ -22,13 +22,13 @@ export const BoardHistory = () => {
     const renderAdditionalData = (entry: HistoryListEntry) => {
         switch (entry.type) {
             case 'MOVEMENT':
-                return `${t(`components.BoardHistory.movedFrom`)} ${
+                return `${t('components.BoardHistory.movedFrom')} ${
                     entry.data.laneStart ?? -1
                 } ${t(`components.BoardHistory.movedTo`)} ${
                     entry.data.laneEnd ?? -1
                 }`;
             case 'BOARDMOVEMENT':
-                return `${t(`components.BoardHistory.movedToBoard`)} ${
+                return `${t('components.BoardHistory.movedToBoard')} ${
                     entry.data.boardEnd ?? -1
                 }`;
             case 'CREATION':
@@ -46,13 +46,13 @@ export const BoardHistory = () => {
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
                         <tr>
                             <th scope="col" className="px-6 pb-4">
-                                {t(`components.BoardHistory.time`)}
+                                {t('components.BoardHistory.time')}
                             </th>
                             <th scope="col" className="pb-4">
-                                {t(`components.BoardHistory.type`)}
+                                {t('components.BoardHistory.type')}
                             </th>
                             <th scope="col" className="pb-4">
-                                {t(`components.BoardHistory.data`)}
+                                {t('components.BoardHistory.data')}
                             </th>
                         </tr>
                     </thead>

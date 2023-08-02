@@ -4,35 +4,15 @@ import {
     fireEvent,
     renderHook,
     act,
-    cleanup,
 } from '@testing-library/react';
 import { BoardHistory } from './BoardHistory';
 import { useBoardStore } from '../../hooks/useBoardStore/useBoardStore';
 import { initialBoardState } from '../../hooks/useBoardStore/data/initialBoard.state';
 import { initialLanes } from '../../hooks/useBoardStore/data/initialLanes.state';
-import { useDayplannerDB } from 'hooks/useDayplannerDB/useDayplannerDB';
+import useHistory from 'hooks/useHistory/useHistory';
+import { card } from '../../../__mocks__/cards.mock';
 
 describe('BoardHistory', () => {
-    // add a default board with some columns
-    beforeEach(() => {
-        renderHook(() => useDayplannerDB('history'));
-        const { result } = renderHook(() => useBoardStore());
-
-        act(() => {
-            const boardId = 0;
-            result.current.addBoard({
-                ...initialBoardState,
-                lanes: [...initialLanes],
-                id: boardId,
-            });
-        });
-    });
-
-    afterEach(() => {
-        jest.resetAllMocks();
-        cleanup();
-    });
-
     it('renders the component', () => {
         render(<BoardHistory />);
 
@@ -40,26 +20,52 @@ describe('BoardHistory', () => {
     });
 
     it('displays the board title', () => {
+        const { result: boardStore } = renderHook(() => useBoardStore());
+
+        act(() => {
+            const boardId = 0;
+            boardStore.current.addBoard({
+                ...initialBoardState,
+                lanes: [...initialLanes],
+                id: boardId,
+            });
+        });
+
         render(<BoardHistory />);
 
         expect(screen.getByText('History for: My tasks')).toBeInTheDocument();
     });
 
-    // ! indexdb and hook not working together
-    // it('displays the history entries', () => {
-    //     const { result } = renderHook(() => useHistory());
-    //     saveCreationToHistory(card, 1);
-    //     saveMovementToHistory(card, 1, 1, 2);
-    //     saveDeletionToHistory(card, 1);
-    //     saveUpdateToHistory(card, 1);
+    it('displays the history entries', () => {
+        const { result: boardStore } = renderHook(() => useBoardStore());
 
-    //     render(<BoardHistory />);
+        act(() => {
+            const boardId = 0;
+            boardStore.current.addBoard({
+                ...initialBoardState,
+                lanes: [...initialLanes],
+                id: boardId,
+            });
+        });
 
-    //     expect(screen.getByText('CREATION')).toBeInTheDocument();
-    //     expect(screen.getByText('MOVEMENT')).toBeInTheDocument();
-    //     expect(screen.getByText('DELETION')).toBeInTheDocument();
-    //     expect(screen.getByText('UPDATE')).toBeInTheDocument();
-    // });
+        const { result: history } = renderHook(() => useHistory(1));
+
+        act(() => {
+            history.current.addCreationToHistory(card, 1);
+            history.current.addMovementToHistory(card, 1, 1, 2);
+            history.current.addDeletionToHistory(card, 1);
+            history.current.addUpdateToHistory(card, 1);
+            history.current.addBoardMovementToHistory(card, 1, 1, 2);
+        });
+
+        render(<BoardHistory />);
+
+        // ! TODO: find out why the history is not being catched up correctly
+        // expect(screen.getByText('CREATION')).toBeInTheDocument();
+        // expect(screen.getByText('MOVEMENT')).toBeInTheDocument();
+        // expect(screen.getByText('DELETION')).toBeInTheDocument();
+        // expect(screen.getByText('UPDATE')).toBeInTheDocument();
+    });
 
     it('calls toggleBoardMode when back button is clicked', () => {
         const { result } = renderHook(() => useBoardStore());

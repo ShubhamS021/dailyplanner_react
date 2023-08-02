@@ -5,7 +5,7 @@ import { ConfirmationModal } from '../../components/ConfirmationModal/Confirmati
 import Export from '../../components/Export/Export';
 import Import from '../../components/Import/Import';
 import { LanguageChooser } from '../../components/LanguageChooser/LanguageChooser';
-import { BoardEditModal } from '../BoardEditModal/BoardEditModal';
+import { BoardEditModal } from '../Board/modal/BoardEditModal/BoardEditModal';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
 import {

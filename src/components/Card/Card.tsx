@@ -8,8 +8,8 @@ import {
 import { type Tag } from '../../interfaces/Tag';
 import { type Task } from '../../interfaces/Task';
 import { type Shirt } from '../../types/Shirt';
-import { TagComponent } from '../Tag/Tag';
-import { TaskComponent } from '../Task/Task';
+import { TagComponent } from '../../ui/Tag/Tag';
+import { TaskComponent } from '../../ui/Task/Task';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
 import { EditIcon, RouteIcon, TrashIcon } from 'ui/Icons/Icons';

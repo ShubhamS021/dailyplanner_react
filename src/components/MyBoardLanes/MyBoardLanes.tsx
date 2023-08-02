@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import logo from '../../assets/logo.png';
-import { TagComponent } from '../../components/Tag/Tag';
+import { TagComponent } from '../../ui/Tag/Tag';
 import { type Lane } from '../../interfaces/Lane';
 import { BaseColors, colors } from '../../theme/colors';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';

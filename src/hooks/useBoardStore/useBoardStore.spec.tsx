@@ -332,6 +332,10 @@ describe('useBoardStore', () => {
 
         const boardId = 777;
         act(() => {
+            result.current.addBoard({ id: boardId });
+        });
+
+        act(() => {
             result.current.updateBoard({
                 ...initialBoardState,
                 lanes: [...initialLanes],
@@ -339,7 +343,7 @@ describe('useBoardStore', () => {
             });
         });
 
-        expect(result.current.boards.some((b) => b.id === boardId));
+        expect(result.current.boards.some((b) => b.id === boardId)).toBe(true);
     });
 
     test('Adds a task to a card', () => {

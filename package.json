@@ -10,6 +10,7 @@
     },
     "scripts": {
         "start": "vite",
+        "start:exposed": "vite --host",
         "build": "vite build",
         "test": "vitest run --coverage",
         "cypress:open": "cypress open",

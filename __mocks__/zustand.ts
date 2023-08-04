@@ -1,20 +1,21 @@
 import { type Actions } from 'hooks/useBoardStore/interfaces/Actions';
 import { type State } from 'hooks/useBoardStore/interfaces/State';
 import { act } from 'react-dom/test-utils';
+import { vi } from 'vitest';
 import { create as actualCreate } from 'zustand';
 
 // a variable to hold reset functions for all stores declared in the app
 const storeResetFns = new Set();
 const extension = {
-    subscribe: jest.fn(() => {
+    subscribe: vi.fn(() => {
         return () => {};
     }),
-    unsubscribe: jest.fn(),
-    send: jest.fn(),
-    init: jest.fn(),
-    error: jest.fn(),
+    unsubscribe: vi.fn(),
+    send: vi.fn(),
+    init: vi.fn(),
+    error: vi.fn(),
 };
-const extensionConnector = { connect: jest.fn(() => extension) };
+const extensionConnector = { connect: vi.fn(() => extension) };
 (window as any).__REDUX_DEVTOOLS_EXTENSION__ = extensionConnector;
 
 // when creating a store, we get its initial state, create a reset function and add it in the set

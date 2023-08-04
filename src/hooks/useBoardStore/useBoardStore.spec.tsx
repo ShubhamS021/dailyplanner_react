@@ -9,6 +9,7 @@ import { type DropResult } from 'react-beautiful-dnd';
 import { fulfilledTask, task } from '../../../__mocks__/tasks.mock';
 import { type Card } from 'interfaces/Card';
 import { useDayplannerDB } from 'hooks/useDayplannerDB/useDayplannerDB';
+import { vi } from 'vitest';
 
 describe('useBoardStore', () => {
     // add a default board with some columns
@@ -27,7 +28,7 @@ describe('useBoardStore', () => {
     });
 
     afterEach(() => {
-        jest.resetAllMocks();
+        vi.resetAllMocks();
         cleanup();
     });
 
@@ -173,7 +174,7 @@ describe('useBoardStore', () => {
 
     test('Exports all boards', () => {
         const { result } = renderHook(() => useBoardStore());
-        const spy = jest.spyOn(result.current, 'exportBoardToJSON');
+        const spy = vi.spyOn(result.current, 'exportBoardToJSON');
 
         act(() => {
             result.current.addCardToLane({ ...card }, 0);
@@ -332,7 +333,7 @@ describe('useBoardStore', () => {
 
         const boardId = 777;
         act(() => {
-            result.current.addBoard({ id: boardId });
+            result.current.addBoard({ ...initialBoardState, id: boardId });
         });
 
         act(() => {

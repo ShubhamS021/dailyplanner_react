@@ -3,6 +3,7 @@ import Export from './Export';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
 import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
+import { vi } from 'vitest';
 
 describe('Export', () => {
     // add a default board with some columns
@@ -21,7 +22,7 @@ describe('Export', () => {
 
     it('exports a board', () => {
         const { result } = renderHook(() => useBoardStore());
-        const spy = jest.spyOn(result.current, 'exportBoardToJSON');
+        const spy = vi.spyOn(result.current, 'exportBoardToJSON');
         const { getByTestId } = render(<Export />);
 
         const exportButton = getByTestId('export-button');

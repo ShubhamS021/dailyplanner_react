@@ -3,6 +3,7 @@ import CompactModeToggle from './CompactModeToggle';
 import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
 import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { vi } from 'vitest';
 
 describe('CompactModeToggle', () => {
     // add a default board with some columns
@@ -28,7 +29,7 @@ describe('CompactModeToggle', () => {
 
     test('clicking the button calls the toggleCompactMode function', () => {
         const { result } = renderHook(() => useBoardStore());
-        const spy = jest.spyOn(result.current, 'toggleCompactMode');
+        const spy = vi.spyOn(result.current, 'toggleCompactMode');
 
         const { getByTestId } = render(<CompactModeToggle />);
         const button = getByTestId(/compactmode-toggle-button/);

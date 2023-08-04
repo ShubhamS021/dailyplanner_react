@@ -9,6 +9,7 @@ import MyBoards from './MyBoards';
 import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
 import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { vi } from 'vitest';
 
 describe('MyBoards', () => {
     // add a default board with some columns
@@ -44,7 +45,7 @@ describe('MyBoards', () => {
 
     // test('calls enterBoard when clicking the enter board button', () => {
     //     const { result } = renderHook(() => useBoardStore());
-    //     const spy = jest.spyOn(result.current, 'enterBoard');
+    //     const spy = vi.spyOn(result.current, 'enterBoard');
 
     //     const [enterBoardButton] = screen.getAllByTestId(
     //         'myboards-enterboard-button'
@@ -55,7 +56,7 @@ describe('MyBoards', () => {
 
     // test('calls toggleBoardMode when clicking the create own button', () => {
     //     const { result } = renderHook(() => useBoardStore());
-    //     const spy = jest.spyOn(result.current, 'toggleBoardMode');
+    //     const spy = vi.spyOn(result.current, 'toggleBoardMode');
 
     //     const createOwnButton = screen.getByTestId(
     //         'myboards-create-own-button'
@@ -76,7 +77,7 @@ describe('MyBoards', () => {
 
     test('calls removeBoard when confirming the deletion of a board', () => {
         const { result } = renderHook(() => useBoardStore());
-        const spy = jest.spyOn(result.current, 'removeBoard');
+        const spy = vi.spyOn(result.current, 'removeBoard');
 
         const [removeBoardButton] = screen.getAllByTestId(
             'remove-board-button'
@@ -110,7 +111,7 @@ describe('MyBoards', () => {
 
     it('should submit the edit board modal directly after opening', () => {
         const { result } = renderHook(() => useBoardStore());
-        const spy = jest.spyOn(result.current, 'renameBoard');
+        const spy = vi.spyOn(result.current, 'renameBoard');
 
         const [editButton] = screen.getAllByTestId('edit-board-button');
         fireEvent.click(editButton);

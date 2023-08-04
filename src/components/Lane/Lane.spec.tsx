@@ -7,6 +7,7 @@ import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
 import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
 import { card, card2, card3 } from '../../../__mocks__/cards.mock';
 import { useDayplannerDB } from 'hooks/useDayplannerDB/useDayplannerDB';
+import { vi } from 'vitest';
 
 describe('Lane', () => {
     // add a default board with some columns
@@ -165,7 +166,7 @@ describe('Lane', () => {
 
     it('should submit the confirmation modal when delete all button is clicked', () => {
         const { result } = renderHook(() => useBoardStore());
-        const spy = jest.spyOn(result.current, 'removeCardsFromLane');
+        const spy = vi.spyOn(result.current, 'removeCardsFromLane');
 
         const { getByTestId } = render(
             <DragDropContext onDragEnd={() => {}}>
@@ -195,7 +196,7 @@ describe('Lane', () => {
 
     it('should remove a card from lane', () => {
         const { result } = renderHook(() => useBoardStore());
-        const spy = jest.spyOn(result.current, 'removeCardFromLane');
+        const spy = vi.spyOn(result.current, 'removeCardFromLane');
 
         const { getAllByTestId } = render(
             <DragDropContext onDragEnd={() => {}}>
@@ -250,7 +251,7 @@ describe('Lane', () => {
 
     it('should submit edit a card from lane', () => {
         const { result } = renderHook(() => useBoardStore());
-        const spy = jest.spyOn(result.current, 'updateCard');
+        const spy = vi.spyOn(result.current, 'updateCard');
 
         const { getByTestId, getAllByTestId } = render(
             <DragDropContext onDragEnd={() => {}}>

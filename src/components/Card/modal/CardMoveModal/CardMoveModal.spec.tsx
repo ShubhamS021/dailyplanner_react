@@ -9,9 +9,10 @@ import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
 import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { CardMoveModal, type CardMoveModalProps } from './CardMoveModal';
+import { vi } from 'vitest';
 
-const modalConfirmationMock = jest.fn();
-const closeModalMock = jest.fn();
+const modalConfirmationMock = vi.fn();
+const closeModalMock = vi.fn();
 
 const defaultProps: CardMoveModalProps = {
     title: 'Move Card',

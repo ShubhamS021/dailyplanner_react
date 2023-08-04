@@ -10,6 +10,7 @@ import { MyBoardLanes } from './MyBoardLanes';
 import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
 import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { vi } from 'vitest';
 
 describe('MyBoardLanes', () => {
     // add a default board with some columns
@@ -31,7 +32,7 @@ describe('MyBoardLanes', () => {
     });
 
     afterEach(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
     });
 
     it('renders the component', () => {
@@ -52,7 +53,7 @@ describe('MyBoardLanes', () => {
 
     it('adds a new lane to the board when the "Add lane" button is clicked', () => {
         const { result } = renderHook(() => useBoardStore());
-        const spy = jest.spyOn(result.current, 'addLaneToBoard');
+        const spy = vi.spyOn(result.current, 'addLaneToBoard');
 
         const laneNameInput = screen.getByTestId('myboardlanes-lanename-input');
         const blueColorButton = screen.getAllByTestId(
@@ -77,7 +78,7 @@ describe('MyBoardLanes', () => {
 
     it('removes a lane from the board when the remove button is clicked', () => {
         const { result } = renderHook(() => useBoardStore());
-        const spy = jest.spyOn(result.current, 'removeLaneFromBoard');
+        const spy = vi.spyOn(result.current, 'removeLaneFromBoard');
 
         const laneNameInput = screen.getByTestId('myboardlanes-lanename-input');
         const blueColorButton = screen.getAllByTestId(
@@ -97,7 +98,7 @@ describe('MyBoardLanes', () => {
 
     it('enters the board when the "Start" button is clicked', () => {
         const { result } = renderHook(() => useBoardStore());
-        const spy = jest.spyOn(result.current, 'enterBoard');
+        const spy = vi.spyOn(result.current, 'enterBoard');
 
         const laneNameInput = screen.getByTestId('myboardlanes-lanename-input');
         const blueColorButton = screen.getAllByTestId(

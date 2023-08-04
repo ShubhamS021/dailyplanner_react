@@ -1,16 +1,16 @@
 import { type ThemeMode } from '../src/types/ThemeMode';
 
-export const mockAddLaneToBoard = jest.fn();
-export const mockAddCardToLane = jest.fn();
-export const mockAddCardToInitialBoardLane = jest.fn();
-export const mockRemoveLaneFromBoard = jest.fn();
-export const mockRemoveCardFromLane = jest.fn();
-export const mockRemoveCardsFromLane = jest.fn();
-export const mockMoveCardToBoard = jest.fn();
-export const mockHandleDragEnd = jest.fn();
-export const mockClearBoard = jest.fn();
-export const mockExportBoardToJSON = jest.fn();
-export const mockExportBoardsToJSON = jest.fn();
+export const mockAddLaneToBoard = vi.fn();
+export const mockAddCardToLane = vi.fn();
+export const mockAddCardToInitialBoardLane = vi.fn();
+export const mockRemoveLaneFromBoard = vi.fn();
+export const mockRemoveCardFromLane = vi.fn();
+export const mockRemoveCardsFromLane = vi.fn();
+export const mockMoveCardToBoard = vi.fn();
+export const mockHandleDragEnd = vi.fn();
+export const mockClearBoard = vi.fn();
+export const mockExportBoardToJSON = vi.fn();
+export const mockExportBoardsToJSON = vi.fn();
 export const mockImportBoardFromJSON = jest
     .fn()
     .mockImplementation(
@@ -18,28 +18,28 @@ export const mockImportBoardFromJSON = jest
             mockImportBoardFromJSON.mock.calls.push([e]);
         }
     );
-export const mockUpdateCard = jest.fn();
-export const mockUpdateTask = jest.fn();
+export const mockUpdateCard = vi.fn();
+export const mockUpdateTask = vi.fn();
 
 let mockedLastTaskId = 1;
-export const mockFindLastTaskIdInSpecificCard = jest.fn(() => {
+export const mockFindLastTaskIdInSpecificCard = vi.fn(() => {
     mockedLastTaskId++;
     return mockedLastTaskId;
 });
 
-export const mockToggleCompactMode = jest.fn();
-export const mockToggleBoardMode = jest.fn();
+export const mockToggleCompactMode = vi.fn();
+export const mockToggleBoardMode = vi.fn();
 export const mockToggleThemeMode = jest
     .fn()
     .mockImplementation((current: ThemeMode) => {
         if (current === 'light') return 'dark';
         return 'light';
     });
-export const mockAddBoard = jest.fn();
-export const mockRemoveBoard = jest.fn();
-export const mockRenameBoard = jest.fn();
-export const mockRenameLane = jest.fn();
-export const mockMoveLane = jest.fn();
-export const mockUpdateLaneColor = jest.fn();
-export const mockEnterBoard = jest.fn();
-export const mockUpdateLanguage = jest.fn();
+export const mockAddBoard = vi.fn();
+export const mockRemoveBoard = vi.fn();
+export const mockRenameBoard = vi.fn();
+export const mockRenameLane = vi.fn();
+export const mockMoveLane = vi.fn();
+export const mockUpdateLaneColor = vi.fn();
+export const mockEnterBoard = vi.fn();
+export const mockUpdateLanguage = vi.fn();

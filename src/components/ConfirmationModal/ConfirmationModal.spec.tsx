@@ -1,12 +1,13 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { ConfirmationModal } from './ConfirmationModal';
+import { vi } from 'vitest';
 
 describe('ConfirmationModal', () => {
-    const closeModal = jest.fn();
-    const modalConfirmation = jest.fn();
+    const closeModal = vi.fn();
+    const modalConfirmation = vi.fn();
 
     beforeEach(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
     });
 
     test('renders with title and text', () => {

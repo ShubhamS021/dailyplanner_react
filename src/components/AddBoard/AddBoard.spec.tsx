@@ -3,6 +3,7 @@ import AddBoard from './AddBoard';
 import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
 import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { vi } from 'vitest';
 
 describe('AddBoard component', () => {
     // add a default board with some columns
@@ -37,11 +38,8 @@ describe('AddBoard component', () => {
 
     test('calls addBoard and toggleBoardMode with the correct arguments when standard board is created', () => {
         const { result } = renderHook(() => useBoardStore());
-        const spyAddBoard = jest.spyOn(result.current, 'addBoard');
-        const spyToggleBoardMode = jest.spyOn(
-            result.current,
-            'toggleBoardMode'
-        );
+        const spyAddBoard = vi.spyOn(result.current, 'addBoard');
+        const spyToggleBoardMode = vi.spyOn(result.current, 'toggleBoardMode');
         const { getByTestId } = render(<AddBoard />);
 
         fireEvent.click(getByTestId('addboard-create-standard-button'));
@@ -85,11 +83,8 @@ describe('AddBoard component', () => {
 
     test('calls addBoard and toggleBoardMode with the correct arguments when custom board is created', () => {
         const { result } = renderHook(() => useBoardStore());
-        const spyAddBoard = jest.spyOn(result.current, 'addBoard');
-        const spyToggleBoardMode = jest.spyOn(
-            result.current,
-            'toggleBoardMode'
-        );
+        const spyAddBoard = vi.spyOn(result.current, 'addBoard');
+        const spyToggleBoardMode = vi.spyOn(result.current, 'toggleBoardMode');
 
         const { getByTestId } = render(<AddBoard />);
 
@@ -105,7 +100,7 @@ describe('AddBoard component', () => {
         });
         fireEvent.click(createOwnButton);
 
-        expect(spyAddBoard).toHaveBeenCalledTimes(3);
+        expect(spyAddBoard).toHaveBeenCalledTimes(1);
         expect(spyAddBoard).toHaveBeenCalledWith({
             id: 0,
             lanes: [],
@@ -113,7 +108,7 @@ describe('AddBoard component', () => {
             title: 'A custom title',
         });
 
-        expect(spyToggleBoardMode).toHaveBeenCalledTimes(2);
+        expect(spyToggleBoardMode).toHaveBeenCalledTimes(1);
         expect(spyToggleBoardMode).toHaveBeenCalledWith('boardCustomLanesMode');
     });
 });

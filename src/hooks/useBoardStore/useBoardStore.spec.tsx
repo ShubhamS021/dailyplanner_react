@@ -332,7 +332,7 @@ describe('useBoardStore', () => {
 
         const boardId = 777;
         act(() => {
-            result.current.addBoard({ id: boardId });
+            result.current.addBoard({ ...initialBoardState, id: boardId });
         });
 
         act(() => {

@@ -1,6 +1,6 @@
 *.css
 *.svg
 *.png
-src/react-app-env.d.ts
+src/vite-env.d.ts
 src/reportWebVitals.ts
 src/setupTests.ts

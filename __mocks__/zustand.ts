@@ -1,6 +1,7 @@
 import { type Actions } from 'hooks/useBoardStore/interfaces/Actions';
 import { type State } from 'hooks/useBoardStore/interfaces/State';
 import { act } from 'react-dom/test-utils';
+import { vi } from 'vitest';
 import { create as actualCreate } from 'zustand';
 
 // a variable to hold reset functions for all stores declared in the app

@@ -9,6 +9,7 @@ import { LaneEditModal } from './LaneEditModal';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
 import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
+import { vi } from 'vitest';
 
 describe('LaneEditModal', () => {
     // add a default board with some columns
@@ -34,8 +35,8 @@ describe('LaneEditModal', () => {
                 title={title}
                 board={result.current.board}
                 laneId={0}
-                modalConfirmation={jest.fn()}
-                closeModal={jest.fn()}
+                modalConfirmation={vi.fn()}
+                closeModal={vi.fn()}
                 editNameText={''}
                 editLabelText={''}
             />
@@ -58,8 +59,8 @@ describe('LaneEditModal', () => {
                 laneId={0}
                 submitButtonText={submitButtonText}
                 cancelButtonText={cancelButtonText}
-                modalConfirmation={jest.fn()}
-                closeModal={jest.fn()}
+                modalConfirmation={vi.fn()}
+                closeModal={vi.fn()}
                 editNameText={''}
                 editLabelText={''}
             />
@@ -82,8 +83,8 @@ describe('LaneEditModal', () => {
                 title="Rename Lane"
                 board={result.current.board}
                 laneId={0}
-                modalConfirmation={jest.fn()}
-                closeModal={jest.fn()}
+                modalConfirmation={vi.fn()}
+                closeModal={vi.fn()}
                 editNameText={''}
                 editLabelText={''}
             />
@@ -101,8 +102,8 @@ describe('LaneEditModal', () => {
                 title="Rename Lane"
                 board={result.current.board}
                 laneId={0}
-                modalConfirmation={jest.fn()}
-                closeModal={jest.fn()}
+                modalConfirmation={vi.fn()}
+                closeModal={vi.fn()}
                 editNameText={''}
                 editLabelText={''}
             />
@@ -117,13 +118,13 @@ describe('LaneEditModal', () => {
     it('should call closeModal when close button is clicked', () => {
         const { result } = renderHook(() => useBoardStore());
 
-        const closeModal = jest.fn();
+        const closeModal = vi.fn();
         const { getByTestId } = render(
             <LaneEditModal
                 title="Title"
                 board={result.current.board}
                 laneId={0}
-                modalConfirmation={jest.fn()}
+                modalConfirmation={vi.fn()}
                 closeModal={closeModal}
                 editNameText={''}
                 editLabelText={''}
@@ -139,13 +140,13 @@ describe('LaneEditModal', () => {
     it('should call closeModal when cancel button is clicked', () => {
         const { result } = renderHook(() => useBoardStore());
 
-        const closeModal = jest.fn();
+        const closeModal = vi.fn();
         const { getByTestId } = render(
             <LaneEditModal
                 title="Title"
                 board={result.current.board}
                 laneId={0}
-                modalConfirmation={jest.fn()}
+                modalConfirmation={vi.fn()}
                 closeModal={closeModal}
                 editNameText={''}
                 editLabelText={''}
@@ -161,8 +162,8 @@ describe('LaneEditModal', () => {
     it('should call modalConfirmation and closeModal when confirmation button is clicked', () => {
         const { result } = renderHook(() => useBoardStore());
 
-        const modalConfirmation = jest.fn();
-        const closeModal = jest.fn();
+        const modalConfirmation = vi.fn();
+        const closeModal = vi.fn();
         const { getByTestId } = render(
             <LaneEditModal
                 title="Title"

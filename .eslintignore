@@ -4,3 +4,4 @@
 src/vite-env.d.ts
 src/reportWebVitals.ts
 src/setupTests.ts
+vite.config.ts

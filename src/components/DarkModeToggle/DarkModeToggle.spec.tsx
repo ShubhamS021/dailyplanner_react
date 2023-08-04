@@ -3,11 +3,12 @@ import { DarkModeToggle } from './DarkModeToggle';
 import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
 import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { vi } from 'vitest';
 
 // Mock react-i18next useTranslation hook
-jest.mock('react-i18next', () => ({
+vi.mock('react-i18next', () => ({
     useTranslation: () => ({
-        t: jest.fn((key) => key),
+        t: vi.fn((key) => key),
     }),
 }));
 
@@ -54,7 +55,7 @@ describe('DarkModeToggle', () => {
 
     it('should call toggleThemeMode function for dark mode when the toggle button is clicked', () => {
         const { result } = renderHook(() => useBoardStore());
-        const spy = jest.spyOn(result.current, 'toggleThemeMode');
+        const spy = vi.spyOn(result.current, 'toggleThemeMode');
 
         const { getByTestId } = render(<DarkModeToggle />);
 
@@ -66,7 +67,7 @@ describe('DarkModeToggle', () => {
 
     it('should call toggleThemeMode function for light mode when the toggle button is clicked', () => {
         const { result } = renderHook(() => useBoardStore());
-        const spy = jest.spyOn(result.current, 'toggleThemeMode');
+        const spy = vi.spyOn(result.current, 'toggleThemeMode');
 
         act(() => {
             result.current.toggleThemeMode('dark');

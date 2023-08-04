@@ -9,6 +9,7 @@ import { BoardEditModal } from './BoardEditModal';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
 import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
 import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
+import { vi } from 'vitest';
 
 describe('boardeditModal', () => {
     // add a default board with some columns
@@ -40,8 +41,8 @@ describe('boardeditModal', () => {
             <BoardEditModal
                 title={title}
                 board={result.current.board}
-                modalConfirmation={jest.fn()}
-                closeModal={jest.fn()}
+                modalConfirmation={vi.fn()}
+                closeModal={vi.fn()}
             />
         );
 
@@ -62,8 +63,8 @@ describe('boardeditModal', () => {
                 board={result.current.board}
                 submitButtonText={submitButtonText}
                 cancelButtonText={cancelButtonText}
-                modalConfirmation={jest.fn()}
-                closeModal={jest.fn()}
+                modalConfirmation={vi.fn()}
+                closeModal={vi.fn()}
             />
         );
 
@@ -83,8 +84,8 @@ describe('boardeditModal', () => {
             <BoardEditModal
                 title="Rename Board"
                 board={result.current.board}
-                modalConfirmation={jest.fn()}
-                closeModal={jest.fn()}
+                modalConfirmation={vi.fn()}
+                closeModal={vi.fn()}
             />
         );
 
@@ -101,8 +102,8 @@ describe('boardeditModal', () => {
             <BoardEditModal
                 title="Rename Board"
                 board={result.current.board}
-                modalConfirmation={jest.fn()}
-                closeModal={jest.fn()}
+                modalConfirmation={vi.fn()}
+                closeModal={vi.fn()}
             />
         );
 
@@ -120,12 +121,12 @@ describe('boardeditModal', () => {
     it('should call closeModal when close button is clicked', () => {
         const { result } = renderHook(() => useBoardStore());
 
-        const closeModal = jest.fn();
+        const closeModal = vi.fn();
         const { getByTestId } = render(
             <BoardEditModal
                 title="Title"
                 board={result.current.board}
-                modalConfirmation={jest.fn()}
+                modalConfirmation={vi.fn()}
                 closeModal={closeModal}
             />
         );
@@ -139,12 +140,12 @@ describe('boardeditModal', () => {
     it('should call closeModal when cancel button is clicked', () => {
         const { result } = renderHook(() => useBoardStore());
 
-        const closeModal = jest.fn();
+        const closeModal = vi.fn();
         const { getByTestId } = render(
             <BoardEditModal
                 title="Title"
                 board={result.current.board}
-                modalConfirmation={jest.fn()}
+                modalConfirmation={vi.fn()}
                 closeModal={closeModal}
             />
         );
@@ -158,8 +159,8 @@ describe('boardeditModal', () => {
     it('should call modalConfirmation and closeModal when confirmation button is clicked', () => {
         const { result } = renderHook(() => useBoardStore());
 
-        const modalConfirmation = jest.fn();
-        const closeModal = jest.fn();
+        const modalConfirmation = vi.fn();
+        const closeModal = vi.fn();
         const { getByTestId } = render(
             <BoardEditModal
                 title="Title"

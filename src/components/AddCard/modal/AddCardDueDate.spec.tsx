@@ -1,9 +1,10 @@
 import { fireEvent, render } from '@testing-library/react';
 import { AddCardDueDate } from './AddCardDueDate';
 import { card } from '../../../../__mocks__/cards.mock';
+import { vi } from 'vitest';
 
 describe('AddCardDueDate', () => {
-    const mockUpdateTags = jest.fn();
+    const mockUpdateTags = vi.fn();
 
     it('renders the headline and explanation', () => {
         const { getByTestId } = render(

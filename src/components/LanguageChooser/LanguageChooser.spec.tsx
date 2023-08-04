@@ -9,18 +9,19 @@ import { LanguageChooser } from './LanguageChooser';
 import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
 import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { vi } from 'vitest';
 
 // Mock react-i18next useTranslation hook
-jest.mock('react-i18next', () => ({
+vi.mock('react-i18next', () => ({
     useTranslation: () => ({
-        t: jest.fn((key) => key),
-        i18n: { resolvedLanguage: 'en', changeLanguage: jest.fn() },
+        t: vi.fn((key) => key),
+        i18n: { resolvedLanguage: 'en', changeLanguage: vi.fn() },
     }),
 }));
 
 describe('LanguageChooser', () => {
     beforeEach(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
     });
 
     // add a default board with some columns
@@ -52,7 +53,7 @@ describe('LanguageChooser', () => {
 
     it('should call updateLanguage and changeLanguage when a language button is clicked', async () => {
         const { result } = renderHook(() => useBoardStore());
-        const spy = jest.spyOn(result.current, 'updateLanguage');
+        const spy = vi.spyOn(result.current, 'updateLanguage');
 
         render(<LanguageChooser />);
         let languageButton = screen.getByText('English');

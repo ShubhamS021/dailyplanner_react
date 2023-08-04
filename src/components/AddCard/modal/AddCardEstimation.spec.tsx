@@ -1,10 +1,11 @@
 import { fireEvent, render } from '@testing-library/react';
 import { AddCardEstimation } from './AddCardEstimation';
 import { card } from '../../../../__mocks__/cards.mock';
+import { vi } from 'vitest';
 
 describe('AddCardEstimation', () => {
     const headline = 'Test Headline';
-    const updateEstimationMock = jest.fn();
+    const updateEstimationMock = vi.fn();
 
     it('renders the headline', () => {
         const { getByTestId } = render(

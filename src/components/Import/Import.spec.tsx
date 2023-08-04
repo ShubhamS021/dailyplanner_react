@@ -3,6 +3,7 @@ import Import from './Import';
 import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
 import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
 import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { vi } from 'vitest';
 
 describe('Import', () => {
     // add a default board with some columns
@@ -21,7 +22,7 @@ describe('Import', () => {
 
     it('imports a board', () => {
         const { result } = renderHook(() => useBoardStore());
-        const spy = jest.spyOn(result.current, 'importBoardFromJSON');
+        const spy = vi.spyOn(result.current, 'importBoardFromJSON');
         const { getByTestId } = render(<Import />);
 
         const input = getByTestId('import-input') as HTMLInputElement;

@@ -11,6 +11,7 @@ import { initialBoardState } from '../../hooks/useBoardStore/data/initialBoard.s
 import { initialLanes } from '../../hooks/useBoardStore/data/initialLanes.state';
 import useHistory from 'hooks/useHistory/useHistory';
 import { card } from '../../../__mocks__/cards.mock';
+import { vi } from 'vitest';
 
 describe('BoardHistory', () => {
     it('renders the component', () => {
@@ -69,7 +70,7 @@ describe('BoardHistory', () => {
 
     it('calls toggleBoardMode when back button is clicked', () => {
         const { result } = renderHook(() => useBoardStore());
-        const spy = jest.spyOn(result.current, 'toggleBoardMode');
+        const spy = vi.spyOn(result.current, 'toggleBoardMode');
         render(<BoardHistory />);
 
         fireEvent.click(screen.getByTestId('btnBackToBoard'));

@@ -4,7 +4,13 @@
         "baseUrl": "./src",
         "module": "esnext",
         "lib": ["dom", "dom.iterable", "esnext"],
-        "types": ["vite/client", "vite-plugin-svgr/client"],
+        "types": [
+            "vite/client",
+            "vite-plugin-svgr/client",
+            "cypress",
+            "node",
+            "@testing-library/jest-dom"
+        ],
         "target": "ESNext",
         "removeComments": true,
         "jsx": "react-jsx",
@@ -26,7 +32,6 @@
         "allowSyntheticDefaultImports": true,
         "noImplicitAny": true
     },
-    "_types": ["cypress", "node", "jest", "@testing-library/jest-dom"],
     "include": [
         "src",
         "./cypress/**/*.ts",

@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
-import { shallow } from 'zustand/shallow';
-import { CloseIcon, InfoCircleIcon } from 'ui/Icons/Icons';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import { CloseIcon, InfoCircleIcon } from '@/ui/Icons/Icons';
 
 export interface CardMoveModalProps {
     title: string;
@@ -20,10 +19,10 @@ export const CardMoveModal: React.FC<CardMoveModalProps> = ({
     closeModal,
     modalConfirmation,
 }) => {
-    const [boards, board] = useBoardStore(
-        (state) => [state.boards, state.board],
-        shallow
-    );
+    const [boards, board] = useBoardStore((state) => [
+        state.boards,
+        state.board,
+    ]);
 
     const [selectedBoardId, setSelectedBoardId] = useState(
         boards.filter((b) => b.id !== board.id)[0].id
@@ -74,7 +73,7 @@ export const CardMoveModal: React.FC<CardMoveModalProps> = ({
                         >
                             {boards
                                 .filter((b) => b.id !== board.id)
-                                .map((b) => {
+                                .map((b: Board) => {
                                     return (
                                         <option
                                             key={`board-${b.id}`}

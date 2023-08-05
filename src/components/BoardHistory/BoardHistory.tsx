@@ -1,16 +1,15 @@
 import { useTranslation } from 'react-i18next';
-import BoardTitle from '../../components/Board/BoardTitle/BoardTitle';
-import useHistory from '../../hooks/useHistory/useHistory';
-import { type HistoryListEntry } from '../../hooks/useHistory/interfaces/HistoryListEntry';
-import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
-import { shallow } from 'zustand/shallow';
-import { ArrowLeftIcon } from 'ui/Icons/Icons';
+import BoardTitle from '@/components/Board/BoardTitle/BoardTitle';
+import useHistory from '@/hooks/useHistory/useHistory';
+import { type HistoryListEntry } from '@/hooks/useHistory/interfaces/HistoryListEntry';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import { ArrowLeftIcon } from '@/ui/Icons/Icons';
 
 export const BoardHistory = () => {
-    const [board, toggleBoardMode] = useBoardStore(
-        (state) => [state.board, state.toggleBoardMode],
-        shallow
-    );
+    const [board, toggleBoardMode] = useBoardStore((state) => [
+        state.board,
+        state.toggleBoardMode,
+    ]);
 
     const { history } = useHistory(board.id);
     const { t } = useTranslation();

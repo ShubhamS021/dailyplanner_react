@@ -5,14 +5,13 @@ import {
     Droppable,
     type DropResult,
 } from 'react-beautiful-dnd';
-import { type Tag } from '../../interfaces/Tag';
-import { type Task } from '../../interfaces/Task';
-import { type Shirt } from '../../types/Shirt';
-import { TagComponent } from '../../ui/Tag/Tag';
-import { TaskComponent } from '../../ui/Task/Task';
-import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
-import { shallow } from 'zustand/shallow';
-import { EditIcon, RouteIcon, TrashIcon } from 'ui/Icons/Icons';
+import { type Tag } from '@/interfaces/Tag';
+import { type Task } from '@/interfaces/Task';
+import { type Shirt } from '@/types/Shirt';
+import { TagComponent } from '@/ui/Tag/Tag';
+import { TaskComponent } from '@/ui/Task/Task';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import { EditIcon, RouteIcon, TrashIcon } from '@/ui/Icons/Icons';
 
 export interface CardProps {
     id: number;
@@ -47,10 +46,11 @@ export const CardComponent: React.FC<CardProps> = ({
     onRemoveTask,
     onUpdateTasks,
 }) => {
-    const [boards, compactMode, updateTask] = useBoardStore(
-        (state) => [state.boards, state.compactMode, state.updateTask],
-        shallow
-    );
+    const [boards, compactMode, updateTask] = useBoardStore((state) => [
+        state.boards,
+        state.compactMode,
+        state.updateTask,
+    ]);
 
     const renderTags = (tags: Tag[] | undefined) => {
         if (tags === undefined) return;

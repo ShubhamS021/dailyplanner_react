@@ -4,25 +4,25 @@ import {
     Droppable,
 } from 'react-beautiful-dnd';
 import { useTranslation } from 'react-i18next';
-import CompactModeToggle from '../../components/CompactModeToggle/CompactModeToggle';
-import { DarkModeToggle } from '../../components/DarkModeToggle/DarkModeToggle';
-import Export from '../../components/Export/Export';
-import { HistoryToggle } from '../../components/HistoryToggle/HistoryToggle';
-import Import from '../../components/Import/Import';
-import { type Lane } from '../../interfaces/Lane';
+import CompactModeToggle from '@/components/CompactModeToggle/CompactModeToggle';
+import { DarkModeToggle } from '@/components/DarkModeToggle/DarkModeToggle';
+import Export from '@/components/Export/Export';
+import { HistoryToggle } from '@/components/HistoryToggle/HistoryToggle';
+import Import from '@/components/Import/Import';
+import { type Lane } from '@/interfaces/Lane';
 import { AddCard } from '../AddCard/AddCard';
 import { BoardTitle } from '../Board/BoardTitle/BoardTitle';
 import { LaneComponent } from '../Lane/Lane';
-import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
-import { shallow } from 'zustand/shallow';
-import useHistory from 'hooks/useHistory/useHistory';
-import { ArrowLeftIcon } from 'ui/Icons/Icons';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import useHistory from '@/hooks/useHistory/useHistory';
+import { ArrowLeftIcon } from '@/ui/Icons/Icons';
 
 export const Board = () => {
-    const [board, toggleBoardMode, handleDragEnd] = useBoardStore(
-        (state) => [state.board, state.toggleBoardMode, state.handleDragEnd],
-        shallow
-    );
+    const [board, toggleBoardMode, handleDragEnd] = useBoardStore((state) => [
+        state.board,
+        state.toggleBoardMode,
+        state.handleDragEnd,
+    ]);
 
     const { addMovementToHistory } = useHistory(board.id);
 

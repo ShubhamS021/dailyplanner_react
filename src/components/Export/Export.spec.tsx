@@ -1,8 +1,8 @@
 import { act, fireEvent, render, renderHook } from '@testing-library/react';
 import Export from './Export';
-import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
-import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
-import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import { initialBoardState } from '@/hooks/useBoardStore/data/initialBoard.state';
+import { initialLanes } from '@/hooks/useBoardStore/data/initialLanes.state';
 import { vi } from 'vitest';
 
 describe('Export', () => {

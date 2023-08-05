@@ -1,18 +1,18 @@
-import { Board } from 'interfaces/Board';
-import { type Card } from 'interfaces/Card';
-import { type Lane } from 'interfaces/Lane';
+import { Board } from '@/interfaces/Board';
+import { type Card } from '@/interfaces/Card';
+import { type Lane } from '@/interfaces/Lane';
 import { type DropResult } from 'react-beautiful-dnd';
-import { type BoardMode } from 'types/BoardMode';
-import { type ThemeMode } from 'types/ThemeMode';
+import { type BoardMode } from '@/types/BoardMode';
+import { type ThemeMode } from '@/types/ThemeMode';
 import { create } from 'zustand';
-import { type State } from './interfaces/State';
-import { type Actions } from './interfaces/Actions';
+import { type State } from '@/hooks/useBoardStore/interfaces/State';
+import { type Actions } from '@/hooks/useBoardStore/interfaces/Actions';
 import {
     exportBoardToJson,
     findLastBoardId,
     findLastCardId,
     findLastCardIdInBoard,
-} from './util/board.util';
+} from '@/hooks/useBoardStore/util/board.util';
 import { persist, devtools, createJSONStorage } from 'zustand/middleware';
 
 export const useBoardStore = create<State & Actions>()(

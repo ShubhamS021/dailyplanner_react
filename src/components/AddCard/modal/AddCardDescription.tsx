@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { type Card } from '../../../interfaces/Card';
+import { type Card } from '@/interfaces/Card';
 
 export interface AddCardDescriptionProps {
     headline: string;

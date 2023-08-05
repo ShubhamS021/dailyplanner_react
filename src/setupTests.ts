@@ -7,10 +7,10 @@ import { expect, afterEach } from 'vitest';
 import { cleanup } from '@testing-library/react';
 import matchers from '@testing-library/jest-dom/matchers';
 import '@testing-library/jest-dom/extend-expect';
-import { DEtranslation } from 'assets/i18n/de';
-import { ENtranslation } from 'assets/i18n/en';
+import { DEtranslation } from '@/assets/i18n/de';
+import { ENtranslation } from '@/assets/i18n/en';
 import 'fake-indexeddb/auto';
-import i18n from 'i18n';
+import i18n from '@/i18n';
 import { initReactI18next } from 'react-i18next';
 
 // Extend Vitest's expect method with methods from react-testing-library

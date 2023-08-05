@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { type HistoryListEntry } from './interfaces/HistoryListEntry';
-import { useDayplannerDB } from 'hooks/useDayplannerDB/useDayplannerDB';
-import { type HistoryType } from 'types/HistoryType';
-import { type Card } from 'interfaces/Card';
+import { type HistoryListEntry } from '@/hooks/useHistory/interfaces/HistoryListEntry';
+import { useDayplannerDB } from '@/hooks/useDayplannerDB/useDayplannerDB';
+import { type HistoryType } from '@/types/HistoryType';
+import { type Card } from '@/interfaces/Card';
 
 const useHistory = (boardId: number) => {
     const [history, setHistory] = useState<HistoryListEntry[]>([]);

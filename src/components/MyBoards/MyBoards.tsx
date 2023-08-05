@@ -1,32 +1,28 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import logo from '../../assets/logo.png';
-import { ConfirmationModal } from '../../components/ConfirmationModal/ConfirmationModal';
-import Export from '../../components/Export/Export';
-import Import from '../../components/Import/Import';
-import { LanguageChooser } from '../../components/LanguageChooser/LanguageChooser';
-import { BoardEditModal } from '../Board/modal/BoardEditModal/BoardEditModal';
-import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
-import { shallow } from 'zustand/shallow';
+import logo from '@/assets/logo.png';
+import { ConfirmationModal } from '@/components/ConfirmationModal/ConfirmationModal';
+import Export from '@/components/Export/Export';
+import Import from '@/components/Import/Import';
+import { LanguageChooser } from '@/components/LanguageChooser/LanguageChooser';
+import { BoardEditModal } from '@/components/Board/modal/BoardEditModal/BoardEditModal';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import {
     ArrowNarrowRightIcon,
     EditIcon,
     GitlabIcon,
     TrashIcon,
-} from 'ui/Icons/Icons';
+} from '@/ui/Icons/Icons';
 
 export const MyBoards = () => {
     const [boards, enterBoard, renameBoard, removeBoard, toggleBoardMode] =
-        useBoardStore(
-            (state) => [
-                state.boards,
-                state.enterBoard,
-                state.renameBoard,
-                state.removeBoard,
-                state.toggleBoardMode,
-            ],
-            shallow
-        );
+        useBoardStore((state) => [
+            state.boards,
+            state.enterBoard,
+            state.renameBoard,
+            state.removeBoard,
+            state.toggleBoardMode,
+        ]);
 
     const [showModal, setShowModal] = useState(false);
     const [boardToEdit, setBoardToEdit] = useState(boards[0]);

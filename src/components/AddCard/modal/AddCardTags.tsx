@@ -1,10 +1,10 @@
 import { useTranslation } from 'react-i18next';
-import { TagComponent } from '../../../ui/Tag/Tag';
-import { type Card } from '../../../interfaces/Card';
-import type Tag from '../../../interfaces/Tag';
-import { BaseColors, colors } from '../../../theme/colors';
+import { TagComponent } from '@/ui/Tag/Tag';
+import { type Card } from '@/interfaces/Card';
+import type Tag from '@/interfaces/Tag';
+import { BaseColors, colors } from '@/theme/colors';
 import { useState } from 'react';
-import { TagsIcon } from 'ui/Icons/Icons';
+import { TagsIcon } from '@/ui/Icons/Icons';
 
 export interface AddCardTagsProps {
     headline: string;

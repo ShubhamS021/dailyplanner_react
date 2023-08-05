@@ -1,7 +1,7 @@
 import { fireEvent, render } from '@testing-library/react';
-import { type Card } from '../../../interfaces/Card';
-import type Tag from '../../../interfaces/Tag';
-import { colors } from '../../../theme/colors';
+import { type Card } from '@/interfaces/Card';
+import type Tag from '@/interfaces/Tag';
+import { colors } from '@/theme/colors';
 import { AddCardTags } from './AddCardTags';
 
 test('renders the basic AddCardTags', () => {

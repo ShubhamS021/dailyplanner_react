@@ -1,6 +1,6 @@
 import { fireEvent, render } from '@testing-library/react';
-import { type Card } from '../../../interfaces/Card';
-import type Task from '../../../interfaces/Task';
+import { type Card } from '@/interfaces/Card';
+import type Task from '@/interfaces/Task';
 import { AddCardSubtasks } from './AddCardSubtasks';
 
 test('renders the basic AddCardSubtasks', () => {
@@ -15,8 +15,7 @@ test('renders the basic AddCardSubtasks', () => {
         <AddCardSubtasks
             headline={'tasks'}
             card={card}
-            updateTasks={(tasks: Task[]): void => {
-            }}
+            updateTasks={(tasks: Task[]): void => {}}
         />
     );
 

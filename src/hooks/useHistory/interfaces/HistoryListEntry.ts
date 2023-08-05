@@ -1,4 +1,4 @@
-import { type HistoryType } from '../../../types/HistoryType';
+import { type HistoryType } from '@/typesHistoryType';
 import { type HistoryEntry } from './HistoryEntry';
 
 export class HistoryListEntry {

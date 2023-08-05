@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { CloseIcon, InfoCircleIcon } from '@/ui/Icons/Icons';
+import { type Board } from '@/interfaces/Board';
 
 export interface CardMoveModalProps {
     title: string;

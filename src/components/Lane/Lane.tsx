@@ -15,6 +15,7 @@ import { LaneEditModal } from '@/components/Lane/modal/LaneEditModal/LaneEditMod
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import useHistory from '@/hooks/useHistory/useHistory';
 import { EditIcon, TrashIcon } from '@/ui/Icons/Icons';
+import { type Lane } from '@/interfaces/Lane';
 
 export interface LaneProps {
     id: number;
@@ -193,8 +194,8 @@ export const LaneComponent: React.FC<LaneProps> = ({
                         if (newBoard === undefined)
                             throw new Error(`No board with id ${id} found.`);
 
-                        const currentLane = board.lanes.find((l) =>
-                            l.cards.some((c) => c.id === cardToMove.id)
+                        const currentLane = board.lanes.find((l: Lane) =>
+                            l.cards.some((c: Card) => c.id === cardToMove.id)
                         );
 
                         if (currentLane === undefined) {

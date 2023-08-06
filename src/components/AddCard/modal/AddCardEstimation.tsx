@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { type Card } from '../../../interfaces/Card';
-import { type Shirt } from '../../../types/Shirt';
+import { type Card } from '@/interfaces/Card';
+import { type Shirt } from '@/types/Shirt';
 
 export interface AddCardEstimationProps {
     headline: string;

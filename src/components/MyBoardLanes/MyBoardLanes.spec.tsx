@@ -7,9 +7,9 @@ import {
 } from '@testing-library/react';
 import { colors } from '../../theme/colors';
 import { MyBoardLanes } from './MyBoardLanes';
-import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
-import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
-import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { initialBoardState } from '@/hooks/useBoardStore/data/initialBoard.state';
+import { initialLanes } from '@/hooks/useBoardStore/data/initialLanes.state';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { vi } from 'vitest';
 
 describe('MyBoardLanes', () => {

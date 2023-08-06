@@ -1,6 +1,4 @@
-import {
-    calculateIlluminance
-} from '../../utils/color.util';
+import { calculateIlluminance } from '@/utils/color.util';
 
 export interface LabelProps {
     color: string;

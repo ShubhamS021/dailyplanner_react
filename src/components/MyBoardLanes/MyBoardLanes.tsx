@@ -1,24 +1,20 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import logo from '../../assets/logo.png';
-import { TagComponent } from '../../ui/Tag/Tag';
-import { type Lane } from '../../interfaces/Lane';
-import { BaseColors, colors } from '../../theme/colors';
-import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
-import { shallow } from 'zustand/shallow';
-import { LayoutCardsIcon, PlusIcon } from 'ui/Icons/Icons';
+import logo from '@/assets/logo.png';
+import { TagComponent } from '@/ui/Tag/Tag';
+import { type Lane } from '@/interfaces/Lane';
+import { BaseColors, colors } from '@/theme/colors';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import { LayoutCardsIcon, PlusIcon } from '@/ui/Icons/Icons';
 
 export const MyBoardLanes = () => {
     const [boards, addLaneToBoard, removeLaneFromBoard, enterBoard] =
-        useBoardStore(
-            (state) => [
-                state.boards,
-                state.addLaneToBoard,
-                state.removeLaneFromBoard,
-                state.enterBoard,
-            ],
-            shallow
-        );
+        useBoardStore((state) => [
+            state.boards,
+            state.addLaneToBoard,
+            state.removeLaneFromBoard,
+            state.enterBoard,
+        ]);
 
     const [laneValue, setLaneValue] = useState('');
     const [selectedColorIndex, setSelectedColorIndex] = useState(0);
@@ -131,19 +127,21 @@ export const MyBoardLanes = () => {
                         </button>
                     </div>
                     <div className={`grid grid-flow-col-dense wrap gap-2`}>
-                        {boards[boards.length - 1].lanes?.map((l, index) => {
-                            return (
-                                <TagComponent
-                                    key={index}
-                                    color={l.color}
-                                    text={l.title}
-                                    isRemoveable={true}
-                                    onRemove={() => {
-                                        handleLaneRemove(l.id);
-                                    }}
-                                ></TagComponent>
-                            );
-                        })}
+                        {boards[boards.length - 1].lanes?.map(
+                            (l: Lane, index: number) => {
+                                return (
+                                    <TagComponent
+                                        key={index}
+                                        color={l.color}
+                                        text={l.title}
+                                        isRemoveable={true}
+                                        onRemove={() => {
+                                            handleLaneRemove(l.id);
+                                        }}
+                                    ></TagComponent>
+                                );
+                            }
+                        )}
                     </div>
 
                     <div className="flex justify-center">

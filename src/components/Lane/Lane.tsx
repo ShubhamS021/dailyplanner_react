@@ -1,21 +1,21 @@
 import { useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { useTranslation } from 'react-i18next';
-import { AddCardModal } from '../../components/AddCard/modal/AddCardModal';
-import { CardMoveModal } from '../Card/modal/CardMoveModal/CardMoveModal';
-import { ConfirmationModal } from '../../components/ConfirmationModal/ConfirmationModal';
-import { type Card } from '../../interfaces/Card';
-import type Tag from '../../interfaces/Tag';
-import type Task from '../../interfaces/Task';
-import { type Shirt } from '../../types/Shirt';
-import { CardComponent } from '../Card/Card';
-import { Dropzone } from '../../ui/Dropzone/Dropzone';
-import { LabelComponent } from '../../ui/Label/Label';
-import { LaneEditModal } from './modal/LaneEditModal/LaneEditModal';
-import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
-import { shallow } from 'zustand/shallow';
-import useHistory from 'hooks/useHistory/useHistory';
-import { EditIcon, TrashIcon } from 'ui/Icons/Icons';
+import { AddCardModal } from '@/components/AddCard/modal/AddCardModal';
+import { CardMoveModal } from '@/components/Card/modal/CardMoveModal/CardMoveModal';
+import { ConfirmationModal } from '@/components/ConfirmationModal/ConfirmationModal';
+import { type Card } from '@/interfaces/Card';
+import type Tag from '@/interfaces/Tag';
+import type Task from '@/interfaces/Task';
+import { type Shirt } from '@/types/Shirt';
+import { CardComponent } from '@/components/Card/Card';
+import { Dropzone } from '@/ui/Dropzone/Dropzone';
+import { LabelComponent } from '@/ui/Label/Label';
+import { LaneEditModal } from '@/components/Lane/modal/LaneEditModal/LaneEditModal';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import useHistory from '@/hooks/useHistory/useHistory';
+import { EditIcon, TrashIcon } from '@/ui/Icons/Icons';
+import { type Lane } from '@/interfaces/Lane';
 
 export interface LaneProps {
     id: number;
@@ -41,19 +41,16 @@ export const LaneComponent: React.FC<LaneProps> = ({
         renameLane,
         updateLaneColor,
         updateCard,
-    ] = useBoardStore(
-        (state) => [
-            state.boards,
-            state.board,
-            state.removeCardFromLane,
-            state.removeCardsFromLane,
-            state.moveCardToBoard,
-            state.renameLane,
-            state.updateLaneColor,
-            state.updateCard,
-        ],
-        shallow
-    );
+    ] = useBoardStore((state) => [
+        state.boards,
+        state.board,
+        state.removeCardFromLane,
+        state.removeCardsFromLane,
+        state.moveCardToBoard,
+        state.renameLane,
+        state.updateLaneColor,
+        state.updateCard,
+    ]);
 
     const {
         addDeletionToHistory,
@@ -197,8 +194,8 @@ export const LaneComponent: React.FC<LaneProps> = ({
                         if (newBoard === undefined)
                             throw new Error(`No board with id ${id} found.`);
 
-                        const currentLane = board.lanes.find((l) =>
-                            l.cards.some((c) => c.id === cardToMove.id)
+                        const currentLane = board.lanes.find((l: Lane) =>
+                            l.cards.some((c: Card) => c.id === cardToMove.id)
                         );
 
                         if (currentLane === undefined) {

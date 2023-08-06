@@ -1,17 +1,15 @@
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
-import { shallow } from 'zustand/shallow';
-import { FileImportIcon } from 'ui/Icons/Icons';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import { FileImportIcon } from '@/ui/Icons/Icons';
 
 interface ImportProps {
     all?: boolean;
 }
 export const Import: React.FC<ImportProps> = ({ all = false }) => {
-    const [importBoardFromJSON] = useBoardStore(
-        (state) => [state.importBoardFromJSON],
-        shallow
-    );
+    const [importBoardFromJSON] = useBoardStore((state) => [
+        state.importBoardFromJSON,
+    ]);
 
     const { t } = useTranslation();
     const inputRef: React.RefObject<HTMLInputElement> = useRef(null);

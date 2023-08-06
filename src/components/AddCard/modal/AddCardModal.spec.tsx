@@ -1,8 +1,8 @@
 import { fireEvent, render } from '@testing-library/react';
-import { type Card } from '../../../interfaces/Card';
-import type Tag from '../../../interfaces/Tag';
-import type Task from '../../../interfaces/Task';
-import { type Shirt } from '../../../types/Shirt';
+import { type Card } from '@/interfaces/Card';
+import type Tag from '@/interfaces/Tag';
+import type Task from '@/interfaces/Task';
+import { type Shirt } from '@/typesShirt';
 import { AddCardModal } from './AddCardModal';
 
 test('renders the basic AddCardModal', () => {
@@ -16,30 +16,20 @@ test('renders the basic AddCardModal', () => {
     const { getByTestId, getAllByTestId } = render(
         <AddCardModal
             card={card}
-            updateTitle={(_title: string): void => {
-                
-            }}
-            updateDescription={(_description: string): void => {
-                
-            }}
+            updateTitle={(_title: string): void => {}}
+            updateDescription={(_description: string): void => {}}
             updateTasks={(tasks: Task[]): void => {
                 expect(tasks.length).toBe(2);
             }}
             updateTags={(tags: Tag[]): void => {
                 expect(tags.length).toBe(1);
             }}
-            closeModal={(): void => {
-                
-            }}
-            saveCard={(): void => {
-               
-            }}
+            closeModal={(): void => {}}
+            saveCard={(): void => {}}
             updateLowerTags={(tags: Tag[]): void => {
                 expect(tags.length).toBe(1);
             }}
-            updateEstimation={(_shirt: Shirt): void => {
-                
-            }}
+            updateEstimation={(_shirt: Shirt): void => {}}
         />
     );
 

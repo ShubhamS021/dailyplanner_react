@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
-import { calculateIlluminance } from '../../utils/color.util';
-import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { calculateIlluminance } from '@/utils/color.util';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { shallow } from 'zustand/shallow';
-import { TagCloseIcon } from 'ui/Icons/Icons';
+import { TagCloseIcon } from '@/ui/Icons/Icons';
 
 export interface TagProps {
     color: string;

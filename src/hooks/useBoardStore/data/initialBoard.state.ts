@@ -1,4 +1,4 @@
-import { type Board } from '../../../interfaces/Board';
+import { type Board } from '@/interfaces/Board';
 
 export const initialBoardState: Board = {
     id: 0,

@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
-import { CardComponent } from '../../../components/Card/Card';
-import { type Card } from '../../../interfaces/Card';
-import type Tag from '../../../interfaces/Tag';
-import type Task from '../../../interfaces/Task';
-import { type Shirt } from '../../../types/Shirt';
+import { CardComponent } from '@/components/Card/Card';
+import { type Card } from '@/interfaces/Card';
+import type Tag from '@/interfaces/Tag';
+import type Task from '@/interfaces/Task';
+import { type Shirt } from '@/types/Shirt';
 import { AddCardDescription } from './AddCardDescription';
 import { AddCardDueDate } from './AddCardDueDate';
 import { AddCardEstimation } from './AddCardEstimation';

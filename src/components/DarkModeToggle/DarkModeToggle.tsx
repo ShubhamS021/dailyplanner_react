@@ -1,15 +1,14 @@
 import { useTranslation } from 'react-i18next';
-import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
-import { shallow } from 'zustand/shallow';
-import { MoonIcon, SunIcon } from 'ui/Icons/Icons';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import { MoonIcon, SunIcon } from '@/ui/Icons/Icons';
 
 export const DarkModeToggle = () => {
     const { t } = useTranslation();
 
-    const [themeMode, toggleThemeMode] = useBoardStore(
-        (state) => [state.themeMode, state.toggleThemeMode],
-        shallow
-    );
+    const [themeMode, toggleThemeMode] = useBoardStore((state) => [
+        state.themeMode,
+        state.toggleThemeMode,
+    ]);
 
     const toggleMode = () => {
         if (themeMode === 'dark') {

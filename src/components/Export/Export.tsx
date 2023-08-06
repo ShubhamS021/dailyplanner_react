@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
-import { shallow } from 'zustand/shallow';
-import { FileExportIcon } from 'ui/Icons/Icons';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import { FileExportIcon } from '@/ui/Icons/Icons';
 
 interface ExportProps {
     all?: boolean;
@@ -13,8 +12,7 @@ export const Export: React.FC<ExportProps> = ({ all = false }) => {
             state.board,
             state.exportBoardToJSON,
             state.exportBoardsToJSON,
-        ],
-        shallow
+        ]
     );
 
     const { t } = useTranslation();

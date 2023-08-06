@@ -1,13 +1,9 @@
 import { useTranslation } from 'react-i18next';
-import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
-import { shallow } from 'zustand/shallow';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { languages } from './config/languages.config';
 
 export const LanguageChooser = () => {
-    const [updateLanguage] = useBoardStore(
-        (state) => [state.updateLanguage],
-        shallow
-    );
+    const [updateLanguage] = useBoardStore((state) => [state.updateLanguage]);
 
     const { t, i18n } = useTranslation();
 

@@ -6,9 +6,9 @@ import {
     screen,
 } from '@testing-library/react';
 import { LanguageChooser } from './LanguageChooser';
-import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
-import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
-import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { initialBoardState } from '@/hooks/useBoardStore/data/initialBoard.state';
+import { initialLanes } from '@/hooks/useBoardStore/data/initialLanes.state';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { vi } from 'vitest';
 
 // Mock react-i18next useTranslation hook

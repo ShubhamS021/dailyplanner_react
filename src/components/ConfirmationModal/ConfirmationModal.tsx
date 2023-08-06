@@ -1,5 +1,5 @@
 import { t } from 'i18next';
-import { CloseIcon, InfoCircleIcon } from 'ui/Icons/Icons';
+import { CloseIcon, InfoCircleIcon } from '@/ui/Icons/Icons';
 
 export interface ConfirmationModalProps {
     title: string;

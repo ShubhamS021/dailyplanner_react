@@ -6,10 +6,10 @@ import {
     act,
 } from '@testing-library/react';
 import { BoardHistory } from './BoardHistory';
-import { useBoardStore } from '../../hooks/useBoardStore/useBoardStore';
-import { initialBoardState } from '../../hooks/useBoardStore/data/initialBoard.state';
-import { initialLanes } from '../../hooks/useBoardStore/data/initialLanes.state';
-import useHistory from 'hooks/useHistory/useHistory';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import { initialBoardState } from '@/hooks/useBoardStore/data/initialBoard.state';
+import { initialLanes } from '@/hooks/useBoardStore/data/initialLanes.state';
+import useHistory from '@/hooks/useHistory/useHistory';
 import { card } from '../../../__mocks__/cards.mock';
 import { vi } from 'vitest';
 

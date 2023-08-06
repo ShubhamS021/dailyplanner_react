@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { type Card } from '../../../interfaces/Card';
-import type Tag from '../../../interfaces/Tag';
-import { colors } from '../../../theme/colors';
-import { AddIcon } from 'ui/Icons/Icons';
+import { type Card } from '@/interfaces/Card';
+import type Tag from '@/interfaces/Tag';
+import { colors } from '@/theme/colors';
+import { AddIcon } from '@/ui/Icons/Icons';
 
 export interface AddCardDueDateProps {
     headline: string;

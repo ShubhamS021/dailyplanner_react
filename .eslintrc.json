@@ -18,7 +18,9 @@
             "files": ["*.jsx", "*.tsx"],
             "rules": {
                 "@typescript-eslint/explicit-module-boundary-types": ["off"],
-                "@typescript-eslint/strict-boolean-expressions": "warn"
+                "@typescript-eslint/strict-boolean-expressions": "warn",
+                "@typescript-eslint/restrict-template-expressions": ["off"],
+                "@typescript-eslint/restrict-plus-operands": ["off"]
             }
         }
     ],

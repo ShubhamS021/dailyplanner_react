@@ -77,9 +77,10 @@ export const ENtranslation = {
             tasks: 'tasks',
         },
         Card: {
-            move: 'Move this card.',
-            edit: 'Edit this card.',
-            remove: 'Remove this card.',
+            actions: 'Actions',
+            move: 'Move card',
+            edit: 'Edit card',
+            remove: 'Remove card',
         },
         CompactModeToggle: {
             normal: 'Normal mode',

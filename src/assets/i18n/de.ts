@@ -78,9 +78,10 @@ export const DEtranslation = {
             tasks: 'Aufgaben',
         },
         Card: {
-            move: 'Diese Karte verschieben.',
-            edit: 'Diese Karte bearbeiten.',
-            remove: 'Diese Karte entfernen.',
+            actions: 'Aktionen',
+            move: 'Karte verschieben',
+            edit: 'Karte bearbeiten',
+            remove: 'Karte entfernen',
         },
         CompactModeToggle: {
             normal: 'Normaler Modus',

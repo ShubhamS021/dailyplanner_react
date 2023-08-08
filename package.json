@@ -13,6 +13,7 @@
         "start:exposed": "vite --host",
         "build": "vite build",
         "test": "vitest run --coverage",
+        "test:ui": "vitest --ui",
         "cypress:open": "cypress open",
         "lint": "eslint --max-warnings 0 src",
         "prepare": "husky install",
@@ -59,6 +60,7 @@
         "@typescript-eslint/eslint-plugin": "^5.62.0",
         "@vitejs/plugin-react": "^4.0.4",
         "@vitest/coverage-v8": "^0.34.1",
+        "@vitest/ui": "^0.33.0",
         "@welldone-software/why-did-you-render": "^7.0.1",
         "autoprefixer": "^10.4.14",
         "commit-and-tag-version": "^11.2.2",
@@ -85,6 +87,6 @@
         "vite": "^4.4.8",
         "vite-plugin-svgr": "^3.2.0",
         "vite-tsconfig-paths": "^4.2.0",
-        "vitest": "^0.34.1"
+        "vitest": "^0.33.0"
     }
 }

@@ -106,12 +106,12 @@ export const ENtranslation = {
             history: 'History',
         },
         Lane: {
-            editTitle: 'Edit lane',
-            edit: 'edit',
+            actions: 'Actions',
+            edit: 'Edit lane',
             editNameText: 'Enter a new lane name:',
             editLabelText: 'Choose a new lane color:',
             deleteTitle: 'Delete all cards from lane',
-            deleteAll: 'delete all',
+            deleteAll: 'Delete all cards',
             dropzone: 'Place tasks here..',
             deletionTitle: 'Warning: Deleting all cards from lane',
             deletionText:
@@ -146,6 +146,7 @@ export const ENtranslation = {
             editTitle: 'Edit board',
             editSubmit: 'Save changes.',
             editCancel: 'Cancel',
+            enter: 'Enter this board.',
             title: 'My boards',
             edit: 'Edit this board.',
             remove: 'Remove this board.',

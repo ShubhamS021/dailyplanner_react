@@ -103,12 +103,12 @@ export const DEtranslation = {
             history: 'Historie',
         },
         Lane: {
-            editTitle: 'Spalte bearbeiten',
-            edit: 'bearbeiten',
+            actions: 'Aktionen',
+            edit: 'Spalte bearbeiten',
             editNameText: 'Vergeben Sie einen neuen Spaltennamen:',
             editLabelText: 'Wählen Sie eine Spaltenfarbe:',
             deleteTitle: 'Alle Karten aus Spalte löschen',
-            deleteAll: 'alle löschen',
+            deleteAll: 'Alle Karten löschen',
             dropzone: 'Aufgaben hier platzieren..',
             deletionTitle: 'Warnung: Alle Karten aus Spalte löschen',
             deletionText:
@@ -146,6 +146,7 @@ export const DEtranslation = {
             editSubmit: 'Änderungen speichern.',
             editCancel: 'Abbrechen',
             title: 'Meine Boards',
+            enter: 'Dieses Board betreten.',
             edit: 'Dieses Board bearbeiten.',
             remove: 'Dieses Board entfernen.',
             or: 'oder',

@@ -14,8 +14,8 @@ import { LabelComponent } from '@/ui/Label/Label';
 import { LaneEditModal } from '@/components/Lane/modal/LaneEditModal/LaneEditModal';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import useHistory from '@/hooks/useHistory/useHistory';
-import { EditIcon, TrashIcon } from '@/ui/Icons/Icons';
 import { type Lane } from '@/interfaces/Lane';
+import { LaneActions } from './LaneActions/LaneActions';
 
 export interface LaneProps {
     id: number;
@@ -66,47 +66,6 @@ export const LaneComponent: React.FC<LaneProps> = ({
     const [cardToMove, setCardToMove] = useState<Card>();
 
     const { t } = useTranslation();
-
-    const renderDelete = () => {
-        return (
-            <div
-                className={`text-xs text-[#4d4d4d] dark:text-[#B5B5B5] font-semibold`}
-            >
-                <div
-                    className="flex gap-1 cursor-pointer hover:text-red-500 soft stroke-[#5A5A65] dark:stroke-[#B5B5B5] dark:hover:stroke-red-500 hover:stroke-red-500"
-                    title={t('components.Lane.deleteTitle') ?? ''}
-                    data-testid="delete-all-from-lane-button"
-                    onClick={() => {
-                        setShowDeleteModal(true);
-                    }}
-                >
-                    <TrashIcon classes="h-4 w-4" />
-
-                    {t('components.Lane.deleteAll')}
-                </div>
-            </div>
-        );
-    };
-
-    const renderEdit = () => {
-        return (
-            <div
-                className={`text-xs text-[#4d4d4d] dark:text-[#B5B5B5] font-semibold`}
-            >
-                <div
-                    className="flex gap-1 cursor-pointer hover:text-[#17A2B8] soft stroke-[#5A5A65] dark:stroke-[#B5B5B5] hover:stroke-[#17A2B8] dark:hover:stroke-[#17A2B8]"
-                    title={t('components.Lane.editTitle') ?? ''}
-                    data-testid="edit-lane-button"
-                    onClick={() => {
-                        setShowLaneEditModal(true);
-                    }}
-                >
-                    <EditIcon classes="h-4 w-4" />
-                    {t('components.Lane.edit')}
-                </div>
-            </div>
-        );
-    };
 
     const renderEmptyLane = () => {
         return <Dropzone text={t('components.Lane.dropzone') ?? ''} />;
@@ -281,7 +240,7 @@ export const LaneComponent: React.FC<LaneProps> = ({
         return (
             <>
                 <LaneEditModal
-                    title={t('components.Lane.editTitle')}
+                    title={t('components.Lane.edit')}
                     editNameText={t('components.Lane.editNameText')}
                     editLabelText={t('components.Lane.editLabelText')}
                     board={board}
@@ -304,19 +263,22 @@ export const LaneComponent: React.FC<LaneProps> = ({
             <div className="w-full grid grid-cols-[auto,auto,1fr] gap-1">
                 <LabelComponent color={color} text={text} />
                 <div
-                    className={`text-xs text-[#4d4d4d] font-semibold self-center dark:text-[#B5B5B5]`}
+                    className={`bg-accent text-accent-foreground text-xs border border-accent rounded p-1 px-2 font-semibold self-center`}
                 >
-                    ({cards?.length}{' '}
-                    {cards?.length === 1
-                        ? t('components.Lane.task')
-                        : t('components.Lane.tasks')}
-                    )
+                    {cards?.length}
                 </div>
                 <div className="group flex self-center place-self-end gap-2 items-center">
                     <div className="invisible group-hover:visible">
-                        {renderEdit()}
+                        <LaneActions
+                            onShowLaneEditModal={() => {
+                                setShowLaneEditModal(true);
+                            }}
+                            onShowDeleteModal={() => {
+                                setShowDeleteModal(true);
+                            }}
+                            isLastLane={isLastLane}
+                        />
                     </div>
-                    {isLastLane && renderDelete()}
                 </div>
             </div>
             {renderCards(cards)}

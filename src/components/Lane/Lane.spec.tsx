@@ -1,4 +1,11 @@
-import { act, fireEvent, render, renderHook } from '@testing-library/react';
+import {
+    act,
+    fireEvent,
+    render,
+    renderHook,
+    screen,
+} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 import { LaneComponent } from './Lane';
@@ -192,5 +199,161 @@ describe('Lane', () => {
         fireEvent.click(getByTestId('confirmation-modal-button'));
 
         expect(spy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should remove a card from lane', async () => {
+        const { result } = renderHook(() => useBoardStore());
+        const spy = vi.spyOn(result.current, 'removeCardFromLane');
+
+        const { getAllByTestId } = render(
+            <DragDropContext onDragEnd={() => {}}>
+                <Droppable droppableId="some_id">
+                    {(provided: any) => (
+                        <div
+                            ref={provided.innerRef}
+                            {...provided.droppableProps}
+                        >
+                            <LaneComponent
+                                id={1}
+                                text={'Test Lane'}
+                                color={'#ffffff'}
+                                cards={[card, card2, card3]}
+                                isLastLane={true}
+                            />
+                        </div>
+                    )}
+                </Droppable>
+            </DragDropContext>
+        );
+
+        const [cardActionButton] = getAllByTestId('card-action-button');
+        await userEvent.click(cardActionButton);
+
+        const removeButton = screen.getByTestId('remove-card-button');
+        fireEvent.click(removeButton);
+        expect(spy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should cancel edit a card from lane', async () => {
+        const { getAllByTestId } = render(
+            <DragDropContext onDragEnd={() => {}}>
+                <Droppable droppableId="some_id">
+                    {(provided: any) => (
+                        <div
+                            ref={provided.innerRef}
+                            {...provided.droppableProps}
+                        >
+                            <LaneComponent
+                                id={1}
+                                text={'Test Lane'}
+                                color={'#ffffff'}
+                                cards={[card, card2, card3]}
+                                isLastLane={true}
+                            />
+                        </div>
+                    )}
+                </Droppable>
+            </DragDropContext>
+        );
+
+        const [cardActionButton] = getAllByTestId('card-action-button');
+        await userEvent.click(cardActionButton);
+
+        const editButton = screen.getByTestId('edit-card-button');
+        fireEvent.click(editButton);
+    });
+
+    it('should submit edit a card from lane', async () => {
+        const { result } = renderHook(() => useBoardStore());
+        const spy = vi.spyOn(result.current, 'updateCard');
+
+        const { getByTestId, getAllByTestId } = render(
+            <DragDropContext onDragEnd={() => {}}>
+                <Droppable droppableId="some_id">
+                    {(provided: any) => (
+                        <div
+                            ref={provided.innerRef}
+                            {...provided.droppableProps}
+                        >
+                            <LaneComponent
+                                id={1}
+                                text={'Test Lane'}
+                                color={'#ffffff'}
+                                cards={[card, card2, card3]}
+                                isLastLane={true}
+                            />
+                        </div>
+                    )}
+                </Droppable>
+            </DragDropContext>
+        );
+
+        const [cardActionButton] = getAllByTestId('card-action-button');
+        await userEvent.click(cardActionButton, { delay: 800 });
+
+        const editButton = screen.getByTestId('edit-card-button');
+        await userEvent.click(editButton);
+
+        // updateDescription
+        const descriptionInput = getByTestId(
+            /addcard-description-input/
+        ) as HTMLInputElement;
+        fireEvent.change(descriptionInput, {
+            target: { value: 'NEW DESCRIPTION' },
+        });
+
+        // updateTasks
+        const taskInput = getByTestId(
+            /addcard-subtask-input/
+        ) as HTMLInputElement;
+        fireEvent.change(taskInput, { target: { value: 'NEW TASK' } });
+
+        fireEvent.click(getByTestId(/addcard-subtask-button/));
+
+        // updateTags
+        const tagInput = getByTestId(/addcard-tags-input/) as HTMLInputElement;
+        fireEvent.change(tagInput, { target: { value: 'NEW TAG' } });
+        fireEvent.click(getAllByTestId(/addcard-tag-color-button/)[0]);
+        fireEvent.click(getByTestId(/addcard-tag-button/));
+
+        // updateLowerTags
+        const lowerTagInput = getByTestId(
+            /addcard-lowertags-input/
+        ) as HTMLInputElement;
+        fireEvent.change(lowerTagInput, {
+            target: { value: '2000-01-01' },
+        });
+        fireEvent.click(getByTestId(/addcard-lowertags-button/));
+
+        // save card
+        fireEvent.click(getByTestId(/addcard-modal-button/));
+
+        // assert what the card have on the lane
+        expect(spy).toBeCalledWith(
+            {
+                description: 'NEW DESCRIPTION',
+                id: 1,
+                lowerTags: [
+                    {
+                        color: '#cbdfd8',
+                        id: 1,
+                        text: '2000-01-01',
+                        tagType: 'lower',
+                    },
+                ],
+                title: 'Testcard 1',
+                tasks: [{ description: 'NEW TASK', id: 1, fulfilled: false }],
+                upperTags: [
+                    {
+                        color: '#cbdfd8',
+                        id: 1,
+                        text: 'NEW TAG',
+                        tagType: 'upper',
+                    },
+                ],
+                shirt: 'XS',
+            },
+            1
+        );
     });
 });

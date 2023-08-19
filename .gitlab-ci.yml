@@ -56,10 +56,10 @@ sonar:
   script:
     - sonar-scanner
   allow_failure: true
-  only:
-    - develop
   rules:
-    - if: '$SKIP_STAGES == "true"'
+    - if: '$SKIP_STAGES != "true"'
+      exists:
+        - develop
 
 # CD stages
 
@@ -73,10 +73,10 @@ qa:
         url: https://planner-qa.der-hahn.net
     script:
         - ENVIRONMENT_NAME=qa bash deploy/deploy.sh 
-    only:
-      - develop
     rules:
-      - if: '$SKIP_STAGES == "true"'
+      - if: '$SKIP_STAGES != "true"'
+        exists:
+          - develop
 
 prod:
     stage: deploy

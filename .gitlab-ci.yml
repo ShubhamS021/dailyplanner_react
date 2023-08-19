@@ -25,7 +25,7 @@ lint:
     script:
         - yarn lint
     rules:
-      - if: '$SKIP_STAGES == "true"'
+      - if: '$SKIP_STAGES != "true"'
 
 test:
     stage: test
@@ -39,7 +39,7 @@ test:
       paths:
         - coverage/
     rules:
-      - if: '$SKIP_STAGES == "true"'
+      - if: '$SKIP_STAGES != "true"'
 
 sonar:
   stage: sonar
@@ -57,9 +57,7 @@ sonar:
     - sonar-scanner
   allow_failure: true
   rules:
-    - if: '$SKIP_STAGES != "true"'
-      exists:
-        - develop
+    - if: '$SKIP_STAGES != "true" && $CI_COMMIT_BRANCH == "develop"'
 
 # CD stages
 
@@ -74,9 +72,7 @@ qa:
     script:
         - ENVIRONMENT_NAME=qa bash deploy/deploy.sh 
     rules:
-      - if: '$SKIP_STAGES != "true"'
-        exists:
-          - develop
+      - if: '$SKIP_STAGES != "true" && $CI_COMMIT_BRANCH == "develop"'
 
 prod:
     stage: deploy
@@ -90,7 +86,7 @@ prod:
         - ENVIRONMENT_NAME=prod bash deploy/deploy.sh
     when: manual
     rules:
-      - if: '$SKIP_STAGES == "true"'
+      - if: '$SKIP_STAGES != "true"'
 
 # renovate
 include:

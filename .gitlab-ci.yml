@@ -24,6 +24,8 @@ lint:
         - yarn install
     script:
         - yarn lint
+    rules:
+      - if: '$SKIP_STAGES == "true"'
 
 test:
     stage: test
@@ -36,6 +38,8 @@ test:
       expire_in: 1 day
       paths:
         - coverage/
+    rules:
+      - if: '$SKIP_STAGES == "true"'
 
 sonar:
   stage: sonar
@@ -54,6 +58,8 @@ sonar:
   allow_failure: true
   only:
     - develop
+  rules:
+    - if: '$SKIP_STAGES == "true"'
 
 # CD stages
 
@@ -69,6 +75,8 @@ qa:
         - ENVIRONMENT_NAME=qa bash deploy/deploy.sh 
     only:
       - develop
+    rules:
+      - if: '$SKIP_STAGES == "true"'
 
 prod:
     stage: deploy
@@ -81,4 +89,15 @@ prod:
     script:
         - ENVIRONMENT_NAME=prod bash deploy/deploy.sh
     when: manual
+    rules:
+      - if: '$SKIP_STAGES == "true"'
 
+# renovate
+include:
+    - project: 'renovate-bot/renovate-runner'
+      file: '/templates/renovate.gitlab-ci.yml'
+
+renovate:
+    rules:
+        - if: '$CI_PIPELINE_SOURCE == "schedule"'
+        - if: '$CI_PIPELINE_SOURCE == "push"'

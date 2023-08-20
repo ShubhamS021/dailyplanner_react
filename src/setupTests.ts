@@ -6,7 +6,6 @@ import '@testing-library/jest-dom';
 import { expect, afterEach } from 'vitest';
 import { cleanup } from '@testing-library/react';
 import matchers from '@testing-library/jest-dom/matchers';
-import '@testing-library/jest-dom/extend-expect';
 import { DEtranslation } from '@/assets/i18n/de';
 import { ENtranslation } from '@/assets/i18n/en';
 import 'fake-indexeddb/auto';

@@ -3,17 +3,13 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
-import { expect, afterEach } from 'vitest';
+import { afterEach } from 'vitest';
 import { cleanup } from '@testing-library/react';
-import matchers from '@testing-library/jest-dom/matchers';
 import { DEtranslation } from '@/assets/i18n/de';
 import { ENtranslation } from '@/assets/i18n/en';
 import 'fake-indexeddb/auto';
 import i18n from '@/i18n';
 import { initReactI18next } from 'react-i18next';
-
-// Extend Vitest's expect method with methods from react-testing-library
-expect.extend(matchers);
 
 if (!i18n.isInitialized) {
     i18n.use(initReactI18next)

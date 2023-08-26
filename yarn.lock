@@ -2301,9 +2301,9 @@ commander@^6.2.1:
   integrity sha512-U7VdrJFnJgo4xjrHpTzu0yrHPGImdsmD95ZlgYSEajAn2JKzDhDTPG9kBTefmObL2w/ngeZnilk+OV9CG3d7UA==
 
 commit-and-tag-version@^11.2.2:
-  version "11.2.2"
-  resolved "https://registry.yarnpkg.com/commit-and-tag-version/-/commit-and-tag-version-11.2.2.tgz#5b2c806cb7e53f15f93de8a2e6e7ba5197aeb3d9"
-  integrity sha512-pqtTvRZFSqsGevhdcCvZVhzoSC56OeWZxhVzVDOWu97FfMJR4xUmpirRZcGqmTsDWCTxnm+UVl9/slN7OGO82A==
+  version "11.2.3"
+  resolved "https://registry.yarnpkg.com/commit-and-tag-version/-/commit-and-tag-version-11.2.3.tgz#56cd6703142b28ee8d91a6bc44bccb24d857c063"
+  integrity sha512-shL/Z7Di/4nGEDRd8NlixihLI6VwzADcUeGdE24pLJKyxMa/ApnIq2cHyT4A2P87IR0scFj29EuXPQQFwxszkw==
   dependencies:
     chalk "^2.4.2"
     conventional-changelog "3.1.25"

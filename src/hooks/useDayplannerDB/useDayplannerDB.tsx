@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { type IDBPDatabase, openDB } from 'idb';
 
 interface DayplannerDB {
@@ -31,18 +31,18 @@ const upgradeDB = (db: IDBPDatabase<DayplannerDB>) => {
 const useDBStore = <T extends StoreName>(storeName: T) => {
     const [db, setDB] = useState<IDBPDatabase<DayplannerDB> | null>(null);
 
-    useEffect(() => {
-        const initDB = async () => {
-            const database = await openDB<DayplannerDB>(dbName, dbVersion, {
-                upgrade(db) {
-                    upgradeDB(db);
-                },
-            });
-            setDB(database);
-        };
-
-        initDB().catch(console.error);
+    const initDB = useCallback(async () => {
+        const database = await openDB<DayplannerDB>(dbName, dbVersion, {
+            upgrade(db) {
+                upgradeDB(db);
+            },
+        });
+        setDB(database);
     }, []);
+
+    useEffect(() => {
+        initDB().catch(console.error);
+    }, [initDB]);
 
     const addData = async (data: DayplannerDB[T]['value']) => {
         if (db != null) {

@@ -1,25 +1,25 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { type HistoryListEntry } from '@/hooks/useHistory/interfaces/HistoryListEntry';
 import { useDayplannerDB } from '@/hooks/useDayplannerDB/useDayplannerDB';
 import { type HistoryType } from '@/types/HistoryType';
 import { type Card } from '@/interfaces/Card';
 
 const useHistory = (boardId: number) => {
-    const [history, setHistory] = useState<HistoryListEntry[]>([]);
     const { addData, getDataByIndex } = useDayplannerDB('history');
+    const [history, setHistory] = useState<HistoryListEntry[]>([]);
+
+    const fetchData = useCallback(async () => {
+        try {
+            const history = await getHistory(boardId);
+            setHistory(history ?? []);
+        } catch (error) {
+            console.error(error);
+        }
+    }, []);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const history = await getHistory(boardId);
-                setHistory(history ?? []);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
         fetchData().catch(console.error);
-    }, [boardId]);
+    }, [fetchData]);
 
     const saveToHistory = (type: HistoryType, boardId: number, params: any) => {
         const id = Date.now();
@@ -71,7 +71,6 @@ const useHistory = (boardId: number) => {
     const value = useMemo(
         () => ({
             history,
-            getHistory,
             addDeletionToHistory,
             addUpdateToHistory,
             addCreationToHistory,

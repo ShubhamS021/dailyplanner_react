@@ -2526,7 +2526,11 @@ commander@^6.2.1:
   resolved "https://registry.yarnpkg.com/commander/-/commander-6.2.1.tgz#0792eb682dfbc325999bb2b84fddddba110ac73c"
   integrity sha512-U7VdrJFnJgo4xjrHpTzu0yrHPGImdsmD95ZlgYSEajAn2JKzDhDTPG9kBTefmObL2w/ngeZnilk+OV9CG3d7UA==
 
+<<<<<<< HEAD
 commit-and-tag-version@^11.2.3:
+=======
+commit-and-tag-version@^11.2.2:
+>>>>>>> 05a99bd67fc3639bc7b675078aa63cd3247a60f8
   version "11.2.3"
   resolved "https://registry.yarnpkg.com/commit-and-tag-version/-/commit-and-tag-version-11.2.3.tgz#56cd6703142b28ee8d91a6bc44bccb24d857c063"
   integrity sha512-shL/Z7Di/4nGEDRd8NlixihLI6VwzADcUeGdE24pLJKyxMa/ApnIq2cHyT4A2P87IR0scFj29EuXPQQFwxszkw==

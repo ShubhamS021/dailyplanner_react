@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { type HistoryListEntry } from '@/hooks/useHistory/interfaces/HistoryListEntry';
 import { useDayplannerDB } from '@/hooks/useDayplannerDB/useDayplannerDB';
 import { type HistoryType } from '@/types/HistoryType';
@@ -8,28 +8,27 @@ const useHistory = (boardId: number) => {
     const [history, setHistory] = useState<HistoryListEntry[]>([]);
     const { addData, getDataByIndex } = useDayplannerDB('history');
 
-    const fetchData = async () => {
-        try {
-            return await getHistory(boardId);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
     useEffect(() => {
-        void fetchData().then((historyData) => {
-            setHistory(historyData ?? []);
-        });
+        const fetchData = async () => {
+            try {
+                const history = await getHistory(boardId);
+                setHistory(history ?? []);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchData().catch(console.error);
     }, [boardId]);
 
     const saveToHistory = (type: HistoryType, boardId: number, params: any) => {
         const id = Date.now();
-        void addData({
+        addData({
             id,
             type,
             boardId,
             data: { ...params },
-        });
+        }).catch(console.error);
     };
 
     const getHistory = async (boardId: number): Promise<HistoryListEntry[]> => {
@@ -69,15 +68,20 @@ const useHistory = (boardId: number) => {
         saveToHistory('BOARDMOVEMENT', boardId, { card, boardStart, boardEnd });
     };
 
-    return {
-        history,
-        getHistory,
-        addDeletionToHistory,
-        addUpdateToHistory,
-        addCreationToHistory,
-        addMovementToHistory,
-        addBoardMovementToHistory,
-    };
+    const value = useMemo(
+        () => ({
+            history,
+            getHistory,
+            addDeletionToHistory,
+            addUpdateToHistory,
+            addCreationToHistory,
+            addMovementToHistory,
+            addBoardMovementToHistory,
+        }),
+        [history]
+    );
+
+    return value;
 };
 
 export default useHistory;

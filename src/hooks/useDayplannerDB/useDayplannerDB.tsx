@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { type IDBPDatabase, openDB } from 'idb';
 
 interface DayplannerDB {
@@ -31,17 +31,17 @@ const upgradeDB = (db: IDBPDatabase<DayplannerDB>) => {
 const useDBStore = <T extends StoreName>(storeName: T) => {
     const [db, setDB] = useState<IDBPDatabase<DayplannerDB> | null>(null);
 
-    const initDB = async () => {
-        const database = await openDB<DayplannerDB>(dbName, dbVersion, {
-            upgrade(db) {
-                upgradeDB(db);
-            },
-        });
-        setDB(database);
-    };
-
     useEffect(() => {
-        void initDB();
+        const initDB = async () => {
+            const database = await openDB<DayplannerDB>(dbName, dbVersion, {
+                upgrade(db) {
+                    upgradeDB(db);
+                },
+            });
+            setDB(database);
+        };
+
+        initDB().catch(console.error);
     }, []);
 
     const addData = async (data: DayplannerDB[T]['value']) => {
@@ -79,6 +79,7 @@ const useDBStore = <T extends StoreName>(storeName: T) => {
                 const store = tx.objectStore(storeName);
                 const index = store.index(indexName);
                 const data = await index.getAll(queryValue);
+
                 return data ?? null;
             } catch (error) {
                 console.error(
@@ -105,12 +106,17 @@ const useDBStore = <T extends StoreName>(storeName: T) => {
         }
     };
 
-    return {
-        addData,
-        getData,
-        getDataByIndex,
-        deleteData,
-    };
+    const value = useMemo(
+        () => ({
+            addData,
+            getData,
+            getDataByIndex,
+            deleteData,
+        }),
+        [storeName]
+    );
+
+    return value;
 };
 
 export const useDayplannerDB = <T extends StoreName>(storeName: T) => {

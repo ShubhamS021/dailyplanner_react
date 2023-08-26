@@ -64,6 +64,7 @@ export const DEtranslation = {
             boardmovement: 'Aufgabe wurde auf anderes Board verschoben.',
             update: 'Aufgabe aktualisiert.',
             deletion: 'Aufgabe gelöscht.',
+            noData: 'Es gibt noch keine Daten zu diesem Board.',
         },
         BoardEditModal: {
             titleAndDescription: 'Titel und Beschreibung',

@@ -64,6 +64,7 @@ export const ENtranslation = {
             boardmovement: 'Task was moved to another board.',
             update: 'Task was updated.',
             deletion: 'Task was deleted.',
+            noData: 'There is no data for this board yet.',
         },
         BoardEditModal: {
             titleAndDescription: 'Title and description',

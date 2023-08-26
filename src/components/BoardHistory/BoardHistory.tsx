@@ -12,6 +12,9 @@ export const BoardHistory = () => {
     ]);
 
     const { history } = useHistory(board.id);
+
+    console.log(history, board.id);
+
     const { t } = useTranslation();
 
     const handleBackToBoard = () => {
@@ -36,6 +39,10 @@ export const BoardHistory = () => {
             default:
                 return '---';
         }
+    };
+
+    const renderNoData = () => {
+        return <>{t('components.BoardHistory.noData')}</>;
     };
 
     const renderHistoryTable = () => {
@@ -116,7 +123,11 @@ export const BoardHistory = () => {
                 className={`p-5 rounded-2xl bg-[#F8F8F8] grid gap-6 dark:bg-[#212932]`}
                 data-testid="page-board"
             >
-                <div className="table">{renderHistoryTable()}</div>
+                <div className="table">
+                    {history.length === 0
+                        ? renderNoData()
+                        : renderHistoryTable()}
+                </div>
             </div>
         </main>
     );

@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { calculateIlluminance } from '@/utils/color.util';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
-import { shallow } from 'zustand/shallow';
 import { TagCloseIcon } from '@/ui/Icons/Icons';
 
 export interface TagProps {
@@ -19,7 +18,7 @@ export const TagComponent: React.FC<TagProps> = ({
     isRemoveable,
     onRemove,
 }) => {
-    const [themeMode] = useBoardStore((state) => [state.themeMode], shallow);
+    const [themeMode] = useBoardStore((state) => [state.themeMode]);
     const [tagColor, setTagColor] = useState(color);
 
     useEffect(() => {

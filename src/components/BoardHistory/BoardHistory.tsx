@@ -13,8 +13,6 @@ export const BoardHistory = () => {
 
     const { history } = useHistory(board.id);
 
-    console.log(history, board.id);
-
     const { t } = useTranslation();
 
     const handleBackToBoard = () => {

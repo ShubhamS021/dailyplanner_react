@@ -5,68 +5,91 @@ import { type HistoryType } from '@/types/HistoryType';
 import { type Card } from '@/interfaces/Card';
 
 const useHistory = (boardId: number) => {
-    const { addData, getDataByIndex } = useDayplannerDB('history');
+    const { loading, addData, getDataByIndex } = useDayplannerDB('history');
     const [history, setHistory] = useState<HistoryListEntry[]>([]);
 
     const fetchData = useCallback(async () => {
         try {
             const history = await getHistory(boardId);
-            setHistory(history ?? []);
+            return history;
         } catch (error) {
             console.error(error);
         }
-    }, []);
+    }, [boardId, loading]);
+
+    const saveToHistory = useCallback(
+        (type: HistoryType, boardId: number, params: any) => {
+            const id = Date.now();
+            addData({
+                id,
+                type,
+                boardId,
+                data: { ...params },
+            }).catch(console.error);
+        },
+        [addData]
+    );
+
+    const getHistory = useCallback(
+        async (boardId: number): Promise<HistoryListEntry[]> => {
+            return (await getDataByIndex(
+                'boardIdIndex',
+                boardId
+            )) as HistoryListEntry[];
+        },
+        [getDataByIndex]
+    );
+
+    const addDeletionToHistory = useCallback(
+        (card: Card, boardId: number) => {
+            saveToHistory('DELETION', boardId, { card });
+        },
+        [saveToHistory]
+    );
+
+    const addUpdateToHistory = useCallback(
+        (card: Card, boardId: number) => {
+            saveToHistory('UPDATE', boardId, { card });
+        },
+        [saveToHistory]
+    );
+
+    const addCreationToHistory = useCallback(
+        (card: Card, boardId: number) => {
+            saveToHistory('CREATION', boardId, { card });
+        },
+        [saveToHistory]
+    );
+
+    const addMovementToHistory = useCallback(
+        (card: Card, boardId: number, laneStart: number, laneEnd: number) => {
+            saveToHistory('MOVEMENT', boardId, { card, laneStart, laneEnd });
+        },
+        [saveToHistory]
+    );
+
+    const addBoardMovementToHistory = useCallback(
+        (card: Card, boardId: number, boardStart: number, boardEnd: number) => {
+            saveToHistory('BOARDMOVEMENT', boardId, {
+                card,
+                boardStart,
+                boardEnd,
+            });
+        },
+        [saveToHistory]
+    );
 
     useEffect(() => {
-        fetchData().catch(console.error);
-    }, [fetchData]);
+        console.log('loading state', loading);
 
-    const saveToHistory = (type: HistoryType, boardId: number, params: any) => {
-        const id = Date.now();
-        addData({
-            id,
-            type,
-            boardId,
-            data: { ...params },
-        }).catch(console.error);
-    };
-
-    const getHistory = async (boardId: number): Promise<HistoryListEntry[]> => {
-        return (await getDataByIndex(
-            'boardIdIndex',
-            boardId
-        )) as HistoryListEntry[];
-    };
-
-    const addDeletionToHistory = (card: Card, boardId: number) => {
-        saveToHistory('DELETION', boardId, { card });
-    };
-
-    const addUpdateToHistory = (card: Card, boardId: number) => {
-        saveToHistory('UPDATE', boardId, { card });
-    };
-
-    const addCreationToHistory = (card: Card, boardId: number) => {
-        saveToHistory('CREATION', boardId, { card });
-    };
-
-    const addMovementToHistory = (
-        card: Card,
-        boardId: number,
-        laneStart: number,
-        laneEnd: number
-    ) => {
-        saveToHistory('MOVEMENT', boardId, { card, laneStart, laneEnd });
-    };
-
-    const addBoardMovementToHistory = (
-        card: Card,
-        boardId: number,
-        boardStart: number,
-        boardEnd: number
-    ) => {
-        saveToHistory('BOARDMOVEMENT', boardId, { card, boardStart, boardEnd });
-    };
+        if (!loading) {
+            fetchData()
+                .then((history) => {
+                    setHistory(history ?? []);
+                })
+                .catch(console.error);
+        }
+    }, [loading, fetchData]);
 
     const value = useMemo(
         () => ({
@@ -77,7 +100,14 @@ const useHistory = (boardId: number) => {
             addMovementToHistory,
             addBoardMovementToHistory,
         }),
-        [history]
+        [
+            history,
+            addDeletionToHistory,
+            addUpdateToHistory,
+            addCreationToHistory,
+            addMovementToHistory,
+            addBoardMovementToHistory,
+        ]
     );
 
     return value;

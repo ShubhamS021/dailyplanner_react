@@ -41,7 +41,7 @@ export const LaneActions: React.FC<LaneActionProps> = ({
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                     <DropdownMenuItem
-                        data-testid="edit-card-button"
+                        data-testid="edit-lane-button"
                         onClick={() => {
                             onShowLaneEditModal();
                         }}

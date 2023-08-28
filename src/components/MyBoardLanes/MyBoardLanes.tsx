@@ -127,21 +127,19 @@ export const MyBoardLanes = () => {
                         </button>
                     </div>
                     <div className={`grid grid-flow-col-dense wrap gap-2`}>
-                        {boards[boards.length - 1].lanes?.map(
-                            (l: Lane, index: number) => {
-                                return (
-                                    <TagComponent
-                                        key={index}
-                                        color={l.color}
-                                        text={l.title}
-                                        isRemoveable={true}
-                                        onRemove={() => {
-                                            handleLaneRemove(l.id);
-                                        }}
-                                    ></TagComponent>
-                                );
-                            }
-                        )}
+                        {boards[boards.length - 1].lanes?.map((l: Lane) => {
+                            return (
+                                <TagComponent
+                                    key={l.id}
+                                    color={l.color}
+                                    text={l.title}
+                                    isRemoveable={true}
+                                    onRemove={() => {
+                                        handleLaneRemove(l.id);
+                                    }}
+                                ></TagComponent>
+                            );
+                        })}
                     </div>
 
                     <div className="flex justify-center">

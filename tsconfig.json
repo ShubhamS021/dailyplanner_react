@@ -26,7 +26,6 @@
         "declaration": false,
         "noLib": false,
         "preserveConstEnums": true,
-        "sourceMap": true,
         "strictNullChecks": true,
         "noEmitOnError": false,
         "importHelpers": true,

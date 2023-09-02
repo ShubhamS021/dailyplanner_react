@@ -201,7 +201,12 @@ export const MyBoards = () => {
                     <GitlabIcon />
 
                     {t('components.MyBoards.git')}
-                    <b className="hover:text-[#FC6D27] transition-all duration-200">
+                    <b
+                        className="hover:text-[#FC6D27] transition-all duration-200"
+                        title={`Git Commit - ${
+                            import.meta.env.VITE_APP_VERSION
+                        }`}
+                    >
                         gitlab.com
                     </b>
                 </a>

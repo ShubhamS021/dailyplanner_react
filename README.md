@@ -1,5 +1,7 @@
 # Dayplanner
 
+[![Coverage](http://5.181.51.30:9001/api/project_badges/measure?project=Kevin.Hahn_dayplanner_AYjEM2YbWbiQFYJY4Q0U&metric=coverage&token=sqb_51baa84b56c8f842bea0a28acf0371704b5ad028)](http://5.181.51.30:9001/dashboard?id=Kevin.Hahn_dayplanner_AYjEM2YbWbiQFYJY4Q0U)
+
 A day planner application built using React, designed for use as a training tool. The user-friendly interface allows for easy scheduling and management of daily tasks.
 
 ## Available Scripts

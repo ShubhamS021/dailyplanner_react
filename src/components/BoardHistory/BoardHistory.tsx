@@ -66,6 +66,7 @@ export const BoardHistory = () => {
                                 <tr
                                     key={h.id}
                                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                                    data-testid={h.type}
                                 >
                                     <th
                                         scope="row"

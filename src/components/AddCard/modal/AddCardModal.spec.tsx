@@ -2,7 +2,7 @@ import { fireEvent, render } from '@testing-library/react';
 import { type Card } from '@/interfaces/Card';
 import type Tag from '@/interfaces/Tag';
 import type Task from '@/interfaces/Task';
-import { type Shirt } from '@/typesShirt';
+import { type Shirt } from '@/types/Shirt';
 import { AddCardModal } from './AddCardModal';
 
 test('renders the basic AddCardModal', () => {
@@ -70,11 +70,6 @@ test('renders the basic AddCardModal', () => {
     // remove a task from rendered card
     const taskRemoveButton = getAllByTestId(/task-remove-button/)[0];
     fireEvent.click(taskRemoveButton);
-
-    // remove a tag from rendered card
-    // TODO: isInEditMode is not recognized
-    // const tagRemoveButton = getAllByTestId(/tag-remove-button/)[0];
-    // fireEvent.click(tagRemoveButton);
 
     // TODO: create 2 tasks to drag and drop them in the list
 });

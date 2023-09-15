@@ -6,6 +6,9 @@ stages:
 
 image: node:lts-alpine
 
+.add_git: &add_git
+    - apk add --no-cache git 
+
 .add_bash: &add_bash
     - apk add --no-cache bash
 
@@ -30,6 +33,7 @@ lint:
 test:
     stage: test
     before_script:
+        - *add_git
         - yarn install
     script:
         - yarn test

@@ -69,6 +69,7 @@ qa:
     stage: deploy
     before_script:
         - *add_bash
+        - *add_git
         - *add_ssh
     environment:
         name: qa
@@ -82,6 +83,7 @@ prod:
     stage: deploy
     before_script:
         - *add_bash
+        - *add_git
         - *add_ssh
     environment:
         name: prod

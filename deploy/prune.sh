@@ -1,5 +1,6 @@
 #!/bin/bash
 
-ssh ${DEPLOY_USER}@${DEPLOY_SERVER}
+DEPLOY_SERVER=$DEPLOY_SERVER
+DEPLOY_USER=$DEPLOY_USER
 
-ssh ${DEPLOY_SERVER} "docker system prune -af" 
+ssh ${DEPLOY_USER}@${DEPLOY_SERVER} "docker system prune -af" 

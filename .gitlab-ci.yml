@@ -104,3 +104,14 @@ renovate:
         - if: '$CI_PIPELINE_SOURCE == "schedule"'
         - if: '$CI_PIPELINE_SOURCE == "push"'
         - if: '$CI_COMMIT_BRANCH == "develop"'
+
+after-renovate:
+    stage: after-renovate
+    before_script:
+        - *add_bash
+        - *add_ssh
+    script: bash deploy/prune.sh
+    rules:
+        - if: '$CI_PIPELINE_SOURCE == "schedule"'
+        - if: '$CI_PIPELINE_SOURCE == "push"'
+        - if: 'CI_COMMIT_BRANCH == "develop"'

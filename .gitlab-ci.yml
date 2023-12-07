@@ -3,7 +3,7 @@ stages:
     - test
     - sonar
     - deploy
-    - after-renovate
+    - renovate
 
 image: node:lts-alpine
 
@@ -95,19 +95,10 @@ prod:
     rules:
       - if: '$SKIP_STAGES != "true"'
 
-# renovate
-include:
-    - project: 'renovate-bot/renovate-runner'
-      file: '/templates/renovate.gitlab-ci.yml'
 
-renovate:
-    rules:
-        - if: '$CI_PIPELINE_SOURCE == "schedule"'
-        - if: '$CI_PIPELINE_SOURCE == "push"'
-        - if: '$CI_COMMIT_BRANCH == "develop"'
-
-after-renovate:
-    stage: after-renovate
+# cleans the dockr images
+renovate-cleanup:
+    stage: renovate
     before_script:
         - *add_bash
         - *add_ssh
@@ -116,3 +107,12 @@ after-renovate:
         - if: '$CI_PIPELINE_SOURCE == "schedule"'
         - if: '$CI_PIPELINE_SOURCE == "push"'
         - if: '$CI_COMMIT_BRANCH == "develop"'
+
+# renovate
+include:
+    - project: 'renovate-bot/renovate-runner'
+      file: '/templates/renovate.gitlab-ci.yml'
+      rules:
+        - if: '$CI_PIPELINE_SOURCE == "schedule"'
+        - if: '$CI_PIPELINE_SOURCE == "push"'
+        - if: '$CI_COMMIT_BRANCH == "develop"' 

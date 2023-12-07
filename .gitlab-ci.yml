@@ -97,22 +97,24 @@ prod:
 
 
 # cleans the dockr images
-renovate-cleanup:
+docker-cleanup:
     stage: renovate
+    variables:
+      REMOTE: 5.181.51.30
     before_script:
         - *add_bash
         - *add_ssh
-    script: bash deploy/prune.sh
+    script:
+      # ssh into the server
+      - ssh root@$REMOTE
+      # prune all docker images on server
+      - ssh $REMOTE "docker system prune -af"
     rules:
-        - if: '$CI_PIPELINE_SOURCE == "schedule"'
-        - if: '$CI_PIPELINE_SOURCE == "push"'
-        - if: '$CI_COMMIT_BRANCH == "develop"'
+      - if: '$CI_PIPELINE_SOURCE == "schedule" && $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "develop"'
 
 # renovate
 include:
     - project: 'renovate-bot/renovate-runner'
       file: '/templates/renovate.gitlab-ci.yml'
       rules:
-        - if: '$CI_PIPELINE_SOURCE == "schedule"'
-        - if: '$CI_PIPELINE_SOURCE == "push"'
-        - if: '$CI_COMMIT_BRANCH == "develop"' 
+        - if: '$CI_PIPELINE_SOURCE == "schedule" && $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "develop"'

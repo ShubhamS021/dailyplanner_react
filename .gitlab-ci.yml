@@ -3,7 +3,7 @@ stages:
     - test
     - sonar
     - deploy
-    - renovate
+    - renovate-clean
 
 image: node:lts-alpine
 
@@ -97,8 +97,8 @@ prod:
 
 
 # cleans the dockr images
-docker-cleanup:
-    stage: renovate
+renovate-clean:
+    stage: renovate-clean
     variables:
       REMOTE: 5.181.51.30
     before_script:
@@ -117,4 +117,4 @@ include:
     - project: 'renovate-bot/renovate-runner'
       file: '/templates/renovate.gitlab-ci.yml'
       rules:
-        - if: '$CI_PIPELINE_SOURCE == "schedule" && $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "develop"'
+        - if: '$CI_PIPELINE_SOURCE == "schedule" && $CI_COMMIT_BRANCH == "develop"'

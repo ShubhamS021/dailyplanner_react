@@ -98,7 +98,7 @@ prod:
 
 # cleans the dockr images
 renovate-clean:
-    stage: renovate-clean
+    stage: renovate
     variables:
       REMOTE: 5.181.51.30
     before_script:
@@ -110,7 +110,7 @@ renovate-clean:
       # prune all docker images on server
       - ssh $REMOTE "docker system prune -af"
     rules:
-      - if: '$CI_PIPELINE_SOURCE == "schedule" && $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "develop"'
+      - if: '$CI_PIPELINE_SOURCE == "schedule" && $CI_COMMIT_BRANCH == "develop"'
 
 # renovate
 include:

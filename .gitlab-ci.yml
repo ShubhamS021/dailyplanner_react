@@ -3,7 +3,7 @@ stages:
     - test
     - sonar
     - deploy
-    - renovate-clean
+    - renovate
 
 image: node:lts-alpine
 

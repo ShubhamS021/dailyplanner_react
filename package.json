@@ -59,7 +59,7 @@
         "@vitejs/plugin-react": "^4.0.4",
         "@vitest/coverage-v8": "^1.0.0",
         "@vitest/ui": "^1.0.0",
-        "@welldone-software/why-did-you-render": "^7.0.1",
+        "@welldone-software/why-did-you-render": "^8.0.0",
         "autoprefixer": "^10.4.15",
         "commit-and-tag-version": "^12.0.0",
         "cypress": "^13.1.0",

@@ -37,7 +37,7 @@
         "react": "^18.2.0",
         "react-beautiful-dnd": "^13.1.1",
         "react-dom": "^18.2.0",
-        "react-i18next": "^13.2.1",
+        "react-i18next": "^14.0.0",
         "tailwind-merge": "^2.0.0",
         "tailwindcss-animate": "^1.0.7",
         "vite-plugin-require": "^1.1.10",

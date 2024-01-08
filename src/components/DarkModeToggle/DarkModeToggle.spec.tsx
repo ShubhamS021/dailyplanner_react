@@ -5,13 +5,6 @@ import { initialLanes } from '@/hooks/useBoardStore/data/initialLanes.state';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { vi } from 'vitest';
 
-// Mock react-i18next useTranslation hook
-vi.mock('react-i18next', () => ({
-    useTranslation: () => ({
-        t: vi.fn((key) => key),
-    }),
-}));
-
 describe('DarkModeToggle', () => {
     // add a default board with some columns
     beforeEach(() => {
@@ -31,7 +24,7 @@ describe('DarkModeToggle', () => {
         const { getByTestId, getByText } = render(<DarkModeToggle />);
 
         const toggleButton = getByTestId('theme-mode-button');
-        const toggleText = getByText('components.DarkModeToggle.dark');
+        const toggleText = getByText('Dark');
 
         expect(toggleButton).toBeInTheDocument();
         expect(toggleText).toBeInTheDocument();
@@ -47,7 +40,7 @@ describe('DarkModeToggle', () => {
         const { getByTestId, getByText } = render(<DarkModeToggle />);
 
         const toggleButton = getByTestId('theme-mode-button');
-        const toggleText = getByText('components.DarkModeToggle.light');
+        const toggleText = getByText('Light');
 
         expect(toggleButton).toBeInTheDocument();
         expect(toggleText).toBeInTheDocument();

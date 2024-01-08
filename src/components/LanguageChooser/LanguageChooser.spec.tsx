@@ -11,14 +11,6 @@ import { initialLanes } from '@/hooks/useBoardStore/data/initialLanes.state';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { vi } from 'vitest';
 
-// Mock react-i18next useTranslation hook
-vi.mock('react-i18next', () => ({
-    useTranslation: () => ({
-        t: vi.fn((key) => key),
-        i18n: { resolvedLanguage: 'en', changeLanguage: vi.fn() },
-    }),
-}));
-
 describe('LanguageChooser', () => {
     beforeEach(() => {
         vi.clearAllMocks();
@@ -41,7 +33,7 @@ describe('LanguageChooser', () => {
     it('should render the language chooser component with correct options', () => {
         render(<LanguageChooser />);
         const languageText = screen.getByText(
-            'components.LanguageChooser.language'
+            'Language:'
         );
         expect(languageText).toBeInTheDocument();
 

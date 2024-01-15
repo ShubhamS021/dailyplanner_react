@@ -2852,9 +2852,9 @@ commander@^6.2.1:
   integrity sha512-U7VdrJFnJgo4xjrHpTzu0yrHPGImdsmD95ZlgYSEajAn2JKzDhDTPG9kBTefmObL2w/ngeZnilk+OV9CG3d7UA==
 
 commit-and-tag-version@^12.0.0:
-  version "12.1.0"
-  resolved "https://registry.yarnpkg.com/commit-and-tag-version/-/commit-and-tag-version-12.1.0.tgz#ed366ad39012659009315ecd1fe8a06945bae4ee"
-  integrity sha512-+Kkvkp1tMF52m5tcJYMNxinW5kBCArtwzK7Lpv3LxVBGRH0ULDQpntp2IBieX1Rcf3jYPcbIrz4pEUVBwpEa1A==
+  version "12.2.0"
+  resolved "https://registry.yarnpkg.com/commit-and-tag-version/-/commit-and-tag-version-12.2.0.tgz#08f3796e86f168397db2d9a987e3c7cf005dbb76"
+  integrity sha512-t8kvDy8dVTCF/j2u7Elt/J3tzCPyh16ssK8ECpj44R6jJiCUJMhWwZ36L652iChvqz4BAem9XU7WyuMYHlmSvA==
   dependencies:
     chalk "^2.4.2"
     conventional-changelog "3.1.25"
@@ -2867,7 +2867,9 @@ commit-and-tag-version@^12.0.0:
     figures "^3.1.0"
     find-up "^5.0.0"
     git-semver-tags "^5.0.0"
+    jsdom "^23.2.0"
     semver "^7.5.4"
+    w3c-xmlserializer "^5.0.0"
     yargs "^17.7.2"
 
 common-tags@^1.8.0:

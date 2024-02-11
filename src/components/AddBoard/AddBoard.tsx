@@ -1,19 +1,18 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import logo from '../../assets/logo.png';
+import logo from '@/assets/logo.png';
 import {
     getLocalizedInitialBoardState,
     getLocalizedInitialLanesState,
-} from '../../utils/context.util';
-import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
-import { shallow } from 'zustand/shallow';
-import { ArrowLeftIcon } from 'ui/Icons/Icons';
+} from '@/utils/context.util';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import { ArrowLeftIcon } from '@/ui/Icons/Icons';
 
 export const AddBoard = () => {
-    const [addBoard, toggleBoardMode] = useBoardStore(
-        (state) => [state.addBoard, state.toggleBoardMode],
-        shallow
-    );
+    const [addBoard, toggleBoardMode] = useBoardStore((state) => [
+        state.addBoard,
+        state.toggleBoardMode,
+    ]);
 
     const { t } = useTranslation();
 

@@ -64,6 +64,7 @@ export const ENtranslation = {
             boardmovement: 'Task was moved to another board.',
             update: 'Task was updated.',
             deletion: 'Task was deleted.',
+            noData: 'There is no data for this board yet.',
         },
         BoardEditModal: {
             titleAndDescription: 'Title and description',
@@ -77,9 +78,10 @@ export const ENtranslation = {
             tasks: 'tasks',
         },
         Card: {
-            move: 'Move this card.',
-            edit: 'Edit this card.',
-            remove: 'Remove this card.',
+            actions: 'Actions',
+            move: 'Move card',
+            edit: 'Edit card',
+            remove: 'Remove card',
         },
         CompactModeToggle: {
             normal: 'Normal mode',
@@ -105,12 +107,12 @@ export const ENtranslation = {
             history: 'History',
         },
         Lane: {
-            editTitle: 'Edit lane',
-            edit: 'edit',
+            actions: 'Actions',
+            edit: 'Edit lane',
             editNameText: 'Enter a new lane name:',
             editLabelText: 'Choose a new lane color:',
             deleteTitle: 'Delete all cards from lane',
-            deleteAll: 'delete all',
+            deleteAll: 'Delete all cards',
             dropzone: 'Place tasks here..',
             deletionTitle: 'Warning: Deleting all cards from lane',
             deletionText:
@@ -145,6 +147,7 @@ export const ENtranslation = {
             editTitle: 'Edit board',
             editSubmit: 'Save changes.',
             editCancel: 'Cancel',
+            enter: 'Enter this board.',
             title: 'My boards',
             edit: 'Edit this board.',
             remove: 'Remove this board.',

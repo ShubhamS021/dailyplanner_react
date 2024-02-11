@@ -1,21 +1,21 @@
 import { useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { useTranslation } from 'react-i18next';
-import { AddCardModal } from '../../components/AddCard/modal/AddCardModal';
-import { CardMoveModal } from '../Card/modal/CardMoveModal/CardMoveModal';
-import { ConfirmationModal } from '../../components/ConfirmationModal/ConfirmationModal';
-import { type Card } from '../../interfaces/Card';
-import type Tag from '../../interfaces/Tag';
-import type Task from '../../interfaces/Task';
-import { type Shirt } from '../../types/Shirt';
-import { CardComponent } from '../Card/Card';
-import { Dropzone } from '../../ui/Dropzone/Dropzone';
-import { LabelComponent } from '../../ui/Label/Label';
-import { LaneEditModal } from './modal/LaneEditModal/LaneEditModal';
-import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
-import { shallow } from 'zustand/shallow';
-import useHistory from 'hooks/useHistory/useHistory';
-import { EditIcon, TrashIcon } from 'ui/Icons/Icons';
+import { AddCardModal } from '@/components/AddCard/modal/AddCardModal';
+import { CardMoveModal } from '@/components/Card/modal/CardMoveModal/CardMoveModal';
+import { ConfirmationModal } from '@/components/ConfirmationModal/ConfirmationModal';
+import { type Card } from '@/interfaces/Card';
+import type Tag from '@/interfaces/Tag';
+import type Task from '@/interfaces/Task';
+import { type Shirt } from '@/types/Shirt';
+import { CardComponent } from '@/components/Card/Card';
+import { Dropzone } from '@/ui/Dropzone/Dropzone';
+import { LabelComponent } from '@/ui/Label/Label';
+import { LaneEditModal } from '@/components/Lane/modal/LaneEditModal/LaneEditModal';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import useHistory from '@/hooks/useHistory/useHistory';
+import { type Lane } from '@/interfaces/Lane';
+import { LaneActions } from './LaneActions/LaneActions';
 
 export interface LaneProps {
     id: number;
@@ -41,19 +41,16 @@ export const LaneComponent: React.FC<LaneProps> = ({
         renameLane,
         updateLaneColor,
         updateCard,
-    ] = useBoardStore(
-        (state) => [
-            state.boards,
-            state.board,
-            state.removeCardFromLane,
-            state.removeCardsFromLane,
-            state.moveCardToBoard,
-            state.renameLane,
-            state.updateLaneColor,
-            state.updateCard,
-        ],
-        shallow
-    );
+    ] = useBoardStore((state) => [
+        state.boards,
+        state.board,
+        state.removeCardFromLane,
+        state.removeCardsFromLane,
+        state.moveCardToBoard,
+        state.renameLane,
+        state.updateLaneColor,
+        state.updateCard,
+    ]);
 
     const {
         addDeletionToHistory,
@@ -69,47 +66,6 @@ export const LaneComponent: React.FC<LaneProps> = ({
     const [cardToMove, setCardToMove] = useState<Card>();
 
     const { t } = useTranslation();
-
-    const renderDelete = () => {
-        return (
-            <div
-                className={`text-xs text-[#4d4d4d] dark:text-[#B5B5B5] font-semibold`}
-            >
-                <div
-                    className="flex gap-1 cursor-pointer hover:text-red-500 soft stroke-[#5A5A65] dark:stroke-[#B5B5B5] dark:hover:stroke-red-500 hover:stroke-red-500"
-                    title={t('components.Lane.deleteTitle') ?? ''}
-                    data-testid="delete-all-from-lane-button"
-                    onClick={() => {
-                        setShowDeleteModal(true);
-                    }}
-                >
-                    <TrashIcon classes="h-4 w-4" />
-
-                    {t('components.Lane.deleteAll')}
-                </div>
-            </div>
-        );
-    };
-
-    const renderEdit = () => {
-        return (
-            <div
-                className={`text-xs text-[#4d4d4d] dark:text-[#B5B5B5] font-semibold`}
-            >
-                <div
-                    className="flex gap-1 cursor-pointer hover:text-[#17A2B8] soft stroke-[#5A5A65] dark:stroke-[#B5B5B5] hover:stroke-[#17A2B8] dark:hover:stroke-[#17A2B8]"
-                    title={t('components.Lane.editTitle') ?? ''}
-                    data-testid="edit-lane-button"
-                    onClick={() => {
-                        setShowLaneEditModal(true);
-                    }}
-                >
-                    <EditIcon classes="h-4 w-4" />
-                    {t('components.Lane.edit')}
-                </div>
-            </div>
-        );
-    };
 
     const renderEmptyLane = () => {
         return <Dropzone text={t('components.Lane.dropzone') ?? ''} />;
@@ -197,8 +153,8 @@ export const LaneComponent: React.FC<LaneProps> = ({
                         if (newBoard === undefined)
                             throw new Error(`No board with id ${id} found.`);
 
-                        const currentLane = board.lanes.find((l) =>
-                            l.cards.some((c) => c.id === cardToMove.id)
+                        const currentLane = board.lanes.find((l: Lane) =>
+                            l.cards.some((c: Card) => c.id === cardToMove.id)
                         );
 
                         if (currentLane === undefined) {
@@ -284,7 +240,7 @@ export const LaneComponent: React.FC<LaneProps> = ({
         return (
             <>
                 <LaneEditModal
-                    title={t('components.Lane.editTitle')}
+                    title={t('components.Lane.edit')}
                     editNameText={t('components.Lane.editNameText')}
                     editLabelText={t('components.Lane.editLabelText')}
                     board={board}
@@ -307,19 +263,22 @@ export const LaneComponent: React.FC<LaneProps> = ({
             <div className="w-full grid grid-cols-[auto,auto,1fr] gap-1">
                 <LabelComponent color={color} text={text} />
                 <div
-                    className={`text-xs text-[#4d4d4d] font-semibold self-center dark:text-[#B5B5B5]`}
+                    className={`bg-accent text-accent-foreground text-xs border border-accent rounded p-1 px-2 font-semibold self-center`}
                 >
-                    ({cards?.length}{' '}
-                    {cards?.length === 1
-                        ? t('components.Lane.task')
-                        : t('components.Lane.tasks')}
-                    )
+                    {cards?.length}
                 </div>
                 <div className="group flex self-center place-self-end gap-2 items-center">
                     <div className="invisible group-hover:visible">
-                        {renderEdit()}
+                        <LaneActions
+                            onShowLaneEditModal={() => {
+                                setShowLaneEditModal(true);
+                            }}
+                            onShowDeleteModal={() => {
+                                setShowDeleteModal(true);
+                            }}
+                            isLastLane={isLastLane}
+                        />
                     </div>
-                    {isLastLane && renderDelete()}
                 </div>
             </div>
             {renderCards(cards)}

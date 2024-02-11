@@ -1,10 +1,10 @@
-import { DEtranslation } from 'assets/i18n/de';
-import { ENtranslation } from 'assets/i18n/en';
+import { DEtranslation } from '@/assets/i18n/de';
+import { ENtranslation } from '@/assets/i18n/en';
 import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
 
-void i18n
+i18n
     // detect user language
     // learn more: https://github.com/i18next/i18next-browser-languageDetector
     .use(LanguageDetector)
@@ -26,6 +26,7 @@ void i18n
                 translation: DEtranslation,
             },
         },
-    });
+    })
+    .catch(console.error);
 
 export default i18n;

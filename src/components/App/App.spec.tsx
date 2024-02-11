@@ -1,7 +1,7 @@
 import { act, render, renderHook } from '@testing-library/react';
 import App from './App';
-import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
-import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import { initialBoardState } from '@/hooks/useBoardStore/data/initialBoard.state';
 
 describe('App component', () => {
     it('renders AddBoard component when in boardCreateMode', () => {

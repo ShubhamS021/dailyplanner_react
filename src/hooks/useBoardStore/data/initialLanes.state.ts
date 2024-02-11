@@ -1,5 +1,5 @@
-import { type Lane } from '../../../interfaces/Lane';
-import { colors } from '../../../theme/colors';
+import { type Lane } from '@/interfaces/Lane';
+import { colors } from '@/theme/colors';
 
 export const initialLanes: Lane[] = [
     {

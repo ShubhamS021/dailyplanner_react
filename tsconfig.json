@@ -1,7 +1,10 @@
 {
     "compilerOptions": {
         "allowJs": true,
-        "baseUrl": "./src",
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["./src/*"]
+        },
         "module": "esnext",
         "lib": ["dom", "dom.iterable", "esnext"],
         "types": [
@@ -23,7 +26,6 @@
         "declaration": false,
         "noLib": false,
         "preserveConstEnums": true,
-        "sourceMap": true,
         "strictNullChecks": true,
         "noEmitOnError": false,
         "importHelpers": true,

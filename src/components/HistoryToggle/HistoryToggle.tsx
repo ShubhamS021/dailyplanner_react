@@ -1,15 +1,11 @@
 import { useTranslation } from 'react-i18next';
-import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
-import { shallow } from 'zustand/shallow';
-import { HistoryIcon } from 'ui/Icons/Icons';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import { HistoryIcon } from '@/ui/Icons/Icons';
 
 export const HistoryToggle = () => {
     const { t } = useTranslation();
 
-    const [toggleBoardMode] = useBoardStore(
-        (state) => [state.toggleBoardMode],
-        shallow
-    );
+    const [toggleBoardMode] = useBoardStore((state) => [state.toggleBoardMode]);
 
     const handleHistoryToggle = () => {
         toggleBoardMode('boardHistoryMode');

@@ -1,32 +1,29 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import logo from '../../assets/logo.png';
-import { ConfirmationModal } from '../../components/ConfirmationModal/ConfirmationModal';
-import Export from '../../components/Export/Export';
-import Import from '../../components/Import/Import';
-import { LanguageChooser } from '../../components/LanguageChooser/LanguageChooser';
-import { BoardEditModal } from '../Board/modal/BoardEditModal/BoardEditModal';
-import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
-import { shallow } from 'zustand/shallow';
+import logo from '@/assets/logo.png';
+import { ConfirmationModal } from '@/components/ConfirmationModal/ConfirmationModal';
+import Export from '@/components/Export/Export';
+import Import from '@/components/Import/Import';
+import { LanguageChooser } from '@/components/LanguageChooser/LanguageChooser';
+import { BoardEditModal } from '@/components/Board/modal/BoardEditModal/BoardEditModal';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import {
     ArrowNarrowRightIcon,
     EditIcon,
     GitlabIcon,
     TrashIcon,
-} from 'ui/Icons/Icons';
+} from '@/ui/Icons/Icons';
+import { Button } from '@/ui/Button/Button';
 
 export const MyBoards = () => {
     const [boards, enterBoard, renameBoard, removeBoard, toggleBoardMode] =
-        useBoardStore(
-            (state) => [
-                state.boards,
-                state.enterBoard,
-                state.renameBoard,
-                state.removeBoard,
-                state.toggleBoardMode,
-            ],
-            shallow
-        );
+        useBoardStore((state) => [
+            state.boards,
+            state.enterBoard,
+            state.renameBoard,
+            state.removeBoard,
+            state.toggleBoardMode,
+        ]);
 
     const [showModal, setShowModal] = useState(false);
     const [boardToEdit, setBoardToEdit] = useState(boards[0]);
@@ -111,8 +108,9 @@ export const MyBoards = () => {
                                     className="invisible group-hover:visible flex gap-2"
                                     data-testid={`board-${board.id}-actions`}
                                 >
-                                    <button
-                                        className="w-10 inline-flex items-center justify-center transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-[#17A2B8] hover:text-white focus:shadow-outline"
+                                    <Button
+                                        size={'icon'}
+                                        variant={'ghost'}
                                         onClick={() => {
                                             setBoardToEdit(board);
                                             setShowEditModal(true);
@@ -122,13 +120,12 @@ export const MyBoards = () => {
                                         }
                                         data-testid="edit-board-button"
                                     >
-                                        <div className="flex gap-2 items-center text-xs p-2 stroke-[#5A5A65] hover:stroke-white">
-                                            <EditIcon classes="h-4 w-4" />
-                                        </div>
-                                    </button>
+                                        <EditIcon classes="h-4 w-4 stroke-[#000] hover:stroke-white" />
+                                    </Button>
 
-                                    <button
-                                        className="w-10 inline-flex items-center justify-center transition-colors duration-150 bg-[#ECEEF8] rounded-md hover:bg-pink-600 hover:text-white focus:shadow-outline "
+                                    <Button
+                                        size={'icon'}
+                                        variant={'ghost'}
                                         onClick={() => {
                                             setShowModal(true);
                                         }}
@@ -138,10 +135,9 @@ export const MyBoards = () => {
                                         }
                                         data-testid="remove-board-button"
                                     >
-                                        <div className="flex gap-2 items-center text-xs p-2 stroke-[#5A5A65] hover:stroke-white">
-                                            <TrashIcon classes="h-4 w-4" />
-                                        </div>
-                                    </button>
+                                        <TrashIcon classes="h-4 w-4 stroke-[#000] hover:stroke-white" />
+                                    </Button>
+
                                     {showModal
                                         ? renderDeleteConfirmationModal(
                                               board.id
@@ -149,17 +145,19 @@ export const MyBoards = () => {
                                         : null}
                                 </div>
                                 <div>
-                                    <button
-                                        className="rounded-md bg-[#17A2B8] text-white font-semibold"
+                                    <Button
+                                        size={'icon'}
+                                        className="bg-[#17A2B8] hover:bg-[#17A2B8] text-white font-semibold"
                                         data-testid="myboards-enterboard-button"
+                                        title={
+                                            t('components.MyBoards.enter') ?? ''
+                                        }
                                         onClick={() => {
                                             enterBoard(board.id);
                                         }}
                                     >
-                                        <div className="flex gap-2 items-center p-2 stroke-white">
-                                            <ArrowNarrowRightIcon />
-                                        </div>
-                                    </button>
+                                        <ArrowNarrowRightIcon />
+                                    </Button>
                                 </div>
                             </div>
                         );
@@ -203,7 +201,12 @@ export const MyBoards = () => {
                     <GitlabIcon />
 
                     {t('components.MyBoards.git')}
-                    <b className="hover:text-[#FC6D27] transition-all duration-200">
+                    <b
+                        className="hover:text-[#FC6D27] transition-all duration-200"
+                        title={`Git Commit - ${
+                            import.meta.env.VITE_APP_VERSION
+                        }`}
+                    >
                         gitlab.com
                     </b>
                 </a>

@@ -3,6 +3,11 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import viteTsconfigPaths from 'vite-tsconfig-paths';
 import svgrPlugin from 'vite-plugin-svgr';
+import vitePluginRequire from 'vite-plugin-require';
+import path from 'path';
+import * as child from 'child_process';
+
+const commitHash = child.execSync('git rev-parse --short HEAD').toString();
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -38,5 +43,22 @@ export default defineConfig({
         react({ exclude: ['cypress/**/*'] }),
         viteTsconfigPaths(),
         svgrPlugin(),
+        vitePluginRequire({
+            // @fileRegex RegExp
+            // optional：default file processing rules are as follows
+            // fileRegex:/(.jsx?|.tsx?|.vue)$/
+            // Conversion mode. The default mode is import
+            // importMetaUrl | import
+            // importMetaUrl see https://vitejs.cn/guide/assets.html#new-url-url-import-meta-url
+            // translateType: "importMetaUrl" | "import";
+        }),
     ],
+    define: {
+        'import.meta.env.VITE_APP_VERSION': JSON.stringify(commitHash),
+    },
+    resolve: {
+        alias: {
+            '@': path.resolve(__dirname, './src'),
+        },
+    },
 });

@@ -1,18 +1,16 @@
-import { t } from 'i18next';
 import {
     DragDropContext,
     Draggable,
     Droppable,
     type DropResult,
 } from 'react-beautiful-dnd';
-import { type Tag } from '../../interfaces/Tag';
-import { type Task } from '../../interfaces/Task';
-import { type Shirt } from '../../types/Shirt';
-import { TagComponent } from '../../ui/Tag/Tag';
-import { TaskComponent } from '../../ui/Task/Task';
-import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
-import { shallow } from 'zustand/shallow';
-import { EditIcon, RouteIcon, TrashIcon } from 'ui/Icons/Icons';
+import { type Tag } from '@/interfaces/Tag';
+import { type Task } from '@/interfaces/Task';
+import { type Shirt } from '@/types/Shirt';
+import { TagComponent } from '@/ui/Tag/Tag';
+import { TaskComponent } from '@/ui/Task/Task';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import { CardActions } from './CardActions/CardActions';
 
 export interface CardProps {
     id: number;
@@ -47,10 +45,10 @@ export const CardComponent: React.FC<CardProps> = ({
     onRemoveTask,
     onUpdateTasks,
 }) => {
-    const [boards, compactMode, updateTask] = useBoardStore(
-        (state) => [state.boards, state.compactMode, state.updateTask],
-        shallow
-    );
+    const [compactMode, updateTask] = useBoardStore((state) => [
+        state.compactMode,
+        state.updateTask,
+    ]);
 
     const renderTags = (tags: Tag[] | undefined) => {
         if (tags === undefined) return;
@@ -235,44 +233,23 @@ export const CardComponent: React.FC<CardProps> = ({
                 className="invisible group-hover:visible flex gap-1"
                 data-testid={`card-${id}-actions`}
             >
-                <button
-                    className="small-button"
-                    onClick={() => {
-                        if (onMoveCard != null) {
-                            onMoveCard();
-                        }
-                    }}
-                    title={t('components.Card.move') ?? ''}
-                    data-testid="move-card-button"
-                    disabled={boards.length < 2}
-                >
-                    <RouteIcon classes="mt-1 ml-1 h-5 w-6" />
-                </button>
-                <button
-                    className="small-button"
-                    onClick={() => {
+                <CardActions
+                    onEditCard={() => {
                         if (onEditCard != null) {
                             onEditCard();
                         }
                     }}
-                    title={t('components.Card.edit') ?? ''}
-                    data-testid="edit-card-button"
-                >
-                    <EditIcon classes="h-4 w-4" />
-                </button>
-
-                <button
-                    className="small-button hover:bg-pink-600"
-                    onClick={() => {
+                    onMoveCard={() => {
+                        if (onMoveCard != null) {
+                            onMoveCard();
+                        }
+                    }}
+                    onRemoveCard={() => {
                         if (onRemoveCard != null) {
                             onRemoveCard();
                         }
                     }}
-                    title={t('components.Card.remove') ?? ''}
-                    data-testid="remove-card-button"
-                >
-                    <TrashIcon classes="h-4 w-4" />
-                </button>
+                />
             </div>
         );
     };
@@ -280,22 +257,26 @@ export const CardComponent: React.FC<CardProps> = ({
     return (
         <div className="group card" data-testid={`card-${id}`}>
             <div className="flex flex-col gap-2 items-start w-full">
-                {renderTags(upperTags)}
-                <div className="grid grid-cols-[1fr,auto] w-full">
-                    <h3
-                        className="font-semibold text-base dark:text-white"
-                        data-testid="card-title"
-                    >
-                        {title}
-                    </h3>
+                <div className="w-full grid grid-cols-[1fr,auto] gap-1">
+                    <div className="flex flex-col gap-2">
+                        {renderTags(upperTags)}
+                        <div className="grid grid-cols-[1fr,auto] w-full">
+                            <h3
+                                className="font-semibold text-base dark:text-white"
+                                data-testid="card-title"
+                            >
+                                {title}
+                            </h3>
+                        </div>
+                    </div>
+                    {!inEditMode && renderCardActions()}
                 </div>
 
                 {renderDescription()}
                 {inEditMode && renderTasksDraggable()}
                 {!inEditMode && renderTasks()}
                 {renderTags(lowerTags)}
-                <div className="grid grid-cols-[1fr,auto] w-full items-center">
-                    {!inEditMode && renderCardActions()}
+                <div className="w-full flex justify-end">
                     {renderEstimation()}
                 </div>
             </div>

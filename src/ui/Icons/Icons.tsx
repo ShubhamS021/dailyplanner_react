@@ -37,6 +37,11 @@ export const CompactModeIcon: React.FC<IconsProps> = ({
     viewBox = defaultViewBox,
 }) => <Icon name="compactMode" options={{ classes, viewBox }} />;
 
+export const DotsIcon: React.FC<IconsProps> = ({
+    classes = '',
+    viewBox = defaultViewBox,
+}) => <Icon name="dots" options={{ classes, viewBox }} />;
+
 export const EditIcon: React.FC<IconsProps> = ({
     classes = '',
     viewBox = defaultViewBox,
@@ -91,6 +96,11 @@ export const RouteIcon: React.FC<IconsProps> = ({
     classes = '',
     viewBox = defaultViewBox,
 }) => <Icon name="route" options={{ classes, viewBox }} />;
+
+export const Route2Icon: React.FC<IconsProps> = ({
+    classes = '',
+    viewBox = defaultViewBox,
+}) => <Icon name="route-2" options={{ classes, viewBox }} />;
 
 export const SaveIcon: React.FC<IconsProps> = ({
     classes = '',

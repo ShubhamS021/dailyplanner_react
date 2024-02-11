@@ -1,15 +1,24 @@
-import { act, fireEvent, render, renderHook } from '@testing-library/react';
+import {
+    act,
+    fireEvent,
+    render,
+    renderHook,
+    screen,
+} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 import { LaneComponent } from './Lane';
-import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
-import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
-import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import { initialBoardState } from '@/hooks/useBoardStore/data/initialBoard.state';
+import { initialLanes } from '@/hooks/useBoardStore/data/initialLanes.state';
 import { card, card2, card3 } from '../../../__mocks__/cards.mock';
-import { useDayplannerDB } from 'hooks/useDayplannerDB/useDayplannerDB';
+import { useDayplannerDB } from '@/hooks/useDayplannerDB/useDayplannerDB';
 import { vi } from 'vitest';
 
 describe('Lane', () => {
+    const WAIT_TILL_ACTION_MENU = 200;
+
     // add a default board with some columns
     beforeEach(() => {
         renderHook(() => useDayplannerDB('history'));
@@ -91,8 +100,8 @@ describe('Lane', () => {
         expect(lane).toContainElement(getByTestId('lane-1-card-2'));
     });
 
-    it('should render delete all button in last lane', () => {
-        const { getByTestId } = render(
+    it('should render delete all button in last lane', async () => {
+        const { getByTestId, getAllByTestId } = render(
             <LaneComponent
                 id={1}
                 text={'Test Lane'}
@@ -100,11 +109,17 @@ describe('Lane', () => {
                 isLastLane={true}
             />
         );
+
+        const [laneActionButton] = getAllByTestId('lane-action-button');
+        await userEvent.click(laneActionButton, {
+            delay: WAIT_TILL_ACTION_MENU,
+        });
+
         expect(getByTestId('delete-all-from-lane-button')).toBeInTheDocument();
     });
 
-    it('should open the confirmation modal when delete all button is clicked', () => {
-        const { getByTestId, getByText } = render(
+    it('should open the confirmation modal when delete all button is clicked', async () => {
+        const { getAllByTestId, getByText } = render(
             <DragDropContext onDragEnd={() => {}}>
                 <Droppable droppableId="some_id">
                     {(provided: any) => (
@@ -124,7 +139,13 @@ describe('Lane', () => {
                 </Droppable>
             </DragDropContext>
         );
-        fireEvent.click(getByTestId('delete-all-from-lane-button'));
+        const [laneActionButton] = getAllByTestId('lane-action-button');
+        await userEvent.click(laneActionButton, {
+            delay: WAIT_TILL_ACTION_MENU,
+        });
+
+        const deleteButton = screen.getByTestId('delete-all-from-lane-button');
+        await userEvent.click(deleteButton);
         expect(
             getByText('Warning: Deleting all cards from lane')
         ).toBeInTheDocument();
@@ -135,8 +156,8 @@ describe('Lane', () => {
         ).toBeInTheDocument();
     });
 
-    it('should cancel the confirmation modal when delete all button is clicked', () => {
-        const { getByTestId } = render(
+    it('should cancel the confirmation modal when delete all button is clicked', async () => {
+        const { getByTestId, getAllByTestId } = render(
             <DragDropContext onDragEnd={() => {}}>
                 <Droppable droppableId="some_id">
                     {(provided: any) => (
@@ -156,19 +177,29 @@ describe('Lane', () => {
                 </Droppable>
             </DragDropContext>
         );
-        fireEvent.click(getByTestId('delete-all-from-lane-button'));
-        fireEvent.click(getByTestId('confirmation-modal-cancel-button'));
+        const [laneActionButton] = getAllByTestId('lane-action-button');
+        await userEvent.click(laneActionButton, {
+            delay: WAIT_TILL_ACTION_MENU,
+        });
+
+        const deleteButton = screen.getByTestId('delete-all-from-lane-button');
+        await userEvent.click(deleteButton);
+
+        const confirmationButton = screen.getByTestId(
+            'confirmation-modal-cancel-button'
+        );
+        await userEvent.click(confirmationButton);
 
         const lane = getByTestId('lane-1');
         expect(lane).toContainElement(getByTestId('lane-1-card-1'));
         expect(lane).toContainElement(getByTestId('lane-1-card-2'));
     });
 
-    it('should submit the confirmation modal when delete all button is clicked', () => {
+    it('should submit the confirmation modal when delete all button is clicked', async () => {
         const { result } = renderHook(() => useBoardStore());
         const spy = vi.spyOn(result.current, 'removeCardsFromLane');
 
-        const { getByTestId } = render(
+        const { getAllByTestId } = render(
             <DragDropContext onDragEnd={() => {}}>
                 <Droppable droppableId="some_id">
                     {(provided: any) => (
@@ -188,13 +219,23 @@ describe('Lane', () => {
                 </Droppable>
             </DragDropContext>
         );
-        fireEvent.click(getByTestId('delete-all-from-lane-button'));
-        fireEvent.click(getByTestId('confirmation-modal-button'));
+        const [laneActionButton] = getAllByTestId('lane-action-button');
+        await userEvent.click(laneActionButton, {
+            delay: WAIT_TILL_ACTION_MENU,
+        });
+
+        const deleteButton = screen.getByTestId('delete-all-from-lane-button');
+        await userEvent.click(deleteButton);
+
+        const confirmationButton = screen.getByTestId(
+            'confirmation-modal-button'
+        );
+        await userEvent.click(confirmationButton);
 
         expect(spy).toHaveBeenCalledTimes(1);
     });
 
-    it('should remove a card from lane', () => {
+    it('should remove a card from lane', async () => {
         const { result } = renderHook(() => useBoardStore());
         const spy = vi.spyOn(result.current, 'removeCardFromLane');
 
@@ -218,13 +259,16 @@ describe('Lane', () => {
                 </Droppable>
             </DragDropContext>
         );
-        const removeButton = getAllByTestId('remove-card-button')[0];
-        fireEvent.click(removeButton);
 
+        const [cardActionButton] = getAllByTestId('card-action-button');
+        await userEvent.click(cardActionButton);
+
+        const removeButton = screen.getByTestId('remove-card-button');
+        fireEvent.click(removeButton);
         expect(spy).toHaveBeenCalledTimes(1);
     });
 
-    it('should cancel edit a card from lane', () => {
+    it('should cancel edit a card from lane', async () => {
         const { getAllByTestId } = render(
             <DragDropContext onDragEnd={() => {}}>
                 <Droppable droppableId="some_id">
@@ -245,11 +289,15 @@ describe('Lane', () => {
                 </Droppable>
             </DragDropContext>
         );
-        const editButton = getAllByTestId('edit-card-button')[0];
+
+        const [cardActionButton] = getAllByTestId('card-action-button');
+        await userEvent.click(cardActionButton);
+
+        const editButton = screen.getByTestId('edit-card-button');
         fireEvent.click(editButton);
     });
 
-    it('should submit edit a card from lane', () => {
+    it('should submit edit a card from lane', async () => {
         const { result } = renderHook(() => useBoardStore());
         const spy = vi.spyOn(result.current, 'updateCard');
 
@@ -273,7 +321,14 @@ describe('Lane', () => {
                 </Droppable>
             </DragDropContext>
         );
-        fireEvent.click(getAllByTestId('edit-card-button')[0]);
+
+        const [cardActionButton] = getAllByTestId('card-action-button');
+        await userEvent.click(cardActionButton, {
+            delay: WAIT_TILL_ACTION_MENU,
+        });
+
+        const editButton = screen.getByTestId('edit-card-button');
+        await userEvent.click(editButton);
 
         // updateDescription
         const descriptionInput = getByTestId(
@@ -289,23 +344,25 @@ describe('Lane', () => {
         ) as HTMLInputElement;
         fireEvent.change(taskInput, { target: { value: 'NEW TASK' } });
 
-        fireEvent.click(getByTestId(/addcard-subtask-button/));
+        await userEvent.click(getByTestId(/addcard-subtask-button/));
 
         // updateTags
         const tagInput = getByTestId(/addcard-tags-input/) as HTMLInputElement;
         fireEvent.change(tagInput, { target: { value: 'NEW TAG' } });
-        fireEvent.click(getAllByTestId(/addcard-tag-color-button/)[0]);
-        fireEvent.click(getByTestId(/addcard-tag-button/));
+        await userEvent.click(getAllByTestId(/addcard-tag-color-button/)[0]);
+        await userEvent.click(getByTestId(/addcard-tag-button/));
 
         // updateLowerTags
         const lowerTagInput = getByTestId(
             /addcard-lowertags-input/
         ) as HTMLInputElement;
-        fireEvent.change(lowerTagInput, { target: { value: '2000-01-01' } });
-        fireEvent.click(getByTestId(/addcard-lowertags-button/));
+        fireEvent.change(lowerTagInput, {
+            target: { value: '2000-01-01' },
+        });
+        await userEvent.click(getByTestId(/addcard-lowertags-button/));
 
         // save card
-        fireEvent.click(getByTestId(/addcard-modal-button/));
+        await userEvent.click(getByTestId(/addcard-modal-button/));
 
         // assert what the card have on the lane
         expect(spy).toBeCalledWith(

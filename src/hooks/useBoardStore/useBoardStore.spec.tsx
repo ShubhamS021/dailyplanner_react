@@ -8,7 +8,7 @@ import { initialBoardState } from './data/initialBoard.state';
 import { type DropResult } from 'react-beautiful-dnd';
 import { fulfilledTask, task } from '../../../__mocks__/tasks.mock';
 import { type Card } from 'interfaces/Card';
-import { useDayplannerDB } from 'hooks/useDayplannerDB/useDayplannerDB';
+import { useDayplannerDB } from '@/hooks/useDayplannerDB/useDayplannerDB';
 import { vi } from 'vitest';
 
 describe('useBoardStore', () => {

@@ -1,18 +1,18 @@
 import { useTranslation } from 'react-i18next';
-import BoardTitle from '../../components/Board/BoardTitle/BoardTitle';
-import useHistory from '../../hooks/useHistory/useHistory';
-import { type HistoryListEntry } from '../../hooks/useHistory/interfaces/HistoryListEntry';
-import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
-import { shallow } from 'zustand/shallow';
-import { ArrowLeftIcon } from 'ui/Icons/Icons';
+import BoardTitle from '@/components/Board/BoardTitle/BoardTitle';
+import useHistory from '@/hooks/useHistory/useHistory';
+import { type HistoryListEntry } from '@/hooks/useHistory/interfaces/HistoryListEntry';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import { ArrowLeftIcon } from '@/ui/Icons/Icons';
 
 export const BoardHistory = () => {
-    const [board, toggleBoardMode] = useBoardStore(
-        (state) => [state.board, state.toggleBoardMode],
-        shallow
-    );
+    const [board, toggleBoardMode] = useBoardStore((state) => [
+        state.board,
+        state.toggleBoardMode,
+    ]);
 
     const { history } = useHistory(board.id);
+
     const { t } = useTranslation();
 
     const handleBackToBoard = () => {
@@ -39,6 +39,10 @@ export const BoardHistory = () => {
         }
     };
 
+    const renderNoData = () => {
+        return <>{t('components.BoardHistory.noData')}</>;
+    };
+
     const renderHistoryTable = () => {
         return (
             <div className="relative overflow-x-auto">
@@ -62,6 +66,7 @@ export const BoardHistory = () => {
                                 <tr
                                     key={h.id}
                                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                                    data-testid={h.type}
                                 >
                                     <th
                                         scope="row"
@@ -117,7 +122,11 @@ export const BoardHistory = () => {
                 className={`p-5 rounded-2xl bg-[#F8F8F8] grid gap-6 dark:bg-[#212932]`}
                 data-testid="page-board"
             >
-                <div className="table">{renderHistoryTable()}</div>
+                <div className="table">
+                    {history.length === 0
+                        ? renderNoData()
+                        : renderHistoryTable()}
+                </div>
             </div>
         </main>
     );

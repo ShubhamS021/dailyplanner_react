@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState, useCallback } from 'react';
 import { type IDBPDatabase, openDB } from 'idb';
 
 interface DayplannerDB {
@@ -30,87 +30,121 @@ const upgradeDB = (db: IDBPDatabase<DayplannerDB>) => {
 
 const useDBStore = <T extends StoreName>(storeName: T) => {
     const [db, setDB] = useState<IDBPDatabase<DayplannerDB> | null>(null);
+    const [loading, setLoading] = useState(true);
 
-    const initDB = async () => {
-        const database = await openDB<DayplannerDB>(dbName, dbVersion, {
-            upgrade(db) {
-                upgradeDB(db);
-            },
-        });
-        setDB(database);
-    };
+    const initDB = useCallback(async () => {
+        try {
+            const database = await openDB<DayplannerDB>(dbName, dbVersion, {
+                upgrade(db) {
+                    upgradeDB(db);
+                },
+            });
 
-    useEffect(() => {
-        void initDB();
+            return database;
+        } catch (error) {
+            console.error('Failed to initialize the database.', error);
+        }
+        return null;
     }, []);
 
-    const addData = async (data: DayplannerDB[T]['value']) => {
-        if (db != null) {
-            try {
-                const tx = db.transaction(storeName, 'readwrite');
-                const store = tx.objectStore(storeName);
-                await store.add(data);
-                return data;
-            } catch (error) {
-                console.error('Failed to add data to the database.', error);
-            }
-        }
-        return null;
-    };
+    useEffect(() => {
+        initDB()
+            .then((database) => {
+                setDB(database);
+                setLoading(false);
+            })
+            .catch(console.error);
+    }, [initDB]);
 
-    const getData = async (id: string) => {
-        if (db != null) {
-            try {
-                const tx = db.transaction(storeName, 'readonly');
-                const store = tx.objectStore(storeName);
-                const data = await store.get(id);
-                return data ?? null;
-            } catch (error) {
-                console.error('Failed to get data from the database.', error);
+    const addData = useCallback(
+        async (data: DayplannerDB[T]['value']) => {
+            if (db != null) {
+                try {
+                    const tx = db.transaction(storeName, 'readwrite');
+                    const store = tx.objectStore(storeName);
+                    await store.add(data);
+                    return data;
+                } catch (error) {
+                    console.error('Failed to add data to the database.', error);
+                }
             }
-        }
-        return null;
-    };
+            return null;
+        },
+        [db, storeName]
+    );
 
-    const getDataByIndex = async (indexName: any, queryValue: any) => {
-        if (db != null) {
-            try {
-                const tx = db.transaction(storeName, 'readonly');
-                const store = tx.objectStore(storeName);
-                const index = store.index(indexName);
-                const data = await index.getAll(queryValue);
-                return data ?? null;
-            } catch (error) {
-                console.error(
-                    'Failed to get data from the database using index.',
-                    error
-                );
+    const getData = useCallback(
+        async (id: string) => {
+            if (db != null) {
+                try {
+                    const tx = db.transaction(storeName, 'readonly');
+                    const store = tx.objectStore(storeName);
+                    const data = await store.get(id);
+                    return data ?? null;
+                } catch (error) {
+                    console.error(
+                        'Failed to get data from the database.',
+                        error
+                    );
+                }
             }
-        }
-        return null;
-    };
+            return null;
+        },
+        [db, storeName]
+    );
 
-    const deleteData = async (id: string) => {
-        if (db != null) {
-            try {
-                const tx = db.transaction(storeName, 'readwrite');
-                const store = tx.objectStore(storeName);
-                await store.delete(id);
-            } catch (error) {
-                console.error(
-                    'Failed to delete data from the database.',
-                    error
-                );
+    const getDataByIndex = useCallback(
+        async (indexName: any, queryValue: any) => {
+            if (db != null) {
+                try {
+                    const tx = db.transaction(storeName, 'readonly');
+                    const store = tx.objectStore(storeName);
+                    const index = store.index(indexName);
+                    const data = await index.getAll(queryValue);
+
+                    return data ?? null;
+                } catch (error) {
+                    console.error(
+                        'Failed to get data from the database using index.',
+                        error
+                    );
+                }
             }
-        }
-    };
+            return null;
+        },
+        [db, storeName]
+    );
 
-    return {
-        addData,
-        getData,
-        getDataByIndex,
-        deleteData,
-    };
+    const deleteData = useCallback(
+        async (id: string) => {
+            if (db != null) {
+                try {
+                    const tx = db.transaction(storeName, 'readwrite');
+                    const store = tx.objectStore(storeName);
+                    await store.delete(id);
+                } catch (error) {
+                    console.error(
+                        'Failed to delete data from the database.',
+                        error
+                    );
+                }
+            }
+        },
+        [db, storeName]
+    );
+
+    const value = useMemo(
+        () => ({
+            loading,
+            addData,
+            getData,
+            getDataByIndex,
+            deleteData,
+        }),
+        [loading, addData, getData, getDataByIndex, deleteData]
+    );
+
+    return value;
 };
 
 export const useDayplannerDB = <T extends StoreName>(storeName: T) => {

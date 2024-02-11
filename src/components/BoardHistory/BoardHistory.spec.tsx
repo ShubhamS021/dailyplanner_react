@@ -6,12 +6,31 @@ import {
     act,
 } from '@testing-library/react';
 import { BoardHistory } from './BoardHistory';
-import { useBoardStore } from '../../hooks/useBoardStore/useBoardStore';
-import { initialBoardState } from '../../hooks/useBoardStore/data/initialBoard.state';
-import { initialLanes } from '../../hooks/useBoardStore/data/initialLanes.state';
-import useHistory from 'hooks/useHistory/useHistory';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import { initialBoardState } from '@/hooks/useBoardStore/data/initialBoard.state';
+import { initialLanes } from '@/hooks/useBoardStore/data/initialLanes.state';
+import useHistory from '@/hooks/useHistory/useHistory';
 import { card } from '../../../__mocks__/cards.mock';
 import { vi } from 'vitest';
+
+vi.mock('@/hooks/useHistory/useHistory', () => {
+    return {
+        default: () => ({
+            history: [
+                { id: 1, type: 'CREATION', data: card },
+                { id: 2, type: 'MOVEMENT', data: card },
+                { id: 3, type: 'DELETION', data: card },
+                { id: 4, type: 'UPDATE', data: card },
+                { id: 5, type: 'BOARDMOVEMENT', data: card },
+            ],
+            addCreationToHistory: vi.fn(),
+            addMovementToHistory: vi.fn(),
+            addDeletionToHistory: vi.fn(),
+            addUpdateToHistory: vi.fn(),
+            addBoardMovementToHistory: vi.fn(),
+        }),
+    };
+});
 
 describe('BoardHistory', () => {
     it('renders the component', () => {
@@ -50,7 +69,6 @@ describe('BoardHistory', () => {
         });
 
         const { result: history } = renderHook(() => useHistory(1));
-
         act(() => {
             history.current.addCreationToHistory(card, 1);
             history.current.addMovementToHistory(card, 1, 1, 2);
@@ -59,13 +77,13 @@ describe('BoardHistory', () => {
             history.current.addBoardMovementToHistory(card, 1, 1, 2);
         });
 
-        render(<BoardHistory />);
+        const { getByTestId } = render(<BoardHistory />);
 
-        // ! TODO: find out why the history is not being catched up correctly
-        // expect(screen.getByText('CREATION')).toBeInTheDocument();
-        // expect(screen.getByText('MOVEMENT')).toBeInTheDocument();
-        // expect(screen.getByText('DELETION')).toBeInTheDocument();
-        // expect(screen.getByText('UPDATE')).toBeInTheDocument();
+        expect(getByTestId('CREATION')).toBeInTheDocument();
+        expect(getByTestId('MOVEMENT')).toBeInTheDocument();
+        expect(getByTestId('DELETION')).toBeInTheDocument();
+        expect(getByTestId('UPDATE')).toBeInTheDocument();
+        expect(getByTestId('BOARDMOVEMENT')).toBeInTheDocument();
     });
 
     it('calls toggleBoardMode when back button is clicked', () => {

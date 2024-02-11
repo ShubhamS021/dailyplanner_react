@@ -5,9 +5,9 @@ import {
     renderHook,
     screen,
 } from '@testing-library/react';
-import { initialBoardState } from 'hooks/useBoardStore/data/initialBoard.state';
-import { initialLanes } from 'hooks/useBoardStore/data/initialLanes.state';
-import { useBoardStore } from 'hooks/useBoardStore/useBoardStore';
+import { initialBoardState } from '@/hooks/useBoardStore/data/initialBoard.state';
+import { initialLanes } from '@/hooks/useBoardStore/data/initialLanes.state';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { CardMoveModal, type CardMoveModalProps } from './CardMoveModal';
 import { vi } from 'vitest';
 

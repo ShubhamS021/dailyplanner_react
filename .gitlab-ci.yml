@@ -3,8 +3,12 @@ stages:
     - test
     - sonar
     - deploy
+    - renovate
 
 image: node:lts-alpine
+
+.add_git: &add_git
+    - apk add --no-cache git 
 
 .add_bash: &add_bash
     - apk add --no-cache bash
@@ -24,10 +28,13 @@ lint:
         - yarn install
     script:
         - yarn lint
+    rules:
+      - if: '$SKIP_STAGES != "true"'
 
 test:
     stage: test
     before_script:
+        - *add_git
         - yarn install
     script:
         - yarn test
@@ -36,6 +43,8 @@ test:
       expire_in: 1 day
       paths:
         - coverage/
+    rules:
+      - if: '$SKIP_STAGES != "true"'
 
 sonar:
   stage: sonar
@@ -52,8 +61,8 @@ sonar:
   script:
     - sonar-scanner
   allow_failure: true
-  only:
-    - develop
+  rules:
+    - if: '$SKIP_STAGES != "true" && $CI_COMMIT_BRANCH == "develop"'
 
 # CD stages
 
@@ -61,19 +70,21 @@ qa:
     stage: deploy
     before_script:
         - *add_bash
+        - *add_git
         - *add_ssh
     environment:
         name: qa
         url: https://planner-qa.der-hahn.net
     script:
         - ENVIRONMENT_NAME=qa bash deploy/deploy.sh 
-    only:
-      - develop
+    rules:
+      - if: '$SKIP_STAGES != "true" && $CI_COMMIT_BRANCH == "develop"'
 
 prod:
     stage: deploy
     before_script:
         - *add_bash
+        - *add_git
         - *add_ssh
     environment:
         name: prod
@@ -81,4 +92,29 @@ prod:
     script:
         - ENVIRONMENT_NAME=prod bash deploy/deploy.sh
     when: manual
+    rules:
+      - if: '$SKIP_STAGES != "true"'
 
+
+# cleans the dockr images
+renovate-clean:
+    stage: renovate
+    variables:
+      REMOTE: 5.181.51.30
+    before_script:
+        - *add_bash
+        - *add_ssh
+    script:
+      # ssh into the server
+      - ssh root@$REMOTE
+      # prune all docker images on server
+      - ssh $REMOTE "docker system prune -af"
+    rules:
+      - if: '$CI_PIPELINE_SOURCE == "schedule" && $CI_COMMIT_BRANCH == "develop"'
+
+# renovate
+include:
+    - project: 'renovate-bot/renovate-runner'
+      file: '/templates/renovate.gitlab-ci.yml'
+      rules:
+        - if: '$CI_PIPELINE_SOURCE == "schedule" && $CI_COMMIT_BRANCH == "develop"'

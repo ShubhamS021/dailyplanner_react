@@ -1,19 +1,20 @@
-import { Board } from 'interfaces/Board';
-import { type Card } from 'interfaces/Card';
-import { type Lane } from 'interfaces/Lane';
+import { Board } from '@/interfaces/Board';
+import { type Card } from '@/interfaces/Card';
+import { type Lane } from '@/interfaces/Lane';
 import { type DropResult } from 'react-beautiful-dnd';
-import { type BoardMode } from 'types/BoardMode';
-import { type ThemeMode } from 'types/ThemeMode';
+import { type BoardMode } from '@/types/BoardMode';
+import { type ThemeMode } from '@/types/ThemeMode';
 import { create } from 'zustand';
-import { type State } from './interfaces/State';
-import { type Actions } from './interfaces/Actions';
+import { type State } from '@/hooks/useBoardStore/interfaces/State';
+import { type Actions } from '@/hooks/useBoardStore/interfaces/Actions';
 import {
     exportBoardToJson,
     findLastBoardId,
     findLastCardId,
     findLastCardIdInBoard,
-} from './util/board.util';
+} from '@/hooks/useBoardStore/util/board.util';
 import { persist, devtools, createJSONStorage } from 'zustand/middleware';
+import type Task from '@/interfaces/Task';
 
 export const useBoardStore = create<State & Actions>()(
     devtools(
@@ -61,7 +62,7 @@ export const useBoardStore = create<State & Actions>()(
                             ...state,
                             board: {
                                 ...state.board,
-                                lanes: state.board.lanes.map((lane) => {
+                                lanes: state.board.lanes.map((lane: Lane) => {
                                     if (lane.id === laneId) {
                                         return {
                                             ...lane,
@@ -116,7 +117,9 @@ export const useBoardStore = create<State & Actions>()(
                         const newBoard = {
                             ...board,
                             lanes: [
-                                ...board.lanes.filter((l) => l.id !== laneId),
+                                ...board.lanes.filter(
+                                    (l: Lane) => l.id !== laneId
+                                ),
                             ],
                         };
 
@@ -131,17 +134,19 @@ export const useBoardStore = create<State & Actions>()(
                  */
                 removeCardFromLane: (cardId: number, laneId: number) => {
                     set((state) => {
-                        const updatedLanes = state.board.lanes.map((lane) => {
-                            if (lane.id === laneId) {
-                                return {
-                                    ...lane,
-                                    cards: lane.cards.filter(
-                                        (card) => card.id !== cardId
-                                    ),
-                                };
+                        const updatedLanes = state.board.lanes.map(
+                            (lane: Lane) => {
+                                if (lane.id === laneId) {
+                                    return {
+                                        ...lane,
+                                        cards: lane.cards.filter(
+                                            (card) => card.id !== cardId
+                                        ),
+                                    };
+                                }
+                                return lane;
                             }
-                            return lane;
-                        });
+                        );
 
                         const updatedBoard = {
                             ...state.board,
@@ -159,7 +164,7 @@ export const useBoardStore = create<State & Actions>()(
                 removeCardsFromLane: (laneId: number) => {
                     set((state) => {
                         const laneIndex = state.board.lanes.findIndex(
-                            (lane) => lane.id === laneId
+                            (lane: Lane) => lane.id === laneId
                         );
 
                         if (laneIndex === -1) {
@@ -224,7 +229,7 @@ export const useBoardStore = create<State & Actions>()(
                         if (sourceLaneId === destLaneId) {
                             // Reorder cards in the same lane
                             const laneIndex = state.board.lanes.findIndex(
-                                (lane) => lane.id === sourceLaneId
+                                (lane: Lane) => lane.id === sourceLaneId
                             );
                             const lane = state.board.lanes[laneIndex];
                             const newCards = Array.from(lane.cards);
@@ -244,10 +249,10 @@ export const useBoardStore = create<State & Actions>()(
                         } else {
                             // Move card to a different lane
                             const sourceLaneIndex = state.board.lanes.findIndex(
-                                (lane) => lane.id === sourceLaneId
+                                (lane: Lane) => lane.id === sourceLaneId
                             );
                             const destLaneIndex = state.board.lanes.findIndex(
-                                (lane) => lane.id === destLaneId
+                                (lane: Lane) => lane.id === destLaneId
                             );
                             const sourceLane =
                                 state.board.lanes[sourceLaneIndex];
@@ -295,7 +300,7 @@ export const useBoardStore = create<State & Actions>()(
                         return {
                             board: {
                                 ...state.board,
-                                lanes: state.board.lanes.map((lane) => {
+                                lanes: state.board.lanes.map((lane: Lane) => {
                                     return {
                                         ...lane,
                                         cards: [],
@@ -372,7 +377,7 @@ export const useBoardStore = create<State & Actions>()(
                 updateCard: (card: Card, laneId: number) => {
                     set((state) => {
                         const laneIndex = state.board.lanes.findIndex(
-                            (lane) => lane.id === laneId
+                            (lane: Lane) => lane.id === laneId
                         );
 
                         if (laneIndex === -1) {
@@ -381,7 +386,7 @@ export const useBoardStore = create<State & Actions>()(
 
                         const newLanes = [...state.board.lanes];
                         const newLaneCards = newLanes[laneIndex].cards.map(
-                            (c) => (c.id === card.id ? card : c)
+                            (c: Card) => (c.id === card.id ? card : c)
                         );
 
                         newLanes[laneIndex] = {
@@ -411,14 +416,16 @@ export const useBoardStore = create<State & Actions>()(
                 ) => {
                     set((state) => {
                         const card = state.board.lanes
-                            .flatMap((l) => l.cards)
-                            .find((c) => c.id === cardId);
+                            .flatMap((l: Lane) => l.cards)
+                            .find((c: Card) => c.id === cardId);
 
                         if (card == null) {
                             throw new Error('Expected card not in lanes!');
                         }
 
-                        const task = card.tasks?.find((t) => t.id === taskId);
+                        const task = card.tasks?.find(
+                            (t: Task) => t.id === taskId
+                        );
 
                         if (task == null) {
                             throw new Error('Expected task not in card!');
@@ -426,7 +433,7 @@ export const useBoardStore = create<State & Actions>()(
 
                         task.fulfilled = fulfilled;
 
-                        const lane = state.board.lanes.find((l) =>
+                        const lane = state.board.lanes.find((l: Lane) =>
                             l.cards.includes(card)
                         );
 
@@ -574,7 +581,7 @@ export const useBoardStore = create<State & Actions>()(
                     set((state) => {
                         const newBoard = { ...state.board };
                         const newLane = newBoard.lanes.find(
-                            (l) => l.id === laneId
+                            (l: Lane) => l.id === laneId
                         );
                         if (newLane === undefined) {
                             throw new Error(`No lane with id ${laneId} found.`);
@@ -617,7 +624,7 @@ export const useBoardStore = create<State & Actions>()(
                     set((state) => {
                         const newBoard = { ...state.board };
                         const newLane = newBoard.lanes.find(
-                            (l) => l.id === laneId
+                            (l: Lane) => l.id === laneId
                         );
                         if (newLane === undefined) {
                             throw new Error(`No lane with id ${laneId} found.`);

@@ -1,9 +1,9 @@
-import { useBoardStore } from '../../hooks/useBoardStore/useBoardStore';
-import Board from '../../components/Board/Board';
-import { BoardHistory } from '../../components/BoardHistory/BoardHistory';
-import MyBoardLanes from '../../components/MyBoardLanes/MyBoardLanes';
-import MyBoards from '../../components/MyBoards/MyBoards';
-import AddBoard from '../AddBoard/AddBoard';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import Board from '@/components/Board/Board';
+import { BoardHistory } from '@/components/BoardHistory/BoardHistory';
+import MyBoardLanes from '@/components/MyBoardLanes/MyBoardLanes';
+import MyBoards from '@/components/MyBoards/MyBoards';
+import AddBoard from '@/components/AddBoard/AddBoard';
 import { useEffect } from 'react';
 
 export const App = () => {

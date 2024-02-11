@@ -27,6 +27,7 @@
         "release:candidate:patch": "commit-and-tag-version --prerelease rc --release-as patch"
     },
     "dependencies": {
+        "@supabase/supabase-js": "^2.39.3",
         "@tauri-apps/api": "^1.4.0",
         "i18next": "^23.4.1",
         "i18next-browser-languagedetector": "^7.1.0",

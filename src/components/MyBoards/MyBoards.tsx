@@ -13,7 +13,7 @@ import {
     GitlabIcon,
     TrashIcon,
 } from '@/ui/Icons/Icons';
-import { Button } from '@/ui/Button/Button';
+import { Button } from '@/ui/button';
 
 export const MyBoards = () => {
     const [boards, enterBoard, renameBoard, removeBoard, toggleBoardMode] =

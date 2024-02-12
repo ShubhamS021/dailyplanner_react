@@ -156,6 +156,18 @@ export const ENtranslation = {
             start: 'Start',
             git: 'Dayplanner on',
         },
+        Register: {
+            signUp: "Sign Up",
+            signUpProvider: "Sign Up with the following provider",
+            signUpGoogle: "Sign Up with Google",
+            signUpGithub: "Sign Up with Github",
+            signUpEmail: "or with email",
+            username: "Username",
+            email: "Email",
+            password: "Password",
+            alreadyHaveAccount: "Already have an account?",
+            loginHere: "Login here",
+        }
     },
     state: {
         board: {

@@ -1,10 +1,11 @@
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
-import Board from '@/components/Board/Board';
+// import Board from '@/components/Board/Board';
 import { BoardHistory } from '@/components/BoardHistory/BoardHistory';
 import MyBoardLanes from '@/components/MyBoardLanes/MyBoardLanes';
 import MyBoards from '@/components/MyBoards/MyBoards';
 import AddBoard from '@/components/AddBoard/AddBoard';
 import { useEffect } from 'react';
+import { Register } from '@/components/Register/Register';
 
 export const App = () => {
     const [boards, board, themeMode, boardMode, toggleBoardMode, updateBoards] =
@@ -53,7 +54,8 @@ export const App = () => {
             case 'boardHistoryMode':
                 return <BoardHistory />;
             default:
-                return <Board />;
+                return <Register />;
+            // return <Board />;
         }
     };
 

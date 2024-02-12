@@ -155,6 +155,18 @@ export const DEtranslation = {
             start: 'Start',
             git: 'Dayplanner auf',
         },
+        Register: {
+            signUp: "Registrieren",
+            signUpProvider: "Registrieren Sie sich mit dem folgenden Anbieter",
+            signUpGoogle: "Mit Google registrieren",
+            signUpGithub: "Mit Github registrieren",
+            signUpEmail: "oder mit E-Mail",
+            username: "Benutzername",
+            email: "E-Mail",
+            password: "Passwort",
+            alreadyHaveAccount: "Haben Sie bereits ein Konto?",
+            loginHere: "Hier einloggen",
+        }
     },
     state: {
         board: {

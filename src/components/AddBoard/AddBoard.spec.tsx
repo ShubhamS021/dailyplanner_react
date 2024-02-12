@@ -1,9 +1,10 @@
-import { act, fireEvent, render, renderHook } from '@testing-library/react';
-import AddBoard from './AddBoard';
 import { initialBoardState } from '@/hooks/useBoardStore/data/initialBoard.state';
 import { initialLanes } from '@/hooks/useBoardStore/data/initialLanes.state';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import { usePageStore } from '@/hooks/usePageStore/usePageStore';
+import { act, fireEvent, render, renderHook } from '@testing-library/react';
 import { vi } from 'vitest';
+import AddBoard from './AddBoard';
 
 describe('AddBoard component', () => {
     // add a default board with some columns
@@ -37,9 +38,11 @@ describe('AddBoard component', () => {
     });
 
     test('calls addBoard and toggleBoardMode with the correct arguments when standard board is created', () => {
-        const { result } = renderHook(() => useBoardStore());
-        const spyAddBoard = vi.spyOn(result.current, 'addBoard');
-        const spyToggleBoardMode = vi.spyOn(result.current, 'toggleBoardMode');
+        const { result: boardStore } = renderHook(() => useBoardStore());
+        const { result: pageStore } = renderHook(() => usePageStore());
+
+        const spyAddBoard = vi.spyOn(boardStore.current, 'addBoard');
+        const spySetPage = vi.spyOn(pageStore.current, 'setPage');
         const { getByTestId } = render(<AddBoard />);
 
         fireEvent.click(getByTestId('addboard-create-standard-button'));
@@ -77,14 +80,16 @@ describe('AddBoard component', () => {
             title: 'My tasks',
         });
 
-        expect(spyToggleBoardMode).toHaveBeenCalledTimes(1);
-        expect(spyToggleBoardMode).toHaveBeenCalledWith('boardDefaultMode');
+        expect(spySetPage).toHaveBeenCalledTimes(1);
+        expect(spySetPage).toHaveBeenCalledWith('boardDefaultPage');
     });
 
     test('calls addBoard and toggleBoardMode with the correct arguments when custom board is created', () => {
-        const { result } = renderHook(() => useBoardStore());
-        const spyAddBoard = vi.spyOn(result.current, 'addBoard');
-        const spyToggleBoardMode = vi.spyOn(result.current, 'toggleBoardMode');
+        const { result: boardStore } = renderHook(() => useBoardStore());
+        const { result: pageStore } = renderHook(() => usePageStore());
+
+        const spyAddBoard = vi.spyOn(boardStore.current, 'addBoard');
+        const spySetPage = vi.spyOn(pageStore.current, 'setPage');
 
         const { getByTestId } = render(<AddBoard />);
 
@@ -108,7 +113,7 @@ describe('AddBoard component', () => {
             title: 'A custom title',
         });
 
-        expect(spyToggleBoardMode).toHaveBeenCalledTimes(1);
-        expect(spyToggleBoardMode).toHaveBeenCalledWith('boardCustomLanesMode');
+        expect(spySetPage).toHaveBeenCalledTimes(1);
+        expect(spySetPage).toHaveBeenCalledWith('boardCustomLanesPage');
     });
 });

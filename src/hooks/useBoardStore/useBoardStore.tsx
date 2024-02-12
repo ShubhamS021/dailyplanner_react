@@ -1,22 +1,22 @@
-import { Board } from '@/interfaces/Board';
-import { type Card } from '@/interfaces/Card';
-import { type Lane } from '@/interfaces/Lane';
-import { type DropResult } from 'react-beautiful-dnd';
-import { type BoardMode } from '@/types/BoardMode';
-import { type ThemeMode } from '@/types/ThemeMode';
-import { create } from 'zustand';
-import { type State } from '@/hooks/useBoardStore/interfaces/State';
-import { type Actions } from '@/hooks/useBoardStore/interfaces/Actions';
+import { type BoardStoreActions } from '@/hooks/useBoardStore/interfaces/BoardStoreActions';
+import { type BoardStoreState } from '@/hooks/useBoardStore/interfaces/BoardStoreState';
 import {
     exportBoardToJson,
     findLastBoardId,
     findLastCardId,
     findLastCardIdInBoard,
 } from '@/hooks/useBoardStore/util/board.util';
-import { persist, devtools, createJSONStorage } from 'zustand/middleware';
+import { Board } from '@/interfaces/Board';
+import { type Card } from '@/interfaces/Card';
+import { type Lane } from '@/interfaces/Lane';
 import type Task from '@/interfaces/Task';
+import { type ThemeMode } from '@/types/ThemeMode';
+import { type DropResult } from 'react-beautiful-dnd';
+import { create } from 'zustand';
+import { createJSONStorage, devtools, persist } from 'zustand/middleware';
+import { usePageStore } from '../usePageStore/usePageStore';
 
-export const useBoardStore = create<State & Actions>()(
+export const useBoardStore = create<BoardStoreState & BoardStoreActions>()(
     devtools(
         persist(
             (set) => ({
@@ -24,7 +24,6 @@ export const useBoardStore = create<State & Actions>()(
                 board: new Board(),
                 compactMode: false,
                 themeMode: 'light' as ThemeMode,
-                boardMode: 'boardChooseMode' as BoardMode,
 
                 /**
                  * Adds a lane to the board.
@@ -455,16 +454,6 @@ export const useBoardStore = create<State & Actions>()(
                 },
 
                 /**
-                 * Toggles the mode of the board.
-                 * @param {BoardMode} mode - The mode to toggle.
-                 */
-                toggleBoardMode: (mode: BoardMode) => {
-                    set((state) => {
-                        return { ...state, boardMode: mode };
-                    });
-                },
-
-                /**
                  * Toggles the theme mode.
                  * @param {ThemeMode} mode - The mode to toggle.
                  */
@@ -504,7 +493,7 @@ export const useBoardStore = create<State & Actions>()(
                             ...state.boards.filter((b) => b.id !== boardId),
                         ];
                         if (newBoards.length === 0) {
-                            state.toggleBoardMode('boardCreateMode');
+                            usePageStore.getState().setPage('boardCreatePage');
                         }
                         return {
                             boards: [...newBoards],
@@ -652,7 +641,7 @@ export const useBoardStore = create<State & Actions>()(
                             );
                         }
 
-                        state.toggleBoardMode('boardDefaultMode');
+                        usePageStore.getState().setPage('boardDefaultPage');
 
                         return { board: { ...targetBoard } };
                     });

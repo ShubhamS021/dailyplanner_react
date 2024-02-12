@@ -1,37 +1,39 @@
-import {
-    DragDropContext,
-    type DropResult,
-    Droppable,
-    type DroppableProvided,
-} from 'react-beautiful-dnd';
-import { useTranslation } from 'react-i18next';
+import { AddCard } from '@/components/AddCard/AddCard';
+import { BoardTitle } from '@/components/Board/BoardTitle/BoardTitle';
 import CompactModeToggle from '@/components/CompactModeToggle/CompactModeToggle';
 import { DarkModeToggle } from '@/components/DarkModeToggle/DarkModeToggle';
 import Export from '@/components/Export/Export';
 import { HistoryToggle } from '@/components/HistoryToggle/HistoryToggle';
 import Import from '@/components/Import/Import';
-import { type Lane } from '@/interfaces/Lane';
-import { AddCard } from '@/components/AddCard/AddCard';
-import { BoardTitle } from '@/components/Board/BoardTitle/BoardTitle';
 import { LaneComponent } from '@/components/Lane/Lane';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import useHistory from '@/hooks/useHistory/useHistory';
-import { ArrowLeftIcon } from '@/ui/Icons/Icons';
+import { usePageStore } from '@/hooks/usePageStore/usePageStore';
 import { type Card } from '@/interfaces/Card';
+import { type Lane } from '@/interfaces/Lane';
+import { ArrowLeftIcon } from '@/ui/Icons/Icons';
+import {
+    DragDropContext,
+    Droppable,
+    type DropResult,
+    type DroppableProvided,
+} from 'react-beautiful-dnd';
+import { useTranslation } from 'react-i18next';
 
 export const Board = () => {
-    const [board, toggleBoardMode, handleDragEnd] = useBoardStore((state) => [
+    const [board, handleDragEnd] = useBoardStore((state) => [
         state.board,
-        state.toggleBoardMode,
         state.handleDragEnd,
     ]);
+
+    const [setPage] = usePageStore((state) => [state.setPage]);
 
     const { addMovementToHistory } = useHistory(board.id);
 
     const { t } = useTranslation();
 
     const handleBackToBoards = () => {
-        toggleBoardMode('boardChooseMode');
+        setPage('boardChoosePage');
     };
 
     const renderLanes = (lanes: Lane[]) => {

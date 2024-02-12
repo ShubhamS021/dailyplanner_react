@@ -1,34 +1,39 @@
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 // import Board from '@/components/Board/Board';
+import AddBoard from '@/components/AddBoard/AddBoard';
 import { BoardHistory } from '@/components/BoardHistory/BoardHistory';
 import MyBoardLanes from '@/components/MyBoardLanes/MyBoardLanes';
 import MyBoards from '@/components/MyBoards/MyBoards';
-import AddBoard from '@/components/AddBoard/AddBoard';
+import { usePageStore } from '@/hooks/usePageStore/usePageStore';
 import { useEffect } from 'react';
-import { Register } from '@/components/Register/Register';
+import { Login } from '../Authentication/Login';
+import { Register } from '../Authentication/Register';
+import Board from '../Board/Board';
 
 export const App = () => {
-    const [boards, board, themeMode, boardMode, toggleBoardMode, updateBoards] =
-        useBoardStore((state) => [
-            state.boards,
-            state.board,
-            state.themeMode,
-            state.boardMode,
-            state.toggleBoardMode,
-            state.updateBoards,
-        ]);
+    const [page, setPage] = usePageStore((state) => [
+        state.page,
+        state.setPage,
+    ]);
+
+    const [boards, board, themeMode, updateBoards] = useBoardStore((state) => [
+        state.boards,
+        state.board,
+        state.themeMode,
+        state.updateBoards,
+    ]);
 
     // Read the initial boards state from localStorage and toggle initial app mode
     useEffect(() => {
         if (boards === null) {
-            toggleBoardMode('boardCreateMode');
+            setPage('boardCreatePage');
             return;
         }
 
-        toggleBoardMode(
+        setPage(
             board === null || boards.length === 0
-                ? 'boardCreateMode'
-                : 'boardDefaultMode'
+                ? 'boardCreatePage'
+                : 'boardDefaultPage'
         );
     }, []);
 
@@ -43,23 +48,28 @@ export const App = () => {
         document.documentElement.classList.add(themeMode);
     }, [themeMode]);
 
-    const renderBoards = () => {
-        switch (boardMode) {
-            case 'boardCreateMode':
+    const renderPage = () => {
+        switch (page) {
+            // Authentication pages
+            case 'loginPage':
+                return <Login />;
+            case 'registerPage':
+                return <Register />;
+            // Board pages
+            case 'boardCreatePage':
                 return <AddBoard />;
-            case 'boardChooseMode':
+            case 'boardChoosePage':
                 return <MyBoards />;
-            case 'boardCustomLanesMode':
+            case 'boardCustomLanesPage':
                 return <MyBoardLanes />;
-            case 'boardHistoryMode':
+            case 'boardHistoryPage':
                 return <BoardHistory />;
             default:
-                return <Register />;
-            // return <Board />;
+                return <Board />;
         }
     };
 
-    return <div className="dark:bg-[#171D23] h-full">{renderBoards()}</div>;
+    return <div className="dark:bg-[#171D23] h-full">{renderPage()}</div>;
 };
 
 export default App;

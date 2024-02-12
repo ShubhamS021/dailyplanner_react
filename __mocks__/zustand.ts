@@ -1,5 +1,5 @@
-import { type Actions } from '@/hooks/useBoardStore/interfaces/Actions';
-import { type State } from '@/hooks/useBoardStore/interfaces/State';
+import { type BoardStoreActions } from '@/hooks/useBoardStore/interfaces/BoardStoreActions';
+import { type BoardStoreState } from '@/hooks/useBoardStore/interfaces/BoardStoreState';
 import { act } from 'react-dom/test-utils';
 import { vi } from 'vitest';
 import { create as actualCreate } from 'zustand';
@@ -20,7 +20,9 @@ const extensionConnector = { connect: vi.fn(() => extension) };
 
 // when creating a store, we get its initial state, create a reset function and add it in the set
 const create = (createState: any) => {
-    const store = actualCreate<State & Actions>(createState);
+    const store = actualCreate<BoardStoreState & BoardStoreActions>(
+        createState
+    );
     const initialState = store.getState();
     storeResetFns.add(() => {
         store.setState(initialState, true);

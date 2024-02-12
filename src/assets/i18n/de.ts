@@ -164,7 +164,7 @@ export const DEtranslation = {
             email: 'E-Mail',
             password: 'Passwort',
             noAccount: 'Haben Sie noch kein Konto?',
-            loginHere: 'Hier registrieren',
+            registerHere: 'Hier registrieren',
         },
         Register: {
             signUp: 'Registrieren',

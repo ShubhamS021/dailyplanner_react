@@ -2,6 +2,8 @@ import { Button } from '@/ui/button';
 import { RegisterIllustration } from './assets/RegisterIllustration';
 import * as IdentityProviderButtons from './config/identityProviders.config.json';
 
+import { useSupabaseAuth } from '@/hooks/supabase/useSupabaseAuth/useSupabaseAuth';
+import { usePageStore } from '@/hooks/usePageStore/usePageStore';
 import { type IdentityProvider } from '@/types/IdentityProviders';
 import {
     Form,
@@ -19,7 +21,10 @@ import { z } from 'zod';
 import { IdentityProviderButton } from './IdentityProviderButton';
 
 export const Register = () => {
+    const [setPage] = usePageStore((state) => [state.setPage]);
+
     const { t } = useTranslation();
+    const { signUp } = useSupabaseAuth();
 
     const formSchema = z.object({
         username: z.string().min(2, {
@@ -42,10 +47,16 @@ export const Register = () => {
         },
     });
 
-    const onSubmit = (values: z.infer<typeof formSchema>) => {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
         console.log(values);
+
+        const signUpReseponse = await signUp({
+            email: values.email,
+            password: values.password,
+            options: { data: { username: values.username } },
+        });
+
+        console.log(signUpReseponse);
     };
 
     return (
@@ -158,6 +169,9 @@ export const Register = () => {
                             <a
                                 href="#"
                                 className="ml-2 hover:underline hover:text-primary"
+                                onClick={() => {
+                                    setPage('loginPage');
+                                }}
                             >
                                 {t('components.Register.loginHere')}
                             </a>

@@ -2,6 +2,7 @@ import { Button } from '@/ui/button';
 import { LoginIllustration } from './assets/LoginIllustration';
 import * as IdentityProviderButtons from './config/identityProviders.config.json';
 
+import { usePageStore } from '@/hooks/usePageStore/usePageStore';
 import { IdentityProvider } from '@/types/IdentityProviders';
 import {
     Form,
@@ -19,6 +20,8 @@ import { z } from 'zod';
 import { IdentityProviderButton } from './IdentityProviderButton';
 
 export const Login = () => {
+    const [setPage] = usePageStore((state) => [state.setPage]);
+
     const { t } = useTranslation();
 
     const formSchema = z.object({
@@ -127,8 +130,11 @@ export const Login = () => {
                             <a
                                 href="#"
                                 className="ml-2 hover:underline hover:text-primary"
+                                onClick={() => {
+                                    setPage('registerPage');
+                                }}
                             >
-                                {t('components.Login.loginHere')}
+                                {t('components.Login.registerHere')}
                             </a>
                         </p>
                     </div>

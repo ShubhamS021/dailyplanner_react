@@ -165,7 +165,7 @@ export const ENtranslation = {
             email: 'Email',
             password: 'Password',
             noAccount: "Don't have an account?",
-            loginHere: 'Register here',
+            registerHere: 'Register here',
         },
         Register: {
             signUp: 'Sign Up',

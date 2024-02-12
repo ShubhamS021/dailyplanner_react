@@ -1,7 +1,6 @@
 import { Button } from '@/ui/button';
-import { GithubLogo } from './assets/GithubLogo';
-import { GoogleLogo } from './assets/GoogleLogo';
 import { RegisterIllustration } from './assets/RegisterIllustration';
+import * as IdentityProviderButtons from './config/identityProviders.config.json';
 
 import { type IdentityProvider } from '@/types/IdentityProviders';
 import {
@@ -17,6 +16,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
+import { IdentityProviderButton } from './IdentityProviderButton';
 
 export const Register = () => {
     const { t } = useTranslation();
@@ -48,10 +48,6 @@ export const Register = () => {
         console.log(values);
     };
 
-    const handleIdentityProviderSignUp = (provider: IdentityProvider) => {
-        console.log(provider);
-    };
-
     return (
         <div className="flex h-screen">
             <div className="hidden lg:flex items-center justify-center flex-1 text-black bg-gray-700">
@@ -69,29 +65,21 @@ export const Register = () => {
                         {t('components.Register.signUpProvider')}
                     </div>
                     <div className="mt-4 flex flex-col lg:flex-row items-center justify-between">
-                        <div className="w-full lg:w-1/2 mb-2 lg:mb-0">
-                            <Button
-                                type="button"
-                                className="flex gap-2"
-                                onClick={() => {
-                                    handleIdentityProviderSignUp('google');
-                                }}
-                            >
-                                {GoogleLogo}
-                                {t('components.Register.signUpGoogle')}
-                            </Button>
-                        </div>
-                        <div className="w-full lg:w-1/2 ml-0 lg:ml-2">
-                            <Button
-                                type="button"
-                                className="flex gap-2"
-                                onClick={() =>
-                                    handleIdentityProviderSignUp('github')
-                                }
-                            >
-                                {GithubLogo}
-                                {t('components.Register.signUpGithub')}
-                            </Button>
+                        <div className="w-full flex flex-row gap-1 place-content-evenly">
+                            {(
+                                IdentityProviderButtons.availableProviders as Array<{
+                                    id: number;
+                                    name: IdentityProvider;
+                                }>
+                            ).map((provider) => {
+                                return (
+                                    <IdentityProviderButton
+                                        provider={provider.name}
+                                        key={`${provider.id}-${provider.name}-register`}
+                                        buttonType="register"
+                                    />
+                                );
+                            })}
                         </div>
                     </div>
                     <div className="mt-4 text-sm text-gray-500 text-center">

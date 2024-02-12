@@ -1,0 +1,6 @@
+{
+    "availableProviders": [
+        {"id": 1, "name": "google"},
+        {"id": 2, "name": "github"}
+    ]
+}

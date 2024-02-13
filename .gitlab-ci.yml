@@ -130,6 +130,6 @@ include:
 
 sast: 
   rules:
-    - if: '$SKIP_STAGES != "true'
+    - if: '$SKIP_STAGES != "true"'
     - if: '$CI_COMMIT_BRANCH =~ /^(feat|feature)/'
     - if: '$CI_COMMIT_BRANCH == "develop"'

@@ -4,6 +4,9 @@ environment_name=$ENVIRONMENT_NAME
 DEPLOY_SERVER=$DEPLOY_SERVER
 DEPLOY_USER=$DEPLOY_USER
 
+VITE_SUPABASE_URL=$VITE_SUPABASE_URL
+VITE_SUPABASE_ANON_KEY=$VITE_SUPABASE_ANON_KEY
+
 if [[ "$environment_name" == "qa" ]]; then
   SERVER_FOLDER="httpdocs/apps-qa/plannerapp"
 elif [[ "$environment_name" == "prod" ]]; then

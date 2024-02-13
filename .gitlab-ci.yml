@@ -121,3 +121,8 @@ include:
       file: '/templates/renovate.gitlab-ci.yml'
       rules:
         - if: '$CI_PIPELINE_SOURCE == "schedule" && $CI_COMMIT_BRANCH == "develop"'
+
+include:
+  - template: Jobs/SAST.gitlab-ci.yml
+    rules:
+      - if: '$SKIP_STAGES != "true" && $CI_COMMIT_BRANCH == "develop"'

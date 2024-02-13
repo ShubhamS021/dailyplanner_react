@@ -1,14 +1,13 @@
-import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
-// import Board from '@/components/Board/Board';
 import AddBoard from '@/components/AddBoard/AddBoard';
+import Board from '@/components/Board/Board';
 import { BoardHistory } from '@/components/BoardHistory/BoardHistory';
 import MyBoardLanes from '@/components/MyBoardLanes/MyBoardLanes';
 import MyBoards from '@/components/MyBoards/MyBoards';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { usePageStore } from '@/hooks/usePageStore/usePageStore';
 import { useEffect } from 'react';
-import { Login } from '../Authentication/Login';
-import { Register } from '../Authentication/Register';
-import Board from '../Board/Board';
+import { Login } from '../Authentication/components/Login';
+import { Register } from '../Authentication/components/Register';
 
 export const App = () => {
     const [page, setPage] = usePageStore((state) => [

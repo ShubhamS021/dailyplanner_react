@@ -1,4 +1,5 @@
 import { useSupabaseAuth } from '@/hooks/supabase/useSupabaseAuth/useSupabaseAuth';
+import { usePageStore } from '@/hooks/usePageStore/usePageStore';
 import { Button } from '@/ui/button';
 import {
     Form,
@@ -17,6 +18,7 @@ import { z } from 'zod';
 
 export const RegisterForm = () => {
     const { signUp } = useSupabaseAuth();
+    const [setPage] = usePageStore((state) => [state.setPage]);
 
     const formSchema = z.object({
         username: z.string().min(2, {
@@ -40,15 +42,14 @@ export const RegisterForm = () => {
     });
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        console.log(values);
-
         const signUpReseponse = await signUp({
             email: values.email,
             password: values.password,
-            options: { data: { username: values.username } },
         });
 
-        console.log(signUpReseponse);
+        setPage(
+            signUpReseponse.error === null ? 'boardDefaultPage' : 'registerPage'
+        );
     };
     return (
         <Form {...form}>

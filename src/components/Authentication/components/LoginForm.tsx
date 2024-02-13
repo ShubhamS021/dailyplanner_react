@@ -1,4 +1,5 @@
 import { useSupabaseAuth } from '@/hooks/supabase/useSupabaseAuth/useSupabaseAuth';
+import { usePageStore } from '@/hooks/usePageStore/usePageStore';
 import { Button } from '@/ui/button';
 import {
     Form,
@@ -18,6 +19,7 @@ import { z } from 'zod';
 export const LoginForm = () => {
     const { t } = useTranslation();
     const { signInWithPassword } = useSupabaseAuth();
+    const [setPage] = usePageStore((state) => [state.setPage]);
 
     const formSchema = z.object({
         email: z.string().email({
@@ -37,16 +39,14 @@ export const LoginForm = () => {
     });
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
-        console.log(values);
-
         const signInReseponse = await signInWithPassword({
             email: values.email,
             password: values.password,
         });
 
-        console.log(signInReseponse);
+        setPage(
+            signInReseponse.error === null ? 'boardDefaultPage' : 'loginPage'
+        );
     };
     return (
         <Form {...form}>

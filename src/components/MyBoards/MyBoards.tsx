@@ -196,9 +196,10 @@ export const MyBoards = () => {
             </div>
 
             <footer className="flex flex-col items-center gap-3 self-end">
-                <Button type="button" onClick={() => setPage('loginPage')}>
+                {/* Hide Login for now */}
+                {/* <Button type="button" onClick={() => setPage('loginPage')}>
                     Login
-                </Button>
+                </Button> */}
                 <a
                     className="text-[#5A5A65] dark:text-[#8B8B8B] flex gap-2 items-center"
                     href="https://gitlab.com/Kevin.Hahn/dayplanner"

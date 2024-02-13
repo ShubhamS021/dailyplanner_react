@@ -1,32 +1,31 @@
+import { useSupabaseAuth } from '@/hooks/supabase/useSupabaseAuth/useSupabaseAuth';
 import { IdentityProvider } from '@/types/IdentityProviders';
 import { Button } from '@/ui/button';
 import { useTranslation } from 'react-i18next';
-import { GithubLogo } from './assets/GithubLogo';
-import { GoogleLogo } from './assets/GoogleLogo';
+import { GithubLogo } from '../assets/GithubLogo';
+import { GoogleLogo } from '../assets/GoogleLogo';
 
 export type IdentityProviderButtonType = 'login' | 'register';
 
 export interface IdentityProviderButtonProps {
     provider: IdentityProvider;
-    buttonType: IdentityProviderButtonType;
 }
 
 export const IdentityProviderButton: React.FC<IdentityProviderButtonProps> = ({
     provider,
-    buttonType,
 }) => {
     const { t } = useTranslation();
+    const { signInWithOAuth, getUser } = useSupabaseAuth();
 
-    const handleIdentityProviderLogin = () => {
-        console.log('handleIdentityProviderLogin', provider, buttonType);
+    const signInWithOAuthProvider = async () => {
+        const { data, error } = await signInWithOAuth({ provider });
 
-        throw new Error('Function not implemented.');
-    };
+        if (error === null) {
+            const { data, error } = await getUser();
+            console.log({ data, error });
+        }
 
-    const handleIdentityProviderRegister = () => {
-        console.log('handleIdentityProviderRegister', provider, buttonType);
-
-        throw new Error('Function not implemented.');
+        return data;
     };
 
     const renderButtonContent = () => {
@@ -50,25 +49,12 @@ export const IdentityProviderButton: React.FC<IdentityProviderButtonProps> = ({
         }
     };
 
-    const handleButtonAction = () => {
-        switch (buttonType) {
-            case 'login':
-                handleIdentityProviderLogin();
-                break;
-            case 'register':
-                handleIdentityProviderRegister();
-                break;
-            default:
-                throw new Error('Invalid buttonType.');
-        }
-    };
-
     return (
         <Button
             type="button"
             className="flex gap-2"
             onClick={() => {
-                handleButtonAction();
+                void signInWithOAuthProvider();
             }}
         >
             {renderButtonContent()}

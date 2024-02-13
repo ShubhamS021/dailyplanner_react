@@ -36,6 +36,9 @@ test:
     before_script:
         - *add_git
         - yarn install
+    variables:
+      - VITE_SUPABASE_URL=$VITE_SUPABASE_URL
+      - VITE_SUPABASE_ANON_KEY=$VITE_SUPABASE_ANON_KEY
     script:
         - yarn test
     coverage: '/Lines \W+: (\d+\.\d+)%.*/'

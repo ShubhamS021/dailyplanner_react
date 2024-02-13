@@ -8,6 +8,7 @@ import './i18n';
 // to run why do you render: import './wdyr';
 
 const root = ReactDOM.createRoot(
+    // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style
     document.getElementById('root') as HTMLElement
 );
 root.render(

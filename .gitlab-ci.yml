@@ -125,4 +125,4 @@ include:
 include:
   - template: Jobs/SAST.gitlab-ci.yml
     rules:
-      - if: '$SKIP_STAGES != "true" && ($CI_COMMIT_BRANCH == "develop" || $CI_COMMIT_REF_NAME =~ /feature/)'
+      - if: '$SKIP_STAGES != "true" && ($CI_COMMIT_BRANCH == "develop" || $CI_COMMIT_BRANCH =~ feature/)'

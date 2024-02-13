@@ -58,6 +58,7 @@ export const RegisterForm = () => {
                 // eslint-disable-next-line @typescript-eslint/no-misused-promises
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="flex flex-col gap-3"
+                data-testid="register-form"
             >
                 <FormField
                     control={form.control}

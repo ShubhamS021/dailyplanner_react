@@ -53,6 +53,7 @@ export const IdentityProviderButton: React.FC<IdentityProviderButtonProps> = ({
         <Button
             type="button"
             className="flex gap-2"
+            data-testid="provider-button"
             onClick={() => {
                 void signInWithOAuthProvider();
             }}

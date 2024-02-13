@@ -53,6 +53,7 @@ export const Login = () => {
                             {t('components.Login.noAccount')}
                             <button
                                 className="ml-2 hover:underline hover:text-primary"
+                                data-testid="register-button"
                                 onClick={() => {
                                     setPage('registerPage');
                                 }}

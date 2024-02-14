@@ -113,7 +113,7 @@ renovate-clean:
       # prune all docker images on server
       - ssh $REMOTE "docker system prune -af"
     rules:
-      - if: '$CI_PIPELINE_SOURCE == "schedule" && '$CI_COMMIT_BRANCH == "develop"''
+      - if: '$CI_PIPELINE_SOURCE == "schedule" && $CI_COMMIT_BRANCH == "develop"'
 
 # renovate
 include:

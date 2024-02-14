@@ -1,3 +1,7 @@
+import { initialBoardState } from '@/hooks/useBoardStore/data/initialBoard.state';
+import { initialLanes } from '@/hooks/useBoardStore/data/initialLanes.state';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import { usePageStore } from '@/hooks/usePageStore/usePageStore';
 import {
     act,
     fireEvent,
@@ -5,25 +9,23 @@ import {
     renderHook,
     screen,
 } from '@testing-library/react';
-import MyBoards from './MyBoards';
-import { initialBoardState } from '@/hooks/useBoardStore/data/initialBoard.state';
-import { initialLanes } from '@/hooks/useBoardStore/data/initialLanes.state';
-import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { vi } from 'vitest';
+import MyBoards from './MyBoards';
 
 describe('MyBoards', () => {
     // add a default board with some columns
     beforeEach(() => {
-        const { result } = renderHook(() => useBoardStore());
+        const { result: boardStore } = renderHook(() => useBoardStore());
+        const { result: pageStore } = renderHook(() => usePageStore());
 
         act(() => {
             const boardId = 0;
-            result.current.addBoard({
+            boardStore.current.addBoard({
                 ...initialBoardState,
                 lanes: [...initialLanes],
                 id: boardId,
             });
-            result.current.toggleBoardMode('boardCreateMode');
+            pageStore.current.setPage('boardCreatePage');
         });
 
         render(<MyBoards />);
@@ -62,7 +64,7 @@ describe('MyBoards', () => {
     //         'myboards-create-own-button'
     //     );
     //     fireEvent.click(createOwnButton);
-    //     expect(spy).toHaveBeenCalledWith('boardCreateMode');
+    //     expect(spy).toHaveBeenCalledWith('boardCreatePage');
     // });
 
     test('renders the delete confirmation modal when clicking the remove board button', () => {

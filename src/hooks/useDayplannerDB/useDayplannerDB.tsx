@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState, useCallback } from 'react';
-import { type IDBPDatabase, openDB } from 'idb';
+import { openDB, type IDBPDatabase } from 'idb';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 interface DayplannerDB {
     history: {
@@ -94,7 +94,10 @@ const useDBStore = <T extends StoreName>(storeName: T) => {
     );
 
     const getDataByIndex = useCallback(
-        async (indexName: any, queryValue: any) => {
+        async (
+            indexName: any,
+            queryValue: IDBKeyRange | IDBValidKey | null | undefined
+        ) => {
             if (db != null) {
                 try {
                     const tx = db.transaction(storeName, 'readonly');

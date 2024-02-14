@@ -1,4 +1,4 @@
-import type Task from 'interfaces/Task';
+import type Task from '@/interfaces/Task';
 
 export const task: Task = {
     id: 1,

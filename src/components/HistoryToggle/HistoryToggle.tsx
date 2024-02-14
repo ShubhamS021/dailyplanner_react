@@ -1,14 +1,14 @@
-import { useTranslation } from 'react-i18next';
-import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import { usePageStore } from '@/hooks/usePageStore/usePageStore';
 import { HistoryIcon } from '@/ui/Icons/Icons';
+import { useTranslation } from 'react-i18next';
 
 export const HistoryToggle = () => {
     const { t } = useTranslation();
 
-    const [toggleBoardMode] = useBoardStore((state) => [state.toggleBoardMode]);
+    const [setPage] = usePageStore((state) => [state.setPage]);
 
     const handleHistoryToggle = () => {
-        toggleBoardMode('boardHistoryMode');
+        setPage('boardHistoryPage');
     };
 
     return (

@@ -1,5 +1,5 @@
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
-import { Button } from '@/ui/Button/Button';
+import { Button } from '@/ui/button';
 import {
     DropdownMenu,
     DropdownMenuContent,

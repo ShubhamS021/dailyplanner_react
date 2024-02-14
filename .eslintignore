@@ -6,3 +6,6 @@ src/reportWebVitals.ts
 src/setupTests.ts
 src/wdyr.js
 vite.config.ts
+
+# ignore the shadcn stuff for now
+src/ui/**/*.*

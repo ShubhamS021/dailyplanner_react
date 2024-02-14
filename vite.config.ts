@@ -1,11 +1,11 @@
 /// <reference types="vitest" />
-import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import viteTsconfigPaths from 'vite-tsconfig-paths';
-import svgrPlugin from 'vite-plugin-svgr';
-import vitePluginRequire from 'vite-plugin-require';
-import path from 'path';
 import * as child from 'child_process';
+import path from 'path';
+import { defineConfig } from 'vite';
+import vitePluginRequire from 'vite-plugin-require';
+import svgrPlugin from 'vite-plugin-svgr';
+import viteTsconfigPaths from 'vite-tsconfig-paths';
 
 const commitHash = child.execSync('git rev-parse --short HEAD').toString();
 
@@ -34,9 +34,22 @@ export default defineConfig({
         globals: true,
         environment: 'jsdom',
         setupFiles: './src/setupTests.ts',
+        include: ['src/**/*.spec.tsx', 'src/**/*.test.tsx'],
         coverage: {
             reporter: ['lcov', 'html'],
             provider: 'v8',
+            include: ['src/**/*.ts', 'src/**/*.tsx'],
+            exclude: [
+                'src/main.tsx',
+                'src/i18n.ts',
+                'src/reportWebVitals.ts',
+                'src/setupTests.ts',
+                'src/utils.ts',
+                'src/vite-env.d.ts',
+                'src/assets/**/*.ts',
+                'src/**/interfaces/*.ts',
+                'src/**/types/*.ts',
+            ],
         },
     },
     plugins: [

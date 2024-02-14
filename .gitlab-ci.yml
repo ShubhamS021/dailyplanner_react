@@ -4,11 +4,12 @@ stages:
     - sonar
     - deploy
     - renovate
+    - renovate-cleanup
 
 image: node:lts-alpine
 
 .add_git: &add_git
-    - apk add --no-cache git 
+    - apk add --no-cache git
 
 .add_bash: &add_bash
     - apk add --no-cache bash
@@ -21,7 +22,6 @@ image: node:lts-alpine
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
 # CI stages
-
 lint:
     stage: lint
     before_script:
@@ -29,7 +29,9 @@ lint:
     script:
         - yarn lint
     rules:
-      - if: '$SKIP_STAGES != "true"'
+        - if: $CI_PIPELINE_SOURCE == "schedule"
+          when: never
+        - when: always
 
 test:
     stage: test
@@ -37,40 +39,43 @@ test:
         - *add_git
         - yarn install
     variables:
-      VITE_SUPABASE_URL: $VITE_SUPABASE_URL
-      VITE_SUPABASE_ANON_KEY: $VITE_SUPABASE_ANON_KEY
+        VITE_SUPABASE_URL: $VITE_SUPABASE_URL
+        VITE_SUPABASE_ANON_KEY: $VITE_SUPABASE_ANON_KEY
     script:
         - yarn test
     coverage: '/Lines \W+: (\d+\.\d+)%.*/'
     artifacts:
-      expire_in: 1 day
-      paths:
-        - coverage/
+        expire_in: 1 day
+        paths:
+            - coverage/
     needs: [lint]
     rules:
-      - if: '$SKIP_STAGES != "true"'
+        - if: $CI_PIPELINE_SOURCE == "schedule"
+          when: never
+        - when: always
 
 sonar:
-  stage: sonar
-  image:
-    name: sonarsource/sonar-scanner-cli:latest
-    entrypoint: ['']
-  variables:
-    SONAR_USER_HOME: '${CI_PROJECT_DIR}/.sonar'
-    GIT_DEPTH: '0'
-  cache:
-    key: '${CI_JOB_NAME}'
-    paths:
-      - .sonar/cache
-  script:
-    - sonar-scanner
-  needs: [lint, test]  
-  allow_failure: true
-  rules:
-    - if: '$SKIP_STAGES != "true" && $CI_COMMIT_BRANCH == "develop"'
+    stage: sonar
+    image:
+        name: sonarsource/sonar-scanner-cli:latest
+        entrypoint: ['']
+    variables:
+        SONAR_USER_HOME: '${CI_PROJECT_DIR}/.sonar'
+        GIT_DEPTH: '0'
+    cache:
+        key: '${CI_JOB_NAME}'
+        paths:
+            - .sonar/cache
+    script:
+        - sonar-scanner
+    needs: [lint, test]
+    allow_failure: true
+    rules:
+        - if: $CI_PIPELINE_SOURCE == "schedule"
+          when: never
+        - when: always
 
 # CD stages
-
 qa:
     stage: deploy
     before_script:
@@ -82,9 +87,11 @@ qa:
         url: https://planner-qa.der-hahn.net
     needs: [lint, test, sonar]
     script:
-        - ENVIRONMENT_NAME=qa bash deploy/deploy.sh 
+        - ENVIRONMENT_NAME=qa bash deploy/deploy.sh
     rules:
-      - if: '$SKIP_STAGES != "true" && $CI_COMMIT_BRANCH == "develop"'
+        - if: $CI_PIPELINE_SOURCE == "schedule"
+          when: never
+        - when: always
 
 prod:
     stage: deploy
@@ -98,33 +105,30 @@ prod:
     script:
         - ENVIRONMENT_NAME=prod bash deploy/deploy.sh
     needs: [qa]
-    when: manual
     rules:
-      - if: '$SKIP_STAGES != "true"'
-
-# renovate
-include:
-    - project: 'renovate-bot/renovate-runner'
-      file: '/templates/renovate.gitlab-ci.yml'
-      rules:
-        - if: '$CI_PIPELINE_SOURCE == "schedule" && $CI_COMMIT_BRANCH == "develop"'
+        - if: $CI_PIPELINE_SOURCE == "schedule"
+          when: never
+        - when: manual
 
 # cleans the docker system after a renovate run
 renovate-clean:
-    stage: renovate
+    stage: renovate-cleanup
     variables:
-      REMOTE: 5.181.51.30
+        REMOTE_SSH_HOST: $REMOTE_SSH_HOST
     before_script:
         - *add_bash
         - *add_ssh
     script:
-      # ssh into the server
-      - ssh root@$REMOTE
-      # prune all docker images on server
-      - ssh $REMOTE "docker system prune -af"
+        - ssh root@$REMOTE_SSH_HOST
+        - ssh $REMOTE_SSH_HOST "docker system prune -af" # prune all docker images on server
     rules:
-      - if: '$CI_PIPELINE_SOURCE == "schedule" && $CI_COMMIT_BRANCH == "develop"'
+        - if: '$CI_PIPELINE_SOURCE == "schedule" && $CI_COMMIT_BRANCH == "develop"'
+          when: always
+        - when: never
 
-# static code analysis
 include:
-  - template: Jobs/SAST.gitlab-ci.yml
+    - project: 'renovate-bot/renovate-runner'
+      file: '/templates/renovate.gitlab-ci.yml'
+      rules:
+          - if: '$CI_PIPELINE_SOURCE == "schedule" && $CI_COMMIT_BRANCH == "develop"'
+    - template: Jobs/SAST.gitlab-ci.yml

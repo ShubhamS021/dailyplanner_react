@@ -132,3 +132,7 @@ include:
       rules:
           - if: '$CI_PIPELINE_SOURCE == "schedule" && $CI_COMMIT_BRANCH == "develop"'
     - template: Jobs/SAST.gitlab-ci.yml
+      rules:
+          - if: $CI_PIPELINE_SOURCE == "schedule"
+            when: never
+          - when: always

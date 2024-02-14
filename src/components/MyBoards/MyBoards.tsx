@@ -1,29 +1,31 @@
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import logo from '@/assets/logo.png';
+import { BoardEditModal } from '@/components/Board/modal/BoardEditModal/BoardEditModal';
 import { ConfirmationModal } from '@/components/ConfirmationModal/ConfirmationModal';
 import Export from '@/components/Export/Export';
 import Import from '@/components/Import/Import';
 import { LanguageChooser } from '@/components/LanguageChooser/LanguageChooser';
-import { BoardEditModal } from '@/components/Board/modal/BoardEditModal/BoardEditModal';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import { usePageStore } from '@/hooks/usePageStore/usePageStore';
 import {
     ArrowNarrowRightIcon,
     EditIcon,
     GitlabIcon,
     TrashIcon,
 } from '@/ui/Icons/Icons';
-import { Button } from '@/ui/Button/Button';
+import { Button } from '@/ui/button';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const MyBoards = () => {
-    const [boards, enterBoard, renameBoard, removeBoard, toggleBoardMode] =
-        useBoardStore((state) => [
+    const [boards, enterBoard, renameBoard, removeBoard] = useBoardStore(
+        (state) => [
             state.boards,
             state.enterBoard,
             state.renameBoard,
             state.removeBoard,
-            state.toggleBoardMode,
-        ]);
+        ]
+    );
+    const [setPage] = usePageStore((state) => [state.setPage]);
 
     const [showModal, setShowModal] = useState(false);
     const [boardToEdit, setBoardToEdit] = useState(boards[0]);
@@ -186,7 +188,7 @@ export const MyBoards = () => {
                     type="button"
                     data-testid="myboards-create-own-button"
                     onClick={() => {
-                        toggleBoardMode('boardCreateMode');
+                        setPage('boardCreatePage');
                     }}
                 >
                     {t('components.MyBoards.start')}
@@ -194,6 +196,10 @@ export const MyBoards = () => {
             </div>
 
             <footer className="flex flex-col items-center gap-3 self-end">
+                {/* Hide Login for now */}
+                {/* <Button type="button" onClick={() => setPage('loginPage')}>
+                    Login
+                </Button> */}
                 <a
                     className="text-[#5A5A65] dark:text-[#8B8B8B] flex gap-2 items-center"
                     href="https://gitlab.com/Kevin.Hahn/dayplanner"

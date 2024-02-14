@@ -1,4 +1,3 @@
-import { Button } from '@/ui/Button/Button';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -9,6 +8,7 @@ import {
     DropdownMenuTrigger,
 } from '@/ui/DropdownMenu/DropdownMenu';
 import { DotsIcon, EditIcon, TrashIcon } from '@/ui/Icons/Icons';
+import { Button } from '@/ui/button';
 import { t } from 'i18next';
 
 interface LaneActionProps {

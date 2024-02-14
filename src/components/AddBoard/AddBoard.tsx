@@ -1,18 +1,18 @@
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import logo from '@/assets/logo.png';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import { usePageStore } from '@/hooks/usePageStore/usePageStore';
+import { ArrowLeftIcon } from '@/ui/Icons/Icons';
 import {
     getLocalizedInitialBoardState,
     getLocalizedInitialLanesState,
 } from '@/utils/context.util';
-import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
-import { ArrowLeftIcon } from '@/ui/Icons/Icons';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const AddBoard = () => {
-    const [addBoard, toggleBoardMode] = useBoardStore((state) => [
-        state.addBoard,
-        state.toggleBoardMode,
-    ]);
+    const [addBoard] = useBoardStore((state) => [state.addBoard]);
+
+    const [setPage] = usePageStore((state) => [state.setPage]);
 
     const { t } = useTranslation();
 
@@ -25,7 +25,7 @@ export const AddBoard = () => {
             lanes: getLocalizedInitialLanesState(),
         };
         addBoard(newBoard);
-        toggleBoardMode('boardDefaultMode');
+        setPage('boardDefaultPage');
     };
 
     const handleCreateCustomBoard = () => {
@@ -34,11 +34,11 @@ export const AddBoard = () => {
         customBoard.subtitle = description;
 
         addBoard(customBoard);
-        toggleBoardMode('boardCustomLanesMode');
+        setPage('boardCustomLanesPage');
     };
 
     const handleBackToBoards = () => {
-        toggleBoardMode('boardChooseMode');
+        setPage('boardChoosePage');
     };
 
     const handleNameChanges = (name: string) => {

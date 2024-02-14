@@ -1,22 +1,22 @@
-import { useTranslation } from 'react-i18next';
 import BoardTitle from '@/components/Board/BoardTitle/BoardTitle';
-import useHistory from '@/hooks/useHistory/useHistory';
-import { type HistoryListEntry } from '@/hooks/useHistory/interfaces/HistoryListEntry';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import { type HistoryListEntry } from '@/hooks/useHistory/interfaces/HistoryListEntry';
+import useHistory from '@/hooks/useHistory/useHistory';
+import { usePageStore } from '@/hooks/usePageStore/usePageStore';
 import { ArrowLeftIcon } from '@/ui/Icons/Icons';
+import { useTranslation } from 'react-i18next';
 
 export const BoardHistory = () => {
-    const [board, toggleBoardMode] = useBoardStore((state) => [
-        state.board,
-        state.toggleBoardMode,
-    ]);
+    const [board] = useBoardStore((state) => [state.board]);
+
+    const [setPage] = usePageStore((state) => [state.setPage]);
 
     const { history } = useHistory(board.id);
 
     const { t } = useTranslation();
 
     const handleBackToBoard = () => {
-        toggleBoardMode('boardDefaultMode');
+        setPage('boardDefaultPage');
     };
 
     const renderAdditionalData = (entry: HistoryListEntry) => {

@@ -1,15 +1,15 @@
-import { renderHook, act, cleanup } from '@testing-library/react';
-import { useBoardStore } from './useBoardStore';
-import { type Lane } from 'interfaces/Lane';
+import { type Lane } from '@/interfaces/Lane';
+import { act, cleanup, renderHook } from '@testing-library/react';
 import { card } from '../../../__mocks__/cards.mock';
-import { initialLanes } from './data/initialLanes.state';
 import { initialBoardState } from './data/initialBoard.state';
+import { initialLanes } from './data/initialLanes.state';
+import { useBoardStore } from './useBoardStore';
 
-import { type DropResult } from 'react-beautiful-dnd';
-import { fulfilledTask, task } from '../../../__mocks__/tasks.mock';
-import { type Card } from 'interfaces/Card';
 import { useDayplannerDB } from '@/hooks/useDayplannerDB/useDayplannerDB';
+import { type Card } from '@/interfaces/Card';
+import { type DropResult } from 'react-beautiful-dnd';
 import { vi } from 'vitest';
+import { fulfilledTask, task } from '../../../__mocks__/tasks.mock';
 
 describe('useBoardStore', () => {
     // add a default board with some columns

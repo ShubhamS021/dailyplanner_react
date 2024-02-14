@@ -1,5 +1,5 @@
-import { type Board } from 'interfaces/Board';
-import { type Card } from 'interfaces/Card';
+import { type Board } from '@/interfaces/Board';
+import { type Card } from '@/interfaces/Card';
 
 export const findLastCardId = (board: Board) => {
     return findLastCardIdInBoard(board);

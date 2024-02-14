@@ -1,20 +1,20 @@
-import { useState } from 'react';
-import { Draggable } from 'react-beautiful-dnd';
-import { useTranslation } from 'react-i18next';
 import { AddCardModal } from '@/components/AddCard/modal/AddCardModal';
+import { CardComponent } from '@/components/Card/Card';
 import { CardMoveModal } from '@/components/Card/modal/CardMoveModal/CardMoveModal';
 import { ConfirmationModal } from '@/components/ConfirmationModal/ConfirmationModal';
-import { type Card } from '@/interfaces/Card';
-import type Tag from '@/interfaces/Tag';
-import type Task from '@/interfaces/Task';
-import { type Shirt } from '@/types/Shirt';
-import { CardComponent } from '@/components/Card/Card';
-import { Dropzone } from '@/ui/Dropzone/Dropzone';
-import { LabelComponent } from '@/ui/Label/Label';
 import { LaneEditModal } from '@/components/Lane/modal/LaneEditModal/LaneEditModal';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import useHistory from '@/hooks/useHistory/useHistory';
+import { type Card } from '@/interfaces/Card';
 import { type Lane } from '@/interfaces/Lane';
+import type Tag from '@/interfaces/Tag';
+import type Task from '@/interfaces/Task';
+import { type Shirt } from '@/types/Shirt';
+import { Dropzone } from '@/ui/Dropzone/Dropzone';
+import { LabelComponent } from '@/ui/Label/Label';
+import { useState } from 'react';
+import { Draggable } from 'react-beautiful-dnd';
+import { useTranslation } from 'react-i18next';
 import { LaneActions } from './LaneActions/LaneActions';
 
 export interface LaneProps {

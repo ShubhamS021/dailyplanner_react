@@ -1,17 +1,18 @@
-import {
-    render,
-    screen,
-    fireEvent,
-    renderHook,
-    act,
-} from '@testing-library/react';
-import { BoardHistory } from './BoardHistory';
-import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { initialBoardState } from '@/hooks/useBoardStore/data/initialBoard.state';
 import { initialLanes } from '@/hooks/useBoardStore/data/initialLanes.state';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import useHistory from '@/hooks/useHistory/useHistory';
-import { card } from '../../../__mocks__/cards.mock';
+import { usePageStore } from '@/hooks/usePageStore/usePageStore';
+import {
+    act,
+    fireEvent,
+    render,
+    renderHook,
+    screen,
+} from '@testing-library/react';
 import { vi } from 'vitest';
+import { card } from '../../../__mocks__/cards.mock';
+import { BoardHistory } from './BoardHistory';
 
 vi.mock('@/hooks/useHistory/useHistory', () => {
     return {
@@ -87,13 +88,14 @@ describe('BoardHistory', () => {
     });
 
     it('calls toggleBoardMode when back button is clicked', () => {
-        const { result } = renderHook(() => useBoardStore());
-        const spy = vi.spyOn(result.current, 'toggleBoardMode');
+        const { result: pageStore } = renderHook(() => usePageStore());
+
+        const spy = vi.spyOn(pageStore.current, 'setPage');
         render(<BoardHistory />);
 
         fireEvent.click(screen.getByTestId('btnBackToBoard'));
 
-        expect(spy).toHaveBeenCalledWith('boardDefaultMode');
-        expect(result.current.boardMode).toBe('boardDefaultMode');
+        expect(spy).toHaveBeenCalledWith('boardDefaultPage');
+        expect(pageStore.current.page).toBe('boardDefaultPage');
     });
 });

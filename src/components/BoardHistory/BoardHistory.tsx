@@ -98,7 +98,7 @@ export const BoardHistory = () => {
     };
 
     return (
-        <main className="p-10">
+        <div className="p-10">
             <div className="h-16 mb-6 grid grid-cols-[auto,1fr] items-center">
                 <div
                     className="cursor-pointer mr-4 stroke-[#14161F] dark:stroke-[#DEDEDE]"
@@ -128,6 +128,6 @@ export const BoardHistory = () => {
                         : renderHistoryTable()}
                 </div>
             </div>
-        </main>
+        </div>
     );
 };

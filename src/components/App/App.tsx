@@ -8,6 +8,7 @@ import { usePageStore } from '@/hooks/usePageStore/usePageStore';
 import { useEffect } from 'react';
 import { Login } from '../Authentication/components/Login';
 import { Register } from '../Authentication/components/Register';
+import { Layout } from '../layout';
 
 export const App = () => {
     const [page, setPage] = usePageStore((state) => [
@@ -48,27 +49,45 @@ export const App = () => {
     }, [themeMode]);
 
     const renderPage = () => {
+        let pageContent;
+        let standalone = false;
+
         switch (page) {
             // Authentication pages
             case 'loginPage':
-                return <Login />;
+                pageContent = <Login />;
+                standalone = true;
+                break;
             case 'registerPage':
-                return <Register />;
+                pageContent = <Register />;
+                standalone = true;
+                break;
             // Board pages
             case 'boardCreatePage':
-                return <AddBoard />;
+                pageContent = <AddBoard />;
+                break;
             case 'boardChoosePage':
-                return <MyBoards />;
+                pageContent = <MyBoards />;
+                break;
             case 'boardCustomLanesPage':
-                return <MyBoardLanes />;
+                pageContent = <MyBoardLanes />;
+                break;
             case 'boardHistoryPage':
-                return <BoardHistory />;
+                pageContent = <BoardHistory />;
+                break;
             default:
-                return <Board />;
+                pageContent = <Board />;
+                break;
+        }
+
+        if (standalone) {
+            return pageContent;
+        } else {
+            return <Layout>{pageContent}</Layout>;
         }
     };
 
-    return <div className="dark:bg-[#171D23] h-full">{renderPage()}</div>;
+    return renderPage();
 };
 
 export default App;

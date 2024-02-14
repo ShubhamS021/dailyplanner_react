@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import logo from '@/assets/logo.png';
-import { TagComponent } from '@/ui/Tag/Tag';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { type Lane } from '@/interfaces/Lane';
 import { BaseColors, colors } from '@/theme/colors';
-import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { LayoutCardsIcon, PlusIcon } from '@/ui/Icons/Icons';
+import { TagComponent } from '@/ui/Tag/Tag';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const MyBoardLanes = () => {
     const [boards, addLaneToBoard, removeLaneFromBoard, enterBoard] =
@@ -54,7 +54,7 @@ export const MyBoardLanes = () => {
     };
 
     return (
-        <main className="p-10 grid grid-cols-1 grid-rows-1 justify-center items-center">
+        <div className="p-10 grid grid-cols-1 grid-rows-1 justify-center items-center">
             <div className="flex flex-col items-center gap-3">
                 <div>
                     <img
@@ -159,7 +159,7 @@ export const MyBoardLanes = () => {
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
     );
 };
 export default MyBoardLanes;

@@ -54,7 +54,7 @@ export const AddBoard = () => {
     };
 
     return (
-        <main className="p-10 grid grid-cols-1 grid-rows-1 justify-center items-center">
+        <div className="p-10 grid grid-cols-1 grid-rows-1 justify-center items-center">
             <div className="flex flex-col items-center gap-3">
                 <div className="h-16 mb-6 grid grid-cols-[auto,auto] items-center">
                     <div
@@ -156,7 +156,7 @@ export const AddBoard = () => {
                     {t('components.AddBoard.create')}
                 </button>
             </div>
-        </main>
+        </div>
     );
 };
 export default AddBoard;

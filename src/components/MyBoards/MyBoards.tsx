@@ -74,7 +74,7 @@ export const MyBoards = () => {
     };
 
     return (
-        <main className="p-10 h-screen grid grid-cols-1 grid-rows-[1fr,auto] justify-center items-center">
+        <div className="p-10 grid grid-cols-1 grid-rows-[1fr,auto] justify-center items-center">
             <div className="flex flex-col items-center gap-3">
                 <div>
                     <img
@@ -219,7 +219,7 @@ export const MyBoards = () => {
                 <LanguageChooser />
             </footer>
             {showEditModal ? renderEditBoardModal() : null}
-        </main>
+        </div>
     );
 };
 export default MyBoards;

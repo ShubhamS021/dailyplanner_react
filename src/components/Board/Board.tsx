@@ -1,9 +1,7 @@
 import { AddCard } from '@/components/AddCard/AddCard';
 import { BoardTitle } from '@/components/Board/BoardTitle/BoardTitle';
 import CompactModeToggle from '@/components/CompactModeToggle/CompactModeToggle';
-import { DarkModeToggle } from '@/components/DarkModeToggle/DarkModeToggle';
 import Export from '@/components/Export/Export';
-import { HistoryToggle } from '@/components/HistoryToggle/HistoryToggle';
 import Import from '@/components/Import/Import';
 import { LaneComponent } from '@/components/Lane/Lane';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
@@ -86,7 +84,7 @@ export const Board = () => {
     };
 
     return (
-        <main className="p-10">
+        <div className="p-10">
             <div className="h-16 mb-6 grid grid-cols-[auto,1fr_auto] items-center">
                 <div
                     className="cursor-pointer mr-4 stroke-[#14161F] dark:stroke-[#DEDEDE]"
@@ -118,13 +116,11 @@ export const Board = () => {
             </div>
 
             <div className="flex justify-end gap-2 mt-2 items-center">
-                <HistoryToggle />
-                <DarkModeToggle />
                 <CompactModeToggle />
                 <Export />
                 <Import />
             </div>
-        </main>
+        </div>
     );
 };
 

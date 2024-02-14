@@ -1,11 +1,6 @@
-import { AddCard } from '@/components/AddCard/AddCard';
-import { BoardTitle } from '@/components/Board/BoardTitle/BoardTitle';
-import CompactModeToggle from '@/components/CompactModeToggle/CompactModeToggle';
-import Export from '@/components/Export/Export';
-import Import from '@/components/Import/Import';
-import { LaneComponent } from '@/components/Lane/Lane';
+import { BoardTitle } from '@/components/board-title/board-title';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
-import useHistory from '@/hooks/useHistory/useHistory';
+import { useHistory } from '@/hooks/useHistory/useHistory';
 import { usePageStore } from '@/hooks/usePageStore/usePageStore';
 import { type Card } from '@/interfaces/Card';
 import { type Lane } from '@/interfaces/Lane';
@@ -17,6 +12,11 @@ import {
     type DroppableProvided,
 } from 'react-beautiful-dnd';
 import { useTranslation } from 'react-i18next';
+import { CardAdd } from '../card/card-add-modal/card-add';
+import { LaneComponent } from '../lane/lane';
+import CompactMode from '../toggles/compact-mode/compact-mode';
+import Export from './board-export/board-export';
+import Import from './board-import/board-import';
 
 export const Board = () => {
     const [board, handleDragEnd] = useBoardStore((state) => [
@@ -84,8 +84,8 @@ export const Board = () => {
     };
 
     return (
-        <div className="p-10">
-            <div className="h-16 mb-6 grid grid-cols-[auto,1fr_auto] items-center">
+        <div className="grid grid-cols-[auto, 1fr] p-10">
+            <div className="mb-6 grid grid-cols-[auto,1fr_auto] items-center">
                 <div
                     className="cursor-pointer mr-4 stroke-[#14161F] dark:stroke-[#DEDEDE]"
                     data-testid="btnBackToBoards"
@@ -96,15 +96,20 @@ export const Board = () => {
                     <ArrowLeftIcon />
                 </div>
                 <BoardTitle title={board.title} subtitle={board.subtitle} />
-                <div className="flex gap-2 items-center">
-                    <AddCard
+                <div className="flex flex-col gap-2 items-end">
+                    <CardAdd
                         placeholder={t('components.Board.add')}
                         text={t('components.Board.addSubmit')}
                     />
+                    <div className="flex justify-end gap-2 mt-2 items-center">
+                        <CompactMode />
+                        <Export />
+                        <Import />
+                    </div>
                 </div>
             </div>
             <div
-                className={`p-5 rounded-2xl bg-[#F8F8F8] grid gap-6 dark:bg-[#212932]`}
+                className={`grid gap-6`}
                 style={{
                     gridTemplateColumns: `repeat(${board.lanes?.length},minmax(200px,1fr)`,
                 }}
@@ -114,14 +119,6 @@ export const Board = () => {
                     {renderLanes(board.lanes)}
                 </DragDropContext>
             </div>
-
-            <div className="flex justify-end gap-2 mt-2 items-center">
-                <CompactModeToggle />
-                <Export />
-                <Import />
-            </div>
         </div>
     );
 };
-
-export default Board;

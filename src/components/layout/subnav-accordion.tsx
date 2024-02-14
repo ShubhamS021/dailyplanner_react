@@ -1,4 +1,4 @@
-import { cn } from '@/utils';
+import { cn } from '@/utils/utils';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import { ClassValue } from 'clsx';
 import * as React from 'react';

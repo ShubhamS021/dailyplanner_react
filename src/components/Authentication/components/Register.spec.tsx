@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import { t } from 'i18next';
-import { Register } from './Register';
+import { Register } from './register';
 
 describe('Register', () => {
     it('renders register heading', () => {

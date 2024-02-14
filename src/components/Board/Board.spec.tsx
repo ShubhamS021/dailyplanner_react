@@ -1,8 +1,8 @@
-import { act, render, renderHook } from '@testing-library/react';
-import Board from './Board';
 import { initialBoardState } from '@/hooks/useBoardStore/data/initialBoard.state';
 import { initialLanes } from '@/hooks/useBoardStore/data/initialLanes.state';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import { act, render, renderHook } from '@testing-library/react';
+import { Board } from './board';
 
 describe('Board', () => {
     // add a default board with some columns

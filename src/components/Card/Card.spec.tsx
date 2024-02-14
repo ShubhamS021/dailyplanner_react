@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { colors } from '../../theme/colors';
-import { CardComponent } from './Card';
+import { CardComponent } from './card';
 
 test('renders basic card', () => {
     const { getByTestId } = render(

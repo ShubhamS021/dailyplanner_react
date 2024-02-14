@@ -2,8 +2,8 @@ import logo from '@/assets/logo.png';
 import { MobileSidebar } from '@/components/layout/mobile-sidebar';
 import { usePageStore } from '@/hooks/usePageStore/usePageStore';
 import { Button } from '@/ui/button';
-import { cn } from '@/utils';
-import { DarkModeToggle } from '../DarkModeToggle/DarkModeToggle';
+import { cn } from '@/utils/utils';
+import { DarkMode } from '../toggles/dark-mode/dark-mode';
 
 export default function Header() {
     const [setPage] = usePageStore((state) => [state.setPage]);
@@ -24,7 +24,7 @@ export default function Header() {
                 </div>
 
                 <div className="flex items-center gap-2">
-                    <DarkModeToggle />
+                    <DarkMode />
                     {/* {sessionData?.user ? (
                         <UserNav user={sessionData.user} />
                     ) : ( */}

@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom/client';
-import App from './components/App/App';
+import App from './components/app/app';
 import './main.css';
 import reportWebVitals from './reportWebVitals';
 import './theme/theme.colors.css';

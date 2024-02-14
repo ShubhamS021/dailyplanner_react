@@ -2,7 +2,7 @@ import { initialBoardState } from '@/hooks/useBoardStore/data/initialBoard.state
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { usePageStore } from '@/hooks/usePageStore/usePageStore';
 import { act, render, renderHook } from '@testing-library/react';
-import App from './App';
+import App from './app';
 
 describe('App component', () => {
     it('renders AddBoard component when in boardCreatePage', () => {

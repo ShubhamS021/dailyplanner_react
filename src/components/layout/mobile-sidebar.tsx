@@ -1,4 +1,4 @@
-import { NavItems } from '@/components/constants/side-nav';
+import { NavItems } from '@/components/layout/constants/side-nav';
 import { SideNav } from '@/components/layout/side-nav';
 import { Sheet, SheetContent, SheetTrigger } from '@/ui/sheet';
 import { MenuIcon } from 'lucide-react';

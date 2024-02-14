@@ -1,14 +1,14 @@
-import AddBoard from '@/components/AddBoard/AddBoard';
-import Board from '@/components/Board/Board';
-import { BoardHistory } from '@/components/BoardHistory/BoardHistory';
-import MyBoardLanes from '@/components/MyBoardLanes/MyBoardLanes';
-import MyBoards from '@/components/MyBoards/MyBoards';
+import { Login } from '@/components/authentication/components/login';
+import { Register } from '@/components/authentication/components/register';
+import { BoardHistory } from '@/components/board-history/board-history';
+import { Board } from '@/components/board/board';
+import BoardAdd from '@/components/board/board-add/board-add';
+import { Layout } from '@/components/layout';
+import MyBoardLanes from '@/components/my-board-lanes/my-board-lanes';
+import MyBoards from '@/components/my-boards/my-boards';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { usePageStore } from '@/hooks/usePageStore/usePageStore';
 import { useEffect } from 'react';
-import { Login } from '../Authentication/components/Login';
-import { Register } from '../Authentication/components/Register';
-import { Layout } from '../layout';
 
 export const App = () => {
     const [page, setPage] = usePageStore((state) => [
@@ -64,7 +64,7 @@ export const App = () => {
                 break;
             // Board pages
             case 'boardCreatePage':
-                pageContent = <AddBoard />;
+                pageContent = <BoardAdd />;
                 break;
             case 'boardChoosePage':
                 pageContent = <MyBoards />;

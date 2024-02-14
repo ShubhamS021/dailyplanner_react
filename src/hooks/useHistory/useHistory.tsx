@@ -1,10 +1,10 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { type HistoryListEntry } from '@/hooks/useHistory/interfaces/HistoryListEntry';
 import { useDayplannerDB } from '@/hooks/useDayplannerDB/useDayplannerDB';
-import { type HistoryType } from '@/types/HistoryType';
+import { type HistoryListEntry } from '@/hooks/useHistory/interfaces/HistoryListEntry';
 import { type Card } from '@/interfaces/Card';
+import { type HistoryType } from '@/types/HistoryType';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
-const useHistory = (boardId: number) => {
+export const useHistory = (boardId: number) => {
     const { loading, addData, getDataByIndex } = useDayplannerDB('history');
     const [history, setHistory] = useState<HistoryListEntry[]>([]);
 
@@ -112,5 +112,3 @@ const useHistory = (boardId: number) => {
 
     return value;
 };
-
-export default useHistory;

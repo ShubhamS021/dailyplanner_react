@@ -8,13 +8,13 @@ import {
 import userEvent from '@testing-library/user-event';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
-import { LaneComponent } from './Lane';
-import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { initialBoardState } from '@/hooks/useBoardStore/data/initialBoard.state';
 import { initialLanes } from '@/hooks/useBoardStore/data/initialLanes.state';
-import { card, card2, card3 } from '../../../__mocks__/cards.mock';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { useDayplannerDB } from '@/hooks/useDayplannerDB/useDayplannerDB';
 import { vi } from 'vitest';
+import { card, card2, card3 } from '../../../__mocks__/cards.mock';
+import { LaneComponent } from './lane';
 
 describe('Lane', () => {
     const WAIT_TILL_ACTION_MENU = 200;

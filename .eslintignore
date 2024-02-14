@@ -4,7 +4,7 @@
 src/vite-env.d.ts
 src/reportWebVitals.ts
 src/setupTests.ts
-src/wdyr.js
+src/utils/wdyr.js
 vite.config.ts
 
 # ignore the shadcn stuff for now

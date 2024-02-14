@@ -1,9 +1,9 @@
-import { NavItems } from '@/components/constants/side-nav';
+import { NavItems } from '@/components/layout/constants/side-nav';
 import { SideNav } from '@/components/layout/side-nav';
 import { useState } from 'react';
 
-import { useSidebar } from '@/hooks/useSidebar';
-import { cn } from '@/utils';
+import { useSidebarStore } from '@/hooks/useSidebarStore/useSidebarStore';
+import { cn } from '@/utils/utils';
 import { BsArrowLeftShort } from 'react-icons/bs';
 
 interface SidebarProps {
@@ -11,7 +11,7 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ className }: SidebarProps) {
-    const { isOpen, toggle } = useSidebar();
+    const { isOpen, toggle } = useSidebarStore();
     const [status, setStatus] = useState(false);
 
     const handleToggle = () => {
@@ -24,6 +24,7 @@ export default function Sidebar({ className }: SidebarProps) {
             className={cn(
                 `relative hidden h-screen border-r pt-20 md:block`,
                 status && 'duration-500',
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 isOpen ? 'w-72' : 'w-[78px]',
                 className
             )}
@@ -31,6 +32,7 @@ export default function Sidebar({ className }: SidebarProps) {
             <BsArrowLeftShort
                 className={cn(
                     'absolute -right-3 top-20 cursor-pointer rounded-full border bg-background text-3xl text-foreground',
+                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                     !isOpen && 'rotate-180'
                 )}
                 onClick={handleToggle}

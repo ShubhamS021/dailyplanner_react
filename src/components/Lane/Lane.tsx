@@ -1,10 +1,10 @@
-import { AddCardModal } from '@/components/AddCard/modal/AddCardModal';
-import { CardComponent } from '@/components/Card/Card';
-import { CardMoveModal } from '@/components/Card/modal/CardMoveModal/CardMoveModal';
-import { ConfirmationModal } from '@/components/ConfirmationModal/ConfirmationModal';
-import { LaneEditModal } from '@/components/Lane/modal/LaneEditModal/LaneEditModal';
+import { CardComponent } from '@/components/card/card';
+import { CardMoveModal } from '@/components/card/card-move-modal/card-move-modal';
+import { ConfirmationModal } from '@/components/common/confirmation-modal/confirmation-modal';
+import { LaneActions } from '@/components/lane/lane-actions/lane-actions';
+import { LaneEditModal } from '@/components/lane/lane-edit-modal/lane-edit-modal';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
-import useHistory from '@/hooks/useHistory/useHistory';
+import { useHistory } from '@/hooks/useHistory/useHistory';
 import { type Card } from '@/interfaces/Card';
 import { type Lane } from '@/interfaces/Lane';
 import type Tag from '@/interfaces/Tag';
@@ -15,7 +15,7 @@ import { LabelComponent } from '@/ui/Label/Label';
 import { useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { useTranslation } from 'react-i18next';
-import { LaneActions } from './LaneActions/LaneActions';
+import { CardAddModal } from '../card/card-add-modal/card-add-modal';
 
 export interface LaneProps {
     id: number;
@@ -184,7 +184,7 @@ export const LaneComponent: React.FC<LaneProps> = ({
         if (cardToEdit == null) return;
         return (
             <>
-                <AddCardModal
+                <CardAddModal
                     card={cardToEdit}
                     submitButtonText={t('components.Lane.editCardSubmit') ?? ''}
                     updateTitle={(title: string) => {
@@ -230,7 +230,7 @@ export const LaneComponent: React.FC<LaneProps> = ({
                         updateCard(cardToEdit, id);
                         addUpdateToHistory(cardToEdit, board.id);
                     }}
-                ></AddCardModal>
+                ></CardAddModal>
                 <div className="backdrop"></div>
             </>
         );

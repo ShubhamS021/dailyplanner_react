@@ -1,16 +1,16 @@
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import { type Tag } from '@/interfaces/Tag';
+import { type Task } from '@/interfaces/Task';
+import { type Shirt } from '@/types/Shirt';
+import { TagComponent } from '@/ui/Tag/Tag';
+import { TaskComponent } from '@/ui/Task/Task';
 import {
     DragDropContext,
     Draggable,
     Droppable,
     type DropResult,
 } from 'react-beautiful-dnd';
-import { type Tag } from '@/interfaces/Tag';
-import { type Task } from '@/interfaces/Task';
-import { type Shirt } from '@/types/Shirt';
-import { TagComponent } from '@/ui/Tag/Tag';
-import { TaskComponent } from '@/ui/Task/Task';
-import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
-import { CardActions } from './CardActions/CardActions';
+import { CardActions } from './card-actions/card-actions';
 
 export interface CardProps {
     id: number;

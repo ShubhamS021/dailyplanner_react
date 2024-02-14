@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import { t } from 'i18next';
-import { Login } from './Login';
+import { Login } from './login';
 
 describe('Login', () => {
     it('renders login heading', () => {

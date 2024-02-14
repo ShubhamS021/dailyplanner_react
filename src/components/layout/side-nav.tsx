@@ -5,10 +5,10 @@ import {
     AccordionTrigger,
 } from '@/components/layout/subnav-accordion';
 import { usePageStore } from '@/hooks/usePageStore/usePageStore';
-import { useSidebar } from '@/hooks/useSidebar';
+import { useSidebarStore } from '@/hooks/useSidebarStore/useSidebarStore';
 import { NavItem } from '@/types/NavItem.type';
 import { buttonVariants } from '@/ui/button';
-import { cn } from '@/utils';
+import { cn } from '@/utils/utils';
 import { ChevronDownIcon } from '@radix-ui/react-icons';
 import { useEffect, useState } from 'react';
 
@@ -19,7 +19,7 @@ interface SideNavProps {
 }
 
 export function SideNav({ items, setOpen, className }: SideNavProps) {
-    const { isOpen } = useSidebar();
+    const { isOpen } = useSidebarStore();
     const [openItem, setOpenItem] = useState('');
     const [lastOpenItem, setLastOpenItem] = useState('');
     const [setPage] = usePageStore((state) => [state.setPage]);
@@ -127,6 +127,7 @@ export function SideNav({ items, setOpen, className }: SideNavProps) {
                         <span
                             className={cn(
                                 'absolute left-12 text-base duration-200',
+                                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                                 !isOpen && className
                             )}
                         >

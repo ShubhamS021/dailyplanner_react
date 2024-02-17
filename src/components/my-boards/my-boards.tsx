@@ -80,7 +80,7 @@ export const MyBoards = () => {
                     title={t('components.MyBoards.editTitle')}
                     cancelButtonText={t('components.MyBoards.editCancel') ?? ''}
                     submitButtonText={t('components.MyBoards.editSubmit') ?? ''}
-                    modalConfirmation={(title, subtitle) => {
+                    modalConfirmation={(title: string, subtitle: string) => {
                         renameBoard(boardToEdit.id, title, subtitle);
                     }}
                     closeModal={() => {

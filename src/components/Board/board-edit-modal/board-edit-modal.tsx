@@ -1,7 +1,8 @@
+import { ColorChooser } from '@/components/common/color-chooser/color-chooser';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { type Board } from '@/interfaces/Board';
 import { type Lane } from '@/interfaces/Lane';
-import { ColorVariant, colorVariants } from '@/types/ColorVariant';
+import { ColorVariant } from '@/types/ColorVariant';
 import {
     CloseIcon,
     GripVerticalIcon,
@@ -46,20 +47,11 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
     const [boardTitle, setBoardTitle] = useState(board.title);
     const [boardSubTitle, setBoardSubTitle] = useState(board.subtitle);
     const [boardLaneTitle, setBoardLaneTitle] = useState('');
-    const [selectedColorIndex, setSelectedColorIndex] = useState(0);
     const [selectedColor, setSelectedColor] = useState('green' as ColorVariant);
     const { t } = useTranslation();
 
     const handleLaneTitleChanges = (title: string) => {
         setBoardLaneTitle(title);
-    };
-
-    const handleTagColorSelection = (color: ColorVariant) => {
-        setSelectedColor(color);
-    };
-
-    const handleTagColorSelectionIndex = (index: number) => {
-        setSelectedColorIndex(index);
     };
 
     const handleAddNewLane = () => {
@@ -156,28 +148,11 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
     const renderColorSelector = () => {
         return (
             <div className="flex gap-2 dark:text-[#8B8B8B]">
-                {colorVariants.map((color, index) => (
-                    <div
-                        key={color}
-                        className={`cursor-pointer `}
-                        data-testid="myboardlanes-lane-color-button"
-                        onClick={() => {
-                            handleTagColorSelectionIndex(index);
-                            handleTagColorSelection(color);
-                        }}
-                    >
-                        <Badge
-                            variant={color}
-                            className={
-                                index === selectedColorIndex
-                                    ? 'outline-primary-500'
-                                    : ''
-                            }
-                        >
-                            &nbsp;
-                        </Badge>
-                    </div>
-                ))}
+                <ColorChooser
+                    onSelectColor={(variant: ColorVariant) =>
+                        setSelectedColor(variant)
+                    }
+                ></ColorChooser>
             </div>
         );
     };

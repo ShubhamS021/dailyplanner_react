@@ -1,6 +1,7 @@
 import { type Card } from '@/interfaces/Card';
 import type Tag from '@/interfaces/Tag';
 import type Task from '@/interfaces/Task';
+import { colorVariants } from '@/types/ColorVariant';
 import { type Shirt } from '@/types/Shirt';
 import { fireEvent, render } from '@testing-library/react';
 import { CardAddModal } from './card-add-modal';
@@ -49,7 +50,7 @@ test('renders the basic AddCardModal', () => {
     const tagInput = getByTestId(/addcard-tags-input/) as HTMLInputElement;
     fireEvent.change(tagInput, { target: { value: 'NEW TAG' } });
 
-    const firstTagColor = getAllByTestId(/addcard-tag-color-button/)[0];
+    const firstTagColor = getByTestId(`badge-color-${colorVariants[0]}`);
     fireEvent.click(firstTagColor);
 
     const tagButton = getByTestId(/addcard-tag-button/);

@@ -1,6 +1,6 @@
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { type Lane } from '@/interfaces/Lane';
-import { ColorVariant, colorVariants } from '@/types/ColorVariant';
+import { ColorVariant } from '@/types/ColorVariant';
 import { Badge } from '@/ui/badge';
 import { Button } from '@/ui/button';
 import { Input } from '@/ui/input';
@@ -9,6 +9,7 @@ import { Separator } from '@/ui/separator';
 import { Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ColorChooser } from '../common/color-chooser/color-chooser';
 import PageTitle from '../page-title/page-title';
 
 export const MyBoardLanes = () => {
@@ -21,17 +22,8 @@ export const MyBoardLanes = () => {
         ]);
 
     const [laneValue, setLaneValue] = useState('');
-    const [selectedColorIndex, setSelectedColorIndex] = useState(0);
     const [selectedColor, setSelectedColor] = useState('green' as ColorVariant);
     const { t } = useTranslation();
-
-    const handleTagColorSelection = (color: ColorVariant) => {
-        setSelectedColor(color);
-    };
-
-    const handleTagColorSelectionIndex = (index: number) => {
-        setSelectedColorIndex(index);
-    };
 
     const handleStart = () => {
         enterBoard(boards[boards.length - 1].id);
@@ -84,38 +76,11 @@ export const MyBoardLanes = () => {
                             <Label>
                                 {t('components.MyBoardLanes.color') ?? ''}
                             </Label>
-                            {/* TODO: ! This color picker can be extracted as component, as we reuse this code on multiple places */}
-                            <div className="flex gap-2">
-                                {colorVariants.map(
-                                    (variant: ColorVariant, index: number) => (
-                                        <div
-                                            key={variant}
-                                            className={`cursor-pointer `}
-                                            data-testid="myboardlanes-lane-color-button"
-                                            onClick={() => {
-                                                handleTagColorSelectionIndex(
-                                                    index
-                                                );
-                                                handleTagColorSelection(
-                                                    variant
-                                                );
-                                            }}
-                                        >
-                                            <Badge
-                                                variant={variant}
-                                                className={`h-6 w-6 p-1.5 dark:text-gray-800
-                                                    ${
-                                                        index ===
-                                                        selectedColorIndex
-                                                            ? 'before:content-["✓"]'
-                                                            : ''
-                                                    }
-                                                        `}
-                                            ></Badge>
-                                        </div>
-                                    )
-                                )}
-                            </div>
+                            <ColorChooser
+                                onSelectColor={(variant: ColorVariant) =>
+                                    setSelectedColor(variant)
+                                }
+                            ></ColorChooser>
                         </div>
                         <div>
                             <Button

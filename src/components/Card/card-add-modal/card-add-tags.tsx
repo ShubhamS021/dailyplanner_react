@@ -1,8 +1,8 @@
+import { ColorChooser } from '@/components/common/color-chooser/color-chooser';
 import { type Card } from '@/interfaces/Card';
 import type Tag from '@/interfaces/Tag';
-import { ColorVariant, colorVariants } from '@/types/ColorVariant';
+import { ColorVariant } from '@/types/ColorVariant';
 import { TagsIcon } from '@/ui/Icons/Icons';
-import { Badge } from '@/ui/badge';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -107,18 +107,11 @@ export const CardAddTags: React.FC<CardAddTagsProps> = ({
                 </div>
                 <div>
                     <div className="flex gap-1">
-                        {colorVariants.map((variant: ColorVariant) => (
-                            <div
-                                key={variant}
-                                className={`cursor-pointer `}
-                                data-testid="addcard-tag-color-button"
-                                onClick={() => {
-                                    handleTagColorSelection(variant);
-                                }}
-                            >
-                                <Badge variant={variant}>&nbsp;</Badge>
-                            </div>
-                        ))}
+                        <ColorChooser
+                            onSelectColor={(variant: ColorVariant) => {
+                                handleTagColorSelection(variant);
+                            }}
+                        ></ColorChooser>
                     </div>
                 </div>
             </div>

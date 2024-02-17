@@ -2,6 +2,7 @@ import { initialBoardState } from '@/hooks/useBoardStore/data/initialBoard.state
 import { initialLanes } from '@/hooks/useBoardStore/data/initialLanes.state';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { useDayplannerDB } from '@/hooks/useDayplannerDB/useDayplannerDB';
+import { colorVariants } from '@/types/ColorVariant';
 import { act, fireEvent, render, renderHook } from '@testing-library/react';
 import { CardAdd } from './card-add';
 
@@ -33,7 +34,7 @@ describe('AddCard', () => {
     });
 
     test('add a new card', () => {
-        const { getByTestId, getAllByTestId } = render(
+        const { getByTestId } = render(
             <CardAdd placeholder={'add a card'} text={'button text'} />
         );
 
@@ -62,7 +63,7 @@ describe('AddCard', () => {
         // updateTags
         const tagInput = getByTestId(/addcard-tags-input/) as HTMLInputElement;
         fireEvent.change(tagInput, { target: { value: 'NEW TAG' } });
-        fireEvent.click(getAllByTestId(/addcard-tag-color-button/)[0]);
+        fireEvent.click(getByTestId(`badge-color-${colorVariants[0]}`));
         fireEvent.click(getByTestId(/addcard-tag-button/));
 
         // updateLowerTags

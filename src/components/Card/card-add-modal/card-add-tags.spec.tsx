@@ -1,6 +1,7 @@
 import { type Card } from '@/interfaces/Card';
 import type Tag from '@/interfaces/Tag';
 import { colors } from '@/theme/colors';
+import { colorVariants } from '@/types/ColorVariant';
 import { fireEvent, render } from '@testing-library/react';
 import { CardAddTags } from './card-add-tags';
 
@@ -43,7 +44,7 @@ test('adds a tag and colors', () => {
         shirt: 'S',
     };
 
-    const { getByTestId, getAllByTestId } = render(
+    const { getByTestId } = render(
         <CardAddTags
             headline={'tags'}
             card={card}
@@ -56,7 +57,7 @@ test('adds a tag and colors', () => {
     const input = getByTestId(/addcard-tags-input/) as HTMLInputElement;
     fireEvent.change(input, { target: { value: 'NEW TAG' } });
 
-    const firstTagColor = getAllByTestId(/addcard-tag-color-button/)[0];
+    const firstTagColor = getByTestId(`badge-color-${colorVariants[0]}`);
     fireEvent.click(firstTagColor);
 
     const button = getByTestId(/addcard-tag-button/);
@@ -70,7 +71,7 @@ test('adds a tag to empty array', () => {
         shirt: 'S',
     };
 
-    const { getByTestId, getAllByTestId } = render(
+    const { getByTestId } = render(
         <CardAddTags
             headline={'tags'}
             card={card}
@@ -85,7 +86,7 @@ test('adds a tag to empty array', () => {
     const input = getByTestId(/addcard-tags-input/) as HTMLInputElement;
     fireEvent.change(input, { target: { value: 'NEW TAG' } });
 
-    const firstTagColor = getAllByTestId(/addcard-tag-color-button/)[0];
+    const firstTagColor = getByTestId(`badge-color-${colorVariants[0]}`);
     fireEvent.click(firstTagColor);
 
     const button = getByTestId(/addcard-tag-button/);

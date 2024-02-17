@@ -1,7 +1,7 @@
+import { ColorChooser } from '@/components/common/color-chooser/color-chooser';
 import { type Board } from '@/interfaces/Board';
-import { ColorVariant, colorVariants } from '@/types/ColorVariant';
+import { ColorVariant } from '@/types/ColorVariant';
 import { CloseIcon, InfoCircleIcon } from '@/ui/Icons/Icons';
-import { Badge } from '@/ui/badge';
 import { Input } from '@/ui/input';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -36,10 +36,6 @@ export const LaneEditModal: React.FC<LaneEditModalProps> = ({
     );
 
     const { t } = useTranslation();
-
-    const handleTagColorSelection = (variant: ColorVariant) => {
-        setSelectedColor(variant);
-    };
 
     return (
         <div className="modal" data-testid="confirmation-modal">
@@ -83,18 +79,11 @@ export const LaneEditModal: React.FC<LaneEditModalProps> = ({
                         ></Input>
                         {editLabelText}
                         <div className="flex gap-2">
-                            {colorVariants.map((variant: ColorVariant) => (
-                                <div
-                                    key={variant}
-                                    className={`cursor-pointer `}
-                                    data-testid="myboardlanes-lane-color-button"
-                                    onClick={() => {
-                                        handleTagColorSelection(variant);
-                                    }}
-                                >
-                                    <Badge variant={variant}>&nbsp;</Badge>
-                                </div>
-                            ))}
+                            <ColorChooser
+                                onSelectColor={(variant: ColorVariant) =>
+                                    setSelectedColor(variant)
+                                }
+                            ></ColorChooser>
                         </div>
                     </div>
                     {/* footer */}

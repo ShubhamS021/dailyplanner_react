@@ -349,7 +349,7 @@ describe('Lane', () => {
         // updateTags
         const tagInput = getByTestId(/addcard-tags-input/) as HTMLInputElement;
         fireEvent.change(tagInput, { target: { value: 'NEW TAG' } });
-        await userEvent.click(getAllByTestId(/addcard-tag-color-button/)[0]);
+        await userEvent.click(getByTestId('badge-color-teal'));
         await userEvent.click(getByTestId(/addcard-tag-button/));
 
         // updateLowerTags
@@ -381,7 +381,7 @@ describe('Lane', () => {
                 tasks: [{ description: 'NEW TASK', id: 1, fulfilled: false }],
                 upperTags: [
                     {
-                        variant: 'green',
+                        variant: 'teal',
                         id: 1,
                         text: 'NEW TAG',
                         tagType: 'upper',

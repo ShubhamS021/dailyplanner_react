@@ -75,9 +75,7 @@ sonar:
     rules:
         - if: $CI_PIPELINE_SOURCE == "schedule"
           when: never
-        - if: $CI_COMMIT_BRANCH == "develop"
-          when: always
-        - when: never # I just have sonarqube CE -> only develop visible
+        - when: always
 
 # CD stages
 qa:

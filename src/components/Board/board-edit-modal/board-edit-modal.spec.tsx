@@ -8,6 +8,7 @@ import {
     renderHook,
     screen,
 } from '@testing-library/react';
+import { t } from 'i18next';
 import { vi } from 'vitest';
 import { BoardEditModal } from './board-edit-modal';
 
@@ -30,8 +31,8 @@ describe('boardeditModal', () => {
         const { result } = renderHook(() => useBoardStore());
 
         const boardId = 1;
-        const title = 'Rename Board';
-        const subtitle = 'Subtitle';
+        const title = 'My tasks';
+        const subtitle = 'An overview of my tasks.';
 
         act(() => {
             result.current.renameBoard(boardId, title, subtitle);
@@ -47,8 +48,12 @@ describe('boardeditModal', () => {
         );
 
         expect(
-            screen.getByTestId('confirmation-modal-title')
-        ).toHaveTextContent(title);
+            screen.getByText(t('components.BoardEditModal.title'))
+        ).toBeInTheDocument();
+        expect(screen.getByTestId('boardedit-title-input')).toHaveValue(title);
+        expect(screen.getByTestId('boardedit-subtitle-input')).toHaveValue(
+            subtitle
+        );
     });
 
     it('renders the submit and cancel buttons with the correct text', () => {

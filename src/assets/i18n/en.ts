@@ -75,7 +75,7 @@ export const ENtranslation = {
             title: 'Update the title.',
             subtitle: 'Update the subtitle.',
             add: 'add',
-            addLane: 'Add a lane',
+            addLane: 'Add lane',
             addLaneText: 'Enter a lane name.',
             moveRemoveLane: 'Move / Remove lane',
             removeHint: 'Finish all tasks in lane to remove the lane.',

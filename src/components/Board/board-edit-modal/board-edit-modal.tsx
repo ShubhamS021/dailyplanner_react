@@ -1,16 +1,18 @@
 import { ColorChooser } from '@/components/common/color-chooser/color-chooser';
+import PageTitle from '@/components/page-title/page-title';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { type Board } from '@/interfaces/Board';
 import { type Lane } from '@/interfaces/Lane';
 import { ColorVariant } from '@/types/ColorVariant';
-import {
-    CloseIcon,
-    GripVerticalIcon,
-    InfoCircleIcon,
-    TrashIcon,
-} from '@/ui/Icons/Icons';
+import { GripVerticalIcon } from '@/ui/Icons/Icons';
 import { Badge } from '@/ui/badge';
-import { useState } from 'react';
+import { Button } from '@/ui/button';
+import { Input } from '@/ui/input';
+import { Label } from '@/ui/label';
+import { Separator } from '@/ui/separator';
+import { Cross1Icon } from '@radix-ui/react-icons';
+import { PlusIcon, Trash2 } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import {
     DragDropContext,
     Draggable,
@@ -36,14 +38,15 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
     closeModal,
     modalConfirmation,
 }) => {
-    const [addLaneToBoard, removeLaneFromBoard, moveLane] = useBoardStore(
-        (state) => [
+    const [boards, addLaneToBoard, removeLaneFromBoard, moveLane] =
+        useBoardStore((state) => [
+            state.boards,
             state.addLaneToBoard,
             state.removeLaneFromBoard,
             state.moveLane,
-        ]
-    );
+        ]);
 
+    const [currentEditBoard, setCurrentEditBoard] = useState(board);
     const [boardTitle, setBoardTitle] = useState(board.title);
     const [boardSubTitle, setBoardSubTitle] = useState(board.subtitle);
     const [boardLaneTitle, setBoardLaneTitle] = useState('');
@@ -71,36 +74,30 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
         removeLaneFromBoard(id, board.id);
     };
 
+    useEffect(() => {
+        const updatedBoard = boards.find((b) => b.id === currentEditBoard.id);
+        if (updatedBoard != null) setCurrentEditBoard(updatedBoard);
+    }, [boards]);
+
     const renderTitleAndSubtitle = () => {
         return (
             <>
-                <div className="font-semibold text-base dark:text-white">
-                    {t('components.BoardEditModal.titleAndDescription')}
-                </div>
-                <div className="formField">
-                    <input
-                        placeholder={t('components.BoardEditModal.title') ?? ''}
-                        className="focus:outline-none text-sm w-full"
-                        data-testid="boardedit-title-input"
-                        value={boardTitle}
-                        onChange={(e) => {
-                            setBoardTitle(e.target.value);
-                        }}
-                    ></input>
-                </div>
-                <div className="formField">
-                    <input
-                        placeholder={
-                            t('components.BoardEditModal.subtitle') ?? ''
-                        }
-                        className="focus:outline-none text-sm w-full"
-                        data-testid="boardedit-subtitle-input"
-                        value={boardSubTitle}
-                        onChange={(e) => {
-                            setBoardSubTitle(e.target.value);
-                        }}
-                    ></input>
-                </div>
+                <Label>{t('components.BoardEditModal.title')}</Label>
+                <Input
+                    data-testid="boardedit-title-input"
+                    value={boardTitle}
+                    onChange={(e) => {
+                        setBoardTitle(e.target.value);
+                    }}
+                ></Input>
+                <Label>{t('components.BoardEditModal.subtitle')}</Label>
+                <Input
+                    data-testid="boardedit-subtitle-input"
+                    value={boardSubTitle}
+                    onChange={(e) => {
+                        setBoardSubTitle(e.target.value);
+                    }}
+                ></Input>
             </>
         );
     };
@@ -108,52 +105,40 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
     const renderAddLane = () => {
         return (
             <>
-                <div className="font-semibold text-base dark:text-white">
-                    {t('components.BoardEditModal.addLane')}
-                </div>
-                <div className="grid grid-cols-[1fr,auto] gap-2">
-                    <div className="formField p-2 flex gap-2 items-center">
-                        <input
-                            placeholder={
-                                t('components.BoardEditModal.addLaneText') ?? ''
-                            }
-                            className="focus:outline-none text-sm w-full"
-                            data-testid="boardedit-lane-add-input"
-                            value={boardLaneTitle}
-                            onChange={(e) => {
-                                handleLaneTitleChanges(e.target.value);
-                            }}
-                        ></input>
-                        {renderColorSelector()}
-                    </div>
-                    <button
-                        className="button"
-                        data-testid="boardedit-lane-add-button"
-                        onClick={(_e) => {
-                            handleAddNewLane();
+                <div className="flex flex-col gap-2">
+                    <Label>{t('components.BoardEditModal.addLane')}</Label>
+                    <Input
+                        placeholder={
+                            t('components.BoardEditModal.addLaneText') ?? ''
+                        }
+                        data-testid="boardedit-lane-add-input"
+                        value={boardLaneTitle}
+                        onChange={(e) => {
+                            handleLaneTitleChanges(e.target.value);
                         }}
-                        disabled={boardLaneTitle === ''}
-                    >
-                        <div className="flex gap-2 items-center p-2">
-                            <p className="font-semibold text-sm">
-                                {t('components.BoardEditModal.add') ?? ''}
-                            </p>
-                        </div>
-                    </button>
+                    ></Input>
+                    <ColorChooser
+                        onSelectColor={(variant: ColorVariant) =>
+                            setSelectedColor(variant)
+                        }
+                    ></ColorChooser>
+                    <div>
+                        <Button
+                            variant={'outline'}
+                            size={'sm'}
+                            data-testid="boardedit-lane-add-button"
+                            onClick={(_e) => {
+                                handleAddNewLane();
+                            }}
+                            disabled={boardLaneTitle === ''}
+                            className="flex gap-2"
+                        >
+                            <PlusIcon width={16} height={16} />
+                            {t('components.BoardEditModal.addLane')}
+                        </Button>
+                    </div>
                 </div>
             </>
-        );
-    };
-
-    const renderColorSelector = () => {
-        return (
-            <div className="flex gap-2 dark:text-[#8B8B8B]">
-                <ColorChooser
-                    onSelectColor={(variant: ColorVariant) =>
-                        setSelectedColor(variant)
-                    }
-                ></ColorChooser>
-            </div>
         );
     };
 
@@ -165,10 +150,9 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
 
     const renderMoveRemoveLane = () => {
         return (
-            <>
-                <div className="font-semibold text-base dark:text-white">
-                    {t('components.BoardEditModal.moveRemoveLane')}
-                </div>
+            <div className="flex flex-col gap-2 max-h-[50vh] overflow-auto">
+                <Label>{t('components.BoardEditModal.moveRemoveLane')}</Label>
+                <small>{t('components.BoardEditModal.removeHint') ?? ''}</small>
                 <DragDropContext onDragEnd={onDragEnd}>
                     <Droppable droppableId="droppable">
                         {(droppableProvided, _droppableSnapshot) => (
@@ -176,7 +160,7 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
                                 className="flex flex-col gap-2"
                                 ref={droppableProvided.innerRef}
                             >
-                                {board.lanes.map(
+                                {currentEditBoard.lanes.map(
                                     (lane: Lane, index: number) => (
                                         <Draggable
                                             key={lane.id}
@@ -212,8 +196,10 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
                                                         )})`}</Badge>
                                                     </div>
                                                     <div>
-                                                        <button
-                                                            className="small-button disabled:cursor-not-allowed"
+                                                        <Button
+                                                            size={'icon'}
+                                                            variant={'outline'}
+                                                            className="disabled:cursor-not-allowed"
                                                             onClick={() => {
                                                                 handleRemoveLane(
                                                                     lane.id
@@ -225,8 +211,11 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
                                                                     .length > 0
                                                             }
                                                         >
-                                                            <TrashIcon classes="h-4 w-4" />
-                                                        </button>
+                                                            <Trash2
+                                                                width={16}
+                                                                height={16}
+                                                            />
+                                                        </Button>
                                                     </div>
                                                 </div>
                                             )}
@@ -238,75 +227,64 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
                         )}
                     </Droppable>
                 </DragDropContext>
-                <small>{t('components.BoardEditModal.removeHint') ?? ''}</small>
-            </>
+            </div>
         );
     };
 
     return (
         <div className="modal" data-testid="confirmation-modal">
-            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+            <div className="relative w-1/2 my-6 mx-auto max-w-3xl">
                 {/* content */}
                 <div className="modal-content">
                     {/* header */}
-                    <div className="px-6 pt-6 rounded-t grid grid-cols-[1fr,auto] gap-2">
-                        <div className="flex gap-2 dark:stroke-[#fff] dark:fill-[#fff]">
-                            <InfoCircleIcon />
-
-                            <h3
-                                className="text-base font-semibold"
-                                data-testid="confirmation-modal-title"
-                            >
-                                {title}
-                            </h3>
-                        </div>
+                    <div className="px-6 pt-6 rounded-t grid grid-cols-[1fr,auto] items-center gap-2">
+                        <PageTitle title={title}></PageTitle>
                         <div>
-                            <button
+                            <Button
+                                size={'icon'}
+                                variant={'ghost'}
                                 data-testid="confirmation-modal-close-button"
                                 onClick={() => {
                                     closeModal();
                                 }}
                             >
-                                <CloseIcon
-                                    viewBox={{
-                                        x: 0,
-                                        y: 0,
-                                        width: 20,
-                                        height: 20,
-                                    }}
-                                />
-                            </button>
+                                <Cross1Icon />
+                            </Button>
                         </div>
                     </div>
                     {/* body */}
-                    <div className="relative p-6 flex flex-col gap-2">
-                        {renderTitleAndSubtitle()}
-                        {renderAddLane()}
-                        {renderMoveRemoveLane()}
+                    <div className="relative p-6 grid grid-cols-[1fr,auto,1fr] gap-2">
+                        <div className="flex flex-col gap-3">
+                            {renderTitleAndSubtitle()}
+                            <Separator className="my-3" />
+                            {renderAddLane()}
+                        </div>
+                        <Separator orientation="vertical" className="mx-4" />
+                        <div>{renderMoveRemoveLane()}</div>
                     </div>
                     {/* footer */}
                     <div className="flex items-center gap-2 justify-end px-6 pb-6 rounded-b">
-                        <button
-                            className="bg-[#ECEEF8] text-black p-2 py-1.5 rounded-md font-semibold hover:text-gray-400 soft"
-                            type="button"
+                        <Button
+                            size={'sm'}
+                            variant={'outline'}
                             data-testid="confirmation-modal-cancel-button"
                             onClick={() => {
                                 closeModal();
                             }}
                         >
                             {cancelButtonText ?? 'Cancel'}
-                        </button>
-                        <button
-                            className="bg-[#17A2B8] text-white p-2 py-1.5 rounded-md font-semibold soft"
-                            type="button"
+                        </Button>
+                        <Button
+                            size={'sm'}
                             data-testid="confirmation-modal-button"
                             onClick={() => {
                                 modalConfirmation(boardTitle, boardSubTitle);
                                 closeModal();
                             }}
                         >
+                            {' '}
                             {submitButtonText ?? 'Ok'}
-                        </button>
+                        </Button>
                     </div>
                 </div>
             </div>

@@ -4,10 +4,11 @@
   "private": true,
   "main": "index.html",
   "homepage": "./public",
+  "type": "module",
   "repository": "https://gitlab.com/Kevin.Hahn/dayplanner.git",
   "scripts": {
-    "start": "vite",
-    "start:exposed": "vite --host",
+    "start": "vite dev",
+    "start:exposed": "vite dev --host",
     "build": "vite build",
     "test": "vitest run --coverage",
     "test:ui": "vitest --ui --coverage",

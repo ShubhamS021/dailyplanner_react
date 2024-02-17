@@ -1,28 +1,25 @@
 import { type Card } from '@/interfaces/Card';
 import type Tag from '@/interfaces/Tag';
-import { colors } from '@/theme/colors';
 import { colorVariants } from '@/types/ColorVariant';
 import { fireEvent, render } from '@testing-library/react';
+import { card } from '__mocks__/cards.mock';
 import { CardAddTags } from './card-add-tags';
 
-test('renders the basic AddCardTags', () => {
-    const card: Card = {
-        id: 1,
-        title: 'test card',
-        upperTags: [
-            { id: 1, color: colors.Green, text: 'up1', tagType: 'upper' },
-            { id: 2, color: colors.Green, text: 'up2', tagType: 'upper' },
-        ],
-        lowerTags: [
-            { id: 1, color: colors.Green, text: 'low1', tagType: 'lower' },
-        ],
-        shirt: 'S',
-    };
+const cardMock: Card = {
+    ...card,
+    upperTags: [
+        { id: 1, variant: 'green', text: 'up1', tagType: 'upper' },
+        { id: 2, variant: 'green', text: 'up2', tagType: 'upper' },
+    ],
+    lowerTags: [{ id: 1, variant: 'green', text: 'low1', tagType: 'lower' }],
+    shirt: 'S',
+};
 
+test('renders the basic AddCardTags', () => {
     const { getByTestId } = render(
         <CardAddTags
             headline={'tags'}
-            card={card}
+            card={cardMock}
             updateTags={(tags: Tag[]) => {}}
         />
     );
@@ -31,23 +28,10 @@ test('renders the basic AddCardTags', () => {
 });
 
 test('adds a tag and colors', () => {
-    const card: Card = {
-        id: 1,
-        title: 'test card',
-        upperTags: [
-            { id: 1, color: colors.Green, text: 'up1', tagType: 'upper' },
-            { id: 2, color: colors.Green, text: 'up2', tagType: 'upper' },
-        ],
-        lowerTags: [
-            { id: 1, color: colors.Green, text: 'low1', tagType: 'lower' },
-        ],
-        shirt: 'S',
-    };
-
     const { getByTestId } = render(
         <CardAddTags
             headline={'tags'}
-            card={card}
+            card={cardMock}
             updateTags={(tags: Tag[]) => {}}
         />
     );

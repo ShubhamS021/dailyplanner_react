@@ -93,7 +93,9 @@ qa:
     rules:
         - if: $CI_PIPELINE_SOURCE == "schedule"
           when: never
-        - when: always
+        - if: $CI_COMMIT_BRANCH == "develop"
+          when: always
+        - when: never
 
 prod:
     stage: deploy

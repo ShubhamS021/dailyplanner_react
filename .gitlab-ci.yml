@@ -28,6 +28,7 @@ lint:
         - yarn install
     script:
         - yarn lint
+    allow_failure: false
     rules:
         - if: $CI_PIPELINE_SOURCE == "schedule"
           when: never
@@ -49,6 +50,7 @@ test:
         paths:
             - coverage/
     needs: [lint]
+    allow_failure: false
     rules:
         - if: $CI_PIPELINE_SOURCE == "schedule"
           when: never

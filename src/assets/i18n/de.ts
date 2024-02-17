@@ -132,6 +132,7 @@ export const DEtranslation = {
         },
         LaneEditModal: {
             title: 'Spalte bearbeiten',
+            newLane: 'Fertige Spalte:',
         },
         LanguageChooser: {
             language: 'Sprache:',

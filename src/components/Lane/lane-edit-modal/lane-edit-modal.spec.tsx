@@ -42,9 +42,8 @@ describe('LaneEditModal', () => {
             />
         );
 
-        expect(
-            screen.getByTestId('confirmation-modal-title')
-        ).toHaveTextContent(title);
+        expect(screen.getByTestId(/page-title/)).toHaveTextContent(title);
+        expect(screen.getByTestId(/LaneEdit-title-input/)).toBeInTheDocument();
     });
 
     it('renders the submit and cancel buttons with the correct text', () => {

@@ -134,6 +134,7 @@ export const ENtranslation = {
         },
         LaneEditModal: {
             title: 'Edit lane',
+            newLane: 'Final lane:',
         },
         LanguageChooser: {
             language: 'Language:',

@@ -30,7 +30,7 @@ describe('board testing', () => {
         returnToBoards();
         deleteFirstBoard();
 
-        cy.get('[data-testid="addboard-title"]').should('exist');
+        cy.get('[data-testid="board-add-title"]').should('exist');
     });
 
     it('passes creating and deleting a custom board', () => {
@@ -50,7 +50,7 @@ describe('board testing', () => {
         returnToBoards();
         deleteFirstBoard();
 
-        cy.get('[data-testid="addboard-title"]').should('exist');
+        cy.get('[data-testid="board-add-title"]').should('exist');
     });
 
     it('passes creating, reloading multiple times and deleting a custom board', () => {
@@ -77,6 +77,6 @@ describe('board testing', () => {
         returnToBoards();
         deleteFirstBoard();
 
-        cy.get('[data-testid="addboard-title"]').should('exist');
+        cy.get('[data-testid="board-add-title"]').should('exist');
     });
 });

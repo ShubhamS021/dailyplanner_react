@@ -3,7 +3,7 @@ import { initialLanes } from '@/hooks/useBoardStore/data/initialLanes.state';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { act, fireEvent, render, renderHook } from '@testing-library/react';
 import { vi } from 'vitest';
-import Export from './board-export';
+import BoardExport from './board-export';
 
 describe('Export', () => {
     // add a default board with some columns
@@ -23,7 +23,7 @@ describe('Export', () => {
     it('exports a board', () => {
         const { result } = renderHook(() => useBoardStore());
         const spy = vi.spyOn(result.current, 'exportBoardToJSON');
-        const { getByTestId } = render(<Export />);
+        const { getByTestId } = render(<BoardExport />);
 
         const exportButton = getByTestId('export-button');
         fireEvent.click(exportButton);

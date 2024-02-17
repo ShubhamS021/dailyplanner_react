@@ -1,3 +1,14 @@
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import { type Board } from '@/interfaces/Board';
+import { type Lane } from '@/interfaces/Lane';
+import { ColorVariant, colorVariants } from '@/types/ColorVariant';
+import {
+    CloseIcon,
+    GripVerticalIcon,
+    InfoCircleIcon,
+    TrashIcon,
+} from '@/ui/Icons/Icons';
+import { Badge } from '@/ui/badge';
 import { useState } from 'react';
 import {
     DragDropContext,
@@ -6,17 +17,6 @@ import {
     type DropResult,
 } from 'react-beautiful-dnd';
 import { useTranslation } from 'react-i18next';
-import { TagComponent } from '@/ui/Tag/Tag';
-import { type Board } from '@/interfaces/Board';
-import { type Lane } from '@/interfaces/Lane';
-import { BaseColors, colors } from '@/theme/colors';
-import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
-import {
-    CloseIcon,
-    GripVerticalIcon,
-    InfoCircleIcon,
-    TrashIcon,
-} from '@/ui/Icons/Icons';
 
 export interface BoardEditModalProps {
     board: Board;
@@ -47,14 +47,14 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
     const [boardSubTitle, setBoardSubTitle] = useState(board.subtitle);
     const [boardLaneTitle, setBoardLaneTitle] = useState('');
     const [selectedColorIndex, setSelectedColorIndex] = useState(0);
-    const [selectedColor, setSelectedColor] = useState(colors.Green);
+    const [selectedColor, setSelectedColor] = useState('green' as ColorVariant);
     const { t } = useTranslation();
 
     const handleLaneTitleChanges = (title: string) => {
         setBoardLaneTitle(title);
     };
 
-    const handleTagColorSelection = (color: string) => {
+    const handleTagColorSelection = (color: ColorVariant) => {
         setSelectedColor(color);
     };
 
@@ -67,7 +67,7 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
         const newLane: Lane = {
             id: -1,
             title: boardLaneTitle,
-            color: selectedColor,
+            variant: selectedColor,
             cards: [],
         };
 
@@ -156,7 +156,7 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
     const renderColorSelector = () => {
         return (
             <div className="flex gap-2 dark:text-[#8B8B8B]">
-                {BaseColors.map((color, index) => (
+                {colorVariants.map((color, index) => (
                     <div
                         key={color}
                         className={`cursor-pointer `}
@@ -166,10 +166,16 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
                             handleTagColorSelection(color);
                         }}
                     >
-                        <TagComponent
-                            color={color}
-                            hasOutline={index === selectedColorIndex}
-                        ></TagComponent>
+                        <Badge
+                            variant={color}
+                            className={
+                                index === selectedColorIndex
+                                    ? 'outline-primary-500'
+                                    : ''
+                            }
+                        >
+                            &nbsp;
+                        </Badge>
                     </div>
                 ))}
             </div>
@@ -195,58 +201,63 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
                                 className="flex flex-col gap-2"
                                 ref={droppableProvided.innerRef}
                             >
-                                {board.lanes.map((lane, index) => (
-                                    <Draggable
-                                        key={lane.id}
-                                        draggableId={`board-lane-${lane.id}`}
-                                        index={index}
-                                    >
-                                        {(
-                                            draggableProvided,
-                                            _draggableSnapshot
-                                        ) => (
-                                            <div
-                                                className="grid grid-cols-[auto,1fr,auto] gap-2 items-center group bg-white dark:bg-[#2E3842] dark:text-[#DEDEDE] border border-[#f5f4f4] dark:border-[#34414E] p-2 rounded-lg"
-                                                key={`board-${board.id}-lane-${lane.id}`}
-                                                data-testid={`board-${board.id}-lane-${lane.id}`}
-                                                ref={draggableProvided.innerRef}
-                                                {...draggableProvided.draggableProps}
-                                                {...draggableProvided.dragHandleProps}
-                                            >
-                                                <div className="dark:stroke-[#DEDEDE]">
-                                                    <GripVerticalIcon />
-                                                </div>
-                                                <div>
-                                                    <TagComponent
-                                                        color={lane.color}
-                                                        text={`${lane.title} (${
+                                {board.lanes.map(
+                                    (lane: Lane, index: number) => (
+                                        <Draggable
+                                            key={lane.id}
+                                            draggableId={`board-lane-${lane.id}`}
+                                            index={index}
+                                        >
+                                            {(
+                                                draggableProvided,
+                                                _draggableSnapshot
+                                            ) => (
+                                                <div
+                                                    className="grid grid-cols-[auto,1fr,auto] gap-2 items-center group bg-white dark:bg-[#2E3842] dark:text-[#DEDEDE] border border-[#f5f4f4] dark:border-[#34414E] p-2 rounded-lg"
+                                                    key={`board-${board.id}-lane-${lane.id}`}
+                                                    data-testid={`board-${board.id}-lane-${lane.id}`}
+                                                    ref={
+                                                        draggableProvided.innerRef
+                                                    }
+                                                    {...draggableProvided.draggableProps}
+                                                    {...draggableProvided.dragHandleProps}
+                                                >
+                                                    <div className="dark:stroke-[#DEDEDE]">
+                                                        <GripVerticalIcon />
+                                                    </div>
+                                                    <div>
+                                                        <Badge
+                                                            variant={
+                                                                lane.variant
+                                                            }
+                                                        >{`${lane.title} (${
                                                             lane.cards.length
                                                         } ${t(
                                                             'components.BoardEditModal.tasks'
-                                                        )})`}
-                                                    />
+                                                        )})`}</Badge>
+                                                    </div>
+                                                    <div>
+                                                        <button
+                                                            className="small-button disabled:cursor-not-allowed"
+                                                            onClick={() => {
+                                                                handleRemoveLane(
+                                                                    lane.id
+                                                                );
+                                                            }}
+                                                            data-testid="remove-lane-button"
+                                                            disabled={
+                                                                lane.cards
+                                                                    .length > 0
+                                                            }
+                                                        >
+                                                            <TrashIcon classes="h-4 w-4" />
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                                <div>
-                                                    <button
-                                                        className="small-button disabled:cursor-not-allowed"
-                                                        onClick={() => {
-                                                            handleRemoveLane(
-                                                                lane.id
-                                                            );
-                                                        }}
-                                                        data-testid="remove-lane-button"
-                                                        disabled={
-                                                            lane.cards.length >
-                                                            0
-                                                        }
-                                                    >
-                                                        <TrashIcon classes="h-4 w-4" />
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        )}
-                                    </Draggable>
-                                ))}
+                                            )}
+                                        </Draggable>
+                                    )
+                                )}
                                 {droppableProvided.placeholder}
                             </div>
                         )}

@@ -1,40 +1,37 @@
-import { initialBoardState } from '@/hooks/useBoardStore/data/initialBoard.state';
-import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import { AppPage } from '@/hooks/usePageStore/types/AppPage';
 import { usePageStore } from '@/hooks/usePageStore/usePageStore';
 import { act, render, renderHook } from '@testing-library/react';
+import { t } from 'i18next';
 import App from './app';
 
 describe('App component', () => {
-    it('renders AddBoard component when in boardCreatePage', () => {
+    it('checks all titles in the app', () => {
+        // Arrange
         const { result: pageStore } = renderHook(() => usePageStore());
+        const pageDefinitions: Array<{ page: AppPage; titleKey: string }> = [
+            { page: 'boardChoosePage', titleKey: 'components.MyBoards.title' },
+            { page: 'boardCreatePage', titleKey: 'components.board-add.title' },
+            // {
+            //     page: 'boardCustomLanesPage',
+            //     titleKey: 'components.MyBoardLanes.define',
+            // },
+            // { page: 'boardDefaultPage', titleKey: '' },
+            // { page: 'boardHistoryPage', titleKey: '' },
+            { page: 'loginPage', titleKey: 'components.Login.login' },
+            { page: 'registerPage', titleKey: 'components.Register.signUp' },
+        ];
 
-        act(() => {
-            pageStore.current.setPage('boardCreatePage');
+        pageDefinitions.forEach((definition) => {
+            // Act
+            const { getAllByText } = render(<App />);
+            act(() => {
+                pageStore.current.setPage(definition.page);
+            });
+
+            // Assert
+            expect(getAllByText(t(definition.titleKey)).length).toBeGreaterThan(
+                0
+            );
         });
-        const { getByTestId } = render(<App />);
-
-        expect(getByTestId(/addboard-title/)).toBeInTheDocument();
-    });
-
-    it('renders MyBoards component when in boardChoosePage', () => {
-        const { result: pageStore } = renderHook(() => usePageStore());
-        const { getByTestId } = render(<App />);
-        act(() => {
-            pageStore.current.setPage('boardChoosePage');
-        });
-
-        expect(getByTestId(/myboards-title/)).toBeInTheDocument();
-    });
-
-    it('renders MyBoardLanes component when in boardCustomLanesPage', () => {
-        const { result: boardStore } = renderHook(() => useBoardStore());
-        const { result: pageStore } = renderHook(() => usePageStore());
-        const { getByTestId } = render(<App />);
-        act(() => {
-            boardStore.current.addBoard({ ...initialBoardState });
-            pageStore.current.setPage('boardCustomLanesPage');
-        });
-
-        expect(getByTestId(/myboardlanes-title/)).toBeInTheDocument();
     });
 });

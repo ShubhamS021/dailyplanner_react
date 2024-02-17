@@ -2,7 +2,6 @@ import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { type Tag } from '@/interfaces/Tag';
 import { type Task } from '@/interfaces/Task';
 import { type Shirt } from '@/types/Shirt';
-import { TagComponent } from '@/ui/Tag/Tag';
 import { TaskComponent } from '@/ui/Task/Task';
 import {
     DragDropContext,
@@ -11,6 +10,8 @@ import {
     type DropResult,
 } from 'react-beautiful-dnd';
 import { CardActions } from './card-actions/card-actions';
+import { CardTags } from './card-tags/card-tags';
+import { CardTasks } from './card-tasks/card-tasks';
 
 export interface CardProps {
     id: number;
@@ -53,26 +54,11 @@ export const CardComponent: React.FC<CardProps> = ({
     const renderTags = (tags: Tag[] | undefined) => {
         if (tags === undefined) return;
         return (
-            <>
-                <div
-                    className="flex gap-1 wrap w-full"
-                    data-testid={inEditMode ? 'card-edit-tags' : 'card-tags'}
-                >
-                    {tags.map((t) => (
-                        <TagComponent
-                            key={t.id}
-                            color={t.color}
-                            text={t.text}
-                            isRemoveable={inEditMode}
-                            onRemove={() => {
-                                if (onRemoveTag != null) {
-                                    onRemoveTag(t);
-                                }
-                            }}
-                        />
-                    ))}
-                </div>
-            </>
+            <CardTags
+                editMode={inEditMode}
+                tags={tags}
+                onRemoveTag={onRemoveTag}
+            />
         );
     };
 
@@ -176,29 +162,13 @@ export const CardComponent: React.FC<CardProps> = ({
         if (tasks === undefined) return;
         if (compactMode) return;
         return (
-            <div
-                data-testid={inEditMode ? 'card-edit-tasks' : 'card-tasks'}
-                className="w-full"
-            >
-                {tasks.map((t) => (
-                    <TaskComponent
-                        key={t.id}
-                        description={t.description}
-                        fulfilled={t.fulfilled}
-                        isRemoveable={inEditMode}
-                        onFulfillTask={(fulfilled: boolean) => {
-                            if (!inEditMode) {
-                                updateTask(id, t.id, fulfilled);
-                            }
-                        }}
-                        onRemove={() => {
-                            if (onRemoveTask != null) {
-                                onRemoveTask(t);
-                            }
-                        }}
-                    />
-                ))}
-            </div>
+            <CardTasks
+                cardId={id}
+                editMode={inEditMode}
+                tasks={tasks}
+                onRemoveTask={onRemoveTask}
+                onUpdateTasks={onUpdateTasks}
+            />
         );
     };
 

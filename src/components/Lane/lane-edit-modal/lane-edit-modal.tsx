@@ -1,9 +1,10 @@
+import { type Board } from '@/interfaces/Board';
+import { ColorVariant, colorVariants } from '@/types/ColorVariant';
+import { CloseIcon, InfoCircleIcon } from '@/ui/Icons/Icons';
+import { Badge } from '@/ui/badge';
+import { Input } from '@/ui/input';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { BaseColors, colors } from '@/theme/colors';
-import { TagComponent } from '@/ui/Tag/Tag';
-import { type Board } from '@/interfaces/Board';
-import { CloseIcon, InfoCircleIcon } from '@/ui/Icons/Icons';
 
 export interface LaneEditModalProps {
     title: string;
@@ -28,24 +29,16 @@ export const LaneEditModal: React.FC<LaneEditModalProps> = ({
     closeModal,
     modalConfirmation,
 }) => {
-    const editColors = [...BaseColors];
-
     const lane = board.lanes.find((l) => l.id === laneId);
     const [laneTitle, setLaneTitle] = useState(lane?.title ?? '');
     const [selectedColor, setSelectedColor] = useState(
-        lane?.color ?? colors.Light_Grey
+        lane?.variant ?? ('green' as ColorVariant)
     );
-    const [selectedColorIndex, setSelectedColorIndex] = useState(
-        editColors.indexOf(selectedColor)
-    );
+
     const { t } = useTranslation();
 
-    const handleTagColorSelection = (color: string) => {
-        setSelectedColor(color);
-    };
-
-    const handleTagColorSelectionIndex = (index: number) => {
-        setSelectedColorIndex(index);
+    const handleTagColorSelection = (variant: ColorVariant) => {
+        setSelectedColor(variant);
     };
 
     return (
@@ -78,37 +71,28 @@ export const LaneEditModal: React.FC<LaneEditModalProps> = ({
                     {/* body */}
                     <div className="relative p-6 flex flex-col gap-2">
                         {editNameText}
-                        <div className="formField p-2 rounded-lg">
-                            <input
-                                placeholder={
-                                    t('components.LaneEditModal.title') ?? ''
-                                }
-                                className="focus:outline-none text-sm w-full"
-                                data-testid="LaneEdit-title-input"
-                                value={laneTitle}
-                                onChange={(e) => {
-                                    setLaneTitle(e.target.value);
-                                }}
-                            ></input>
-                        </div>
+                        <Input
+                            placeholder={
+                                t('components.LaneEditModal.title') ?? ''
+                            }
+                            data-testid="LaneEdit-title-input"
+                            value={laneTitle}
+                            onChange={(e) => {
+                                setLaneTitle(e.target.value);
+                            }}
+                        ></Input>
                         {editLabelText}
                         <div className="flex gap-2">
-                            {editColors.map((color, index) => (
+                            {colorVariants.map((variant: ColorVariant) => (
                                 <div
-                                    key={color}
+                                    key={variant}
                                     className={`cursor-pointer `}
                                     data-testid="myboardlanes-lane-color-button"
                                     onClick={() => {
-                                        handleTagColorSelectionIndex(index);
-                                        handleTagColorSelection(color);
+                                        handleTagColorSelection(variant);
                                     }}
                                 >
-                                    <TagComponent
-                                        color={color}
-                                        hasOutline={
-                                            index === selectedColorIndex
-                                        }
-                                    ></TagComponent>
+                                    <Badge variant={variant}>&nbsp;</Badge>
                                 </div>
                             ))}
                         </div>

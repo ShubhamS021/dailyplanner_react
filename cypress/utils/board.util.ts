@@ -67,7 +67,7 @@ Creates a new standard board with 4 lanes.
 @returns {void}
 */
 export const createStandardBoard = () => {
-    cy.get('[data-testid="addboard-create-standard-button"]').as(
+    cy.get('[data-testid="board-add-create-standard-button"]').as(
         'btnCreateStandard'
     );
     cy.get('@btnCreateStandard').click();
@@ -83,15 +83,15 @@ Creates a new custom board with the specified title and description.
 @returns {void}
 */
 export const createCustomBoard = (title: string, description: string) => {
-    cy.get('[data-testid="addboard-enter-name-input"]').as('title');
-    cy.get('[data-testid="addboard-enter-description-input"]').as(
+    cy.get('[data-testid="board-add-enter-name-input"]').as('title');
+    cy.get('[data-testid="board-add-enter-description-input"]').as(
         'description'
     );
 
     cy.get('@title').type(title);
     cy.get('@description').type(description);
 
-    cy.get('[data-testid="addboard-create-own-button"]').as('btnCreate');
+    cy.get('[data-testid="board-add-create-own-button"]').as('btnCreate');
     cy.get('@btnCreate').click();
 };
 

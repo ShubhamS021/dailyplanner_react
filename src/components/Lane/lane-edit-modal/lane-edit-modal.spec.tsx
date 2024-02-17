@@ -181,7 +181,7 @@ describe('LaneEditModal', () => {
 
         expect(modalConfirmation).toHaveBeenCalledWith(
             'Not Started',
-            '#e1e4e8'
+            'light_grey'
         );
         expect(closeModal).toHaveBeenCalled();
     });

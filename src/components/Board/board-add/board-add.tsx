@@ -1,11 +1,16 @@
-import logo from '@/assets/logo.png';
+import PageTitle from '@/components/page-title/page-title';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { usePageStore } from '@/hooks/usePageStore/usePageStore';
-import { ArrowLeftIcon } from '@/ui/Icons/Icons';
+import { Badge } from '@/ui/badge';
+import { Button } from '@/ui/button';
+import { Input } from '@/ui/input';
+import { Label } from '@/ui/label';
+import { Separator } from '@/ui/separator';
 import {
     getLocalizedInitialBoardState,
     getLocalizedInitialLanesState,
 } from '@/utils/context.util';
+import { Info } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -37,10 +42,6 @@ export const BoardAdd = () => {
         setPage('boardCustomLanesPage');
     };
 
-    const handleBackToBoards = () => {
-        setPage('boardChoosePage');
-    };
-
     const handleNameChanges = (name: string) => {
         setName(name);
     };
@@ -54,107 +55,94 @@ export const BoardAdd = () => {
     };
 
     return (
-        <div className="p-10 grid grid-cols-1 grid-rows-1 justify-center items-center">
-            <div className="flex flex-col items-center gap-3">
-                <div className="h-16 mb-6 grid grid-cols-[auto,auto] items-center">
-                    <div
-                        className="cursor-pointer mr-4 stroke-[#14161F] dark:stroke-[#DEDEDE]"
-                        data-testid="btnBackToBoards"
-                        onClick={() => {
-                            handleBackToBoards();
-                        }}
-                    >
-                        <ArrowLeftIcon />
+        <div className="h-full p-10 grid grid-cols-1 grid-rows-1 justify-center items-center">
+            <div className="h-full grid grid-rows-[auto,1fr,auto] gap-3">
+                <PageTitle
+                    title={t('components.board-add.title')}
+                    subtitle={t('components.board-add.subtitle')}
+                ></PageTitle>
+
+                <div className="grid grid-cols-[1fr,50px,1fr] gap-3 mt-10">
+                    <div className="flex flex-col gap-10">
+                        <h3 className="mt-10 text-xl font-semibold">
+                            {t('components.board-add.standardBoard')}
+                        </h3>
+                        <div data-testid="board-add-standard-subtitle">
+                            {t('components.board-add.standard')}
+
+                            <div className="flex gap-2 my-3">
+                                {getLocalizedInitialLanesState().map(
+                                    (lane, index) => {
+                                        return (
+                                            <Badge
+                                                className="dark:text-gray-800"
+                                                key={index}
+                                                variant={lane.variant}
+                                            >
+                                                {lane.title}
+                                            </Badge>
+                                        );
+                                    }
+                                )}
+                            </div>
+                        </div>
+                        <div>
+                            <Button
+                                data-testid="board-add-create-standard-button"
+                                onClick={() => {
+                                    handleCreateStandardBoard();
+                                }}
+                            >
+                                {t('components.board-add.create')}
+                            </Button>
+                        </div>
                     </div>
-                    <div>
-                        <img
-                            src={logo}
-                            alt="Dayplanner Logo"
-                            className="h-20 w-20"
-                        ></img>
+                    <Separator orientation="vertical" />
+                    <div className="flex flex-col gap-10">
+                        <h3 className="mt-10 text-xl font-semibold">
+                            {t('components.board-add.customBoard')}
+                        </h3>
+                        <div data-testid="board-add-custom-subtitle">
+                            <p>{t('components.board-add.custom')}</p>
+                            <p>{t('components.board-add.customDescription')}</p>
+                        </div>
+                        <div className="flex flex-col gap-3">
+                            <Label>{t('components.board-add.name')}</Label>
+                            <Input
+                                data-testid="board-add-enter-name-input"
+                                onChange={(e) => {
+                                    handleNameChanges(e.target.value);
+                                }}
+                            ></Input>
+                            <Label>
+                                {t('components.board-add.description')}
+                            </Label>
+                            <Input
+                                data-testid="board-add-enter-description-input"
+                                onChange={(e) => {
+                                    handleDescriptionChanges(e.target.value);
+                                }}
+                            ></Input>
+                        </div>
+                        <div>
+                            <Button
+                                disabled={!isValid()}
+                                type="button"
+                                data-testid="board-add-create-own-button"
+                                onClick={() => {
+                                    handleCreateCustomBoard();
+                                }}
+                            >
+                                {t('components.board-add.nextToLanes')}
+                            </Button>
+                        </div>
                     </div>
                 </div>
 
-                <div
-                    className="text-3xl font-bold text-[#212121] dark:text-[#DEDEDE]"
-                    data-testid="addboard-title"
-                >
-                    {t('components.AddBoard.title')}
+                <div className="flex gap-2 justify-center mt-20 pb-3 text-xs text-gray-300 hover:text-black cursor-help">
+                    <Info width={16} height={16} />
+                    {t('components.board-add.PS')}
                 </div>
-                <div
-                    className="text-xl text-[#212121] dark:text-[#8B8B8B]"
-                    data-testid="addboard-standard-subtitle"
-                >
-                    {t('components.AddBoard.standard')}
-                </div>
-                <div>
-                    <button
-                        className="button primary-button px-8 py-1.5 soft"
-                        type="button"
-                        data-testid="addboard-create-standard-button"
-                        onClick={() => {
-                            handleCreateStandardBoard();
-                        }}
-                    >
-                        {t('components.AddBoard.create')}
-                    </button>
-                </div>
-                <div className="flex items-center justify-center w-1/3">
-                    <hr className="border-t-1 border-gray-300 w-1/3 mr-4 dark:border-[#585858]" />
-                    <span className="text-gray-600 font-semibold dark:text-[#8B8B8B]">
-                        {t('components.AddBoard.or')}
-                    </span>
-                    <hr className="border-t-1 border-gray-300 w-1/3 ml-4 dark:border-[#585858]" />
-                </div>
-                <div
-                    className="text-xl text-[#212121] dark:text-[#8B8B8B]"
-                    data-testid="addboard-custom-subtitle"
-                >
-                    {t('components.AddBoard.custom')}
-                </div>
-                <div className="w-1/4">
-                    <div className="formField flex gap-2 items-center w-full">
-                        <input
-                            placeholder={t('components.AddBoard.name') ?? ''}
-                            className="focus:outline-none text-sm w-full dark:bg-[#2E3842] dark:text-white"
-                            data-testid="addboard-enter-name-input"
-                            onChange={(e) => {
-                                handleNameChanges(e.target.value);
-                            }}
-                        ></input>
-                    </div>
-                    <small className="text-[#E1E4E8] dark:text-[#8B8B8B]">
-                        {t('components.AddBoard.exampleName')}
-                    </small>
-                </div>
-                <div className="w-1/4">
-                    <div className="formField flex gap-2 items-center w-full">
-                        <input
-                            placeholder={
-                                t('components.AddBoard.description') ?? ''
-                            }
-                            className="focus:outline-none text-sm w-full dark:bg-[#2E3842] dark:text-white"
-                            data-testid="addboard-enter-description-input"
-                            onChange={(e) => {
-                                handleDescriptionChanges(e.target.value);
-                            }}
-                        ></input>
-                    </div>
-                    <small className="text-[#E1E4E8] dark:text-[#8B8B8B]">
-                        {t('components.AddBoard.exampleDescription')}
-                    </small>
-                </div>
-                <button
-                    disabled={!isValid()}
-                    className="button primary-button px-8 py-1.5 soft"
-                    type="button"
-                    data-testid="addboard-create-own-button"
-                    onClick={() => {
-                        handleCreateCustomBoard();
-                    }}
-                >
-                    {t('components.AddBoard.create')}
-                </button>
             </div>
         </div>
     );

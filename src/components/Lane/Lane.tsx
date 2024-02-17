@@ -9,9 +9,10 @@ import { type Card } from '@/interfaces/Card';
 import { type Lane } from '@/interfaces/Lane';
 import type Tag from '@/interfaces/Tag';
 import type Task from '@/interfaces/Task';
+import { ColorVariant } from '@/types/ColorVariant';
 import { type Shirt } from '@/types/Shirt';
 import { Dropzone } from '@/ui/Dropzone/Dropzone';
-import { LabelComponent } from '@/ui/Label/Label';
+import { Badge } from '@/ui/badge';
 import { useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { useTranslation } from 'react-i18next';
@@ -19,7 +20,7 @@ import { CardAddModal } from '../card/card-add-modal/card-add-modal';
 
 export interface LaneProps {
     id: number;
-    color: string;
+    variant: ColorVariant;
     text: string;
     cards?: Card[];
     isLastLane: boolean;
@@ -27,7 +28,7 @@ export interface LaneProps {
 
 export const LaneComponent: React.FC<LaneProps> = ({
     id,
-    color,
+    variant,
     text,
     cards,
     isLastLane,
@@ -245,9 +246,12 @@ export const LaneComponent: React.FC<LaneProps> = ({
                     editLabelText={t('components.Lane.editLabelText')}
                     board={board}
                     laneId={laneId}
-                    modalConfirmation={(title: string, color: string) => {
+                    modalConfirmation={(
+                        title: string,
+                        variant: ColorVariant
+                    ) => {
                         renameLane(laneId, title);
-                        updateLaneColor(laneId, color);
+                        updateLaneColor(laneId, variant);
                     }}
                     closeModal={() => {
                         setShowLaneEditModal(false);
@@ -260,25 +264,27 @@ export const LaneComponent: React.FC<LaneProps> = ({
 
     return (
         <div className="flex flex-col gap-2" data-testid={`lane-${id}`}>
-            <div className="w-full grid grid-cols-[auto,auto,1fr] gap-1">
-                <LabelComponent color={color} text={text} />
-                <div
+            <div className="w-full grid grid-cols-[auto,1fr] gap-1">
+                <div className="flex items-center">
+                    <Badge variant={variant} size={'xs'}>
+                        {text}
+                    </Badge>
+                </div>
+                {/* <div
                     className={`bg-accent text-accent-foreground text-xs border border-accent rounded p-1 px-2 font-semibold self-center`}
                 >
                     {cards?.length}
-                </div>
-                <div className="group flex self-center place-self-end gap-2 items-center">
-                    <div className="invisible group-hover:visible">
-                        <LaneActions
-                            onShowLaneEditModal={() => {
-                                setShowLaneEditModal(true);
-                            }}
-                            onShowDeleteModal={() => {
-                                setShowDeleteModal(true);
-                            }}
-                            isLastLane={isLastLane}
-                        />
-                    </div>
+                </div> */}
+                <div className="flex self-center place-self-end gap-2 items-center">
+                    <LaneActions
+                        onShowLaneEditModal={() => {
+                            setShowLaneEditModal(true);
+                        }}
+                        onShowDeleteModal={() => {
+                            setShowDeleteModal(true);
+                        }}
+                        isLastLane={isLastLane}
+                    />
                 </div>
             </div>
             {renderCards(cards)}

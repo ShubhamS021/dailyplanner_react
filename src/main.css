@@ -24,6 +24,17 @@
         --destructive-foreground: 60 9.1% 97.8%;
         --ring: 24 5.4% 63.9%;
         --radius: 0.5rem;
+
+        --rose: 350, 100%, 93%;
+        --green: 160, 25%, 90%;
+        --lavender: 240, 67%, 94%;
+        --light_grey: 210, 9%, 89%;
+        --grey: 0, 0%, 30%;
+        --dark_grey: 240, 5%, 35%;
+        --yellow: 54, 100%, 86%;
+        --orange: 19, 100%, 86%;
+        --blue: 204, 80%, 81%;
+        --teal: 160, 70%, 78%;
     }
 
     .dark {

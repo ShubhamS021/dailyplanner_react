@@ -9,7 +9,6 @@ import {
     screen,
 } from '@testing-library/react';
 import { vi } from 'vitest';
-import { colors } from '../../theme/colors';
 import { MyBoardLanes } from './my-board-lanes';
 
 describe('MyBoardLanes', () => {
@@ -36,7 +35,7 @@ describe('MyBoardLanes', () => {
     });
 
     it('renders the component', () => {
-        const title = screen.getByTestId('myboardlanes-title');
+        const title = screen.getByTestId('page-title');
         expect(title).toBeInTheDocument();
     });
 
@@ -69,7 +68,7 @@ describe('MyBoardLanes', () => {
             {
                 id: -1,
                 title: 'New Lane',
-                color: colors.Green,
+                variant: 'green',
                 cards: [],
             },
             3

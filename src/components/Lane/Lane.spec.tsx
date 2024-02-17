@@ -40,7 +40,7 @@ describe('Lane', () => {
             <LaneComponent
                 id={1}
                 text={laneText}
-                color={'#ffffff'}
+                variant={'green'}
                 isLastLane={false}
             />
         );
@@ -48,18 +48,18 @@ describe('Lane', () => {
         expect(lane).toHaveTextContent(laneText);
     });
 
-    it('should render the correct lane color', () => {
-        const laneColor = '#ff0000';
-        const { getByTestId } = render(
+    it('should render the correct lane variant', () => {
+        const lanevariant = 'green';
+        const { getByText } = render(
             <LaneComponent
                 id={1}
                 text={'Test Lane'}
-                color={laneColor}
+                variant={lanevariant}
                 isLastLane={false}
             />
         );
-        const lane = getByTestId('page-label');
-        expect(lane).toHaveStyle(`background-color: ${laneColor}`);
+        const lane = getByText('Test Lane');
+        expect(lane).toHaveClass(`bg-${lanevariant}`);
     });
 
     it('should render an empty lane', () => {
@@ -67,7 +67,7 @@ describe('Lane', () => {
             <LaneComponent
                 id={1}
                 text={'Test Lane'}
-                color={'#ffffff'}
+                variant={'green'}
                 isLastLane={false}
             />
         );
@@ -86,7 +86,7 @@ describe('Lane', () => {
                             <LaneComponent
                                 id={1}
                                 text={'Test Lane'}
-                                color={'#ffffff'}
+                                variant={'green'}
                                 cards={[card, card2, card3]}
                                 isLastLane={false}
                             />
@@ -105,7 +105,7 @@ describe('Lane', () => {
             <LaneComponent
                 id={1}
                 text={'Test Lane'}
-                color={'#ffffff'}
+                variant={'green'}
                 isLastLane={true}
             />
         );
@@ -130,7 +130,7 @@ describe('Lane', () => {
                             <LaneComponent
                                 id={1}
                                 text={'Test Lane'}
-                                color={'#ffffff'}
+                                variant={'green'}
                                 cards={[card, card2, card3]}
                                 isLastLane={true}
                             />
@@ -168,7 +168,7 @@ describe('Lane', () => {
                             <LaneComponent
                                 id={1}
                                 text={'Test Lane'}
-                                color={'#ffffff'}
+                                variant={'green'}
                                 cards={[card, card2, card3]}
                                 isLastLane={true}
                             />
@@ -210,7 +210,7 @@ describe('Lane', () => {
                             <LaneComponent
                                 id={1}
                                 text={'Test Lane'}
-                                color={'#ffffff'}
+                                variant={'green'}
                                 cards={[card, card2, card3]}
                                 isLastLane={true}
                             />
@@ -250,7 +250,7 @@ describe('Lane', () => {
                             <LaneComponent
                                 id={1}
                                 text={'Test Lane'}
-                                color={'#ffffff'}
+                                variant={'green'}
                                 cards={[card, card2, card3]}
                                 isLastLane={true}
                             />
@@ -280,7 +280,7 @@ describe('Lane', () => {
                             <LaneComponent
                                 id={1}
                                 text={'Test Lane'}
-                                color={'#ffffff'}
+                                variant={'green'}
                                 cards={[card, card2, card3]}
                                 isLastLane={true}
                             />
@@ -312,7 +312,7 @@ describe('Lane', () => {
                             <LaneComponent
                                 id={1}
                                 text={'Test Lane'}
-                                color={'#ffffff'}
+                                variant={'green'}
                                 cards={[card, card2, card3]}
                                 isLastLane={true}
                             />
@@ -365,7 +365,7 @@ describe('Lane', () => {
         await userEvent.click(getByTestId(/addcard-modal-button/));
 
         // assert what the card have on the lane
-        expect(spy).toBeCalledWith(
+        expect(spy).toHaveBeenCalledWith(
             {
                 description: 'NEW DESCRIPTION',
                 id: 1,
@@ -381,7 +381,7 @@ describe('Lane', () => {
                 tasks: [{ description: 'NEW TASK', id: 1, fulfilled: false }],
                 upperTags: [
                     {
-                        color: '#cbdfd8',
+                        variant: 'green',
                         id: 1,
                         text: 'NEW TAG',
                         tagType: 'upper',

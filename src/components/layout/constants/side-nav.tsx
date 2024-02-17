@@ -1,16 +1,16 @@
 import { NavItem } from '@/types/NavItem.type';
-import { BookOpenCheck, LayoutDashboard } from 'lucide-react';
+import { BookOpenText, LayoutDashboard } from 'lucide-react';
 
 export const NavItems: NavItem[] = [
     {
-        title: 'My Boards',
+        title: 'Boards',
         icon: LayoutDashboard,
         page: 'boardChoosePage',
         color: 'text-sky-500',
     },
     {
         title: 'History',
-        icon: BookOpenCheck,
+        icon: BookOpenText,
         page: 'boardHistoryPage',
         color: 'text-grey-500',
         // isChidren: true,
@@ -19,19 +19,19 @@ export const NavItems: NavItem[] = [
         //         title: 'Example-01',
         //         icon: BookOpenCheck,
         //         color: 'text-red-500',
-        //         href: '/example/employees',
+        //         page: 'boardCreatePage',
         //     },
         //     {
         //         title: 'Example-02',
         //         icon: BookOpenCheck,
         //         color: 'text-red-500',
-        //         href: '/example/example-02',
+        //         page: 'boardCustomLanesPage',
         //     },
         //     {
         //         title: 'Example-03',
         //         icon: BookOpenCheck,
         //         color: 'text-red-500',
-        //         href: '/example/example-03',
+        //         page: 'boardDefaultPage',
         //     },
         // ],
     },

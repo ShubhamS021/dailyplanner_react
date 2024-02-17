@@ -1,5 +1,6 @@
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { MoonIcon, SunIcon } from '@/ui/Icons/Icons';
+import { Button } from '@/ui/button';
 import { useTranslation } from 'react-i18next';
 
 export const DarkMode = () => {
@@ -19,32 +20,26 @@ export const DarkMode = () => {
     };
 
     return (
-        <>
-            <button
-                className="hover:text-[#17A2B8] font-semibold"
-                data-testid="theme-mode-button"
-                onClick={(_e) => {
-                    toggleMode();
-                }}
-            >
-                <div className="flex gap-2 items-center p-2 stroke-[#5E5E5E] dark:stroke-[#B5B5B5] hover:stroke-[#17A2B8] dark:hover:stroke-[#17A2B8] dark:text-[#B5B5B5] dark:hover:text-[#17A2B8] soft">
-                    {themeMode === 'dark' && (
-                        <SunIcon
-                            viewBox={{ x: 0, y: 0, width: 18, height: 18 }}
-                        />
-                    )}
-                    {themeMode === 'light' && (
-                        <MoonIcon
-                            viewBox={{ x: 0, y: 0, width: 18, height: 18 }}
-                        />
-                    )}
-                    <p className="font-semibold text-sm">
-                        {themeMode === 'light'
-                            ? t('components.DarkModeToggle.dark')
-                            : t('components.DarkModeToggle.light')}
-                    </p>
-                </div>
-            </button>
-        </>
+        <Button
+            className="hover:text-sky-500"
+            data-testid="theme-mode-button"
+            variant={'ghost'}
+            size={'sm'}
+            onClick={(_e) => {
+                toggleMode();
+            }}
+        >
+            <div className="flex gap-2 items-center">
+                {themeMode === 'dark' && (
+                    <SunIcon viewBox={{ x: 0, y: 0, width: 18, height: 18 }} />
+                )}
+                {themeMode === 'light' && (
+                    <MoonIcon viewBox={{ x: 0, y: 0, width: 18, height: 18 }} />
+                )}
+                {themeMode === 'light'
+                    ? t('components.DarkModeToggle.dark')
+                    : t('components.DarkModeToggle.light')}
+            </div>
+        </Button>
     );
 };

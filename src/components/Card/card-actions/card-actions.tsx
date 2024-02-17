@@ -8,7 +8,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from '@/ui/DropdownMenu/DropdownMenu';
+} from '@/ui/dropdown-menu';
 import { DotsIcon, EditIcon, RouteIcon, TrashIcon } from '@/ui/Icons/Icons';
 import { t } from 'i18next';
 

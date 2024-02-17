@@ -1,10 +1,8 @@
-import { BoardTitle } from '@/components/board-title/board-title';
+import { PageTitle } from '@/components/page-title/page-title';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { useHistory } from '@/hooks/useHistory/useHistory';
-import { usePageStore } from '@/hooks/usePageStore/usePageStore';
 import { type Card } from '@/interfaces/Card';
 import { type Lane } from '@/interfaces/Lane';
-import { ArrowLeftIcon } from '@/ui/Icons/Icons';
 import {
     DragDropContext,
     Droppable,
@@ -15,8 +13,6 @@ import { useTranslation } from 'react-i18next';
 import { CardAdd } from '../card/card-add-modal/card-add';
 import { LaneComponent } from '../lane/lane';
 import CompactMode from '../toggles/compact-mode/compact-mode';
-import Export from './board-export/board-export';
-import Import from './board-import/board-import';
 
 export const Board = () => {
     const [board, handleDragEnd] = useBoardStore((state) => [
@@ -24,15 +20,9 @@ export const Board = () => {
         state.handleDragEnd,
     ]);
 
-    const [setPage] = usePageStore((state) => [state.setPage]);
-
     const { addMovementToHistory } = useHistory(board.id);
 
     const { t } = useTranslation();
-
-    const handleBackToBoards = () => {
-        setPage('boardChoosePage');
-    };
 
     const renderLanes = (lanes: Lane[]) => {
         if (lanes === null) return;
@@ -48,7 +38,7 @@ export const Board = () => {
                                 <LaneComponent
                                     id={l.id}
                                     text={l.title}
-                                    color={l.color}
+                                    variant={l.variant}
                                     cards={l.cards}
                                     isLastLane={index === lanes.length - 1}
                                 ></LaneComponent>
@@ -84,28 +74,15 @@ export const Board = () => {
     };
 
     return (
-        <div className="grid grid-cols-[auto, 1fr] p-10">
-            <div className="mb-6 grid grid-cols-[auto,1fr_auto] items-center">
-                <div
-                    className="cursor-pointer mr-4 stroke-[#14161F] dark:stroke-[#DEDEDE]"
-                    data-testid="btnBackToBoards"
-                    onClick={() => {
-                        handleBackToBoards();
-                    }}
-                >
-                    <ArrowLeftIcon />
-                </div>
-                <BoardTitle title={board.title} subtitle={board.subtitle} />
+        <div className="grid grid-cols-[auto, 1fr] py-10 px-5">
+            <div className="grid grid-cols-[auto,1fr_auto] items-center">
+                <PageTitle title={board.title} subtitle={board.subtitle} />
                 <div className="flex flex-col gap-2 items-end">
                     <CardAdd
                         placeholder={t('components.Board.add')}
                         text={t('components.Board.addSubmit')}
                     />
-                    <div className="flex justify-end gap-2 mt-2 items-center">
-                        <CompactMode />
-                        <Export />
-                        <Import />
-                    </div>
+                    <CompactMode />
                 </div>
             </div>
             <div

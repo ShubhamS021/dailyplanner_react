@@ -1,20 +1,39 @@
-import logo from '@/assets/logo.png';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { usePageStore } from '@/hooks/usePageStore/usePageStore';
-import {
-    ArrowNarrowRightIcon,
-    EditIcon,
-    GitlabIcon,
-    TrashIcon,
-} from '@/ui/Icons/Icons';
 import { Button } from '@/ui/button';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BoardEditModal } from '../board/board-edit-modal/board-edit-modal';
-import Export from '../board/board-export/board-export';
-import Import from '../board/board-import/board-import';
+import BoardExport from '../board/board-export/board-export';
+import BoardImport from '../board/board-import/board-import';
 import { ConfirmationModal } from '../common/confirmation-modal/confirmation-modal';
-import { LanguageChooser } from '../common/language-chooser/language-chooser';
+import PageTitle from '../page-title/page-title';
+
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from '@/ui/table';
+
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from '@/ui/dropdown-menu';
+
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from '@/ui/tooltip';
+
+import { exportBoardToJson } from '@/hooks/useBoardStore/util/board.util';
+import { ChevronDownIcon, DownloadIcon, Edit2, Trash2 } from 'lucide-react';
 
 export const MyBoards = () => {
     const [boards, enterBoard, renameBoard, removeBoard] = useBoardStore(
@@ -74,150 +93,201 @@ export const MyBoards = () => {
     };
 
     return (
-        <div className="p-10 grid grid-cols-1 grid-rows-[1fr,auto] justify-center items-center">
-            <div className="flex flex-col items-center gap-3">
-                <div>
-                    <img
-                        src={logo}
-                        alt="Dayplanner Logo"
-                        className="h-20 w-20"
-                    ></img>
-                </div>
-                <div
-                    className="text-3xl font-bold text-[#212121] dark:text-[#DEDEDE]"
-                    data-testid="myboards-title"
-                >
-                    {t('components.MyBoards.title')}
-                </div>
-                <div
-                    className="w-full grid justify-center gap-2"
-                    data-testid="myboards-list"
-                >
-                    {boards.map((board) => {
-                        return (
-                            <div
-                                className="group dark:bg-[#2E3842] dark:text-[#DEDEDE] border border-[#f5f4f4] dark:border-[#34414E] p-2 rounded-lg grid grid-cols-[1fr,auto,auto] items-center gap-2"
-                                key={`board-${board.id}`}
-                                data-testid={`board-${board.id}`}
-                            >
-                                <div
-                                    className="group-hover:font-bold w-[20rem]"
-                                    data-testid="myboards-boardname"
-                                >
-                                    {board.title}
-                                </div>
-                                <div
-                                    className="invisible group-hover:visible flex gap-2"
-                                    data-testid={`board-${board.id}-actions`}
-                                >
-                                    <Button
-                                        size={'icon'}
-                                        variant={'ghost'}
-                                        onClick={() => {
-                                            setBoardToEdit(board);
-                                            setShowEditModal(true);
-                                        }}
-                                        title={
-                                            t('components.MyBoards.edit') ?? ''
-                                        }
-                                        data-testid="edit-board-button"
-                                    >
-                                        <EditIcon classes="h-4 w-4 stroke-[#000] hover:stroke-white" />
-                                    </Button>
+        <div className="py-10 px-5 grid grid-cols-1 grid-rows-[1fr,auto]">
+            <div className="flex flex-col gap-5">
+                <PageTitle
+                    title={t('components.MyBoards.title')}
+                    subtitle={t('components.MyBoards.subtitle')}
+                />
 
-                                    <Button
-                                        size={'icon'}
-                                        variant={'ghost'}
-                                        onClick={() => {
-                                            setShowModal(true);
-                                        }}
-                                        title={
-                                            t('components.MyBoards.remove') ??
-                                            ''
-                                        }
-                                        data-testid="remove-board-button"
-                                    >
-                                        <TrashIcon classes="h-4 w-4 stroke-[#000] hover:stroke-white" />
-                                    </Button>
+                <div className="w-full grid grid-cols-[1fr,auto] gap-3">
+                    <div className="flex align-middle justify-end">
+                        <Button
+                            data-testid="myboards-create-own-button"
+                            className="rounded-r-none border-r-none"
+                            size={'sm'}
+                            variant={'outline'}
+                            onClick={() => {
+                                setPage('boardCreatePage');
+                            }}
+                        >
+                            {t('components.MyBoards.create')}
+                        </Button>
 
-                                    {showModal
-                                        ? renderDeleteConfirmationModal(
-                                              board.id
-                                          )
-                                        : null}
-                                </div>
-                                <div>
-                                    <Button
-                                        size={'icon'}
-                                        className="bg-[#17A2B8] hover:bg-[#17A2B8] text-white font-semibold"
-                                        data-testid="myboards-enterboard-button"
-                                        title={
-                                            t('components.MyBoards.enter') ?? ''
-                                        }
+                        <DropdownMenu>
+                            <DropdownMenuTrigger>
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    className="rounded-l-none border-l-0"
+                                >
+                                    <ChevronDownIcon className="h-4 w-3" />
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent>
+                                <DropdownMenuItem>
+                                    <BoardExport all={true} />
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                    <BoardImport all={true} />
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </div>
+                </div>
+
+                <Table data-testid="myboards-list">
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead>
+                                {t('components.MyBoards.title')}
+                            </TableHead>
+                            {/* <TableHead className="w-[120px] text-right">
+                                Save location
+                            </TableHead> */}
+                            <TableHead className="w-[150px] text-right">
+                                {t('components.MyBoards.actions')}
+                            </TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {boards.map((board) => {
+                            return (
+                                <TableRow
+                                    key={`board-${board.id}`}
+                                    data-testid={`board-${board.id}`}
+                                    className="group"
+                                >
+                                    <TableCell
+                                        data-testid="myboards-boardname"
                                         onClick={() => {
                                             enterBoard(board.id);
                                         }}
+                                        className="cursor-pointer"
                                     >
-                                        <ArrowNarrowRightIcon />
-                                    </Button>
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-                <div className="flex gap-2">
-                    <Export all={true} />
-                    <Import all={true} />
-                </div>
-                <div className="flex items-center justify-center w-1/3">
-                    <hr className="border-t-1 border-gray-300 w-1/3 mr-4 dark:border-[#585858]" />
-                    <span className="text-gray-600 font-semibold dark:text-[#8B8B8B]">
-                        {t('components.MyBoards.or')}
-                    </span>
-                    <hr className="border-t-1 border-gray-300 w-1/3 ml-4 dark:border-[#585858]" />
-                </div>
-                <div
-                    className="text-xl text-[#212121] dark:text-[#8B8B8B]"
-                    data-testid="myboards-subtitle"
-                >
-                    {t('components.MyBoards.create')}
-                </div>
+                                        <div className="font-semibold">
+                                            {board.title}
+                                        </div>
+                                        <div className="text-xs text-gray-500">
+                                            {board.subtitle}
+                                        </div>
+                                    </TableCell>
+                                    {/* <TableCell>
+                                        <div className="flex gap-2 justify-center">
+                                            <Tooltip>
+                                                <TooltipTrigger>
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="sm"
+                                                        data-testid="sync-board-button"
+                                                    >
+                                                        <Database width={16} />
+                                                    </Button>
+                                                </TooltipTrigger>
+                                                <TooltipContent>
+                                                    <p>
+                                                        Sync to online storage
+                                                    </p>
+                                                </TooltipContent>
+                                            </Tooltip>
+                                        </div>
+                                    </TableCell> */}
+                                    <TableCell
+                                        className="flex gap-2 justify-end"
+                                        data-testid={`board-${board.id}-actions`}
+                                    >
+                                        <TooltipProvider>
+                                            <Tooltip>
+                                                <TooltipTrigger>
+                                                    <Button
+                                                        size={'icon'}
+                                                        variant={'outline'}
+                                                        onClick={() => {
+                                                            exportBoardToJson(
+                                                                board
+                                                            );
+                                                        }}
+                                                        data-testid="download-board-button"
+                                                    >
+                                                        <DownloadIcon className="h-4 w-4" />
+                                                    </Button>
+                                                </TooltipTrigger>
+                                                <TooltipContent>
+                                                    <p>
+                                                        {t(
+                                                            'components.MyBoards.download'
+                                                        )}{' '}
+                                                    </p>
+                                                </TooltipContent>
+                                            </Tooltip>
+                                        </TooltipProvider>
 
-                <button
-                    className="button primary-button px-8 py-1.5 soft"
-                    type="button"
-                    data-testid="myboards-create-own-button"
-                    onClick={() => {
-                        setPage('boardCreatePage');
-                    }}
-                >
-                    {t('components.MyBoards.start')}
-                </button>
+                                        <TooltipProvider>
+                                            <Tooltip>
+                                                <TooltipTrigger>
+                                                    <Button
+                                                        size={'icon'}
+                                                        variant={'outline'}
+                                                        onClick={() => {
+                                                            setBoardToEdit(
+                                                                board
+                                                            );
+                                                            setShowEditModal(
+                                                                true
+                                                            );
+                                                        }}
+                                                        data-testid="edit-board-button"
+                                                    >
+                                                        <Edit2 className="h-4 w-4" />
+                                                    </Button>
+                                                </TooltipTrigger>
+                                                <TooltipContent>
+                                                    <p>
+                                                        {t(
+                                                            'components.MyBoards.edit'
+                                                        )}
+                                                    </p>
+                                                </TooltipContent>
+                                            </Tooltip>
+                                        </TooltipProvider>
+
+                                        <TooltipProvider>
+                                            <Tooltip>
+                                                <TooltipTrigger>
+                                                    <Button
+                                                        size={'icon'}
+                                                        variant={'outline'}
+                                                        onClick={() => {
+                                                            setShowModal(true);
+                                                        }}
+                                                        data-testid="remove-board-button"
+                                                    >
+                                                        <Trash2 className="h-4 w-4" />
+                                                    </Button>
+                                                </TooltipTrigger>
+                                                <TooltipContent>
+                                                    <p>
+                                                        {t(
+                                                            'components.MyBoards.remove'
+                                                        )}
+                                                    </p>
+                                                </TooltipContent>
+                                            </Tooltip>
+                                        </TooltipProvider>
+
+                                        {showModal
+                                            ? renderDeleteConfirmationModal(
+                                                  board.id
+                                              )
+                                            : null}
+                                    </TableCell>
+                                </TableRow>
+                            );
+                        })}
+                    </TableBody>
+                </Table>
             </div>
 
-            <footer className="flex flex-col items-center gap-3 self-end">
-                {/* Hide Login for now */}
-                {/* <Button type="button" onClick={() => setPage('loginPage')}>
-                    Login
-                </Button> */}
-                <a
-                    className="text-[#5A5A65] dark:text-[#8B8B8B] flex gap-2 items-center"
-                    href="https://gitlab.com/Kevin.Hahn/dayplanner"
-                >
-                    <GitlabIcon />
-
-                    {t('components.MyBoards.git')}
-                    <b
-                        className="hover:text-[#FC6D27] transition-all duration-200"
-                        title={`Git Commit - ${
-                            import.meta.env.VITE_APP_VERSION
-                        }`}
-                    >
-                        gitlab.com
-                    </b>
-                </a>
-                <LanguageChooser />
-            </footer>
             {showEditModal ? renderEditBoardModal() : null}
         </div>
     );

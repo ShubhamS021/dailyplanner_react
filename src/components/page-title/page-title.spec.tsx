@@ -1,19 +1,17 @@
 import { render } from '@testing-library/react';
-import BoardTitle from './board-title';
+import PageTitle from './page-title';
 
-test('renders the board title', () => {
+test('renders the page title', () => {
     const { getByTestId } = render(
-        <BoardTitle title={'Test'} subtitle={'Testsubtitle'} />
+        <PageTitle title={'Test'} subtitle={'Testsubtitle'} />
     );
 
     expect(getByTestId(/page-title/i).textContent).toBe('Test');
     expect(getByTestId(/page-subtitle/i).textContent).toBe('Testsubtitle');
 });
 
-test('renders the board title without subtitle', () => {
-    const { getByTestId, queryByTestId } = render(
-        <BoardTitle title={'Test'} />
-    );
+test('renders the page title without subtitle', () => {
+    const { getByTestId, queryByTestId } = render(<PageTitle title={'Test'} />);
 
     expect(getByTestId(/page-title/i).textContent).toBe('Test');
     expect(queryByTestId(/page-subtitle/i)).toBeNull();

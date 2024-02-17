@@ -80,8 +80,6 @@ export const useHistory = (boardId: number) => {
     );
 
     useEffect(() => {
-        console.log('loading state', loading);
-
         if (!loading) {
             fetchData()
                 .then((history) => {

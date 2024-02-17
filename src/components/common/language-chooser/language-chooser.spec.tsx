@@ -30,15 +30,22 @@ describe('LanguageChooser', () => {
         });
     });
 
-    it('should render the language chooser component with correct options', () => {
+    it('should render the language chooser component with correct options (small=false)', () => {
         render(<LanguageChooser />);
-        const languageText = screen.getByText('Language:');
-        expect(languageText).toBeInTheDocument();
 
         const languageButtons = screen.getAllByRole('button');
         expect(languageButtons).toHaveLength(2);
         expect(languageButtons[0]).toHaveTextContent('English');
         expect(languageButtons[1]).toHaveTextContent('Deutsch');
+    });
+
+    it('should render the language chooser component with correct options (small=true)', () => {
+        render(<LanguageChooser small={true} />);
+
+        const languageButtons = screen.getAllByRole('button');
+        expect(languageButtons).toHaveLength(2);
+        expect(languageButtons[0]).toHaveTextContent('En');
+        expect(languageButtons[1]).toHaveTextContent('De');
     });
 
     it('should call updateLanguage and changeLanguage when a language button is clicked', async () => {

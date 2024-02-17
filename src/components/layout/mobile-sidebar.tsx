@@ -1,3 +1,4 @@
+import logo from '@/assets/logo.png';
 import { NavItems } from '@/components/layout/constants/side-nav';
 import { SideNav } from '@/components/layout/side-nav';
 import { Sheet, SheetContent, SheetTrigger } from '@/ui/sheet';
@@ -22,9 +23,12 @@ export const MobileSidebar = () => {
                 <SheetTrigger asChild>
                     <div className="flex items-center justify-center gap-2">
                         <MenuIcon />
-                        <h1 className="text-lg font-semibold">
-                            T3 app template
-                        </h1>
+                        <img
+                            src={logo}
+                            alt="Dayplanner Logo"
+                            className="h-10 w-10"
+                        ></img>
+                        <h1 className="text-lg font-medium">Dayplanner</h1>
                     </div>
                 </SheetTrigger>
                 <SheetContent side="left" className="w-72">

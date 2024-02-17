@@ -1,11 +1,15 @@
-import logo from '@/assets/logo.png';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { type Lane } from '@/interfaces/Lane';
-import { BaseColors, colors } from '@/theme/colors';
-import { LayoutCardsIcon, PlusIcon } from '@/ui/Icons/Icons';
-import { TagComponent } from '@/ui/Tag/Tag';
+import { ColorVariant, colorVariants } from '@/types/ColorVariant';
+import { Badge } from '@/ui/badge';
+import { Button } from '@/ui/button';
+import { Input } from '@/ui/input';
+import { Label } from '@/ui/label';
+import { Separator } from '@/ui/separator';
+import { Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import PageTitle from '../page-title/page-title';
 
 export const MyBoardLanes = () => {
     const [boards, addLaneToBoard, removeLaneFromBoard, enterBoard] =
@@ -18,10 +22,10 @@ export const MyBoardLanes = () => {
 
     const [laneValue, setLaneValue] = useState('');
     const [selectedColorIndex, setSelectedColorIndex] = useState(0);
-    const [selectedColor, setSelectedColor] = useState(colors.Green);
+    const [selectedColor, setSelectedColor] = useState('green' as ColorVariant);
     const { t } = useTranslation();
 
-    const handleTagColorSelection = (color: string) => {
+    const handleTagColorSelection = (color: ColorVariant) => {
         setSelectedColor(color);
     };
 
@@ -37,7 +41,7 @@ export const MyBoardLanes = () => {
         const newLane: Lane = {
             id: -1,
             title: laneValue,
-            color: selectedColor,
+            variant: selectedColor,
             cards: [],
         };
 
@@ -54,108 +58,138 @@ export const MyBoardLanes = () => {
     };
 
     return (
-        <div className="p-10 grid grid-cols-1 grid-rows-1 justify-center items-center">
-            <div className="flex flex-col items-center gap-3">
-                <div>
-                    <img
-                        src={logo}
-                        alt="Dayplanner Logo"
-                        className="h-20 w-20"
-                    ></img>
-                </div>
-                <div
-                    className="text-3xl font-bold text-[#212121] dark:text-[#DEDEDE]"
-                    data-testid="myboardlanes-title"
-                >
-                    {t('components.MyBoardLanes.define')}
-                </div>
-                <div
-                    className="text-xl text-[#212121] dark:text-[#8B8B8B]"
-                    data-testid="myboardlanes-subtitle"
-                >
-                    {t('components.MyBoardLanes.subtitle')}
-                </div>
-                <div className="w-full grid justify-center gap-6">
-                    <div className="dark:bg-[#2E3842] border border-[#f5f4f4] dark:border-[#34414E]  p-2 rounded-lg flex gap-2 items-center ">
-                        <LayoutCardsIcon />
-                        <input
-                            placeholder={
-                                t('components.MyBoardLanes.name') ?? ''
-                            }
-                            className="focus:outline-none text-sm w-full dark:bg-[#2E3842] dark:text-white"
+        <div className="p-10 grid grid-cols-1 grid-rows-1 ">
+            <div className="flex flex-col gap-3">
+                <PageTitle
+                    title={t('components.MyBoardLanes.define')}
+                    subtitle={t('components.MyBoardLanes.subtitle')}
+                />
+
+                <div className="grid grid-cols-[1fr,50px,1fr] gap-3 mt-10">
+                    <div className="flex flex-col gap-10">
+                        <h3 className="mt-10 text-xl font-semibold">
+                            {t('components.MyBoardLanes.laneconfiguration')}
+                        </h3>
+
+                        <Label>{t('components.MyBoardLanes.name') ?? ''}</Label>
+                        <Input
+                            className="w-2/3"
                             data-testid="myboardlanes-lanename-input"
                             onChange={(e) => {
                                 handleLaneChanges(e.target.value);
                             }}
                             value={laneValue}
-                        ></input>
-                    </div>
-                    <div className="flex gap-2 dark:text-[#8B8B8B]">
-                        {t('components.MyBoardLanes.color')}
-                        {BaseColors.map((color, index) => (
-                            <div
-                                key={color}
-                                className={`cursor-pointer `}
-                                data-testid="myboardlanes-lane-color-button"
+                        />
+                        <div className="flex flex-col gap-10">
+                            <Label>
+                                {t('components.MyBoardLanes.color') ?? ''}
+                            </Label>
+                            {/* TODO: ! This color picker can be extracted as component, as we reuse this code on multiple places */}
+                            <div className="flex gap-2">
+                                {colorVariants.map(
+                                    (variant: ColorVariant, index: number) => (
+                                        <div
+                                            key={variant}
+                                            className={`cursor-pointer `}
+                                            data-testid="myboardlanes-lane-color-button"
+                                            onClick={() => {
+                                                handleTagColorSelectionIndex(
+                                                    index
+                                                );
+                                                handleTagColorSelection(
+                                                    variant
+                                                );
+                                            }}
+                                        >
+                                            <Badge
+                                                variant={variant}
+                                                className={`h-6 w-6 p-1.5 dark:text-gray-800
+                                                    ${
+                                                        index ===
+                                                        selectedColorIndex
+                                                            ? 'before:content-["✓"]'
+                                                            : ''
+                                                    }
+                                                        `}
+                                            ></Badge>
+                                        </div>
+                                    )
+                                )}
+                            </div>
+                        </div>
+                        <div>
+                            <Button
+                                disabled={laneValue === ''}
+                                data-testid="myboardlanes-addlane-button"
                                 onClick={() => {
-                                    handleTagColorSelectionIndex(index);
-                                    handleTagColorSelection(color);
+                                    handleAddNewLane();
                                 }}
                             >
-                                <TagComponent
-                                    color={color}
-                                    hasOutline={index === selectedColorIndex}
-                                ></TagComponent>
-                            </div>
-                        ))}
-                    </div>
-                    <div className="flex justify-center">
-                        <button
-                            disabled={laneValue === ''}
-                            className="button primary-button"
-                            data-testid="myboardlanes-addlane-button"
-                            onClick={() => {
-                                handleAddNewLane();
-                            }}
-                        >
-                            <div className="flex gap-2 items-center p-2 ">
-                                <PlusIcon />
                                 <p className="font-semibold text-sm">
                                     {t('components.MyBoardLanes.add')}
                                 </p>
-                            </div>
-                        </button>
+                            </Button>
+                        </div>
                     </div>
-                    <div className={`grid grid-flow-col-dense wrap gap-2`}>
-                        {boards[boards.length - 1].lanes?.map((l: Lane) => {
-                            return (
-                                <TagComponent
-                                    key={l.id}
-                                    color={l.color}
-                                    text={l.title}
-                                    isRemoveable={true}
-                                    onRemove={() => {
-                                        handleLaneRemove(l.id);
-                                    }}
-                                ></TagComponent>
-                            );
-                        })}
-                    </div>
+                    <Separator orientation="vertical" />
+                    <div className="flex flex-col gap-10">
+                        <h3 className="mt-10 text-xl font-semibold">
+                            {t('components.MyBoardLanes.finalLanes')}
+                        </h3>
 
-                    <div className="flex justify-center">
-                        <button
-                            disabled={
-                                boards[boards.length - 1].lanes.length === 0
-                            }
-                            className="button primary-button px-8 py-1.5 soft"
-                            type="button"
-                            data-testid="myboardlanes-create-own-button"
-                            onClick={() => {
-                                handleStart();
-                            }}
-                        >
-                            {t('components.MyBoardLanes.start')}
-                        </button>
+                        <div>
+                            <div
+                                className={`grid grid-flow-col-dense wrap gap-2`}
+                            >
+                                {boards[boards.length - 1].lanes.length === 0 &&
+                                    t('components.MyBoardLanes.noLanes')}
+                                <div className="flex gap-2">
+                                    {boards[boards.length - 1].lanes?.map(
+                                        (l: Lane) => {
+                                            return (
+                                                <Badge
+                                                    className="dark:text-gray-800"
+                                                    variant={l.variant}
+                                                    size={'sm'}
+                                                    key={l.id}
+                                                >
+                                                    <span className="flex items-center gap-2">
+                                                        {l.title}
+
+                                                        <Trash2
+                                                            width={12}
+                                                            height={12}
+                                                            className={`text-gray-500 hover:text-black hover:cursor-pointer`}
+                                                            onClick={() => {
+                                                                handleLaneRemove(
+                                                                    l.id
+                                                                );
+                                                            }}
+                                                            data-testid="tag-remove-button"
+                                                        />
+                                                    </span>
+                                                </Badge>
+                                            );
+                                        }
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <Button
+                                disabled={
+                                    boards[boards.length - 1].lanes.length === 0
+                                }
+                                type="button"
+                                data-testid="myboardlanes-create-own-button"
+                                onClick={() => {
+                                    handleStart();
+                                }}
+                            >
+                                {t('components.MyBoardLanes.start')}
+                            </Button>
+                        </div>
                     </div>
                 </div>
             </div>

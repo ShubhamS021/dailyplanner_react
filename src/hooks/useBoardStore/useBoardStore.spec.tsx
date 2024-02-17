@@ -38,7 +38,7 @@ describe('useBoardStore', () => {
         const lane: Lane = {
             id: 5,
             title: 'NEW',
-            color: '#000',
+            variant: 'green',
             cards: [],
         };
 
@@ -469,20 +469,20 @@ describe('useBoardStore', () => {
     test('Recolors a lane', () => {
         const { result } = renderHook(() => useBoardStore());
 
-        const newColor = '#112233';
+        const newVariant = 'light_grey';
         act(() => {
             const [firstLane] = result.current.board.lanes;
-            result.current.updateLaneColor(firstLane.id, newColor);
+            result.current.updateLaneColor(firstLane.id, newVariant);
         });
 
         act(() => {
             const [firstLane] = result.current.board.lanes;
-            expect(firstLane.color).toBe(newColor);
+            expect(firstLane.variant).toBe(newVariant);
         });
 
         // check negative case
         try {
-            result.current.updateLaneColor(777, newColor);
+            result.current.updateLaneColor(777, 'green');
         } catch (e) {
             expect(e.message).toBe('No lane with id 777 found.');
         }

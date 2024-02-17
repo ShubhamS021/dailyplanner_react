@@ -1,12 +1,12 @@
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import { Button } from '@/ui/button';
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
-import { FileImportIcon } from '@/ui/Icons/Icons';
 
 interface ImportProps {
     all?: boolean;
 }
-export const Import: React.FC<ImportProps> = ({ all = false }) => {
+export const BoardImport: React.FC<ImportProps> = ({ all = false }) => {
     const [importBoardFromJSON] = useBoardStore((state) => [
         state.importBoardFromJSON,
     ]);
@@ -26,9 +26,10 @@ export const Import: React.FC<ImportProps> = ({ all = false }) => {
 
     return (
         <>
-            <button
-                className="hover:text-[#17A2B8] dark:text-[#B5B5B5] dark:hover:text-[#17A2B8] font-semibold"
+            <Button
+                className="font-semibold"
                 data-testid="import-button"
+                variant={all ? 'ghost' : 'outline'}
                 onClick={(_e) => {
                     handleClickImport();
                 }}
@@ -42,17 +43,16 @@ export const Import: React.FC<ImportProps> = ({ all = false }) => {
                     multiple={all}
                 />
 
-                <div className="flex gap-2 items-center p-2 stroke-[#5E5E5E] dark:stroke-[#B5B5B5] hover:stroke-[#17A2B8] dark:hover:stroke-[#17A2B8] soft">
-                    <FileImportIcon />
+                <div className="flex gap-2 items-center p-2">
                     <p className="font-semibold text-sm">
                         {all
                             ? t('components.Import.importAll')
                             : t('components.Import.import')}
                     </p>
                 </div>
-            </button>
+            </Button>
         </>
     );
 };
 
-export default Import;
+export default BoardImport;

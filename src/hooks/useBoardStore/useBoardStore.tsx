@@ -10,6 +10,7 @@ import { Board } from '@/interfaces/Board';
 import { type Card } from '@/interfaces/Card';
 import { type Lane } from '@/interfaces/Lane';
 import type Task from '@/interfaces/Task';
+import { ColorVariant } from '@/types/ColorVariant';
 import { type ThemeMode } from '@/types/ThemeMode';
 import { type DropResult } from 'react-beautiful-dnd';
 import { create } from 'zustand';
@@ -607,9 +608,9 @@ export const useBoardStore = create<BoardStoreState & BoardStoreActions>()(
                 /**
                  * Updates the color of a lane.
                  * @param {number} laneId - The ID of the lane to update.
-                 * @param {string} color - The new color of the lane.
+                 * @param {ColorVariant} variant - The new variant color of the lane.
                  */
-                updateLaneColor: (laneId: number, color: string) => {
+                updateLaneColor: (laneId: number, variant: ColorVariant) => {
                     set((state) => {
                         const newBoard = { ...state.board };
                         const newLane = newBoard.lanes.find(
@@ -619,7 +620,7 @@ export const useBoardStore = create<BoardStoreState & BoardStoreActions>()(
                             throw new Error(`No lane with id ${laneId} found.`);
                         }
 
-                        newLane.color = color;
+                        newLane.variant = variant;
 
                         state.updateBoards(newBoard);
                         return { ...state };

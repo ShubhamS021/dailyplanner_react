@@ -1,4 +1,4 @@
-import BoardTitle from '@/components/board-title/board-title';
+import PageTitle from '@/components/page-title/page-title';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { type HistoryListEntry } from '@/hooks/useHistory/interfaces/HistoryListEntry';
 import { usePageStore } from '@/hooks/usePageStore/usePageStore';
@@ -107,7 +107,7 @@ export const BoardHistory = () => {
                 >
                     <ArrowLeftIcon />
                 </div>
-                <BoardTitle
+                <PageTitle
                     title={`${t('components.BoardHistory.historyFor')} ${
                         board.title
                     }`}

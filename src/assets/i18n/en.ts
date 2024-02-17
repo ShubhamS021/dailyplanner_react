@@ -1,15 +1,19 @@
 export const ENtranslation = {
     components: {
-        AddBoard: {
-            title: 'Welcome to Dayplanner',
-            standard: 'Start with a standard board',
+        'board-add': {
+            title: 'Create a new board',
+            standardBoard: 'Standard board',
+            customBoard: 'Custom board',
+            subtitle: 'Choose your way to create your board.',
+            standard:
+                'Start with a standard board. A standard board contains a predefined name, description and these lanes:',
             create: 'Create',
-            or: 'or',
-            custom: 'Create your own board',
-            name: 'Enter a name.',
-            exampleName: 'e.g. "My Tasks"',
-            description: 'Enter a description.',
-            exampleDescription: 'e.g. "An overview of my tasks."',
+            custom: 'Create your board with your settings!',
+            customDescription: 'Let us start with the basics. ',
+            name: 'Name of the new board',
+            description: 'Description of the new board',
+            nextToLanes: 'Next: create your lanes',
+            PS: 'You can always change your settings later.',
         },
         AddCard: {
             modal: {
@@ -97,11 +101,14 @@ export const ENtranslation = {
         },
         Export: {
             export: 'Export',
-            exportAll: 'Export all',
+            exportAll: 'Export list',
         },
         Import: {
             import: 'Import',
-            importAll: 'Import all',
+            importAll: 'Import list',
+        },
+        Header: {
+            gitlab: 'Follow me',
         },
         HistoryToggle: {
             history: 'History',
@@ -133,11 +140,14 @@ export const ENtranslation = {
         },
         MyBoardLanes: {
             define: 'Define your lanes',
-            subtitle: 'Define the lanes to add your tasks to.',
-            name: 'Enter a lane name.',
-            color: 'Pick a lane color:',
+            subtitle: 'Define the lanes your task can be moved in.',
+            laneconfiguration: 'Lane definition',
+            name: 'Lane name',
+            color: 'Lane color',
             add: 'Add lane',
-            start: 'Start',
+            finalLanes: 'Your final lanes',
+            noLanes: 'No lanes defined.',
+            start: 'Next: Start on your new board',
         },
         MyBoards: {
             warningDeleteTitle: 'Warning: Deleting board',
@@ -145,16 +155,15 @@ export const ENtranslation = {
                 'Are you sure you want to delete this board? This action cannot be undone.',
             warningDeleteSubmit: 'Yes, delete board.',
             editTitle: 'Edit board',
-            editSubmit: 'Save changes.',
+            editSubmit: 'Save changes',
             editCancel: 'Cancel',
-            enter: 'Enter this board.',
-            title: 'My boards',
-            edit: 'Edit this board.',
-            remove: 'Remove this board.',
-            or: 'or',
-            create: 'Create a new board',
-            start: 'Start',
-            git: 'Dayplanner on',
+            title: 'Boards',
+            actions: 'Actions',
+            subtitle: 'An overview of all your boards.',
+            download: 'Download board (.json)',
+            edit: 'Edit board',
+            remove: 'Remove board',
+            create: 'Create board',
         },
         Login: {
             login: 'Login',

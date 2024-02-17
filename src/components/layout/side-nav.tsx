@@ -8,7 +8,7 @@ import { usePageStore } from '@/hooks/usePageStore/usePageStore';
 import { useSidebarStore } from '@/hooks/useSidebarStore/useSidebarStore';
 import { NavItem } from '@/types/NavItem.type';
 import { buttonVariants } from '@/ui/button';
-import { cn } from '@/utils/utils';
+import { cn } from '@/utils';
 import { ChevronDownIcon } from '@radix-ui/react-icons';
 import { useEffect, useState } from 'react';
 
@@ -22,7 +22,10 @@ export function SideNav({ items, setOpen, className }: SideNavProps) {
     const { isOpen } = useSidebarStore();
     const [openItem, setOpenItem] = useState('');
     const [lastOpenItem, setLastOpenItem] = useState('');
-    const [setPage] = usePageStore((state) => [state.setPage]);
+    const [page, setPage] = usePageStore((state) => [
+        state.page,
+        state.setPage,
+    ]);
 
     useEffect(() => {
         if (isOpen) {
@@ -62,7 +65,7 @@ export function SideNav({ items, setOpen, className }: SideNavProps) {
                                 </div>
                                 <div
                                     className={cn(
-                                        'absolute left-12 text-base duration-200 ',
+                                        'absolute left-12 text-base duration-200',
                                         !isOpen && className
                                     )}
                                 >
@@ -85,9 +88,9 @@ export function SideNav({ items, setOpen, className }: SideNavProps) {
                                             buttonVariants({
                                                 variant: 'ghost',
                                             }),
-                                            'group relative flex h-12 justify-start gap-x-3'
-                                            // path === child.href &&
-                                            //     'bg-muted font-bold hover:bg-muted'
+                                            'group relative flex h-12 justify-start gap-x-3 cursor-pointer ml-2',
+                                            page === child.page &&
+                                                'bg-muted font-bold hover:bg-muted'
                                         )}
                                     >
                                         <child.icon
@@ -118,9 +121,9 @@ export function SideNav({ items, setOpen, className }: SideNavProps) {
                         }}
                         className={cn(
                             buttonVariants({ variant: 'ghost' }),
-                            'group relative flex h-12 justify-start'
-                            // path === item.href &&
-                            //     'bg-muted font-bold hover:bg-muted'
+                            'group relative flex h-12 justify-start cursor-pointer',
+                            page === item.page &&
+                                'bg-muted font-bold hover:bg-muted'
                         )}
                     >
                         <item.icon className={cn('h-5 w-5', item.color)} />

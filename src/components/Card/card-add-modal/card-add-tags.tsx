@@ -1,8 +1,8 @@
 import { type Card } from '@/interfaces/Card';
 import type Tag from '@/interfaces/Tag';
-import { BaseColors, colors } from '@/theme/colors';
+import { ColorVariant, colorVariants } from '@/types/ColorVariant';
 import { TagsIcon } from '@/ui/Icons/Icons';
-import { TagComponent } from '@/ui/Tag/Tag';
+import { Badge } from '@/ui/badge';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -18,8 +18,9 @@ export const CardAddTags: React.FC<CardAddTagsProps> = ({
     updateTags,
 }) => {
     const MAX_TAGS = 5;
-    const [selectedColorIndex, setSelectedColorIndex] = useState(0);
-    const [selectedColor, setSelectedColor] = useState(colors.Light_Grey);
+    const [selectedColor, setSelectedColor] = useState(
+        'light_grey' as ColorVariant
+    );
     const { t } = useTranslation();
 
     const [tag, setTag] = useState('');
@@ -28,12 +29,8 @@ export const CardAddTags: React.FC<CardAddTagsProps> = ({
         setTag(tag);
     };
 
-    const handleTagColorSelection = (color: string) => {
+    const handleTagColorSelection = (color: ColorVariant) => {
         setSelectedColor(color);
-    };
-
-    const handleTagColorSelectionIndex = (index: number) => {
-        setSelectedColorIndex(index);
     };
 
     const handleAddNewTag = () => {
@@ -41,7 +38,7 @@ export const CardAddTags: React.FC<CardAddTagsProps> = ({
         const newTag: Tag = {
             id: card.upperTags?.length + 1,
             text: tag,
-            color: selectedColor,
+            variant: selectedColor,
             tagType: 'upper',
         };
         updateTags([...card.upperTags, newTag]);
@@ -110,20 +107,16 @@ export const CardAddTags: React.FC<CardAddTagsProps> = ({
                 </div>
                 <div>
                     <div className="flex gap-1">
-                        {BaseColors.map((color, index) => (
+                        {colorVariants.map((variant: ColorVariant) => (
                             <div
-                                key={color}
+                                key={variant}
                                 className={`cursor-pointer `}
                                 data-testid="addcard-tag-color-button"
                                 onClick={() => {
-                                    handleTagColorSelectionIndex(index);
-                                    handleTagColorSelection(color);
+                                    handleTagColorSelection(variant);
                                 }}
                             >
-                                <TagComponent
-                                    color={color}
-                                    hasOutline={index === selectedColorIndex}
-                                ></TagComponent>
+                                <Badge variant={variant}>&nbsp;</Badge>
                             </div>
                         ))}
                     </div>

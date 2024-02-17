@@ -57,11 +57,6 @@ export const FileImportIcon: React.FC<IconsProps> = ({
     viewBox = defaultViewBox,
 }) => <Icon name="fileImport" options={{ classes, viewBox }} />;
 
-export const GitlabIcon: React.FC<IconsProps> = ({
-    classes = '',
-    viewBox = defaultViewBox,
-}) => <Icon name="gitlab" options={{ classes, viewBox }} />;
-
 export const GripVerticalIcon: React.FC<IconsProps> = ({
     classes = '',
     viewBox = defaultViewBox,

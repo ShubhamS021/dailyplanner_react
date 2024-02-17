@@ -32,17 +32,15 @@ describe('MyBoards', () => {
     });
 
     test('renders the component', () => {
-        expect(screen.getByTestId('myboards-title')).toBeInTheDocument();
-        expect(screen.getByTestId('myboards-subtitle')).toBeInTheDocument();
+        expect(screen.getByTestId('page-title')).toBeInTheDocument();
+        expect(screen.getByTestId('page-subtitle')).toBeInTheDocument();
         expect(
             screen.getByTestId('myboards-create-own-button')
         ).toBeInTheDocument();
     });
 
     test('renders the list of boards', () => {
-        expect(
-            screen.getAllByTestId('myboards-enterboard-button')
-        ).toHaveLength(2);
+        expect(screen.getAllByTestId('myboards-boardname')).toHaveLength(2);
     });
 
     // test('calls enterBoard when clicking the enter board button', () => {

@@ -3,7 +3,7 @@ import { initialLanes } from '@/hooks/useBoardStore/data/initialLanes.state';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { act, fireEvent, render, renderHook } from '@testing-library/react';
 import { vi } from 'vitest';
-import Import from './board-import';
+import BoardImport from './board-import';
 
 describe('Import', () => {
     // add a default board with some columns
@@ -23,7 +23,7 @@ describe('Import', () => {
     it('imports a board', () => {
         const { result } = renderHook(() => useBoardStore());
         const spy = vi.spyOn(result.current, 'importBoardFromJSON');
-        const { getByTestId } = render(<Import />);
+        const { getByTestId } = render(<BoardImport />);
 
         const input = getByTestId('import-input') as HTMLInputElement;
         const file = new File([''], 'test.json', { type: 'application/json' });

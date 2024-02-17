@@ -1,6 +1,6 @@
-export type Languages = Record<string, { nativeName: string }>;
+export type Languages = Record<string, { id: number; nativeName: string }>;
 
 export const languages: Languages = {
-    en: { nativeName: 'English' },
-    de: { nativeName: 'Deutsch' },
+    en: { id: 1, nativeName: 'English' },
+    de: { id: 2, nativeName: 'Deutsch' },
 };

@@ -25,7 +25,7 @@ export const cardExtended: Card = {
     title: 'Testcard 1',
     description: 'This card is a extended test card.',
     lowerTags: [],
-    upperTags: [{ id: 1, text: 'Testing', color: 'N/A', tagType: 'upper' }],
+    upperTags: [{ id: 1, text: 'Testing', variant: 'green', tagType: 'upper' }],
     tasks: [
         { id: 1, description: 'I need to be done first.' },
         { id: 2, description: 'I need to be done second.' },
@@ -40,7 +40,7 @@ export const cardExtendedUpdate: Card = {
     description: 'This card is a updated extended test card.',
     lowerTags: [],
     upperTags: [
-        { id: 1, text: 'Testing Update', color: 'N/A', tagType: 'upper' },
+        { id: 1, text: 'Testing Update', variant: 'green', tagType: 'upper' },
     ],
     tasks: [
         { id: 1, description: 'a) I need to be done first.' },

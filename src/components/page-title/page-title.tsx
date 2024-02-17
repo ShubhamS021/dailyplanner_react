@@ -3,7 +3,7 @@ export interface BoardTitleProps {
     subtitle?: string;
 }
 
-export const BoardTitle: React.FC<BoardTitleProps> = ({ title, subtitle }) => {
+export const PageTitle: React.FC<BoardTitleProps> = ({ title, subtitle }) => {
     return (
         <div className="flex flex-col gap-2">
             <div
@@ -24,4 +24,4 @@ export const BoardTitle: React.FC<BoardTitleProps> = ({ title, subtitle }) => {
     );
 };
 
-export default BoardTitle;
+export default PageTitle;

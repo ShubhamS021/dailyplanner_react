@@ -1,3 +1,4 @@
+import { vi } from 'vitest';
 import { type ThemeMode } from '../src/types/ThemeMode';
 
 export const mockAddLaneToBoard = vi.fn();

@@ -15,16 +15,16 @@ export const CompactMode = () => {
         <Button
             data-testid="compactmode-toggle-button"
             variant={'outline'}
-            size={'sm'}
+            size={'xs'}
             onClick={(_e) => {
                 toggleCompactMode();
             }}
         >
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-1 items-center text-xs">
                 {compactMode ? (
-                    <LayoutDashboard width={16} height={16} />
+                    <LayoutDashboard width={14} height={14} />
                 ) : (
-                    <KanbanIcon width={16} height={16} />
+                    <KanbanIcon width={14} height={14} />
                 )}
                 {compactMode
                     ? t('components.CompactModeToggle.normal')

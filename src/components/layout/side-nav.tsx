@@ -4,6 +4,7 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from '@/components/layout/subnav-accordion';
+import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { usePageStore } from '@/hooks/usePageStore/usePageStore';
 import { useSidebarStore } from '@/hooks/useSidebarStore/useSidebarStore';
 import { NavItem } from '@/types/NavItem.type';
@@ -21,6 +22,7 @@ interface SideNavProps {
 
 export function SideNav({ items, setOpen, className }: SideNavProps) {
     const { isOpen } = useSidebarStore();
+    const [boards] = useBoardStore((state) => [state.boards]);
     const [openItem, setOpenItem] = useState('');
     const [lastOpenItem, setLastOpenItem] = useState('');
     const [page, setPage] = usePageStore((state) => [
@@ -38,7 +40,9 @@ export function SideNav({ items, setOpen, className }: SideNavProps) {
     }, [isOpen]);
 
     const isDisabled = (item: NavItem): boolean => {
-        if (item.disabledBy === 'boardsEmpty') return true;
+        if (item.disabledBy === 'boardsEmpty') {
+            if (boards?.length === 0) return true;
+        }
         return false;
     };
 

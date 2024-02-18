@@ -241,7 +241,7 @@ export const CardComponent: React.FC<CardProps> = ({
                 {inEditMode ? renderTasksDraggable() : renderTasks()}
 
                 <div className="w-full grid grid-cols-[1fr,auto]">
-                    {renderTags(lowerTags)}
+                    <div>{renderTags(lowerTags)}</div>
                     {renderEstimation()}
                 </div>
             </div>

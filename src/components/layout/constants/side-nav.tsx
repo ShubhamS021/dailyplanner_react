@@ -1,38 +1,23 @@
 import { NavItem } from '@/types/NavItem.type';
-import { BookOpenText, LayoutDashboard } from 'lucide-react';
+import { History, Kanban, LayoutDashboard } from 'lucide-react';
 
 export const NavItems: NavItem[] = [
     {
-        title: 'Boards',
+        title: 'components.side-nav.boards',
         icon: LayoutDashboard,
         page: 'boardChoosePage',
-        color: 'text-sky-500',
+        color: 'text-grey-500',
     },
     {
-        title: 'History',
-        icon: BookOpenText,
+        title: 'components.side-nav.board',
+        icon: Kanban,
+        page: 'boardDefaultPage',
+        color: 'text-grey-500',
+    },
+    {
+        title: 'components.side-nav.history',
+        icon: History,
         page: 'boardHistoryPage',
         color: 'text-grey-500',
-        // isChidren: true,
-        // children: [
-        //     {
-        //         title: 'Example-01',
-        //         icon: BookOpenCheck,
-        //         color: 'text-red-500',
-        //         page: 'boardCreatePage',
-        //     },
-        //     {
-        //         title: 'Example-02',
-        //         icon: BookOpenCheck,
-        //         color: 'text-red-500',
-        //         page: 'boardCustomLanesPage',
-        //     },
-        //     {
-        //         title: 'Example-03',
-        //         icon: BookOpenCheck,
-        //         color: 'text-red-500',
-        //         page: 'boardDefaultPage',
-        //     },
-        // ],
     },
 ];

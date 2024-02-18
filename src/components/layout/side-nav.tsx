@@ -10,6 +10,7 @@ import { NavItem } from '@/types/NavItem.type';
 import { buttonVariants } from '@/ui/button';
 import { cn } from '@/utils';
 import { ChevronDownIcon } from '@radix-ui/react-icons';
+import { t } from 'i18next';
 import { useEffect, useState } from 'react';
 
 interface SideNavProps {
@@ -49,7 +50,7 @@ export function SideNav({ items, setOpen, className }: SideNavProps) {
                         onValueChange={setOpenItem}
                     >
                         <AccordionItem
-                            value={item.title}
+                            value={t(item.title)}
                             className="border-none "
                         >
                             <AccordionTrigger
@@ -69,7 +70,7 @@ export function SideNav({ items, setOpen, className }: SideNavProps) {
                                         !isOpen && className
                                     )}
                                 >
-                                    {item.title}
+                                    {t(item.title)}
                                 </div>
 
                                 {isOpen && (
@@ -134,7 +135,7 @@ export function SideNav({ items, setOpen, className }: SideNavProps) {
                                 !isOpen && className
                             )}
                         >
-                            {item.title}
+                            {t(item.title)}
                         </span>
                     </a>
                 )

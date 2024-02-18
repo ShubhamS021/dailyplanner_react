@@ -1,5 +1,10 @@
 export const ENtranslation = {
     components: {
+        'side-nav': {
+            boards: 'All boards',
+            board: 'My board',
+            history: 'Board history',
+        },
         'board-add': {
             title: 'Create a new board',
             standardBoard: 'Standard board',

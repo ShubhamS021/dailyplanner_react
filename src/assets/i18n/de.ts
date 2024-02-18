@@ -1,5 +1,10 @@
 export const DEtranslation = {
     components: {
+        'side-nav': {
+            boards: 'Alle Boards',
+            board: 'Mein Board',
+            history: 'Board Historie',
+        },
         'board-add': {
             title: 'Erstelle ein Board',
             subtitle: 'Wähle eine Möglichkeit um dein Board zu erstellen.',

@@ -38,8 +38,6 @@ export function SideNav({ items, setOpen, className }: SideNavProps) {
     }, [isOpen]);
 
     const isDisabled = (item: NavItem): boolean => {
-        console.log(item);
-
         if (item.disabledBy === 'boardsEmpty') return true;
         return false;
     };

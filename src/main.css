@@ -100,82 +100,6 @@ main {
     min-height: 100vh;
 }
 
-.soft {
-    @apply ease-linear !important;
-    @apply transition-all;
-    @apply duration-150;
-}
-
-.formField {
-    @apply bg-[var(--light-main-background)];
-    @apply dark:bg-[var(--dark-main-background)];
-    @apply border;
-    @apply dark:border-[var(--dark-main-border)];
-    @apply border-[var(--light-main-border)];
-    @apply p-2;
-    @apply rounded-lg;
-    @apply focus:outline-none;
-    @apply min-h-[40px];
-}
-
-.formField input {
-    @apply dark:bg-[var(--dark-main-background)];
-    @apply dark:text-white;
-}
-
-.button {
-    /* ------  DEFAULT STATE ------- */
-    /* light -- general */
-    @apply bg-[var(--light-button-background)];
-    @apply rounded-md;
-    @apply font-semibold;
-    @apply stroke-[var(--light-button-stroke)];
-    @apply text-gray-400;
-
-    /* light -- hover */
-    @apply hover:text-gray-800;
-    @apply hover:stroke-gray-800;
-    @apply hover:ease-linear;
-    @apply hover:transition-all;
-    @apply hover:duration-150;
-
-    /* dark -- general */
-    @apply dark:bg-[var(--dark-button-background)];
-    @apply dark:stroke-[var(--dark-button-stroke)];
-
-    /* dark -- hover */
-    @apply dark:hover:stroke-gray-200;
-    @apply dark:hover:text-white;
-
-    /* ------  DISABLED STATE ------- */
-
-    /* light -- general */
-    @apply disabled:bg-[var(--light-button-background--disabled)];
-
-    /* light -- hover */
-    @apply hover:disabled:stroke-gray-500;
-    @apply hover:disabled:brightness-100;
-    @apply hover:disabled:text-gray-400;
-    @apply disabled:stroke-gray-500;
-
-    /* dark -- general */
-    @apply dark:disabled:stroke-gray-500;
-    @apply dark:disabled:bg-[var(--dark-button-background--disabled)];
-    @apply dark:disabled:text-gray-500;
-
-    /* dark -- hover */
-    @apply dark:hover:disabled:stroke-gray-500;
-    @apply dark:hover:disabled:text-gray-500;
-}
-
-.primary-button {
-    @apply bg-[var(--light-button-background--primary)];
-    @apply dark:bg-[var(--light-button-background--primary)];
-    @apply hover:brightness-110;
-    @apply text-white;
-    @apply hover:text-white;
-}
-
 .modal {
     @apply justify-center;
     @apply items-center;
@@ -204,19 +128,6 @@ main {
     @apply dark:text-white;
 }
 
-.field-caption {
-    @apply text-sm;
-    @apply text-[#5E5E5E];
-    @apply dark:text-[#fff];
-}
-
-.field-caption-additional {
-    @apply text-xs;
-    @apply text-[#4d4d4d];
-    @apply dark:text-[#fff];
-    @apply font-semibold;
-}
-
 .card {
     @apply bg-white;
     @apply dark:bg-[#344150];
@@ -227,39 +138,6 @@ main {
     @apply rounded-lg;
     @apply p-4;
     @apply drop-shadow-[0_2px_4px_rgba(0,0,0,0.08)];
-}
-
-.table {
-    @apply bg-white;
-    @apply dark:bg-[#344150];
-    @apply border;
-    @apply border-solid;
-    @apply border-[#DDDDDD];
-    @apply dark:border-[#344150];
-    @apply rounded-lg;
-    @apply p-4;
-    @apply drop-shadow-[0_2px_4px_rgba(0,0,0,0.08)];
-    @apply dark:text-[#DEDEDE];
-}
-
-.small-button {
-    @apply inline-flex;
-    @apply items-center;
-    @apply justify-center;
-    @apply w-8;
-    @apply h-8;
-    @apply transition-colors;
-    @apply duration-150;
-    @apply bg-[#ECEEF8];
-    @apply rounded-md;
-    @apply hover:bg-[#17A2B8];
-    @apply disabled:bg-gray-100;
-    @apply dark:disabled:bg-gray-500;
-    @apply hover:text-white;
-    @apply stroke-[#5A5A65];
-    @apply hover:stroke-white;
-    @apply dark:disabled:hover:stroke-[#5A5A65];
-    @apply disabled:hover:stroke-[#5A5A65];
 }
 
 .backdrop {

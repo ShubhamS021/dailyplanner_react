@@ -438,7 +438,9 @@ describe('useBoardStore', () => {
 
         // check negative case
         try {
-            result.current.renameBoard(777, newTitle, newSubtitle);
+            act(() => {
+                result.current.renameBoard(777, newTitle, newSubtitle);
+            });
         } catch (e) {
             expect(e.message).toBe('No board with id 777 found.');
         }

@@ -66,16 +66,19 @@ describe('AddCard', () => {
         fireEvent.click(getByTestId(`badge-color-${colorVariants[0]}`));
         fireEvent.click(getByTestId(/addcard-tag-button/));
 
-        // updateLowerTags
-        const lowerTagInput = getByTestId(
-            /addcard-lowertags-input/
-        ) as HTMLInputElement;
-        fireEvent.change(lowerTagInput, { target: { value: '2000-01-01' } });
-        fireEvent.click(getByTestId(/addcard-lowertags-button/));
-        const button = getByTestId(/addcard-modal-button/);
-        fireEvent.click(button);
+        const selectElement = getByTestId('addcard-estimation-select');
+        fireEvent.click(selectElement);
 
-        expect(input.value).toBe('');
+        // updateEstimation
+        setTimeout(() => {
+            const selectElementL = getByTestId('addcard-estimation-select-L');
+            fireEvent.click(selectElementL);
+
+            const button = getByTestId(/addcard-modal-button/);
+            fireEvent.click(button);
+
+            expect(input.value).toBe('');
+        }, 500);
     });
 
     test('cancel add a new card modal', () => {

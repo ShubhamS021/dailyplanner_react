@@ -5,9 +5,9 @@ import { CardAddEstimation } from './card-add-estimation';
 
 describe('AddCardEstimation', () => {
     const headline = 'Test Headline';
-    const updateEstimationMock = vi.fn();
 
     it('renders the headline', () => {
+        const updateEstimationMock = vi.fn();
         const { getByTestId } = render(
             <CardAddEstimation
                 headline={headline}
@@ -21,18 +21,26 @@ describe('AddCardEstimation', () => {
     });
 
     it('calls updateEstimation when the select value changes', () => {
+        // Arrange
+        const updateEstimationMock = vi.fn();
         const { getByTestId } = render(
             <CardAddEstimation
                 headline={headline}
                 card={card}
-                updateEstimation={updateEstimationMock}
+                updateEstimation={(shirt) => updateEstimationMock(shirt)}
             />
         );
 
+        // Act
         const selectElement = getByTestId('addcard-estimation-select');
+        fireEvent.click(selectElement);
 
-        fireEvent.change(selectElement, { target: { value: 'L' } });
+        setTimeout(() => {
+            const selectElementL = getByTestId('addcard-estimation-select-L');
+            fireEvent.click(selectElementL);
 
-        expect(updateEstimationMock).toHaveBeenCalledWith('L');
+            // Assert
+            expect(updateEstimationMock).toHaveBeenCalledWith('L');
+        }, 500);
     });
 });

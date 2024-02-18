@@ -9,7 +9,8 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/ui/dropdown-menu';
-import { DotsIcon, EditIcon, RouteIcon, TrashIcon } from '@/ui/Icons/Icons';
+import { EditIcon, RouteIcon, TrashIcon } from '@/ui/Icons/Icons';
+import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import { t } from 'i18next';
 
 interface CardActionProps {
@@ -29,11 +30,12 @@ export const CardActions: React.FC<CardActionProps> = ({
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button
-                    variant="ghost"
-                    size={'icon'}
+                    size={'icon-xs'}
+                    variant={'outline'}
                     data-testid="card-action-button"
+                    className="flex items-center justify-center"
                 >
-                    <DotsIcon classes="mt-1 ml-2" />
+                    <DotsHorizontalIcon width={12} height={12} />
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56">

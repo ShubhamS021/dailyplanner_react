@@ -1,7 +1,18 @@
-import { useState } from 'react';
+import PageTitle from '@/components/common/page-title/page-title';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
-import { CloseIcon, InfoCircleIcon } from '@/ui/Icons/Icons';
 import { type Board } from '@/interfaces/Board';
+import { Button } from '@/ui/button';
+import { Cross1Icon } from '@radix-ui/react-icons';
+import { useState } from 'react';
+
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/ui/select';
+import { t } from 'i18next';
 
 export interface CardMoveModalProps {
     title: string;
@@ -25,9 +36,7 @@ export const CardMoveModal: React.FC<CardMoveModalProps> = ({
         state.board,
     ]);
 
-    const [selectedBoardId, setSelectedBoardId] = useState(
-        boards.filter((b) => b.id !== board.id)[0].id
-    );
+    const [selectedBoardId, setSelectedBoardId] = useState(board.id);
 
     const handleBoardChange = (boardId: number) => {
         setSelectedBoardId(boardId);
@@ -39,76 +48,77 @@ export const CardMoveModal: React.FC<CardMoveModalProps> = ({
                 {/* content */}
                 <div className="modal-content">
                     {/* header */}
-                    <div className="px-6 pt-6 rounded-t grid grid-cols-[1fr,auto] gap-2">
-                        <div className="flex gap-2 dark:stroke-[#fff] dark:fill-[#fff]">
-                            <InfoCircleIcon />
-
-                            <h3
-                                className="text-base font-semibold"
-                                data-testid="confirmation-modal-title"
-                            >
-                                {title}
-                            </h3>
-                        </div>
+                    <div className="px-6 pt-6 rounded-t grid grid-cols-[1fr,auto] items-center gap-2">
+                        <PageTitle title={title}></PageTitle>
                         <div>
-                            <button
+                            <Button
+                                size={'icon'}
+                                variant={'ghost'}
                                 data-testid="confirmation-modal-close-button"
                                 onClick={() => {
                                     closeModal();
                                 }}
                             >
-                                <CloseIcon />
-                            </button>
+                                <Cross1Icon />
+                            </Button>
                         </div>
                     </div>
                     {/* body */}
                     <div className="relative p-6 flex flex-col gap-2">
-                        {text}
-                        <br />
-                        <select
-                            className="formField focus:outline-none text-sm w-full rounded-lg"
-                            data-testid="board-selection"
-                            onChange={(event) => {
-                                handleBoardChange(+event.target.value);
+                        <Select
+                            onValueChange={(value) => {
+                                handleBoardChange(+value);
                             }}
                         >
-                            {boards
-                                .filter((b) => b.id !== board.id)
-                                .map((b: Board) => {
-                                    return (
-                                        <option
-                                            key={`board-${b.id}`}
-                                            value={b.id}
-                                        >
-                                            {b.title}
-                                        </option>
-                                    );
-                                })}
-                        </select>
+                            <SelectTrigger
+                                className="w-full"
+                                onChange={(value) => console.log(value)}
+                                data-testid="board-selection"
+                            >
+                                <SelectValue
+                                    placeholder={t('components.Lane.moveText')}
+                                />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {boards
+                                    .filter((b) => b.id !== board.id)
+                                    .map((b: Board) => {
+                                        return (
+                                            <SelectItem
+                                                key={`board-${b.id}`}
+                                                value={`${b.id}`}
+                                                data-testid={`board-selection-${b.id}`}
+                                            >
+                                                {b.title}
+                                            </SelectItem>
+                                        );
+                                    })}
+                            </SelectContent>
+                        </Select>
                     </div>
                     {/* footer */}
                     <div className="flex items-center gap-2 justify-end px-6 pb-6 rounded-b">
-                        <button
-                            className="button p-2 py-1.5 hover:text-gray-400 soft"
-                            type="button"
+                        <Button
+                            size={'sm'}
+                            variant={'outline'}
                             data-testid="confirmation-modal-cancel-button"
                             onClick={() => {
                                 closeModal();
                             }}
                         >
                             {cancelButtonText ?? 'Cancel'}
-                        </button>
-                        <button
-                            className="button primary-button p-2 py-1.5 soft"
-                            type="button"
+                        </Button>
+                        <Button
+                            size={'sm'}
                             data-testid="confirmation-modal-button"
+                            disabled={board.id === selectedBoardId}
                             onClick={() => {
                                 modalConfirmation(selectedBoardId);
                                 closeModal();
                             }}
                         >
                             {submitButtonText ?? 'Ok'}
-                        </button>
+                        </Button>
                     </div>
                 </div>
             </div>

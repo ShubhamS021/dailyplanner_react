@@ -2,7 +2,9 @@ import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { type Tag } from '@/interfaces/Tag';
 import { type Task } from '@/interfaces/Task';
 import { type Shirt } from '@/types/Shirt';
-import { TaskComponent } from '@/ui/Task/Task';
+import { Badge } from '@/ui/badge';
+import { Label } from '@/ui/label';
+import { TaskComponent } from '@/ui/task';
 import {
     DragDropContext,
     Draggable,
@@ -186,14 +188,14 @@ export const CardComponent: React.FC<CardProps> = ({
     };
 
     const renderEstimation = () => {
-        if (compactMode) return;
         return (
-            <div
-                className="text-[11px] text-gray-400 "
+            <Badge
+                variant={'light_grey'}
+                size={'xs'}
                 data-testid="card-estimation"
             >
                 {shirt ?? 'S'}
-            </div>
+            </Badge>
         );
     };
 
@@ -230,23 +232,16 @@ export const CardComponent: React.FC<CardProps> = ({
                 <div className="w-full grid grid-cols-[1fr,auto] gap-1">
                     <div className="flex flex-col gap-2">
                         {renderTags(upperTags)}
-                        <div className="grid grid-cols-[1fr,auto] w-full">
-                            <h3
-                                className="font-semibold text-base dark:text-white"
-                                data-testid="card-title"
-                            >
-                                {title}
-                            </h3>
-                        </div>
+                        <Label data-testid="card-title">{title}</Label>
                     </div>
                     {!inEditMode && renderCardActions()}
                 </div>
 
                 {renderDescription()}
-                {inEditMode && renderTasksDraggable()}
-                {!inEditMode && renderTasks()}
-                {renderTags(lowerTags)}
-                <div className="w-full flex justify-end">
+                {inEditMode ? renderTasksDraggable() : renderTasks()}
+
+                <div className="w-full grid grid-cols-[1fr,auto]">
+                    {renderTags(lowerTags)}
                     {renderEstimation()}
                 </div>
             </div>

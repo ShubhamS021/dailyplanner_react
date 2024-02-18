@@ -28,6 +28,13 @@ export const DEtranslation = {
                 },
                 AddDueDate: {
                     add: 'hinzufügen',
+                    pickADate: 'Wähle ein Datum',
+                    preset: 'Schnellauswahl',
+                    today: 'Heute',
+                    tomorrow: 'Morgen',
+                    threeDays: 'In 3 Tagen',
+                    sevenDays: 'In einer Woche',
+                    fourteenDays: 'In zwei Wochen',
                 },
                 AddCardModal: {
                     save: 'Diese Aufgabe speichern.',
@@ -127,10 +134,10 @@ export const DEtranslation = {
             deletionText:
                 'Sind Sie sicher, dass Sie alle Karten aus dieser Spalte löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.',
             deletionSubmit: 'Ja, alles löschen.',
-            moveTitle: 'Karte in ein anderes Board verschieben',
-            moveText:
-                'Wählen Sie das Board aus, zu dem Sie Ihre Karte verschieben möchten:',
-            moveSubmit: 'Karte verschieben',
+            moveTitle: 'Karte verschieben',
+            moveText: 'Wähle ein Board aus.',
+            moveSubmit: 'Verschieben',
+            moveCancel: 'Abbechen',
             editCardSubmit: 'Änderungen speichern',
             task: 'Aufgabe',
             tasks: 'Aufgaben',

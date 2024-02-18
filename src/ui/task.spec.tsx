@@ -1,14 +1,13 @@
 import { fireEvent, render } from '@testing-library/react';
 
-import { TaskComponent } from './Task';
+import { TaskComponent } from './task';
 
 test('renders unchecked basic task', () => {
     const { getByTestId } = render(
         <TaskComponent
             description="test unchecked task"
             fulfilled={false}
-            onFulfillTask={(fulfilled: boolean) => {
-            }}
+            onFulfillTask={(fulfilled: boolean) => {}}
         />
     );
 
@@ -19,8 +18,7 @@ test('renders checked basic task without prop', () => {
     const { getByTestId } = render(
         <TaskComponent
             description="test unchecked task"
-            onFulfillTask={(fulfilled: boolean) => {
-            }}
+            onFulfillTask={(fulfilled: boolean) => {}}
         />
     );
     expect(getByTestId('task-checkbox')).not.toBeChecked();
@@ -31,8 +29,7 @@ test('renders checked basic task', () => {
         <TaskComponent
             description="test checked task"
             fulfilled={true}
-            onFulfillTask={(fulfilled: boolean) => {
-            }}
+            onFulfillTask={(fulfilled: boolean) => {}}
         />
     );
     expect(getByTestId('task-checkbox')).toBeChecked();

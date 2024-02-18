@@ -1,8 +1,12 @@
 import { CardComponent } from '@/components/card/card';
+import PageTitle from '@/components/common/page-title/page-title';
 import { type Card } from '@/interfaces/Card';
 import type Tag from '@/interfaces/Tag';
 import type Task from '@/interfaces/Task';
 import { type Shirt } from '@/types/Shirt';
+import { Button } from '@/ui/button';
+import { Separator } from '@/ui/separator';
+import { Cross1Icon } from '@radix-ui/react-icons';
 import { useTranslation } from 'react-i18next';
 import { CardAddDescription } from './card-add-description';
 import { CardAddDueDate } from './card-add-due-date';
@@ -62,12 +66,32 @@ export const CardAddModal: React.FC<CardAddModalProps> = ({
 
     return (
         <div className="modal" data-testid="addcard-modal">
-            <div className="min-w-[80vw] relative w-auto mx-auto max-w-3xl flex gap-6">
+            <div className="flex gap-6">
                 {/* content */}
                 <div className="modal-content">
+                    {/* header */}
+                    <div className="px-6 pt-6 rounded-t grid grid-cols-[1fr,auto] items-center gap-2">
+                        <PageTitle
+                            title={t(
+                                'components.AddCard.modal.AddCardModal.descriptionHeadline'
+                            )}
+                        ></PageTitle>
+                        <div>
+                            <Button
+                                size={'icon'}
+                                variant={'ghost'}
+                                data-testid="confirmation-modal-close-button"
+                                onClick={() => {
+                                    closeModal();
+                                }}
+                            >
+                                <Cross1Icon />
+                            </Button>
+                        </div>
+                    </div>
                     {/* body */}
-                    <div className="p-2">
-                        <div className="relative flex flex-col gap-2 p-5 rounded-2xl bg-[#F8F8F8] dark:bg-[#1b2129]">
+                    <div className="relative p-6 grid grid-cols-[1fr,auto,1fr] gap-2">
+                        <div className="flex flex-col gap-2">
                             <CardAddDescription
                                 headline={
                                     t(
@@ -82,6 +106,11 @@ export const CardAddModal: React.FC<CardAddModalProps> = ({
                                     updateTitle(title);
                                 }}
                             ></CardAddDescription>
+
+                            <div className="grid grid-cols-[1fr,auto,auto] gap-2"></div>
+                        </div>
+                        <Separator orientation="vertical" className="mx-4" />
+                        <div className="flex flex-col gap-3">
                             <CardAddTasks
                                 card={card}
                                 updateTasks={(tasks: Task[]) => {
@@ -93,18 +122,19 @@ export const CardAddModal: React.FC<CardAddModalProps> = ({
                                     ) ?? ''
                                 }
                             ></CardAddTasks>
-                            <div className="grid grid-cols-[1fr,auto,auto] gap-2">
-                                <CardAddTags
-                                    card={card}
-                                    headline={
-                                        t(
-                                            'components.AddCard.modal.AddCardModal.tagsHeadline'
-                                        ) ?? ''
-                                    }
-                                    updateTags={(tags: Tag[]) => {
-                                        updateTags(tags);
-                                    }}
-                                ></CardAddTags>
+                            <CardAddTags
+                                card={card}
+                                headline={
+                                    t(
+                                        'components.AddCard.modal.AddCardModal.tagsHeadline'
+                                    ) ?? ''
+                                }
+                                updateTags={(tags: Tag[]) => {
+                                    updateTags(tags);
+                                }}
+                            ></CardAddTags>
+                            <Separator />
+                            <div className="w-full flex space-between gap-3">
                                 <CardAddEstimation
                                     headline={
                                         t(
@@ -132,35 +162,26 @@ export const CardAddModal: React.FC<CardAddModalProps> = ({
                     </div>
                     {/* footer */}
                     <div className="flex items-center gap-2 justify-end px-2 pb-2 rounded-b">
-                        <button
-                            className="button p-2 py-1.5 hover:text-red-500 soft"
-                            type="button"
+                        <Button
+                            size={'sm'}
+                            variant={'outline'}
                             data-testid="addcard-modal-cancel-button"
                             onClick={() => {
                                 closeModal();
                             }}
                         >
-                            {cancelButtonText ??
-                                t(
-                                    'components.AddCard.modal.AddCardModal.cancel'
-                                ) ??
-                                ''}
-                        </button>
-                        <button
-                            className="button primary-button p-2 py-1.5 soft"
-                            type="button"
+                            {cancelButtonText ?? 'Cancel'}
+                        </Button>
+                        <Button
+                            size={'sm'}
                             data-testid="addcard-modal-button"
                             onClick={() => {
                                 saveCard();
                                 closeModal();
                             }}
                         >
-                            {submitButtonText ??
-                                t(
-                                    'components.AddCard.modal.AddCardModal.submit'
-                                ) ??
-                                ''}
-                        </button>
+                            {submitButtonText ?? 'Ok'}
+                        </Button>
                     </div>
                 </div>
                 <div className="min-w-[20vw]">

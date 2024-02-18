@@ -1,6 +1,16 @@
 import { type Card } from '@/interfaces/Card';
 import { type Shirt } from '@/types/Shirt';
+import { Label } from '@/ui/label';
 import { useState } from 'react';
+
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/ui/select';
 
 export interface CardAddEstimationProps {
     headline: string;
@@ -23,34 +33,36 @@ export const CardAddEstimation: React.FC<CardAddEstimationProps> = ({
 
     return (
         <div className="flex flex-col gap-2">
-            <div className="field-caption">
-                <div
-                    className="flex gap-1 font-bold"
-                    data-testid="AddCardEstimation-headline"
-                >
-                    {headline}
-                </div>
-            </div>
-            <div className="grid grid-cols-[1fr,auto] gap-1">
-                <select
-                    className="formField focus:outline-none text-sm w-full border-none rounded-lg"
+            <Label data-testid="AddCardEstimation-headline">{headline}</Label>
+            <Select
+                value={shirt}
+                onValueChange={(shirt) => {
+                    handleEstimationChanges(shirt as Shirt);
+                }}
+                data-testid="addcard-estimation-select"
+            >
+                <SelectTrigger
+                    className="w-[180px]"
                     data-testid="addcard-estimation-select"
-                    value={shirt}
-                    onChange={(e) => {
-                        handleEstimationChanges(
-                            e.target.value as unknown as Shirt
-                        );
-                    }}
                 >
-                    {shirts.map((s) => {
-                        return (
-                            <option value={s} key={s}>
-                                {s}
-                            </option>
-                        );
-                    })}
-                </select>
-            </div>
+                    <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                    <SelectGroup>
+                        {shirts.map((s) => {
+                            return (
+                                <SelectItem
+                                    value={s}
+                                    key={s}
+                                    data-testid={`addcard-estimation-select-${s}`}
+                                >
+                                    {s}
+                                </SelectItem>
+                            );
+                        })}
+                    </SelectGroup>
+                </SelectContent>
+            </Select>
         </div>
     );
 };

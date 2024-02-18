@@ -1,4 +1,6 @@
 import { fireEvent, render } from '@testing-library/react';
+import { t } from 'i18next';
+import { vi } from 'vitest';
 import { CardAddDescription } from './card-add-description';
 
 test('renders the basic AddCardDescription', () => {
@@ -17,11 +19,13 @@ test('renders the basic AddCardDescription', () => {
     );
 
     expect(getByTestId(/addcarddescription-headline/).textContent).toBe(
-        'description'
+        t('components.AddCard.modal.AddCardDescription.placeholderTitle')
     );
 });
 
 test('changes description', () => {
+    const handleUpdateDescription = vi.fn();
+
     const { getByTestId } = render(
         <CardAddDescription
             headline={'description'}
@@ -32,12 +36,14 @@ test('changes description', () => {
                 shirt: 'S',
             }}
             updateDescription={(description: string) => {
-                expect(description).not.toBe('');
+                handleUpdateDescription(description);
             }}
             updateTitle={() => {}}
         />
     );
 
     const input = getByTestId(/addcard-description-input/) as HTMLInputElement;
-    fireEvent.change(input, { target: { value: 'NEW DESCRIPTION' } });
+    fireEvent.input(input, { target: { value: 'NEW DESCRIPTION' } });
+
+    expect(handleUpdateDescription).toHaveBeenCalledWith('NEW DESCRIPTION');
 });

@@ -352,44 +352,55 @@ describe('Lane', () => {
         await userEvent.click(getByTestId('badge-color-teal'));
         await userEvent.click(getByTestId(/addcard-tag-button/));
 
-        // updateLowerTags
-        const lowerTagInput = getByTestId(
-            /addcard-lowertags-input/
-        ) as HTMLInputElement;
-        fireEvent.change(lowerTagInput, {
-            target: { value: '2000-01-01' },
+        // add a duedate
+        const calender = getByTestId('addcard-duedate-calender');
+        await userEvent.click(calender, {
+            delay: WAIT_TILL_ACTION_MENU,
         });
-        await userEvent.click(getByTestId(/addcard-lowertags-button/));
 
-        // save card
-        await userEvent.click(getByTestId(/addcard-modal-button/));
+        setTimeout(() => {
+            const select = getByTestId('addcard-duedate-select');
+            fireEvent.click(select);
+        }, 500);
 
-        // assert what the card have on the lane
-        expect(spy).toHaveBeenCalledWith(
-            {
-                description: 'NEW DESCRIPTION',
-                id: 1,
-                lowerTags: [
-                    {
-                        color: '#cbdfd8',
-                        id: 1,
-                        text: '2000-01-01',
-                        tagType: 'lower',
-                    },
-                ],
-                title: 'Testcard 1',
-                tasks: [{ description: 'NEW TASK', id: 1, fulfilled: false }],
-                upperTags: [
-                    {
-                        variant: 'teal',
-                        id: 1,
-                        text: 'NEW TAG',
-                        tagType: 'upper',
-                    },
-                ],
-                shirt: 'XS',
-            },
-            1
-        );
+        setTimeout(() => {
+            const selectToday = getByTestId('addcard-duedate-today');
+            fireEvent.click(selectToday);
+        }, 1000);
+
+        setTimeout(() => {
+            // save card
+            fireEvent.click(getByTestId(/addcard-modal-button/));
+
+            // assert what the card have on the lane
+            expect(spy).toHaveBeenCalledWith(
+                {
+                    description: 'NEW DESCRIPTION',
+                    id: 1,
+                    lowerTags: [
+                        {
+                            color: '#cbdfd8',
+                            id: 1,
+                            text: '2000-01-01',
+                            tagType: 'lower',
+                        },
+                    ],
+                    title: 'Testcard 1',
+                    tasks: [
+                        { description: 'NEW TASK', id: 1, fulfilled: false },
+                    ],
+                    upperTags: [
+                        {
+                            variant: 'teal',
+                            id: 1,
+                            text: 'NEW TAG',
+                            tagType: 'upper',
+                        },
+                    ],
+                    shirt: 'XS',
+                },
+                1
+            );
+        }, 1500);
     });
 });

@@ -28,6 +28,13 @@ export const ENtranslation = {
                 },
                 AddDueDate: {
                     add: 'Add',
+                    pickADate: 'Choose a date',
+                    preset: 'Presets',
+                    today: 'Today',
+                    tomorrow: 'Tomorrow',
+                    threeDays: 'In 3 days',
+                    sevenDays: 'In a week',
+                    fourteenDays: 'In two weeks',
                 },
                 AddCardModal: {
                     save: 'Save this task.',
@@ -39,7 +46,7 @@ export const ENtranslation = {
                     dueDateHeadline: 'Due date',
                     cancel: 'Cancel',
                     submit: 'Add task',
-                    newTask: 'Your new task:',
+                    newTask: 'Your new task result:',
                 },
                 AddCardSubtasks: {
                     define: 'Define a subtask.',
@@ -130,9 +137,10 @@ export const ENtranslation = {
             deletionText:
                 'Are you sure you want to delete all cards from this lane? This action cannot be undone.',
             deletionSubmit: 'Yes, delete all.',
-            moveTitle: 'Move card to another board',
-            moveText: 'Choose the board you want move your card to:',
-            moveSubmit: 'Move the card',
+            moveTitle: 'Move card',
+            moveText: 'Choose a board.',
+            moveSubmit: 'Move',
+            moveCancel: 'Cancel',
             editCardSubmit: 'Save changes',
             task: 'task',
             tasks: 'tasks',

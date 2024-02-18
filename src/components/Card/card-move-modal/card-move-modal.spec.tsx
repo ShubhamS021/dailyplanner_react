@@ -17,7 +17,7 @@ const closeModalMock = vi.fn();
 const defaultProps: CardMoveModalProps = {
     title: 'Move Card',
     text: 'Select a board to move this card to:',
-    modalConfirmation: modalConfirmationMock,
+    modalConfirmation: (boardId) => modalConfirmationMock(boardId),
     closeModal: closeModalMock,
 };
 
@@ -47,18 +47,9 @@ describe('CardMoveModal', () => {
     test('renders the title', () => {
         renderHook(() => useBoardStore());
         render(<CardMoveModal {...defaultProps} />);
-        const titleElement = screen.getByTestId('confirmation-modal-title');
+        const titleElement = screen.getByTestId('page-title');
         expect(titleElement).toBeInTheDocument();
         expect(titleElement).toHaveTextContent('Move Card');
-    });
-
-    test('renders the text', () => {
-        renderHook(() => useBoardStore());
-        render(<CardMoveModal {...defaultProps} />);
-        const textElement = screen.getByText(
-            'Select a board to move this card to:'
-        );
-        expect(textElement).toBeInTheDocument();
     });
 
     test('renders the cancel button with default text', () => {
@@ -87,9 +78,20 @@ describe('CardMoveModal', () => {
         const submitButtonElement = screen.getByTestId(
             'confirmation-modal-button'
         );
-        fireEvent.click(submitButtonElement);
-        expect(modalConfirmationMock).toHaveBeenCalledWith(1);
-        expect(closeModalMock).toHaveBeenCalled();
+
+        expect(submitButtonElement).toBeDisabled();
+
+        const selectElement = screen.getByTestId('board-selection');
+        fireEvent.click(selectElement);
+
+        setTimeout(() => {
+            const selectElementBoard = screen.getByTestId('board-selection-1');
+            fireEvent.click(selectElementBoard);
+
+            fireEvent.click(submitButtonElement);
+            expect(modalConfirmationMock).toHaveBeenCalledWith(1);
+            expect(closeModalMock).toHaveBeenCalled();
+        }, 500);
     });
 
     test('calls the closeModal function when the close button is clicked', () => {

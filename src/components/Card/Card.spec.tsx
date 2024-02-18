@@ -1,6 +1,5 @@
 import { render } from '@testing-library/react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import { colors } from '../../theme/colors';
 import { CardComponent } from './card';
 
 test('renders basic card', () => {
@@ -60,7 +59,7 @@ test('renders card with tags and tasks', () => {
                                         lowerTags={[
                                             {
                                                 id: 1,
-                                                color: colors.Green,
+                                                variant: 'green',
                                                 text: 'Tag High 1',
                                                 tagType: 'lower',
                                             },
@@ -68,7 +67,7 @@ test('renders card with tags and tasks', () => {
                                         upperTags={[
                                             {
                                                 id: 1,
-                                                color: colors.Green,
+                                                variant: 'green',
                                                 text: 'Tag Low 1',
                                                 tagType: 'upper',
                                             },

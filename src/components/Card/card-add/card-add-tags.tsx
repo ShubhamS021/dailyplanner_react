@@ -2,7 +2,9 @@ import { ColorChooser } from '@/components/common/color-chooser/color-chooser';
 import { type Card } from '@/interfaces/Card';
 import type Tag from '@/interfaces/Tag';
 import { ColorVariant } from '@/types/ColorVariant';
-import { TagsIcon } from '@/ui/Icons/Icons';
+import { Button } from '@/ui/button';
+import { Input } from '@/ui/input';
+import { Label } from '@/ui/label';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -47,79 +49,50 @@ export const CardAddTags: React.FC<CardAddTagsProps> = ({
 
     return (
         <div className="flex flex-col gap-2">
-            <div className="field-caption">
-                <div
-                    className="flex gap-1 font-bold"
-                    data-testid="addcardtags-headline"
-                >
-                    {headline}
-                    <div
-                        className={`field-caption-additional self-center place-self-end`}
-                    >
+            <Label data-testid="addcardtags-headline">
+                <div className="flex gap-1">
+                    <div>{headline}</div>
+                    <div className="flex gap-3">
                         ({card.upperTags?.length ?? 0}/{MAX_TAGS})
+                        {card.upperTags?.length === MAX_TAGS && (
+                            <span className="text-destructive">
+                                {t(
+                                    'components.AddCard.modal.AddCardTags.limit'
+                                )}
+                            </span>
+                        )}
                     </div>
                 </div>
-            </div>
-            <div className="grid grid-rows-2 gap-2">
+            </Label>
+
+            <div className="flex flex-col gap-2">
                 <div className="flex gap-2">
-                    <div className="self-center">
-                        <div className="formField flex gap-2 items-center">
-                            <input
-                                placeholder={'Enter a tag.'}
-                                className="focus:outline-none text-sm w-full"
-                                data-testid="addcard-tags-input"
-                                value={tag}
-                                onChange={(e) => {
-                                    handleTagChanges(e.target.value);
-                                }}
-                            ></input>
-                        </div>
-                    </div>
-                    <div className="self-center">
-                        <button
-                            className="group button"
-                            data-testid="addcard-tag-button"
-                            onClick={(_e) => {
-                                handleAddNewTag();
-                            }}
-                            disabled={
-                                tag === '' ||
-                                card.upperTags?.length === MAX_TAGS
-                            }
-                        >
-                            <div className="flex gap-2 items-center p-2">
-                                <TagsIcon
-                                    viewBox={{
-                                        x: 0,
-                                        y: 0,
-                                        width: 16,
-                                        height: 16,
-                                    }}
-                                />
-                                <p className="font-semibold text-sm">
-                                    {t(
-                                        'components.AddCard.modal.AddCardTags.add'
-                                    ) ?? ''}
-                                </p>
-                            </div>
-                        </button>
-                    </div>
+                    <Input
+                        data-testid="addcard-tags-input"
+                        value={tag}
+                        onChange={(e) => {
+                            handleTagChanges(e.target.value);
+                        }}
+                    ></Input>
+                    <Button
+                        data-testid="addcard-tag-button"
+                        size={'sm'}
+                        onClick={(_e) => {
+                            handleAddNewTag();
+                        }}
+                        disabled={
+                            tag === '' || card.upperTags?.length === MAX_TAGS
+                        }
+                    >
+                        {t('components.AddCard.modal.AddCardTags.add') ?? ''}
+                    </Button>
                 </div>
-                <div>
-                    <div className="flex gap-1">
-                        <ColorChooser
-                            onSelectColor={(variant: ColorVariant) => {
-                                handleTagColorSelection(variant);
-                            }}
-                        ></ColorChooser>
-                    </div>
-                </div>
+                <ColorChooser
+                    onSelectColor={(variant: ColorVariant) => {
+                        handleTagColorSelection(variant);
+                    }}
+                ></ColorChooser>
             </div>
-            {card.upperTags?.length === MAX_TAGS && (
-                <small className="text-[#e0004d]">
-                    {t('components.AddCard.modal.AddCardTags.limit') ?? ''}
-                </small>
-            )}
         </div>
     );
 };

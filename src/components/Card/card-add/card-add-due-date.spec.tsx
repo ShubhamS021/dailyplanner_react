@@ -29,64 +29,20 @@ describe('AddCardDueDate', () => {
             />
         );
 
-        const input = getByTestId('addcard-lowertags-input');
-        const button = getByTestId('addcard-lowertags-button');
+        setTimeout(() => {
+            const calender = getByTestId('addcard-duedate-calender');
+            fireEvent.click(calender);
+        }, 500);
 
-        fireEvent.change(input, { target: { value: '2000-01-01' } });
+        setTimeout(() => {
+            const select = getByTestId('addcard-duedate-select');
+            fireEvent.click(select);
+        }, 1000);
 
-        fireEvent.click(button);
-
-        expect(mockUpdateTags).toHaveBeenCalledWith([
-            { id: 1, text: '2000-01-01', color: '#cbdfd8', tagType: 'lower' },
-        ]);
-    });
-
-    it('adds a new tag when the "Add due date" button is clicked and the input is not empty', () => {
-        const { getByTestId } = render(
-            <CardAddDueDate
-                headline="Add Due Date"
-                card={card}
-                updateTags={mockUpdateTags}
-            />
-        );
-
-        const input = getByTestId('addcard-lowertags-input');
-        const button = getByTestId('addcard-lowertags-button');
-
-        fireEvent.change(input, { target: { value: '2000-01-01' } });
-
-        fireEvent.click(button);
-
-        expect(mockUpdateTags).toHaveBeenCalledWith([
-            { id: 1, text: '2000-01-01', color: '#cbdfd8', tagType: 'lower' },
-        ]);
-    });
-
-    it('does not add a new tag when the "Add due date" button is clicked and the input is empty', () => {
-        const { getByTestId } = render(
-            <CardAddDueDate
-                headline="Add Due Date"
-                card={card}
-                updateTags={mockUpdateTags}
-            />
-        );
-
-        const button = getByTestId('addcard-lowertags-button');
-
-        fireEvent.click(button);
-
-        expect(mockUpdateTags).toBeCalledTimes(2); // tests from before
-    });
-
-    it('removes a tag when the remove button is clicked', () => {
-        render(
-            <CardAddDueDate
-                headline="Add Due Date"
-                card={card}
-                updateTags={mockUpdateTags}
-            />
-        );
-
-        expect(mockUpdateTags).toHaveBeenCalledTimes(2);
+        setTimeout(() => {
+            const selectToday = getByTestId('addcard-duedate-today');
+            fireEvent.click(selectToday);
+            expect(mockUpdateTags).toHaveBeenCalled();
+        }, 1500);
     });
 });

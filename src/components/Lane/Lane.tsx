@@ -12,7 +12,7 @@ import type Task from '@/interfaces/Task';
 import { ColorVariant } from '@/types/ColorVariant';
 import { type Shirt } from '@/types/Shirt';
 import { Badge } from '@/ui/badge';
-import { Dropzone } from '@/ui/dropzone/dropzone';
+import { Dropzone } from '@/ui/dropzone';
 import { useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { useTranslation } from 'react-i18next';
@@ -146,6 +146,7 @@ export const LaneComponent: React.FC<LaneProps> = ({
                     title={t('components.Lane.moveTitle')}
                     text={t('components.Lane.moveText')}
                     submitButtonText={t('components.Lane.moveSubmit') ?? ''}
+                    cancelButtonText={t('components.Lane.moveCancel') ?? ''}
                     modalConfirmation={(newBoardId: number) => {
                         const newBoard = boards.find(
                             (b) => b.id === newBoardId

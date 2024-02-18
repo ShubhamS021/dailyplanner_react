@@ -1,5 +1,6 @@
+import { CheckIcon } from '@/ui/Icons/Icons';
+import { Trash2 } from 'lucide-react';
 import { useState } from 'react';
-import { CheckIcon, TagCloseIcon } from '@/ui/Icons/Icons';
 
 export interface TaskProps {
     description: string;
@@ -57,13 +58,13 @@ export const TaskComponent: React.FC<TaskProps> = ({
                     {description}
                 </label>
                 {isRemoveable === true && (
-                    <div
+                    <Trash2
+                        width={12}
+                        height={12}
+                        className={`text-gray-500 hover:text-black hover:cursor-pointer`}
                         onClick={onRemove}
                         data-testid="task-remove-button"
-                        className="self-middle"
-                    >
-                        <TagCloseIcon classes="w-3 h-3 sm:h-4 sm:w-4 fill-gray-500 hover:fill-gray-600 dark:fill-gray-400 dark:hover:fill-gray-300 hover:cursor-pointer" />
-                    </div>
+                    />
                 )}
             </div>
         </div>

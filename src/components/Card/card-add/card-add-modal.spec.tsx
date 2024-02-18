@@ -57,16 +57,29 @@ test('renders the basic AddCardModal', () => {
     fireEvent.click(tagButton);
 
     // add a estimation
-    const estimationSelect = getByTestId(
-        /addcard-estimation-select/
-    ) as HTMLSelectElement;
-    fireEvent.change(estimationSelect, { target: { value: 'M' } });
+    setTimeout(() => {
+        const selectElementL = getByTestId('addcard-estimation-select-L');
+        fireEvent.click(selectElementL);
 
-    // add a due date
-    const lowerTagInput = getByTestId(
-        /addcard-lowertags-input/
-    ) as HTMLInputElement;
-    fireEvent.change(lowerTagInput, { target: { value: '01.01.2000' } });
+        const button = getByTestId(/addcard-modal-button/);
+        fireEvent.click(button);
+    }, 500);
+
+    // add a duedate
+    setTimeout(() => {
+        const calender = getByTestId('addcard-duedate-calender');
+        fireEvent.click(calender);
+    }, 500);
+
+    setTimeout(() => {
+        const select = getByTestId('addcard-duedate-select');
+        fireEvent.click(select);
+    }, 1000);
+
+    setTimeout(() => {
+        const selectToday = getByTestId('addcard-duedate-today');
+        fireEvent.click(selectToday);
+    }, 1500);
 
     // remove a task from rendered card
     const taskRemoveButton = getAllByTestId(/task-remove-button/)[0];

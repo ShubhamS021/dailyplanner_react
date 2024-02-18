@@ -2,7 +2,6 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import './main.css';
 import reportWebVitals from './reportWebVitals';
-import './theme/theme.colors.css';
 
 import './i18n';
 import { TooltipProvider } from './ui/tooltip';

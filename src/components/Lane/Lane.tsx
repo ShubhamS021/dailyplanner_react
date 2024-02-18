@@ -11,12 +11,12 @@ import type Tag from '@/interfaces/Tag';
 import type Task from '@/interfaces/Task';
 import { ColorVariant } from '@/types/ColorVariant';
 import { type Shirt } from '@/types/Shirt';
-import { Dropzone } from '@/ui/Dropzone/Dropzone';
 import { Badge } from '@/ui/badge';
+import { Dropzone } from '@/ui/dropzone/dropzone';
 import { useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { useTranslation } from 'react-i18next';
-import { CardAddModal } from '../card/card-add-modal/card-add-modal';
+import { CardAddModal } from '../card/card-add/card-add-modal';
 
 export interface LaneProps {
     id: number;

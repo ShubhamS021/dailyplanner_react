@@ -10,7 +10,7 @@ import { Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ColorChooser } from '../common/color-chooser/color-chooser';
-import PageTitle from '../page-title/page-title';
+import PageTitle from '../common/page-title/page-title';
 
 export const MyBoardLanes = () => {
     const [boards, addLaneToBoard, removeLaneFromBoard, enterBoard] =

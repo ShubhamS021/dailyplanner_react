@@ -1,5 +1,5 @@
 import { ColorChooser } from '@/components/common/color-chooser/color-chooser';
-import PageTitle from '@/components/page-title/page-title';
+import PageTitle from '@/components/common/page-title/page-title';
 import { type Board } from '@/interfaces/Board';
 import { ColorVariant } from '@/types/ColorVariant';
 import { Badge } from '@/ui/badge';

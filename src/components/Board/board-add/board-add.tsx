@@ -1,4 +1,4 @@
-import PageTitle from '@/components/page-title/page-title';
+import PageTitle from '@/components/common/page-title/page-title';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { usePageStore } from '@/hooks/usePageStore/usePageStore';
 import { Badge } from '@/ui/badge';

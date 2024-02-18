@@ -7,7 +7,7 @@ import { BoardEditModal } from '../board/board-edit-modal/board-edit-modal';
 import BoardExport from '../board/board-export/board-export';
 import BoardImport from '../board/board-import/board-import';
 import { ConfirmationModal } from '../common/confirmation-modal/confirmation-modal';
-import PageTitle from '../page-title/page-title';
+import PageTitle from '../common/page-title/page-title';
 
 import {
     Table,

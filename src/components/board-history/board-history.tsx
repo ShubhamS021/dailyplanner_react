@@ -1,25 +1,18 @@
-import PageTitle from '@/components/page-title/page-title';
+import PageTitle from '@/components/common/page-title/page-title';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { type HistoryListEntry } from '@/hooks/useHistory/interfaces/HistoryListEntry';
-import { usePageStore } from '@/hooks/usePageStore/usePageStore';
-import { ArrowLeftIcon } from '@/ui/Icons/Icons';
 import { useTranslation } from 'react-i18next';
 
 import { useHistory } from '@/hooks/useHistory/useHistory';
+import { Badge } from '@/ui/badge';
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '@/ui/table';
 
 export const BoardHistory = () => {
     const [board] = useBoardStore((state) => [state.board]);
 
-    const [setPage] = usePageStore((state) => [state.setPage]);
-
     const { history } = useHistory(board.id);
 
     const { t } = useTranslation();
-
-    const handleBackToBoard = () => {
-        setPage('boardDefaultPage');
-    };
 
     const renderAdditionalData = (entry: HistoryListEntry) => {
         switch (entry.type) {
@@ -73,10 +66,12 @@ export const BoardHistory = () => {
                                         {new Date(h.id).toLocaleString()}
                                     </TableCell>
                                     <TableCell className="py-4">
-                                        {t(
-                                            `components.BoardHistory.` +
-                                                h.type.toLowerCase()
-                                        )}
+                                        <Badge variant={'lavender'}>
+                                            {t(
+                                                `components.BoardHistory.` +
+                                                    h.type.toLowerCase()
+                                            )}
+                                        </Badge>
                                         <br />
 
                                         {`${t(
@@ -84,7 +79,7 @@ export const BoardHistory = () => {
                                         )}: ${renderAdditionalData(h)}`}
                                     </TableCell>
                                     <TableCell className="py-4 max-w-[20vw]">
-                                        {JSON.stringify(h.data.card)}
+                                        {JSON.stringify(h.data.card, null, 4)}
                                     </TableCell>
                                 </TableRow>
                             );
@@ -96,17 +91,8 @@ export const BoardHistory = () => {
     };
 
     return (
-        <div className="p-10">
+        <div className="px-5 py-10">
             <div className="h-16 mb-6 grid grid-cols-[auto,1fr] items-center">
-                <div
-                    className="cursor-pointer mr-4 stroke-[#14161F] dark:stroke-[#DEDEDE]"
-                    data-testid="btnBackToBoard"
-                    onClick={() => {
-                        handleBackToBoard();
-                    }}
-                >
-                    <ArrowLeftIcon />
-                </div>
                 <PageTitle
                     title={`${t('components.BoardHistory.historyFor')} ${
                         board.title
@@ -116,7 +102,7 @@ export const BoardHistory = () => {
                     }
                 />
             </div>
-            <div className={`grid gap-6`} data-testid="page-board">
+            <div className="grid gap-6" data-testid="page-board">
                 {history.length === 0 ? renderNoData() : renderHistoryTable()}
             </div>
         </div>

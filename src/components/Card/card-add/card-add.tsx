@@ -4,6 +4,8 @@ import { type Card } from '@/interfaces/Card';
 import type Tag from '@/interfaces/Tag';
 import type Task from '@/interfaces/Task';
 import { type Shirt } from '@/types/Shirt';
+import { Button } from '@/ui/button';
+import { Input } from '@/ui/input';
 import { useState } from 'react';
 import { CardAddModal } from './card-add-modal';
 
@@ -74,28 +76,28 @@ export const CardAdd: React.FC<CardAddProps> = ({
 
     return (
         <>
-            <div className="formField rounded-lg">
-                <input
+            <div className="flex gap-2">
+                <Input
                     placeholder={placeholder}
-                    className="focus:outline-none"
                     data-testid="addcard-input"
                     value={card.title}
                     role="textbox"
                     onChange={(e) => {
                         updateTitle(e.target.value);
                     }}
-                ></input>
-                <button
+                ></Input>
+                <Button
                     disabled={card.title === ''}
                     type="button"
                     data-testid="addcard-button"
-                    className="button primary-button px-2 py-1 soft"
+                    variant={'outline'}
+                    size={'sm'}
                     onClick={() => {
                         setShowModal(true);
                     }}
                 >
                     {text}
-                </button>
+                </Button>
             </div>
             {showModal ? (
                 <>

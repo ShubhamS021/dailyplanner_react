@@ -1,15 +1,15 @@
 import PageTitle from '@/components/common/page-title/page-title';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
+import {
+    getLocalizedInitialBoardState,
+    getLocalizedInitialLanesState,
+} from '@/hooks/useBoardStore/util/board.util';
 import { usePageStore } from '@/hooks/usePageStore/usePageStore';
 import { Badge } from '@/ui/badge';
 import { Button } from '@/ui/button';
 import { Input } from '@/ui/input';
 import { Label } from '@/ui/label';
 import { Separator } from '@/ui/separator';
-import {
-    getLocalizedInitialBoardState,
-    getLocalizedInitialLanesState,
-} from '@/utils/context.util';
 import { Info } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';

@@ -518,7 +518,9 @@ describe('useBoardStore', () => {
 
         // check negative case
         try {
-            result.current.enterBoard(777);
+            act(() => {
+                result.current.enterBoard(777);
+            });
         } catch (e) {
             expect(e.message).toBe('No board with id 777 found.');
         }

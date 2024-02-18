@@ -115,14 +115,8 @@ export const MyBoards = () => {
                         </Button>
 
                         <DropdownMenu>
-                            <DropdownMenuTrigger>
-                                <Button
-                                    variant="outline"
-                                    size="sm"
-                                    className="rounded-l-none border-l-0"
-                                >
-                                    <ChevronDownIcon className="h-4 w-3" />
-                                </Button>
+                            <DropdownMenuTrigger className="rounded-l-none border-l-0 h-9 rounded-md px-3 border border-input bg-background hover:bg-accent hover:text-accent-foreground">
+                                <ChevronDownIcon className="h-4 w-3" />
                             </DropdownMenuTrigger>
                             <DropdownMenuContent>
                                 <DropdownMenuItem>
@@ -137,20 +131,38 @@ export const MyBoards = () => {
                 </div>
 
                 <Table data-testid="myboards-list">
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead>
-                                {t('components.MyBoards.title')}
-                            </TableHead>
-                            {/* <TableHead className="w-[120px] text-right">
+                    {boards.length === 0 ? (
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>
+                                    {t('components.MyBoards.title')}
+                                </TableHead>
+                            </TableRow>
+                        </TableHeader>
+                    ) : (
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>
+                                    {t('components.MyBoards.title')}
+                                </TableHead>
+                                {/* <TableHead className="w-[120px] text-right">
                                 Save location
                             </TableHead> */}
-                            <TableHead className="w-[150px] text-right">
-                                {t('components.MyBoards.actions')}
-                            </TableHead>
-                        </TableRow>
-                    </TableHeader>
+                                <TableHead className="w-[150px] text-right">
+                                    {t('components.MyBoards.actions')}
+                                </TableHead>
+                            </TableRow>
+                        </TableHeader>
+                    )}
+
                     <TableBody>
+                        {boards.length === 0 && (
+                            <TableRow>
+                                <TableCell>
+                                    {t('components.MyBoards.noData')}
+                                </TableCell>
+                            </TableRow>
+                        )}
                         {boards.map((board) => {
                             return (
                                 <TableRow
@@ -198,19 +210,16 @@ export const MyBoards = () => {
                                     >
                                         <TooltipProvider>
                                             <Tooltip>
-                                                <TooltipTrigger>
-                                                    <Button
-                                                        size={'icon'}
-                                                        variant={'outline'}
-                                                        onClick={() => {
-                                                            exportBoardToJson(
-                                                                board
-                                                            );
-                                                        }}
-                                                        data-testid="download-board-button"
-                                                    >
-                                                        <DownloadIcon className="h-4 w-4" />
-                                                    </Button>
+                                                <TooltipTrigger
+                                                    onClick={() => {
+                                                        exportBoardToJson(
+                                                            board
+                                                        );
+                                                    }}
+                                                    data-testid="download-board-button"
+                                                    className="h-9 rounded-md px-3 border border-input bg-background hover:bg-accent hover:text-accent-foreground"
+                                                >
+                                                    <DownloadIcon className="h-4 w-4" />
                                                 </TooltipTrigger>
                                                 <TooltipContent>
                                                     <p>
@@ -224,22 +233,15 @@ export const MyBoards = () => {
 
                                         <TooltipProvider>
                                             <Tooltip>
-                                                <TooltipTrigger>
-                                                    <Button
-                                                        size={'icon'}
-                                                        variant={'outline'}
-                                                        onClick={() => {
-                                                            setBoardToEdit(
-                                                                board
-                                                            );
-                                                            setShowEditModal(
-                                                                true
-                                                            );
-                                                        }}
-                                                        data-testid="edit-board-button"
-                                                    >
-                                                        <Edit2 className="h-4 w-4" />
-                                                    </Button>
+                                                <TooltipTrigger
+                                                    onClick={() => {
+                                                        setBoardToEdit(board);
+                                                        setShowEditModal(true);
+                                                    }}
+                                                    data-testid="edit-board-button"
+                                                    className="h-9 rounded-md px-3 border border-input bg-background hover:bg-accent hover:text-accent-foreground"
+                                                >
+                                                    <Edit2 className="h-4 w-4" />
                                                 </TooltipTrigger>
                                                 <TooltipContent>
                                                     <p>
@@ -253,17 +255,14 @@ export const MyBoards = () => {
 
                                         <TooltipProvider>
                                             <Tooltip>
-                                                <TooltipTrigger>
-                                                    <Button
-                                                        size={'icon'}
-                                                        variant={'outline'}
-                                                        onClick={() => {
-                                                            setShowModal(true);
-                                                        }}
-                                                        data-testid="remove-board-button"
-                                                    >
-                                                        <Trash2 className="h-4 w-4" />
-                                                    </Button>
+                                                <TooltipTrigger
+                                                    onClick={() => {
+                                                        setShowModal(true);
+                                                    }}
+                                                    data-testid="remove-board-button"
+                                                    className="h-9 rounded-md px-3 border border-input bg-background hover:bg-accent hover:text-accent-foreground"
+                                                >
+                                                    <Trash2 className="h-4 w-4" />
                                                 </TooltipTrigger>
                                                 <TooltipContent>
                                                     <p>

@@ -12,12 +12,14 @@ export const NavItems: NavItem[] = [
         title: 'components.side-nav.board',
         icon: Kanban,
         page: 'boardDefaultPage',
+        disabledBy: 'boardsEmpty',
         color: 'text-grey-500',
     },
     {
         title: 'components.side-nav.history',
         icon: History,
         page: 'boardHistoryPage',
+        disabledBy: 'boardsEmpty',
         color: 'text-grey-500',
     },
 ];

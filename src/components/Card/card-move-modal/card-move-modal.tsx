@@ -16,7 +16,6 @@ import { t } from 'i18next';
 
 export interface CardMoveModalProps {
     title: string;
-    text: string;
     submitButtonText?: string;
     cancelButtonText?: string;
     modalConfirmation: (newBoardId: number) => void;
@@ -25,7 +24,6 @@ export interface CardMoveModalProps {
 
 export const CardMoveModal: React.FC<CardMoveModalProps> = ({
     title,
-    text,
     submitButtonText,
     cancelButtonText,
     closeModal,
@@ -44,7 +42,7 @@ export const CardMoveModal: React.FC<CardMoveModalProps> = ({
 
     return (
         <div className="modal" data-testid="confirmation-modal">
-            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+            <div className="relative w-1/4 my-6 mx-auto max-w-3xl">
                 {/* content */}
                 <div className="modal-content">
                     {/* header */}

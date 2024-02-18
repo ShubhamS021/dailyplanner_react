@@ -24,7 +24,7 @@ export const DEtranslation = {
             modal: {
                 AddCardDescription: {
                     placeholderTitle: 'Name der Aufgabe',
-                    placeholder: 'Definieren Sie Ihre Aufgabe.',
+                    placeholder: 'Beschreibe deine Aufgabe',
                 },
                 AddDueDate: {
                     add: 'hinzufügen',
@@ -176,6 +176,7 @@ export const DEtranslation = {
             edit: 'Board bearbeiten',
             remove: 'Board entfernen',
             create: 'Neues Board',
+            noData: 'Keine Daten. Bitte erstelle oder importiere ein Board.',
         },
         Login: {
             login: 'Login',

@@ -22,7 +22,7 @@ describe('ConfirmationModal', () => {
             />
         );
 
-        const titleElement = screen.getByTestId('confirmation-modal-title');
+        const titleElement = screen.getByTestId('page-title');
         const textElement = screen.getByText(text);
         expect(titleElement).toHaveTextContent(title);
         expect(textElement).toBeInTheDocument();

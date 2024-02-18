@@ -23,8 +23,8 @@ export const ENtranslation = {
         AddCard: {
             modal: {
                 AddCardDescription: {
-                    placeholderTitle: 'Taskname',
-                    placeholderDescription: 'Define your task.',
+                    placeholderTitle: 'Task name',
+                    placeholderDescription: 'Describe your task',
                 },
                 AddDueDate: {
                     add: 'Add',
@@ -178,6 +178,7 @@ export const ENtranslation = {
             edit: 'Edit board',
             remove: 'Remove board',
             create: 'Create board',
+            noData: 'No data. Please create or import a board.',
         },
         Login: {
             login: 'Login',

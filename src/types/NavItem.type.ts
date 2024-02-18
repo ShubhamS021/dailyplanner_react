@@ -6,6 +6,7 @@ export interface NavItem {
     page: AppPage;
     icon: LucideIcon;
     color?: string;
-    isChidren?: boolean;
+    disabledBy?: 'boardsEmpty';
+    isChildren?: boolean;
     children?: NavItem[];
 }

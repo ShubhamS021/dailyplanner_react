@@ -7,7 +7,7 @@ import {
 import { usePageStore } from '@/hooks/usePageStore/usePageStore';
 import { useSidebarStore } from '@/hooks/useSidebarStore/useSidebarStore';
 import { NavItem } from '@/types/NavItem.type';
-import { buttonVariants } from '@/ui/button';
+import { Button, buttonVariants } from '@/ui/button';
 import { cn } from '@/utils';
 import { ChevronDownIcon } from '@radix-ui/react-icons';
 import { t } from 'i18next';
@@ -37,10 +37,17 @@ export function SideNav({ items, setOpen, className }: SideNavProps) {
         }
     }, [isOpen]);
 
+    const isDisabled = (item: NavItem): boolean => {
+        console.log(item);
+
+        if (item.disabledBy === 'boardsEmpty') return true;
+        return false;
+    };
+
     return (
         <nav className="space-y-2">
             {items.map((item) =>
-                item.isChidren ?? false ? (
+                item.isChildren ?? false ? (
                     <Accordion
                         type="single"
                         collapsible
@@ -114,30 +121,32 @@ export function SideNav({ items, setOpen, className }: SideNavProps) {
                         </AccordionItem>
                     </Accordion>
                 ) : (
-                    <a
+                    <Button
+                        variant={'ghost'}
+                        size={'default'}
+                        disabled={isDisabled(item)}
                         key={item.title}
                         onClick={() => {
                             if (setOpen != null) setOpen(false);
                             setPage(item.page);
                         }}
                         className={cn(
-                            buttonVariants({ variant: 'ghost' }),
-                            'group relative flex h-12 justify-start cursor-pointer',
+                            'group relative flex gap-3 h-12 justify-start cursor-pointer min-w-full',
                             page === item.page &&
                                 'bg-muted font-bold hover:bg-muted'
                         )}
                     >
                         <item.icon className={cn('h-5 w-5', item.color)} />
-                        <span
+                        <div
                             className={cn(
-                                'absolute left-12 text-base duration-200',
+                                'text-base duration-200',
                                 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                                 !isOpen && className
                             )}
                         >
                             {t(item.title)}
-                        </span>
-                    </a>
+                        </div>
+                    </Button>
                 )
             )}
         </nav>

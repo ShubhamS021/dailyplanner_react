@@ -144,7 +144,6 @@ export const LaneComponent: React.FC<LaneProps> = ({
             <>
                 <CardMoveModal
                     title={t('components.Lane.moveTitle')}
-                    text={t('components.Lane.moveText')}
                     submitButtonText={t('components.Lane.moveSubmit') ?? ''}
                     cancelButtonText={t('components.Lane.moveCancel') ?? ''}
                     modalConfirmation={(newBoardId: number) => {

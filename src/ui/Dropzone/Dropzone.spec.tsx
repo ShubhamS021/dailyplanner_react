@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import Dropzone from './Dropzone';
+import Dropzone from './dropzone';
 
 test('renders basic dropzone', () => {
     const { getByTestId } = render(<Dropzone text="Place tasks here..." />);

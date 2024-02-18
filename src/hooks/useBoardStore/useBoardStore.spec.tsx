@@ -15,11 +15,11 @@ describe('useBoardStore', () => {
     // add a default board with some columns
     beforeEach(() => {
         renderHook(() => useDayplannerDB('history'));
-        const { result } = renderHook(() => useBoardStore());
+        const { result: boardStore } = renderHook(() => useBoardStore());
 
         act(() => {
             const boardId = 0;
-            result.current.addBoard({
+            boardStore.current.addBoard({
                 ...initialBoardState,
                 lanes: [...initialLanes],
                 id: boardId,
@@ -33,7 +33,7 @@ describe('useBoardStore', () => {
     });
 
     test('addLaneToBoard adds a lane to the board', () => {
-        const { result } = renderHook(() => useBoardStore());
+        const { result: boardStore } = renderHook(() => useBoardStore());
 
         const lane: Lane = {
             id: 5,
@@ -43,22 +43,22 @@ describe('useBoardStore', () => {
         };
 
         act(() => {
-            result.current.addLaneToBoard(lane, 1);
+            boardStore.current.addLaneToBoard(lane, 1);
         });
 
-        expect(result.current.board.lanes).toHaveLength(5);
+        expect(boardStore.current.board.lanes).toHaveLength(5);
     });
 
     test('addCardToLane adds a card to the specified lane', () => {
-        const { result } = renderHook(() => useBoardStore());
+        const { result: boardStore } = renderHook(() => useBoardStore());
 
         const laneId = 1;
 
         act(() => {
-            result.current.addCardToLane(card, laneId);
+            boardStore.current.addCardToLane(card, laneId);
         });
 
-        const lane = result.current.board.lanes.find(
+        const lane = boardStore.current.board.lanes.find(
             (lane) => lane.id === laneId
         );
         expect(lane).toBeDefined();
@@ -69,88 +69,90 @@ describe('useBoardStore', () => {
     });
 
     test('addCardToInitialBoardLane adds a card to the first lane of the board', () => {
-        const { result } = renderHook(() => useBoardStore());
+        const { result: boardStore } = renderHook(() => useBoardStore());
 
         const boardId = 1;
 
         act(() => {
-            result.current.addCardToInitialBoardLane({ ...card }, boardId);
+            boardStore.current.addCardToInitialBoardLane({ ...card }, boardId);
         });
 
-        const board = result.current.board;
+        const board = boardStore.current.board;
         const [lane] = board.lanes;
 
         expect(lane.cards).toHaveLength(1);
 
         // check negative case
         try {
-            result.current.addCardToInitialBoardLane({ ...card }, 777);
+            boardStore.current.addCardToInitialBoardLane({ ...card }, 777);
         } catch (e) {
             expect(e.message).toBe('addCardToInitialBoardLane no board found');
         }
     });
 
     test('removeLaneFromBoard removes a lane from the board', () => {
-        const { result } = renderHook(() => useBoardStore());
+        const { result: boardStore } = renderHook(() => useBoardStore());
 
         const laneId = 1;
         const boardId = 1;
 
         act(() => {
-            result.current.removeLaneFromBoard(laneId, boardId);
+            boardStore.current.removeLaneFromBoard(laneId, boardId);
         });
 
-        const board = result.current.board;
+        const board = boardStore.current.board;
         const lane = board.lanes.find((lane) => lane.id === laneId);
 
         expect(lane).toBeUndefined();
 
         // check negative case
         try {
-            result.current.removeLaneFromBoard(laneId, 777);
+            act(() => {
+                boardStore.current.removeLaneFromBoard(laneId, 777);
+            });
         } catch (e) {
             expect(e.message).toBe('removeLaneFromBoard no board found');
         }
     });
 
     test('removeLaneFromBoard fails due to unknown lane', () => {
-        const { result } = renderHook(() => useBoardStore());
+        const { result: boardStore } = renderHook(() => useBoardStore());
 
         const laneId = 1;
         const wrongLaneId = 666;
         const boardId = 1;
 
         act(() => {
-            result.current.removeLaneFromBoard(wrongLaneId, boardId);
+            boardStore.current.removeLaneFromBoard(wrongLaneId, boardId);
         });
 
-        const board = result.current.board;
+        const board = boardStore.current.board;
         const lane = board.lanes.find((lane) => lane.id === laneId);
 
         expect(lane).toBeDefined();
     });
 
     test('Moves a card to a different board', () => {
-        const { result } = renderHook(() => useBoardStore());
+        const { result: boardStore } = renderHook(() => useBoardStore());
         const newCard = { ...card, id: 1 };
 
         act(() => {
             // add a second board
-            result.current.addBoard({
+            boardStore.current.addBoard({
                 ...initialBoardState,
                 lanes: [...initialLanes],
                 id: 2,
             });
 
             // move the card to the first board
-            const newBoard = result.current.boards.find((b) => b.id === 1);
+            const newBoard = boardStore.current.boards.find((b) => b.id === 1);
             if (newBoard !== undefined) {
-                result.current.moveCardToBoard(newCard, 1, newBoard);
+                boardStore.current.moveCardToBoard(newCard, 1, newBoard);
             }
         });
 
         act(() => {
-            const [firstBoard] = result.current.boards;
+            const [firstBoard] = boardStore.current.boards;
             const [initialLane] = firstBoard.lanes;
             expect(initialLane.cards.some((c) => c.id === newCard.id)).toBe(
                 true
@@ -159,38 +161,38 @@ describe('useBoardStore', () => {
     });
 
     test('Clears a board', () => {
-        const { result } = renderHook(() => useBoardStore());
+        const { result: boardStore } = renderHook(() => useBoardStore());
 
         act(() => {
-            result.current.addCardToLane({ ...card }, 0);
-            result.current.clearBoard();
+            boardStore.current.addCardToLane({ ...card }, 0);
+            boardStore.current.clearBoard();
         });
 
         act(() => {
-            const [initialLane] = result.current.board.lanes;
+            const [initialLane] = boardStore.current.board.lanes;
             expect(initialLane.cards.includes(card)).toBe(false);
         });
     });
 
     test('Exports all boards', () => {
-        const { result } = renderHook(() => useBoardStore());
-        const spy = vi.spyOn(result.current, 'exportBoardToJSON');
+        const { result: boardStore } = renderHook(() => useBoardStore());
+        const spy = vi.spyOn(boardStore.current, 'exportBoardToJSON');
 
         act(() => {
-            result.current.addCardToLane({ ...card }, 0);
+            boardStore.current.addCardToLane({ ...card }, 0);
         });
 
         act(() => {
-            result.current.exportBoardsToJSON();
+            boardStore.current.exportBoardsToJSON();
             expect(spy).toHaveBeenCalled();
         });
     });
 
     test('Move a card to a different lane', () => {
-        const { result } = renderHook(() => useBoardStore());
+        const { result: boardStore } = renderHook(() => useBoardStore());
 
         act(() => {
-            result.current.addCardToLane({ ...card }, 0);
+            boardStore.current.addCardToLane({ ...card }, 0);
         });
         const source = {
             droppableId: '1',
@@ -210,23 +212,23 @@ describe('useBoardStore', () => {
                 draggableId: '1',
                 type: '',
             };
-            result.current.handleDragEnd(dropResult);
+            boardStore.current.handleDragEnd(dropResult);
         });
 
         act(() => {
-            expect(result.current.board.lanes[0].cards.includes(card)).toBe(
+            expect(boardStore.current.board.lanes[0].cards.includes(card)).toBe(
                 false
             );
-            expect(result.current.board.lanes[2].cards.length).toEqual(1);
+            expect(boardStore.current.board.lanes[2].cards.length).toEqual(1);
         });
     });
 
     test('Move a card in a lane', () => {
-        const { result } = renderHook(() => useBoardStore());
+        const { result: boardStore } = renderHook(() => useBoardStore());
 
         act(() => {
-            result.current.addCardToLane({ ...card }, 0);
-            result.current.addCardToLane({ ...card }, 0);
+            boardStore.current.addCardToLane({ ...card }, 0);
+            boardStore.current.addCardToLane({ ...card }, 0);
         });
 
         const source = {
@@ -248,27 +250,27 @@ describe('useBoardStore', () => {
                 draggableId: '1',
                 type: '',
             };
-            result.current.handleDragEnd(dropResult);
+            boardStore.current.handleDragEnd(dropResult);
         });
 
         act(() => {
-            const movedCard = result.current.board.lanes[0].cards.find(
+            const movedCard = boardStore.current.board.lanes[0].cards.find(
                 (c) => c.id === 1
             );
 
             if (movedCard !== undefined) {
                 expect(
-                    result.current.board.lanes[0].cards.indexOf(movedCard)
+                    boardStore.current.board.lanes[0].cards.indexOf(movedCard)
                 ).toBe(0);
             }
         });
     });
 
     test('Fail movement due to missing destination', () => {
-        const { result } = renderHook(() => useBoardStore());
+        const { result: boardStore } = renderHook(() => useBoardStore());
 
         act(() => {
-            result.current.addCardToLane({ ...card }, 0);
+            boardStore.current.addCardToLane({ ...card }, 0);
         });
         const source = {
             droppableId: '1',
@@ -285,20 +287,20 @@ describe('useBoardStore', () => {
                 draggableId: '1',
                 type: '',
             };
-            result.current.handleDragEnd(dropResult);
+            boardStore.current.handleDragEnd(dropResult);
         });
 
         act(() => {
-            const [firstLane] = result.current.board.lanes;
+            const [firstLane] = boardStore.current.board.lanes;
             expect(firstLane.cards.some((c) => c.id === card.id)).toBe(true);
         });
     });
 
     test('Fail movement due to same destination', () => {
-        const { result } = renderHook(() => useBoardStore());
+        const { result: boardStore } = renderHook(() => useBoardStore());
 
         act(() => {
-            result.current.addCardToLane({ ...card }, 0);
+            boardStore.current.addCardToLane({ ...card }, 0);
         });
         const source = {
             droppableId: '1',
@@ -319,43 +321,45 @@ describe('useBoardStore', () => {
                 draggableId: '1',
                 type: '',
             };
-            result.current.handleDragEnd(dropResult);
+            boardStore.current.handleDragEnd(dropResult);
         });
 
         act(() => {
-            const [firstLane] = result.current.board.lanes;
+            const [firstLane] = boardStore.current.board.lanes;
             expect(firstLane.cards.some((c) => c.id === card.id)).toBe(true);
         });
     });
 
     test('Restores a board', () => {
-        const { result } = renderHook(() => useBoardStore());
+        const { result: boardStore } = renderHook(() => useBoardStore());
 
         const boardId = 777;
         act(() => {
-            result.current.addBoard({ ...initialBoardState, id: boardId });
+            boardStore.current.addBoard({ ...initialBoardState, id: boardId });
         });
 
         act(() => {
-            result.current.updateBoard({
+            boardStore.current.updateBoard({
                 ...initialBoardState,
                 lanes: [...initialLanes],
                 id: boardId,
             });
         });
 
-        expect(result.current.boards.some((b) => b.id === boardId)).toBe(true);
+        expect(boardStore.current.boards.some((b) => b.id === boardId)).toBe(
+            true
+        );
     });
 
     test('Adds a task to a card', () => {
-        const { result } = renderHook(() => useBoardStore());
+        const { result: boardStore } = renderHook(() => useBoardStore());
 
         act(() => {
-            result.current.addCardToLane({ ...card }, 0);
+            boardStore.current.addCardToLane({ ...card }, 0);
         });
 
         act(() => {
-            const [firstLane] = result.current.board.lanes;
+            const [firstLane] = boardStore.current.board.lanes;
             const [firstCard] = firstLane.cards;
 
             if (firstCard != null) {
@@ -363,13 +367,13 @@ describe('useBoardStore', () => {
                     ...firstCard,
                     tasks: [task, fulfilledTask],
                 };
-                result.current.updateCard(updatedCard, firstLane.id);
+                boardStore.current.updateCard(updatedCard, firstLane.id);
             }
         });
 
         // check the two tasks
         act(() => {
-            const [firstLane] = result.current.board.lanes;
+            const [firstLane] = boardStore.current.board.lanes;
             const [firstCard] = firstLane.cards;
 
             if (firstCard?.tasks !== undefined) {
@@ -382,14 +386,14 @@ describe('useBoardStore', () => {
 
         // update the two tasks
         act(() => {
-            const [firstLane] = result.current.board.lanes;
+            const [firstLane] = boardStore.current.board.lanes;
             const [firstCard] = firstLane.cards;
 
             if (firstCard.tasks !== undefined) {
                 const [first, second] = firstCard.tasks;
 
-                result.current.updateTask(firstCard.id, first.id, true);
-                result.current.updateTask(firstCard.id, second.id, false);
+                boardStore.current.updateTask(firstCard.id, first.id, true);
+                boardStore.current.updateTask(firstCard.id, second.id, false);
 
                 expect(first.fulfilled).toBe(true);
                 expect(second.fulfilled).toBe(false);
@@ -398,20 +402,20 @@ describe('useBoardStore', () => {
 
         // check negative cases
         act(() => {
-            const [firstLane] = result.current.board.lanes;
+            const [firstLane] = boardStore.current.board.lanes;
             const [firstCard] = firstLane.cards;
 
             if (firstCard.tasks !== undefined) {
                 const [first] = firstCard.tasks;
 
                 try {
-                    result.current.updateTask(777, first.id, false);
+                    boardStore.current.updateTask(777, first.id, false);
                 } catch (e) {
                     expect(e.message).toBe('Expected card not in lanes!');
                 }
 
                 try {
-                    result.current.updateTask(firstCard.id, 777, true);
+                    boardStore.current.updateTask(firstCard.id, 777, true);
                 } catch (e) {
                     expect(e.message).toBe('Expected task not in card!');
                 }
@@ -420,18 +424,22 @@ describe('useBoardStore', () => {
     });
 
     test('Renames a board', () => {
-        const { result } = renderHook(() => useBoardStore());
+        const { result: boardStore } = renderHook(() => useBoardStore());
 
         const newTitle = 'Title after rename';
         const newSubtitle = 'Subtitle after rename';
 
-        const [firstBoard] = result.current.boards;
+        const [firstBoard] = boardStore.current.boards;
         act(() => {
-            result.current.renameBoard(firstBoard.id, newTitle, newSubtitle);
+            boardStore.current.renameBoard(
+                firstBoard.id,
+                newTitle,
+                newSubtitle
+            );
         });
 
         act(() => {
-            const [firstBoard] = result.current.boards;
+            const [firstBoard] = boardStore.current.boards;
             expect(firstBoard.title).toBe(newTitle);
             expect(firstBoard.subtitle).toBe(newSubtitle);
         });
@@ -439,7 +447,7 @@ describe('useBoardStore', () => {
         // check negative case
         try {
             act(() => {
-                result.current.renameBoard(777, newTitle, newSubtitle);
+                boardStore.current.renameBoard(777, newTitle, newSubtitle);
             });
         } catch (e) {
             expect(e.message).toBe('No board with id 777 found.');
@@ -447,79 +455,87 @@ describe('useBoardStore', () => {
     });
 
     test('Renames a lane', () => {
-        const { result } = renderHook(() => useBoardStore());
+        const { result: boardStore } = renderHook(() => useBoardStore());
 
         const newTitle = 'Title after rename';
         act(() => {
-            const [firstLane] = result.current.board.lanes;
-            result.current.renameLane(firstLane.id, newTitle);
+            const [firstLane] = boardStore.current.board.lanes;
+            boardStore.current.renameLane(firstLane.id, newTitle);
         });
 
         act(() => {
-            const [firstLane] = result.current.board.lanes;
+            const [firstLane] = boardStore.current.board.lanes;
             expect(firstLane.title).toBe(newTitle);
         });
 
         // check negative case
         try {
-            result.current.renameLane(777, newTitle);
+            act(() => {
+                boardStore.current.renameLane(777, newTitle);
+            });
         } catch (e) {
             expect(e.message).toBe('No lane with id 777 found.');
         }
     });
 
     test('Recolors a lane', () => {
-        const { result } = renderHook(() => useBoardStore());
+        const { result: boardStore } = renderHook(() => useBoardStore());
 
         const newVariant = 'light_grey';
         act(() => {
-            const [firstLane] = result.current.board.lanes;
-            result.current.updateLaneColor(firstLane.id, newVariant);
+            const [firstLane] = boardStore.current.board.lanes;
+            boardStore.current.updateLaneColor(firstLane.id, newVariant);
         });
 
         act(() => {
-            const [firstLane] = result.current.board.lanes;
+            const [firstLane] = boardStore.current.board.lanes;
             expect(firstLane.variant).toBe(newVariant);
         });
 
         // check negative case
         try {
-            result.current.updateLaneColor(777, 'green');
+            act(() => {
+                boardStore.current.updateLaneColor(777, 'green');
+            });
         } catch (e) {
             expect(e.message).toBe('No lane with id 777 found.');
         }
     });
 
     test('Moves a lane', () => {
-        const { result } = renderHook(() => useBoardStore());
+        const { result: boardStore } = renderHook(() => useBoardStore());
 
         const laneId = 1;
         const newPosition = 3;
         act(() => {
-            result.current.moveLane(result.current.board, laneId, newPosition);
+            boardStore.current.moveLane(
+                boardStore.current.board,
+                laneId,
+                newPosition
+            );
         });
 
         act(() => {
-            expect(result.current.board.lanes[newPosition].id).toBe(laneId);
+            expect(boardStore.current.board.lanes[newPosition].id).toBe(laneId);
         });
     });
 
     test('Enters a board', () => {
-        const { result } = renderHook(() => useBoardStore());
+        const { result: boardStore } = renderHook(() => useBoardStore());
 
         const boardId = 1;
         act(() => {
-            result.current.enterBoard(boardId);
+            boardStore.current.enterBoard(boardId);
         });
 
         act(() => {
-            expect(result.current.board.id).toBe(boardId);
+            expect(boardStore.current.board.id).toBe(boardId);
         });
 
         // check negative case
         try {
             act(() => {
-                result.current.enterBoard(777);
+                boardStore.current.enterBoard(777);
             });
         } catch (e) {
             expect(e.message).toBe('No board with id 777 found.');

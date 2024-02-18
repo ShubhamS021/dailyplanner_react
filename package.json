@@ -10,7 +10,7 @@
     "start": "vite dev",
     "start:exposed": "vite dev --host",
     "build": "vite build",
-    "test": "vitest --coverage",
+    "test": "vitest run --coverage",
     "test:ui": "vitest --ui --coverage",
     "cypress:open": "cypress open",
     "lint": "eslint --max-warnings 0 src",

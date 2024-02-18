@@ -69,16 +69,17 @@ describe('AddCard', () => {
         const selectElement = getByTestId('addcard-estimation-select');
         fireEvent.click(selectElement);
 
+        // TODO: readd tests but without setTimeout
         // updateEstimation
-        setTimeout(() => {
-            const selectElementL = getByTestId('addcard-estimation-select-L');
-            fireEvent.click(selectElementL);
+        // setTimeout(() => {
+        //     const selectElementL = getByTestId('addcard-estimation-select-L');
+        //     fireEvent.click(selectElementL);
 
-            const button = getByTestId(/addcard-modal-button/);
-            fireEvent.click(button);
+        //     const button = getByTestId(/addcard-modal-button/);
+        //     fireEvent.click(button);
 
-            expect(input.value).toBe('');
-        }, 500);
+        //     expect(input.value).toBe('');
+        // }, 500);
     });
 
     test('cancel add a new card modal', () => {

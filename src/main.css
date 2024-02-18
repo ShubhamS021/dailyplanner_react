@@ -26,15 +26,25 @@
         --radius: 0.5rem;
 
         --rose: 350, 100%, 93%;
+        --rose-foreground: 24 9.8% 10%;
         --green: 160, 25%, 90%;
+        --green-foreground: 24 9.8% 10%;
         --lavender: 240, 67%, 94%;
+        --lavender-foreground: 24 9.8% 10%;
         --light_grey: 210, 9%, 89%;
+        --light_grey-foreground: 24 9.8% 10%;
         --grey: 0, 0%, 30%;
+        --grey-foreground: 24 9.8% 10%;
         --dark_grey: 240, 5%, 35%;
+        --dark_grey-foreground: 24 9.8% 10%;
         --yellow: 54, 100%, 86%;
+        --yellow-foreground: 24 9.8% 10%;
         --orange: 19, 100%, 86%;
+        --orange-foreground: 24 9.8% 10%;
         --blue: 204, 80%, 81%;
+        --blue-foreground: 24 9.8% 10%;
         --teal: 160, 70%, 78%;
+        --teal-foreground: 24 9.8% 10%;
     }
 
     .dark {

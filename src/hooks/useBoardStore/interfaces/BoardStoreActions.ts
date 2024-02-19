@@ -12,18 +12,14 @@ export interface BoardStoreActions {
     removeLaneFromBoard: (laneId: number, boardId: number) => void;
     removeCardFromLane: (cardId: number, laneId: number) => void;
     removeCardsFromLane: (laneId: number) => void;
-    moveCardToBoard: (
-        card: Card,
-        currentLaneId: number,
-        newboard: Board
-    ) => void;
+    moveCardToBoard: (card: Card, newboard: Board) => void;
     handleDragEnd: (result: DropResult) => void;
     clearBoard: () => void;
     exportBoardToJSON: (board: Board) => void;
     exportBoardsToJSON: () => void;
     importBoardFromJSON: (
         e: React.ChangeEvent<HTMLInputElement>,
-        all: boolean
+        multiple: boolean
     ) => void;
     updateCard: (card: Card, laneId: number) => void;
     updateTask: (cardId: number, taskId: number, fulfilled: boolean) => void;

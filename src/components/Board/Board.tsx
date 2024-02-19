@@ -3,6 +3,7 @@ import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { useHistory } from '@/hooks/useHistory/useHistory';
 import { type Card } from '@/interfaces/Card';
 import { type Lane } from '@/interfaces/Lane';
+import { Separator } from '@/ui/separator';
 import {
     DragDropContext,
     Droppable,
@@ -77,7 +78,9 @@ export const Board = () => {
         <div className="grid grid-rows-[auto,1fr,auto] gap-6 py-10 px-5">
             <div className="grid grid-cols-[auto,1fr_auto] items-center">
                 <PageTitle title={board.title} subtitle={board.subtitle} />
-                <div className="flex flex-col gap-2 items-end">
+                <div className="flex gap-4 h-2/3 justify-end items-center">
+                    <CompactMode />
+                    <Separator orientation={'vertical'} className="mx-3" />
                     <CardAdd
                         placeholder={t('components.Board.add')}
                         text={t('components.Board.addSubmit')}
@@ -94,9 +97,6 @@ export const Board = () => {
                 <DragDropContext onDragEnd={handleDrag}>
                     {renderLanes(board.lanes)}
                 </DragDropContext>
-            </div>
-            <div className="flex flex-col gap-2 items-end">
-                <CompactMode />
             </div>
         </div>
     );

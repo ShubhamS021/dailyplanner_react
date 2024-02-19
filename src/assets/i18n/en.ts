@@ -62,7 +62,7 @@ export const ENtranslation = {
             },
         },
         Board: {
-            add: 'Write a new task',
+            add: 'New task',
             addSubmit: 'add',
         },
         BoardHistory: {

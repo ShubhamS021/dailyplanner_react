@@ -1,57 +1,38 @@
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { Button } from '@/ui/button';
-import { useRef } from 'react';
+import { Input } from '@/ui/input';
 import { useTranslation } from 'react-i18next';
 
-interface ImportProps {
-    all?: boolean;
-}
-export const BoardImport: React.FC<ImportProps> = ({ all = false }) => {
+export const BoardImport: React.FC = () => {
     const [importBoardFromJSON] = useBoardStore((state) => [
         state.importBoardFromJSON,
     ]);
 
     const { t } = useTranslation();
-    const inputRef: React.RefObject<HTMLInputElement> = useRef(null);
-
-    const handleImport = (e: React.ChangeEvent<HTMLInputElement>) => {
-        importBoardFromJSON(e, all);
-    };
-
-    const handleClickImport = () => {
-        if (inputRef.current !== null) {
-            inputRef.current.click();
-        }
-    };
 
     return (
-        <>
-            <Button
-                className="font-semibold"
-                data-testid="import-button"
-                variant={all ? 'ghost' : 'outline'}
-                onClick={(_e) => {
-                    handleClickImport();
+        <Button
+            className="font-semibold"
+            data-testid="import-button"
+            size={'sm'}
+            variant={'outline'}
+            onClick={(_e) => {
+                (_e.currentTarget.children[0] as HTMLInputElement).click();
+            }}
+        >
+            <Input
+                className="hidden"
+                type="file"
+                accept="application/JSON"
+                onChange={(e) => importBoardFromJSON(e, true)}
+                onClick={(e) => {
+                    e.currentTarget.value = '';
                 }}
-            >
-                <input
-                    className="hidden"
-                    type="file"
-                    onChange={handleImport}
-                    ref={inputRef}
-                    data-testid="import-input"
-                    multiple={all}
-                />
-
-                <div className="flex gap-2 items-center p-2">
-                    <p className="font-semibold text-sm">
-                        {all
-                            ? t('components.Import.importAll')
-                            : t('components.Import.import')}
-                    </p>
-                </div>
-            </Button>
-        </>
+                data-testid="import-input"
+                multiple={true}
+            />
+            {t('components.Import.import')}
+        </Button>
     );
 };
 

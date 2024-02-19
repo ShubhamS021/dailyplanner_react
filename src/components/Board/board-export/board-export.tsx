@@ -2,49 +2,26 @@ import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { Button } from '@/ui/button';
 import { useTranslation } from 'react-i18next';
 
-interface ExportProps {
-    all?: boolean;
-}
-
-export const BoardExport: React.FC<ExportProps> = ({ all = false }) => {
-    const [board, exportBoardToJSON, exportBoardsToJSON] = useBoardStore(
-        (state) => [
-            state.board,
-            state.exportBoardToJSON,
-            state.exportBoardsToJSON,
-        ]
-    );
+export const BoardExport = () => {
+    const [boards, exportBoardsToJSON] = useBoardStore((state) => [
+        state.boards,
+        state.exportBoardsToJSON,
+    ]);
 
     const { t } = useTranslation();
-
-    const handleExport = () => {
-        exportBoardToJSON(board);
-    };
-
-    const handleExportAll = () => {
-        exportBoardsToJSON();
-    };
 
     return (
         <Button
             className="font-semibold"
             data-testid="export-button"
-            variant={all ? 'ghost' : 'outline'}
+            size={'sm'}
+            variant={'outline'}
+            disabled={boards.length === 0}
             onClick={(_e) => {
-                if (all) {
-                    handleExportAll();
-                } else {
-                    handleExport();
-                }
+                exportBoardsToJSON();
             }}
         >
-            <div className="flex gap-2 items-center p-2">
-                <p className="font-semibold text-sm">
-                    {all
-                        ? t('components.Export.exportAll')
-                        : t('components.Export.export')}
-                </p>
-            </div>
+            {t('components.Export.export')}
         </Button>
     );
 };

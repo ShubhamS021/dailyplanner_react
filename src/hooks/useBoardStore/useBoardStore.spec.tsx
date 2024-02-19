@@ -147,7 +147,7 @@ describe('useBoardStore', () => {
             // move the card to the first board
             const newBoard = boardStore.current.boards.find((b) => b.id === 1);
             if (newBoard !== undefined) {
-                boardStore.current.moveCardToBoard(newCard, 1, newBoard);
+                boardStore.current.moveCardToBoard(newCard, newBoard);
             }
         });
 

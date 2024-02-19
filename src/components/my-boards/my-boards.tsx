@@ -19,13 +19,6 @@ import {
 } from '@/ui/table';
 
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from '@/ui/dropdown-menu';
-
-import {
     Tooltip,
     TooltipContent,
     TooltipProvider,
@@ -33,7 +26,8 @@ import {
 } from '@/ui/tooltip';
 
 import { exportBoardToJson } from '@/hooks/useBoardStore/util/board.util';
-import { ChevronDownIcon, DownloadIcon, Edit2, Trash2 } from 'lucide-react';
+import { Separator } from '@radix-ui/react-separator';
+import { DownloadIcon, Edit2, Trash2 } from 'lucide-react';
 
 export const MyBoards = () => {
     const [boards, enterBoard, renameBoard, removeBoard] = useBoardStore(
@@ -100,34 +94,22 @@ export const MyBoards = () => {
                     subtitle={t('components.MyBoards.subtitle')}
                 />
 
-                <div className="w-full grid grid-cols-[1fr,auto] gap-3">
-                    <div className="flex align-middle justify-end">
-                        <Button
-                            data-testid="myboards-create-own-button"
-                            className="rounded-r-none border-r-none"
-                            size={'sm'}
-                            variant={'outline'}
-                            onClick={() => {
-                                setPage('boardCreatePage');
-                            }}
-                        >
-                            {t('components.MyBoards.create')}
-                        </Button>
-
-                        <DropdownMenu>
-                            <DropdownMenuTrigger className="rounded-l-none border-l-0 h-9 rounded-md px-3 border border-input bg-background hover:bg-accent hover:text-accent-foreground">
-                                <ChevronDownIcon className="h-4 w-3" />
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent>
-                                <DropdownMenuItem>
-                                    <BoardExport all={true} />
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    <BoardImport all={true} />
-                                </DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
+                <div className="flex gap-4 justify-end items-center">
+                    <div className="flex gap-2">
+                        <BoardExport />
+                        <BoardImport />
                     </div>
+                    <Separator orientation="vertical" />
+                    <Button
+                        data-testid="myboards-create-own-button"
+                        size={'sm'}
+                        variant={'default'}
+                        onClick={() => {
+                            setPage('boardCreatePage');
+                        }}
+                    >
+                        {t('components.MyBoards.create')}
+                    </Button>
                 </div>
 
                 <Table data-testid="myboards-list">

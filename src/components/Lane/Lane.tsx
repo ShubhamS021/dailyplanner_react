@@ -164,7 +164,9 @@ export const LaneComponent: React.FC<LaneProps> = ({
                             );
                         }
 
-                        moveCardToBoard(cardToMove, currentLane.id, newBoard);
+                        moveCardToBoard(cardToMove, newBoard);
+                        removeCardFromLane(cardToMove.id, currentLane.id);
+
                         addBoardMovementToHistory(
                             cardToMove,
                             board.id,

@@ -110,11 +110,9 @@ export const DEtranslation = {
         },
         Export: {
             export: 'Exportieren',
-            exportAll: 'Liste exportieren',
         },
         Import: {
             import: 'Importieren',
-            importAll: 'Liste importieren',
         },
         Header: {
             gitlab: 'Folge mir',

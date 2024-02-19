@@ -184,21 +184,15 @@ export const useBoardStore = create<BoardStoreState & BoardStoreActions>()(
                 /**
                  * Moves a card to a different board.
                  * @param {Card} card - The card to move.
-                 * @param {number} currentLaneId - The ID of the current lane.
                  * @param {Board} newboard - The target board to move the card to.
                  */
-                moveCardToBoard: (
-                    card: Card,
-                    currentLaneId: number,
-                    newboard: Board
-                ) => {
+                moveCardToBoard: (card: Card, newboard: Board) => {
                     set((state) => {
                         const newCard = {
                             ...card,
                             id: findLastCardIdInBoard(newboard) + 1,
                         };
                         state.addCardToInitialBoardLane(newCard, newboard.id);
-                        state.removeCardFromLane(card.id, currentLaneId);
 
                         return { ...state };
                     });
@@ -337,11 +331,11 @@ export const useBoardStore = create<BoardStoreState & BoardStoreActions>()(
                 /**
                  * Imports a board from JSON.
                  * @param {React.ChangeEvent<HTMLInputElement>} e - The file change event.
-                 * @param {boolean} all - Indicates whether to import all boards or just one.
+                 * @param {boolean} multiple - Indicates whether to import multiple boards or just one.
                  */
                 importBoardFromJSON: (
                     e: React.ChangeEvent<HTMLInputElement>,
-                    all: boolean
+                    multiple: boolean
                 ) => {
                     set((state) => {
                         if (e.target.files !== null) {
@@ -355,11 +349,14 @@ export const useBoardStore = create<BoardStoreState & BoardStoreActions>()(
                                     const parsedBoard = JSON.parse(
                                         boardJSON
                                     ) as Board;
-                                    if (all) {
+                                    if (multiple) {
                                         lastBoardId = lastBoardId + 1;
                                         parsedBoard.id = lastBoardId;
+                                        console.log(parsedBoard); // TODO: remove
+
                                         state.addBoard(parsedBoard);
                                     } else {
+                                        console.log(parsedBoard); // TODO: remove
                                         state.updateBoard(parsedBoard);
                                     }
                                 };

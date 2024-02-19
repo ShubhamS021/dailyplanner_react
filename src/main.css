@@ -122,7 +122,7 @@ main {
     @apply flex-col;
     @apply w-full;
     @apply bg-white;
-    @apply dark:bg-[var(--dark-modal-background)];
+    @apply bg-popover;
     @apply outline-none;
     @apply focus:outline-none;
     @apply dark:text-white;

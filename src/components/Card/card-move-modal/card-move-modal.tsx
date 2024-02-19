@@ -70,7 +70,6 @@ export const CardMoveModal: React.FC<CardMoveModalProps> = ({
                         >
                             <SelectTrigger
                                 className="w-full"
-                                onChange={(value) => console.log(value)}
                                 data-testid="board-selection"
                             >
                                 <SelectValue

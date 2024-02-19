@@ -16,7 +16,6 @@ const closeModalMock = vi.fn();
 
 const defaultProps: CardMoveModalProps = {
     title: 'Move Card',
-    text: 'Select a board to move this card to:',
     modalConfirmation: (boardId) => modalConfirmationMock(boardId),
     closeModal: closeModalMock,
 };

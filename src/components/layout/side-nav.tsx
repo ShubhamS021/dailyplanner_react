@@ -133,21 +133,23 @@ export function SideNav({ items, setOpen, className }: SideNavProps) {
                             setPage(item.page);
                         }}
                         className={cn(
-                            'group relative flex gap-3 h-12 justify-start cursor-pointer min-w-full',
+                            'group relative flex gap-3 h-12 justify-start cursor-pointer w-full',
                             page === item.page &&
                                 'bg-muted font-bold hover:bg-muted'
                         )}
                     >
                         <item.icon className={cn('h-5 w-5', item.color)} />
-                        <div
-                            className={cn(
-                                'text-base duration-200',
-                                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                                !isOpen && className
-                            )}
-                        >
-                            {t(item.title)}
-                        </div>
+                        {isOpen && (
+                            <div
+                                className={cn(
+                                    'text-base duration-200',
+                                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+                                    !isOpen && className
+                                )}
+                            >
+                                {t(item.title)}
+                            </div>
+                        )}
                     </Button>
                 )
             )}

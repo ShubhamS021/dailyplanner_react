@@ -47,8 +47,13 @@ export const useSupabaseAuth = () => {
         return await auth.signInWithOAuth(credentials);
     };
 
-    const getUser = async () => {
-        return await auth.getUser();
+    /**
+     * Gets the user session
+     *
+     * @returns Returns the session, refreshing it if necessary. The session returned can be null if the session is not detected which can happen in the event a user is not signed-in or has logged out.
+     */
+    const getUserSession = async () => {
+        return await auth.getSession();
     };
 
     const value = useMemo(
@@ -56,9 +61,9 @@ export const useSupabaseAuth = () => {
             signUp,
             signInWithPassword,
             signInWithOAuth,
-            getUser,
+            getUserSession,
         }),
-        [signUp, signInWithPassword, signInWithOAuth, getUser]
+        [signUp, signInWithPassword, signInWithOAuth, getUserSession]
     );
 
     return value;

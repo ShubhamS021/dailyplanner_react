@@ -15,14 +15,14 @@ export const IdentityProviderButton: React.FC<IdentityProviderButtonProps> = ({
     provider,
 }) => {
     const { t } = useTranslation();
-    const { signInWithOAuth, getUser } = useSupabaseAuth();
+    const { signInWithOAuth, getUserSession } = useSupabaseAuth();
 
     const signInWithOAuthProvider = async () => {
         const { data, error } = await signInWithOAuth({ provider });
 
         if (error === null) {
-            const { data, error } = await getUser();
-            console.log({ data, error });
+            const { data, error } = await getUserSession();
+            console.log({ data, error }); // TODO: remove after implementing supabase feature
         }
 
         return data;

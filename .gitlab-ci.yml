@@ -50,6 +50,8 @@ test:
         paths:
             - coverage/
     needs: [lint]
+    dependencies:
+        - lint
     allow_failure: false
     rules:
         - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -71,6 +73,9 @@ sonar:
     script:
         - sonar-scanner
     needs: [lint, test]
+    dependencies:
+        - lint
+        - test
     allow_failure: true
     rules:
         - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -88,6 +93,10 @@ qa:
         name: qa
         url: https://planner-qa.der-hahn.net
     needs: [lint, test, sonar]
+    dependencies:
+        - lint
+        - test
+        - sonar
     script:
         - ENVIRONMENT_NAME=qa bash deploy/deploy.sh
     rules:
@@ -111,6 +120,8 @@ prod:
     script:
         - ENVIRONMENT_NAME=prod bash deploy/deploy.sh
     needs: [qa]
+    dependencies:
+        - qa
     rules:
         - if: $CI_PIPELINE_SOURCE == "schedule"
           when: never

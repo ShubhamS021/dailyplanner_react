@@ -8,7 +8,7 @@ import {
     renderHook,
     screen,
 } from '@testing-library/react';
-import { vi } from 'vitest';
+import { expect, test, vi } from 'vitest';
 import { MyBoardLanes } from './my-board-lanes';
 
 describe('MyBoardLanes', () => {
@@ -34,12 +34,12 @@ describe('MyBoardLanes', () => {
         vi.clearAllMocks();
     });
 
-    it('renders the component', () => {
+    test('renders the component', () => {
         const title = screen.getByTestId('page-title');
         expect(title).toBeInTheDocument();
     });
 
-    it('allows the user to enter a lane name and pick a color', () => {
+    test('allows the user to enter a lane name and pick a color', () => {
         const laneNameInput = screen.getByTestId('myboardlanes-lanename-input');
         const blueColorButton = screen.getAllByTestId(
             'myboardlanes-lane-color-button'
@@ -50,7 +50,7 @@ describe('MyBoardLanes', () => {
         expect(laneNameInput).toHaveValue('New Lane');
     });
 
-    it('adds a new lane to the board when the "Add lane" button is clicked', () => {
+    test('adds a new lane to the board when the "Add lane" button is clicked', () => {
         const { result } = renderHook(() => useBoardStore());
         const spy = vi.spyOn(result.current, 'addLaneToBoard');
 
@@ -75,7 +75,7 @@ describe('MyBoardLanes', () => {
         );
     });
 
-    it('removes a lane from the board when the remove button is clicked', () => {
+    test('removes a lane from the board when the remove button is clicked', () => {
         const { result } = renderHook(() => useBoardStore());
         const spy = vi.spyOn(result.current, 'removeLaneFromBoard');
 
@@ -95,7 +95,7 @@ describe('MyBoardLanes', () => {
         expect(spy).toHaveBeenCalledWith(0, 4);
     });
 
-    it('enters the board when the "Start" button is clicked', () => {
+    test('enters the board when the "Start" button is clicked', () => {
         const { result } = renderHook(() => useBoardStore());
         const spy = vi.spyOn(result.current, 'enterBoard');
 

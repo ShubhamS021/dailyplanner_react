@@ -8,7 +8,7 @@ import {
     renderHook,
     screen,
 } from '@testing-library/react';
-import { vi } from 'vitest';
+import { expect, test, vi } from 'vitest';
 import { CardMoveModal, type CardMoveModalProps } from './card-move-modal';
 
 const modalConfirmationMock = vi.fn();

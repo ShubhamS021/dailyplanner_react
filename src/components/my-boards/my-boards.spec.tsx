@@ -9,7 +9,7 @@ import {
     renderHook,
     screen,
 } from '@testing-library/react';
-import { vi } from 'vitest';
+import { expect, test, vi } from 'vitest';
 import MyBoards from './my-boards';
 
 describe('MyBoards', () => {
@@ -88,7 +88,7 @@ describe('MyBoards', () => {
         expect(spy).toHaveBeenCalledWith(1);
     });
 
-    it('should render the edit board modal when edit button is clicked', () => {
+    test('should render the edit board modal when edit button is clicked', () => {
         const [editButton] = screen.getAllByTestId('edit-board-button');
         fireEvent.click(editButton);
 
@@ -96,7 +96,7 @@ describe('MyBoards', () => {
         expect(editModal).toBeInTheDocument();
     });
 
-    it('should close the edit board modal directly after opening', () => {
+    test('should close the edit board modal directly after opening', () => {
         const [editButton] = screen.getAllByTestId('edit-board-button');
         fireEvent.click(editButton);
 
@@ -109,7 +109,7 @@ describe('MyBoards', () => {
         fireEvent.click(cancelButton);
     });
 
-    it('should submit the edit board modal directly after opening', () => {
+    test('should submit the edit board modal directly after opening', () => {
         const { result } = renderHook(() => useBoardStore());
         const spy = vi.spyOn(result.current, 'renameBoard');
 

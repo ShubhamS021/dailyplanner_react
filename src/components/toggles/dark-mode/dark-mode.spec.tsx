@@ -2,7 +2,7 @@ import { initialBoardState } from '@/hooks/useBoardStore/data/initialBoard.state
 import { initialLanes } from '@/hooks/useBoardStore/data/initialLanes.state';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { act, fireEvent, render, renderHook } from '@testing-library/react';
-import { vi } from 'vitest';
+import { expect, test, vi } from 'vitest';
 import { DarkMode } from './dark-mode';
 
 describe('DarkModeToggle', () => {
@@ -20,7 +20,7 @@ describe('DarkModeToggle', () => {
         });
     });
 
-    it('should render the dark mode toggle component with correct text', () => {
+    test('should render the dark mode toggle component with correct text', () => {
         const { getByTestId, getByText } = render(<DarkMode />);
 
         const toggleButton = getByTestId('theme-mode-button');
@@ -30,7 +30,7 @@ describe('DarkModeToggle', () => {
         expect(toggleText).toBeInTheDocument();
     });
 
-    it('should render the light mode toggle component with correct text', () => {
+    test('should render the light mode toggle component with correct text', () => {
         const { result } = renderHook(() => useBoardStore());
 
         act(() => {
@@ -46,7 +46,7 @@ describe('DarkModeToggle', () => {
         expect(toggleText).toBeInTheDocument();
     });
 
-    it('should call toggleThemeMode function for dark mode when the toggle button is clicked', () => {
+    test('should call toggleThemeMode function for dark mode when the toggle button is clicked', () => {
         const { result } = renderHook(() => useBoardStore());
         const spy = vi.spyOn(result.current, 'toggleThemeMode');
 
@@ -58,7 +58,7 @@ describe('DarkModeToggle', () => {
         expect(spy).toHaveBeenCalled();
     });
 
-    it('should call toggleThemeMode function for light mode when the toggle button is clicked', () => {
+    test('should call toggleThemeMode function for light mode when the toggle button is clicked', () => {
         const { result } = renderHook(() => useBoardStore());
         const spy = vi.spyOn(result.current, 'toggleThemeMode');
 

@@ -8,7 +8,7 @@ import {
     renderHook,
     screen,
 } from '@testing-library/react';
-import { vi } from 'vitest';
+import { expect, test, vi } from 'vitest';
 import { LanguageChooser } from './language-chooser';
 
 describe('LanguageChooser', () => {
@@ -30,7 +30,7 @@ describe('LanguageChooser', () => {
         });
     });
 
-    it('should render the language chooser component with correct options (small=false)', () => {
+    test('should render the language chooser component with correct options (small=false)', () => {
         render(<LanguageChooser />);
 
         const languageButtons = screen.getAllByRole('button');
@@ -39,7 +39,7 @@ describe('LanguageChooser', () => {
         expect(languageButtons[1]).toHaveTextContent('Deutsch');
     });
 
-    it('should render the language chooser component with correct options (small=true)', () => {
+    test('should render the language chooser component with correct options (small=true)', () => {
         render(<LanguageChooser small={true} />);
 
         const languageButtons = screen.getAllByRole('button');
@@ -48,7 +48,7 @@ describe('LanguageChooser', () => {
         expect(languageButtons[1]).toHaveTextContent('De');
     });
 
-    it('should call updateLanguage and changeLanguage when a language button is clicked', async () => {
+    test('should call updateLanguage and changeLanguage when a language button is clicked', async () => {
         const { result } = renderHook(() => useBoardStore());
         const spy = vi.spyOn(result.current, 'updateLanguage');
 

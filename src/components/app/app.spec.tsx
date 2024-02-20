@@ -2,10 +2,11 @@ import { AppPage } from '@/hooks/usePageStore/types/AppPage';
 import { usePageStore } from '@/hooks/usePageStore/usePageStore';
 import { act, render, renderHook } from '@testing-library/react';
 import { t } from 'i18next';
+import { expect, test } from 'vitest';
 import App from './app';
 
 describe('App component', () => {
-    it('checks all titles in the app', () => {
+    test('checks all titles in the app', () => {
         // Arrange
         const { result: pageStore } = renderHook(() => usePageStore());
         const pageDefinitions: Array<{ page: AppPage; titleKey: string }> = [

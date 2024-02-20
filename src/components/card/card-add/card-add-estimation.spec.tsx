@@ -1,12 +1,12 @@
 import { fireEvent, render } from '@testing-library/react';
-import { vi } from 'vitest';
+import { expect, test, vi } from 'vitest';
 import { card } from '../../../../__mocks__/cards.mock';
 import { CardAddEstimation } from './card-add-estimation';
 
 describe('AddCardEstimation', () => {
     const headline = 'Test Headline';
 
-    it('renders the headline', () => {
+    test('renders the headline', () => {
         const updateEstimationMock = vi.fn();
         const { getByTestId } = render(
             <CardAddEstimation
@@ -20,7 +20,7 @@ describe('AddCardEstimation', () => {
         expect(headlineElement).toHaveTextContent(headline);
     });
 
-    it('calls updateEstimation when the select value changes', () => {
+    test('calls updateEstimation when the select value changes', () => {
         // Arrange
         const updateEstimationMock = vi.fn();
         const { getByTestId } = render(

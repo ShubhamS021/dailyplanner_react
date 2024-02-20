@@ -19,7 +19,7 @@ describe('Board', () => {
         });
     });
 
-    it('renders the basic board', () => {
+    test('renders the basic board', () => {
         const { getByTestId } = render(<Board />);
 
         expect(getByTestId(/page-board/)).toBeInTheDocument();

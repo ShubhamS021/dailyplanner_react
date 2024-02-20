@@ -8,7 +8,7 @@ import {
     renderHook,
     screen,
 } from '@testing-library/react';
-import { vi } from 'vitest';
+import { expect, test, vi } from 'vitest';
 import { LaneEditModal } from './lane-edit-modal';
 
 describe('LaneEditModal', () => {
@@ -26,7 +26,7 @@ describe('LaneEditModal', () => {
         });
     });
 
-    it('renders the title and text props', () => {
+    test('renders the title and text props', () => {
         const { result } = renderHook(() => useBoardStore());
         const title = 'Rename Lane';
 
@@ -46,7 +46,7 @@ describe('LaneEditModal', () => {
         expect(screen.getByTestId(/LaneEdit-title-input/)).toBeInTheDocument();
     });
 
-    it('renders the submit and cancel buttons with the correct text', () => {
+    test('renders the submit and cancel buttons with the correct text', () => {
         const { result } = renderHook(() => useBoardStore());
         const submitButtonText = 'Update';
         const cancelButtonText = 'Cancel';
@@ -74,7 +74,7 @@ describe('LaneEditModal', () => {
         expect(submitButton).toHaveTextContent(submitButtonText);
     });
 
-    it('renders the lane title as input values', () => {
+    test('renders the lane title as input values', () => {
         const { result } = renderHook(() => useBoardStore());
 
         render(
@@ -93,7 +93,7 @@ describe('LaneEditModal', () => {
         expect(titleInput).toHaveValue('Not Started');
     });
 
-    it('updates the lane title when the inputs are changed', () => {
+    test('updates the lane title when the inputs are changed', () => {
         const { result } = renderHook(() => useBoardStore());
 
         render(
@@ -114,7 +114,7 @@ describe('LaneEditModal', () => {
         expect(titleInput).toHaveValue(newTitle);
     });
 
-    it('should call closeModal when close button is clicked', () => {
+    test('should call closeModal when close button is clicked', () => {
         const { result } = renderHook(() => useBoardStore());
 
         const closeModal = vi.fn();
@@ -136,7 +136,7 @@ describe('LaneEditModal', () => {
         expect(closeModal).toHaveBeenCalled();
     });
 
-    it('should call closeModal when cancel button is clicked', () => {
+    test('should call closeModal when cancel button is clicked', () => {
         const { result } = renderHook(() => useBoardStore());
 
         const closeModal = vi.fn();
@@ -158,7 +158,7 @@ describe('LaneEditModal', () => {
         expect(closeModal).toHaveBeenCalled();
     });
 
-    it('should call modalConfirmation and closeModal when confirmation button is clicked', () => {
+    test('should call modalConfirmation and closeModal when confirmation button is clicked', () => {
         const { result } = renderHook(() => useBoardStore());
 
         const modalConfirmation = vi.fn();

@@ -12,7 +12,7 @@ import { initialBoardState } from '@/hooks/useBoardStore/data/initialBoard.state
 import { initialLanes } from '@/hooks/useBoardStore/data/initialLanes.state';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { useDayplannerDB } from '@/hooks/useDayplannerDB/useDayplannerDB';
-import { vi } from 'vitest';
+import { expect, test, vi } from 'vitest';
 import { card, card2, card3 } from '../../../__mocks__/cards.mock';
 import { LaneComponent } from './lane';
 
@@ -34,7 +34,7 @@ describe('Lane', () => {
         });
     });
 
-    it('should render the correct lane text', () => {
+    test('should render the correct lane text', () => {
         const laneText = 'Test Lane';
         const { getByTestId } = render(
             <LaneComponent
@@ -48,7 +48,7 @@ describe('Lane', () => {
         expect(lane).toHaveTextContent(laneText);
     });
 
-    it('should render the correct lane variant', () => {
+    test('should render the correct lane variant', () => {
         const lanevariant = 'green';
         const { getByText } = render(
             <LaneComponent
@@ -62,7 +62,7 @@ describe('Lane', () => {
         expect(lane).toHaveClass(`bg-${lanevariant}`);
     });
 
-    it('should render an empty lane', () => {
+    test('should render an empty lane', () => {
         const { getByText } = render(
             <LaneComponent
                 id={1}
@@ -74,7 +74,7 @@ describe('Lane', () => {
         expect(getByText('Place tasks here..')).toBeInTheDocument();
     });
 
-    it('should render cards', () => {
+    test('should render cards', () => {
         const { getByTestId } = render(
             <DragDropContext onDragEnd={() => {}}>
                 <Droppable droppableId="some_id">
@@ -100,7 +100,7 @@ describe('Lane', () => {
         expect(lane).toContainElement(getByTestId('lane-1-card-2'));
     });
 
-    it('should render delete all button in last lane', async () => {
+    test('should render delete all button in last lane', async () => {
         const { getByTestId, getAllByTestId } = render(
             <LaneComponent
                 id={1}
@@ -118,7 +118,7 @@ describe('Lane', () => {
         expect(getByTestId('delete-all-from-lane-button')).toBeInTheDocument();
     });
 
-    it('should open the confirmation modal when delete all button is clicked', async () => {
+    test('should open the confirmation modal when delete all button is clicked', async () => {
         const { getAllByTestId, getByText } = render(
             <DragDropContext onDragEnd={() => {}}>
                 <Droppable droppableId="some_id">
@@ -156,7 +156,7 @@ describe('Lane', () => {
         ).toBeInTheDocument();
     });
 
-    it('should cancel the confirmation modal when delete all button is clicked', async () => {
+    test('should cancel the confirmation modal when delete all button is clicked', async () => {
         const { getByTestId, getAllByTestId } = render(
             <DragDropContext onDragEnd={() => {}}>
                 <Droppable droppableId="some_id">
@@ -195,7 +195,7 @@ describe('Lane', () => {
         expect(lane).toContainElement(getByTestId('lane-1-card-2'));
     });
 
-    it('should submit the confirmation modal when delete all button is clicked', async () => {
+    test('should submit the confirmation modal when delete all button is clicked', async () => {
         const { result } = renderHook(() => useBoardStore());
         const spy = vi.spyOn(result.current, 'removeCardsFromLane');
 
@@ -235,7 +235,7 @@ describe('Lane', () => {
         expect(spy).toHaveBeenCalledTimes(1);
     });
 
-    it('should remove a card from lane', async () => {
+    test('should remove a card from lane', async () => {
         const { result } = renderHook(() => useBoardStore());
         const spy = vi.spyOn(result.current, 'removeCardFromLane');
 
@@ -268,7 +268,7 @@ describe('Lane', () => {
         expect(spy).toHaveBeenCalledTimes(1);
     });
 
-    it('should cancel edit a card from lane', async () => {
+    test('should cancel edit a card from lane', async () => {
         const { getAllByTestId } = render(
             <DragDropContext onDragEnd={() => {}}>
                 <Droppable droppableId="some_id">
@@ -297,7 +297,7 @@ describe('Lane', () => {
         fireEvent.click(editButton);
     });
 
-    it('should submit edit a card from lane', async () => {
+    test('should submit edit a card from lane', async () => {
         const { result } = renderHook(() => useBoardStore());
         const spy = vi.spyOn(result.current, 'updateCard');
 

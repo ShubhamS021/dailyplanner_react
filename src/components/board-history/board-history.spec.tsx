@@ -3,7 +3,7 @@ import { initialLanes } from '@/hooks/useBoardStore/data/initialLanes.state';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { useHistory } from '@/hooks/useHistory/useHistory';
 import { act, render, renderHook, screen } from '@testing-library/react';
-import { vi } from 'vitest';
+import { expect, test, vi } from 'vitest';
 import { card } from '../../../__mocks__/cards.mock';
 import { BoardHistory } from './board-history';
 
@@ -27,13 +27,13 @@ vi.mock('@/hooks/useHistory/useHistory', () => {
 });
 
 describe('BoardHistory', () => {
-    it('renders the component', () => {
+    test('renders the component', () => {
         render(<BoardHistory />);
 
         expect(screen.getByTestId('page-board')).toBeInTheDocument();
     });
 
-    it('displays the board title', () => {
+    test('displays the board title', () => {
         const { result: boardStore } = renderHook(() => useBoardStore());
 
         act(() => {
@@ -50,7 +50,7 @@ describe('BoardHistory', () => {
         expect(screen.getByText('History for: My tasks')).toBeInTheDocument();
     });
 
-    it('displays the history entries', () => {
+    test('displays the history entries', () => {
         const { result: boardStore } = renderHook(() => useBoardStore());
 
         act(() => {

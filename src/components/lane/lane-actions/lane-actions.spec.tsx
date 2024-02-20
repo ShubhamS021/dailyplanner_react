@@ -1,12 +1,12 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { vi } from 'vitest';
+import { expect, test, vi } from 'vitest';
 import { LaneActions } from './lane-actions';
 
 describe('LaneActions', () => {
     const WAIT_TILL_ACTION_MENU = 200;
 
-    it('renders without crashing', () => {
+    test('renders without crashing', () => {
         render(
             <LaneActions
                 isLastLane={false}
@@ -20,7 +20,7 @@ describe('LaneActions', () => {
         );
     });
 
-    it('renders all buttons', async () => {
+    test('renders all buttons', async () => {
         const { getByTestId } = render(
             <LaneActions
                 onShowLaneEditModal={function (): void {
@@ -43,7 +43,7 @@ describe('LaneActions', () => {
         ).toBeInTheDocument();
     });
 
-    it('calls onEdit when edit button is clicked', async () => {
+    test('calls onEdit when edit button is clicked', async () => {
         const onEdit = vi.fn();
         const { getByTestId } = render(
             <LaneActions
@@ -63,7 +63,7 @@ describe('LaneActions', () => {
         expect(onEdit).toHaveBeenCalled();
     });
 
-    it('calls onRemove when remove button is clicked', async () => {
+    test('calls onRemove when remove button is clicked', async () => {
         const onRemove = vi.fn();
         const { getByTestId } = render(
             <LaneActions

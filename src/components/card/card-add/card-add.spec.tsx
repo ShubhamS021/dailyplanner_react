@@ -4,6 +4,7 @@ import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { useDayplannerDB } from '@/hooks/useDayplannerDB/useDayplannerDB';
 import { colorVariants } from '@/types/ColorVariant';
 import { act, fireEvent, render, renderHook } from '@testing-library/react';
+import { expect, test } from 'vitest';
 import { CardAdd } from './card-add';
 
 describe('AddCard', () => {

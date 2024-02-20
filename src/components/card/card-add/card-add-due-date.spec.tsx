@@ -1,12 +1,12 @@
 import { render } from '@testing-library/react';
-import { vi } from 'vitest';
+import { expect, test, vi } from 'vitest';
 import { card } from '../../../../__mocks__/cards.mock';
 import { CardAddDueDate } from './card-add-due-date';
 
 describe('AddCardDueDate', () => {
     const mockUpdateTags = vi.fn();
 
-    it('renders the headline and explanation', () => {
+    test('renders the headline and explanation', () => {
         const { getByTestId } = render(
             <CardAddDueDate
                 headline="Add Due Date"
@@ -21,7 +21,7 @@ describe('AddCardDueDate', () => {
     });
 
     // TODO: readd tests but without setTimeout
-    // it('adds a new date when the "Add due date" button is clicked', () => {
+    // test('adds a new date when the "Add due date" button is clicked', () => {
     //     const { getByTestId } = render(
     //         <CardAddDueDate
     //             headline="Add Due Date"

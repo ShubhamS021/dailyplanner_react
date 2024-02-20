@@ -9,7 +9,7 @@ import {
     screen,
 } from '@testing-library/react';
 import { t } from 'i18next';
-import { vi } from 'vitest';
+import { expect, test, vi } from 'vitest';
 import { BoardEditModal } from './board-edit-modal';
 
 describe('boardeditModal', () => {
@@ -27,7 +27,7 @@ describe('boardeditModal', () => {
         });
     });
 
-    it('renders the title and text props', () => {
+    test('renders the title and text props', () => {
         const { result } = renderHook(() => useBoardStore());
 
         const boardId = 1;
@@ -56,7 +56,7 @@ describe('boardeditModal', () => {
         );
     });
 
-    it('renders the submit and cancel buttons with the correct text', () => {
+    test('renders the submit and cancel buttons with the correct text', () => {
         const { result } = renderHook(() => useBoardStore());
 
         const submitButtonText = 'Update';
@@ -82,7 +82,7 @@ describe('boardeditModal', () => {
         expect(submitButton).toHaveTextContent(submitButtonText);
     });
 
-    it('renders the board title and subtitle as input values', () => {
+    test('renders the board title and subtitle as input values', () => {
         const { result } = renderHook(() => useBoardStore());
 
         render(
@@ -101,7 +101,7 @@ describe('boardeditModal', () => {
         expect(subtitleInput).toHaveValue(result.current.board.subtitle);
     });
 
-    it('updates the board title and subtitle when the inputs are changed', () => {
+    test('updates the board title and subtitle when the inputs are changed', () => {
         const { result } = renderHook(() => useBoardStore());
         render(
             <BoardEditModal
@@ -123,7 +123,7 @@ describe('boardeditModal', () => {
         expect(subtitleInput).toHaveValue(newSubtitle);
     });
 
-    it('should call closeModal when close button is clicked', () => {
+    test('should call closeModal when close button is clicked', () => {
         const { result } = renderHook(() => useBoardStore());
 
         const closeModal = vi.fn();
@@ -142,7 +142,7 @@ describe('boardeditModal', () => {
         expect(closeModal).toHaveBeenCalled();
     });
 
-    it('should call closeModal when cancel button is clicked', () => {
+    test('should call closeModal when cancel button is clicked', () => {
         const { result } = renderHook(() => useBoardStore());
 
         const closeModal = vi.fn();
@@ -161,7 +161,7 @@ describe('boardeditModal', () => {
         expect(closeModal).toHaveBeenCalled();
     });
 
-    it('should call modalConfirmation and closeModal when confirmation button is clicked', () => {
+    test('should call modalConfirmation and closeModal when confirmation button is clicked', () => {
         const { result } = renderHook(() => useBoardStore());
 
         const modalConfirmation = vi.fn();

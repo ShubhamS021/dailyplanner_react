@@ -4,7 +4,7 @@ import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { usePageStore } from '@/hooks/usePageStore/usePageStore';
 import { act, fireEvent, render, renderHook } from '@testing-library/react';
 import { t } from 'i18next';
-import { vi } from 'vitest';
+import { expect, test, vi } from 'vitest';
 import BoardAdd from './board-add';
 
 describe('board-add component', () => {

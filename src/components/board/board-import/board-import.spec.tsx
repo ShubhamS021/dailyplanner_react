@@ -2,7 +2,7 @@ import { initialBoardState } from '@/hooks/useBoardStore/data/initialBoard.state
 import { initialLanes } from '@/hooks/useBoardStore/data/initialLanes.state';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { act, fireEvent, render, renderHook } from '@testing-library/react';
-import { vi } from 'vitest';
+import { expect, test, vi } from 'vitest';
 import BoardImport from './board-import';
 
 describe('Import', () => {
@@ -20,7 +20,7 @@ describe('Import', () => {
         });
     });
 
-    it('imports a board', () => {
+    test('imports a board', () => {
         const { result } = renderHook(() => useBoardStore());
         const spy = vi.spyOn(result.current, 'importBoardFromJSON');
         const { getByTestId } = render(<BoardImport />);

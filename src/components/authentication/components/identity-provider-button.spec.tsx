@@ -1,12 +1,12 @@
 import { IdentityProvider } from '@/types/IdentityProviders';
 import { fireEvent, render } from '@testing-library/react';
 import { t } from 'i18next';
-import { vi } from 'vitest';
+import { expect, test, vi } from 'vitest';
 import { IdentityProviderButton } from './identity-provider-button';
 
 describe('IdentityProviderButton', () => {
     describe('renderButtonContent', () => {
-        it('should render Google button content', () => {
+        test('should render Google button content', () => {
             const provider: IdentityProvider = 'google';
             const { getByText } = render(
                 <IdentityProviderButton provider={provider} />
@@ -17,7 +17,7 @@ describe('IdentityProviderButton', () => {
             ).toBeInTheDocument();
         });
 
-        it('should render Github button content', () => {
+        test('should render Github button content', () => {
             const provider: IdentityProvider = 'github';
             const { getByText } = render(
                 <IdentityProviderButton provider={provider} />
@@ -30,7 +30,7 @@ describe('IdentityProviderButton', () => {
     });
 
     describe('signInWithOAuthProvider - additional tests', () => {
-        it('should handle signInWithOAuth throwing generic error', async () => {
+        test('should handle signInWithOAuth throwing generic error', async () => {
             const provider = 'google';
             const signInWithOAuth = vi
                 .fn()
@@ -45,7 +45,7 @@ describe('IdentityProviderButton', () => {
             await expect(signInWithOAuth).rejects.toThrow();
         });
 
-        it('should handle signInWithOAuth error with custom message', async () => {
+        test('should handle signInWithOAuth error with custom message', async () => {
             const provider = 'github';
             const errorMessage = 'Custom auth error';
             const signInWithOAuth = vi.fn().mockRejectedValueOnce(errorMessage);

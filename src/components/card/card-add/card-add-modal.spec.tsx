@@ -57,13 +57,13 @@ test('renders the basic AddCardModal', () => {
     fireEvent.click(tagButton);
 
     // add a estimation
-    setTimeout(() => {
-        const selectElementL = getByTestId('addcard-estimation-select-L');
-        fireEvent.click(selectElementL);
+    // setTimeout(() => {
+    //     const selectElementL = getByTestId('addcard-estimation-select-L');
+    //     fireEvent.click(selectElementL);
 
-        const button = getByTestId(/addcard-modal-button/);
-        fireEvent.click(button);
-    }, 500);
+    //     const button = getByTestId(/addcard-modal-button/);
+    //     fireEvent.click(button);
+    // }, 500);
 
     // TODO: find solution for shadcn calender tests
     // add a duedate

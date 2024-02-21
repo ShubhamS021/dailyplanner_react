@@ -92,13 +92,13 @@ export const SideNav: React.FC<SideNavProps> = ({
                             </AccordionTrigger>
                             <AccordionContent className="mt-2 space-y-4 pb-1">
                                 {item.children?.map((child) => (
-                                    <a
+                                    <button
                                         key={child.title}
+                                        type="button"
                                         onClick={() => {
                                             if (setOpen != null) setOpen(false);
                                             setPage(item.page);
                                         }}
-                                        role="button"
                                         className={cn(
                                             buttonVariants({
                                                 variant: 'ghost',
@@ -122,7 +122,7 @@ export const SideNav: React.FC<SideNavProps> = ({
                                         >
                                             {child.title}
                                         </div>
-                                    </a>
+                                    </button>
                                 ))}
                             </AccordionContent>
                         </AccordionItem>

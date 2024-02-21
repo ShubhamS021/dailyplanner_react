@@ -352,11 +352,9 @@ export const useBoardStore = create<BoardStoreState & BoardStoreActions>()(
                                     if (multiple) {
                                         lastBoardId = lastBoardId + 1;
                                         parsedBoard.id = lastBoardId;
-                                        console.log(parsedBoard); // TODO: remove
 
                                         state.addBoard(parsedBoard);
                                     } else {
-                                        console.log(parsedBoard); // TODO: remove
                                         state.updateBoard(parsedBoard);
                                     }
                                 };

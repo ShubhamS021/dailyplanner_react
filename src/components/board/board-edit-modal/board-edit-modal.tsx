@@ -104,41 +104,39 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
 
     const renderAddLane = () => {
         return (
-            <>
-                <div className="flex flex-col gap-2">
-                    <Label>{t('components.BoardEditModal.addLane')}</Label>
-                    <Input
-                        placeholder={
-                            t('components.BoardEditModal.addLaneText') ?? ''
-                        }
-                        data-testid="boardedit-lane-add-input"
-                        value={boardLaneTitle}
-                        onChange={(e) => {
-                            handleLaneTitleChanges(e.target.value);
+            <div className="flex flex-col gap-2">
+                <Label>{t('components.BoardEditModal.addLane')}</Label>
+                <Input
+                    placeholder={
+                        t('components.BoardEditModal.addLaneText') ?? ''
+                    }
+                    data-testid="boardedit-lane-add-input"
+                    value={boardLaneTitle}
+                    onChange={(e) => {
+                        handleLaneTitleChanges(e.target.value);
+                    }}
+                ></Input>
+                <ColorChooser
+                    onSelectColor={(variant: ColorVariant) =>
+                        setSelectedColor(variant)
+                    }
+                ></ColorChooser>
+                <div>
+                    <Button
+                        variant={'outline'}
+                        size={'sm'}
+                        data-testid="boardedit-lane-add-button"
+                        onClick={(_e) => {
+                            handleAddNewLane();
                         }}
-                    ></Input>
-                    <ColorChooser
-                        onSelectColor={(variant: ColorVariant) =>
-                            setSelectedColor(variant)
-                        }
-                    ></ColorChooser>
-                    <div>
-                        <Button
-                            variant={'outline'}
-                            size={'sm'}
-                            data-testid="boardedit-lane-add-button"
-                            onClick={(_e) => {
-                                handleAddNewLane();
-                            }}
-                            disabled={boardLaneTitle === ''}
-                            className="flex gap-2"
-                        >
-                            <PlusIcon width={16} height={16} />
-                            {t('components.BoardEditModal.addLane')}
-                        </Button>
-                    </div>
+                        disabled={boardLaneTitle === ''}
+                        className="flex gap-2"
+                    >
+                        <PlusIcon width={16} height={16} />
+                        {t('components.BoardEditModal.addLane')}
+                    </Button>
                 </div>
-            </>
+            </div>
         );
     };
 

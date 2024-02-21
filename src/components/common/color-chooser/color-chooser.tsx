@@ -25,11 +25,10 @@ export const ColorChooser: React.FC<ColorChooserProps> = ({
     return (
         <div className="flex gap-2">
             {colorVariants.map((variant: ColorVariant, index: number) => (
-                <div
+                <button
                     key={variant}
-                    className={`cursor-pointer `}
+                    type="button"
                     data-testid="myboardlanes-lane-color-button"
-                    role="button"
                     onClick={() => {
                         handleTagColorSelectionIndex(index);
                         handleTagColorSelection(variant);
@@ -47,7 +46,7 @@ export const ColorChooser: React.FC<ColorChooserProps> = ({
                                                     }
                                                         `}
                     ></Badge>
-                </div>
+                </button>
             ))}
         </div>
     );

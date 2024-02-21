@@ -4,8 +4,8 @@ import * as IdentityProviderButtons from '../config/identityProviders.config.jso
 import { usePageStore } from '@/hooks/usePageStore/usePageStore';
 import { IdentityProvider } from '@/types/IdentityProviders';
 import { useTranslation } from 'react-i18next';
+import { LoginForm } from '../forms/login-form';
 import { IdentityProviderButton } from './identity-provider-button';
-import { LoginForm } from './login-form';
 
 export const Login = () => {
     const [setPage] = usePageStore((state) => [state.setPage]);

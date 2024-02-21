@@ -15,25 +15,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { t } from 'i18next';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { registerFormSchema } from './form.schema';
 
 export const RegisterForm = () => {
     const { signUp } = useSupabaseAuth();
     const [setPage] = usePageStore((state) => [state.setPage]);
 
-    const formSchema = z.object({
-        username: z.string().min(2, {
-            message: 'Username must be at least 2 characters.',
-        }),
-        email: z.string().email({
-            message: 'Email must be at least 2 characters and a valid email.',
-        }),
-        password: z.string().min(8, {
-            message: 'Password must be at least 8 characters.',
-        }),
-    });
-
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
+    const form = useForm<z.infer<typeof registerFormSchema>>({
+        resolver: zodResolver(registerFormSchema),
         defaultValues: {
             username: '',
             email: '',
@@ -41,7 +30,7 @@ export const RegisterForm = () => {
         },
     });
 
-    const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const onSubmit = async (values: z.infer<typeof registerFormSchema>) => {
         const signUpReseponse = await signUp({
             email: values.email,
             password: values.password,

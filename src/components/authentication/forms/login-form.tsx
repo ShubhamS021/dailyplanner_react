@@ -15,30 +15,22 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
+import { loginFormSchema } from './form.schema';
 
 export const LoginForm = () => {
     const { t } = useTranslation();
     const { signInWithPassword } = useSupabaseAuth();
     const [setPage] = usePageStore((state) => [state.setPage]);
 
-    const formSchema = z.object({
-        email: z.string().email({
-            message: 'Email must be at least 2 characters and a valid email.',
-        }),
-        password: z.string().min(8, {
-            message: 'Password must be at least 8 characters.',
-        }),
-    });
-
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
+    const form = useForm<z.infer<typeof loginFormSchema>>({
+        resolver: zodResolver(loginFormSchema),
         defaultValues: {
             email: '',
             password: '',
         },
     });
 
-    const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const onSubmit = async (values: z.infer<typeof loginFormSchema>) => {
         const signInReseponse = await signInWithPassword({
             email: values.email,
             password: values.password,

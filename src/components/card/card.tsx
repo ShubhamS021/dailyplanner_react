@@ -5,6 +5,7 @@ import { type Shirt } from '@/types/Shirt';
 import { Badge } from '@/ui/badge';
 import { Label } from '@/ui/label';
 import { TaskComponent } from '@/ui/task';
+import { truncate } from '@/utils/truncate';
 import {
     DragDropContext,
     Draggable,
@@ -175,14 +176,16 @@ export const CardComponent: React.FC<CardProps> = ({
     };
 
     const renderDescription = () => {
+        const truncateAfterChars = 120;
         if (description === '') return;
         if (compactMode) return;
         return (
             <p
                 className="text-sm text-[#5A5A65] dark:text-[#B8B8B8]"
                 data-testid="card-description"
+                title={description}
             >
-                {description}
+                {truncate(description ?? '', truncateAfterChars)}
             </p>
         );
     };

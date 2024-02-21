@@ -184,7 +184,7 @@ export const CardAddModal: React.FC<CardAddModalProps> = ({
                         </Button>
                     </div>
                 </div>
-                <div className="min-w-[20vw]">
+                <div className="min-w-[20vw] max-w-[20vw]">
                     <div className="text-white text-xl mb-3">
                         {t('components.AddCard.modal.AddCardModal.newTask')}
                     </div>

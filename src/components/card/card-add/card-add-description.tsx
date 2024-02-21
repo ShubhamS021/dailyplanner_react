@@ -1,6 +1,7 @@
 import { type Card } from '@/interfaces/Card';
 import { Input } from '@/ui/input';
 import { Label } from '@/ui/label';
+import { Textarea } from '@/ui/textarea';
 import { useTranslation } from 'react-i18next';
 
 export interface CardAddDescriptionProps {
@@ -37,13 +38,13 @@ export const CardAddDescription: React.FC<CardAddDescriptionProps> = ({
                     'components.AddCard.modal.AddCardDescription.placeholderDescription'
                 )}
             </Label>
-            <Input
+            <Textarea
                 data-testid="addcard-description-input"
                 value={card.description}
                 onChange={(e) => {
                     updateDescription(e.target.value);
                 }}
-            ></Input>
+            ></Textarea>
         </div>
     );
 };

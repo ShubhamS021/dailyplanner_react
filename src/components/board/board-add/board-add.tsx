@@ -71,19 +71,17 @@ export const BoardAdd = () => {
                             {t('components.board-add.standard')}
 
                             <div className="flex gap-2 my-3">
-                                {getLocalizedInitialLanesState().map(
-                                    (lane, index) => {
-                                        return (
-                                            <Badge
-                                                className="dark:text-gray-800"
-                                                key={index}
-                                                variant={lane.variant}
-                                            >
-                                                {lane.title}
-                                            </Badge>
-                                        );
-                                    }
-                                )}
+                                {getLocalizedInitialLanesState().map((lane) => {
+                                    return (
+                                        <Badge
+                                            className="dark:text-gray-800"
+                                            key={lane.id}
+                                            variant={lane.variant}
+                                        >
+                                            {lane.title}
+                                        </Badge>
+                                    );
+                                })}
                             </div>
                         </div>
                         <div>

@@ -81,7 +81,6 @@ export const CardAdd: React.FC<CardAddProps> = ({
                     placeholder={placeholder}
                     data-testid="addcard-input"
                     value={card.title}
-                    role="textbox"
                     onChange={(e) => {
                         updateTitle(e.target.value);
                     }}

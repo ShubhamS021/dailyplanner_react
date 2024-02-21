@@ -31,8 +31,20 @@ export const MobileSidebar = () => {
                 </div>
             </SheetTrigger>
             <SheetContent side="left" className="w-72">
-                <div className="px-1 py-6 pt-16">
-                    <SideNav items={NavItems} setOpen={setOpen} />
+                <div className="px-1 py-6 pt-2">
+                    <div className="flex items-center justify-center gap-2 py-4">
+                        <img
+                            src={logo}
+                            alt="Dayplanner Logo"
+                            className="h-10 w-10"
+                        ></img>
+                        <h1 className="text-lg font-medium">Dayplanner</h1>
+                    </div>
+                    <SideNav
+                        items={NavItems}
+                        setOpen={setOpen}
+                        isMobile={true}
+                    />
                 </div>
             </SheetContent>
         </Sheet>

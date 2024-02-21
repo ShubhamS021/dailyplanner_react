@@ -18,12 +18,14 @@ interface SideNavProps {
     items: NavItem[];
     setOpen?: (open: boolean) => void;
     className?: string;
+    isMobile?: boolean;
 }
 
 export const SideNav: React.FC<SideNavProps> = ({
     items,
     setOpen,
     className,
+    isMobile = false,
 }) => {
     const { isOpen } = useSidebarStore();
     const [boards] = useBoardStore((state) => [state.boards]);
@@ -133,6 +135,7 @@ export const SideNav: React.FC<SideNavProps> = ({
                         size={'default'}
                         disabled={isDisabled(item)}
                         key={item.title}
+                        type="button"
                         onClick={() => {
                             if (setOpen != null) setOpen(false);
                             setPage(item.page);
@@ -144,7 +147,8 @@ export const SideNav: React.FC<SideNavProps> = ({
                         )}
                     >
                         <item.icon className={cn('h-5 w-5', item.color)} />
-                        {isOpen && (
+
+                        {(isOpen || isMobile) && (
                             <div
                                 className={cn(
                                     'text-base duration-200',

@@ -11,7 +11,7 @@ interface SidebarProps {
     className?: string;
 }
 
-export default function Sidebar({ className }: SidebarProps) {
+export const Sidebar: React.FC<SidebarProps> = ({ className }) => {
     const { isOpen, toggle } = useSidebarStore();
     const [status, setStatus] = useState(false);
 
@@ -53,4 +53,4 @@ export default function Sidebar({ className }: SidebarProps) {
             </div>
         </nav>
     );
-}
+};

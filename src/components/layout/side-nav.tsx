@@ -20,7 +20,11 @@ interface SideNavProps {
     className?: string;
 }
 
-export function SideNav({ items, setOpen, className }: SideNavProps) {
+export const SideNav: React.FC<SideNavProps> = ({
+    items,
+    setOpen,
+    className,
+}) => {
     const { isOpen } = useSidebarStore();
     const [boards] = useBoardStore((state) => [state.boards]);
     const [openItem, setOpenItem] = useState('');
@@ -156,4 +160,4 @@ export function SideNav({ items, setOpen, className }: SideNavProps) {
             )}
         </nav>
     );
-}
+};

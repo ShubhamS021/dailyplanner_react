@@ -8,7 +8,7 @@ import { Gitlab } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { DarkMode } from '../toggles/dark-mode/dark-mode';
 
-export default function Header() {
+export const Header = () => {
     const [setPage] = usePageStore((state) => [state.setPage]);
     const { t } = useTranslation();
 
@@ -63,4 +63,4 @@ export default function Header() {
             </nav>
         </div>
     );
-}
+};

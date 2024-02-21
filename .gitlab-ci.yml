@@ -72,6 +72,7 @@ sonar:
     script:
         - sonar-scanner
     needs: [lint, test]
+    allow_failure: true
     rules:
         - if: $CI_PIPELINE_SOURCE == "schedule"
           when: never

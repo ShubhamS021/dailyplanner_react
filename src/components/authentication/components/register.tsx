@@ -3,6 +3,8 @@ import * as IdentityProviderButtons from '../config/identityProviders.config.jso
 
 import { usePageStore } from '@/hooks/usePageStore/usePageStore';
 import { type IdentityProvider } from '@/types/IdentityProviders';
+import { Button } from '@/ui/button';
+import { ArrowLeft } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { RegisterForm } from '../forms/register-form';
 import { IdentityProviderButton } from './identity-provider-button';
@@ -13,9 +15,20 @@ export const Register = () => {
 
     return (
         <div className="flex h-screen">
-            <div className="hidden lg:flex items-center justify-center flex-1 text-black bg-gray-700">
-                <div className="max-w-md text-center">
-                    {RegisterIllustration}
+            <div className="flex gap-2 items-center justify-center flex-1 text-black bg-gray-700">
+                <div className="mx-3 text-white hover:text-primary">
+                    <Button
+                        onClick={() => setPage('boardChoosePage')}
+                        variant={'ghost'}
+                        title={t('components.Register.back')}
+                    >
+                        <ArrowLeft />
+                    </Button>
+                </div>
+                <div className="hidden lg:flex items-center justify-center flex-1">
+                    <div className="max-w-md text-center">
+                        {RegisterIllustration}
+                    </div>
                 </div>
             </div>
 

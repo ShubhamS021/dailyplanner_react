@@ -3,6 +3,8 @@ import * as IdentityProviderButtons from '../config/identityProviders.config.jso
 
 import { usePageStore } from '@/hooks/usePageStore/usePageStore';
 import { IdentityProvider } from '@/types/IdentityProviders';
+import { Button } from '@/ui/button';
+import { ArrowLeft } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { LoginForm } from '../forms/login-form';
 import { IdentityProviderButton } from './identity-provider-button';
@@ -13,8 +15,21 @@ export const Login = () => {
 
     return (
         <div className="flex h-screen">
-            <div className="hidden lg:flex items-center justify-center flex-1 text-black bg-gray-700">
-                <div className="max-w-md text-center">{LoginIllustration}</div>
+            <div className="flex gap-2 items-center justify-center flex-1 text-black bg-gray-700">
+                <div className="mx-3 text-white hover:text-primary">
+                    <Button
+                        onClick={() => setPage('boardChoosePage')}
+                        variant={'ghost'}
+                        title={t('components.Login.back')}
+                    >
+                        <ArrowLeft />
+                    </Button>
+                </div>
+                <div className="hidden lg:flex items-center justify-center flex-1">
+                    <div className="max-w-md text-center">
+                        {LoginIllustration}
+                    </div>
+                </div>
             </div>
 
             <div className="w-full bg-[#F8F8F8] dark:bg-[#212932] lg:w-1/2 flex items-center justify-center">

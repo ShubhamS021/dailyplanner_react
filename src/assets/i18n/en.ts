@@ -191,6 +191,7 @@ export const ENtranslation = {
             password: 'Password',
             noAccount: "Don't have an account?",
             registerHere: 'Register here',
+            back: 'Back to board overview',
         },
         Register: {
             signUp: 'Sign Up',
@@ -204,6 +205,7 @@ export const ENtranslation = {
             password: 'Password',
             alreadyHaveAccount: 'Already have an account?',
             loginHere: 'Login here',
+            back: 'Back to board overview',
         },
     },
     state: {

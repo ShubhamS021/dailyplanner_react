@@ -187,6 +187,7 @@ export const DEtranslation = {
             password: 'Passwort',
             noAccount: 'Haben Sie noch kein Konto?',
             registerHere: 'Hier registrieren',
+            back: 'Zurück zur Boardübersicht',
         },
         Register: {
             signUp: 'Registrieren',
@@ -200,6 +201,7 @@ export const DEtranslation = {
             password: 'Passwort',
             alreadyHaveAccount: 'Haben Sie bereits ein Konto?',
             loginHere: 'Hier einloggen',
+            back: 'Zurück zur Boardübersicht',
         },
     },
     state: {

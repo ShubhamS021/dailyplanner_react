@@ -29,6 +29,7 @@ export const ColorChooser: React.FC<ColorChooserProps> = ({
                     key={variant}
                     className={`cursor-pointer `}
                     data-testid="myboardlanes-lane-color-button"
+                    role="button"
                     onClick={() => {
                         handleTagColorSelectionIndex(index);
                         handleTagColorSelection(variant);

@@ -94,6 +94,7 @@ export function SideNav({ items, setOpen, className }: SideNavProps) {
                                             if (setOpen != null) setOpen(false);
                                             setPage(item.page);
                                         }}
+                                        role="button"
                                         className={cn(
                                             buttonVariants({
                                                 variant: 'ghost',

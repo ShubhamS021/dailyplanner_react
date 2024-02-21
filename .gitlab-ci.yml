@@ -110,15 +110,10 @@ prod:
         url: https://planner.der-hahn.net
     script:
         - ENVIRONMENT_NAME=prod bash deploy/deploy.sh
-    needs: [qa]
     rules:
         - if: $CI_PIPELINE_SOURCE == "schedule"
           when: never
-        - if: $CI_COMMIT_BRANCH == "develop"
-          when: manual
-        - if: $CI_COMMIT_BRANCH == "main"
-          when: manual
-        - when: never
+        - when: manual
 
 # cleans the docker system after a renovate run
 renovate-clean:
@@ -141,6 +136,7 @@ include:
       file: '/templates/renovate.gitlab-ci.yml'
       rules:
           - if: '$CI_PIPELINE_SOURCE == "schedule" && $CI_COMMIT_BRANCH == "develop"'
+            when: always
     - template: Jobs/SAST.gitlab-ci.yml
       rules:
           - if: $CI_PIPELINE_SOURCE == "schedule"

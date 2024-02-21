@@ -1,8 +1,8 @@
 # Dayplanner
 
-[![Coverage](http://5.181.51.30:9001/api/project_badges/measure?project=Kevin.Hahn_dayplanner_AYjEM2YbWbiQFYJY4Q0U&metric=coverage&token=sqb_51baa84b56c8f842bea0a28acf0371704b5ad028)](http://5.181.51.30:9001/dashboard?id=Kevin.Hahn_dayplanner_AYjEM2YbWbiQFYJY4Q0U)
+[![Coverage](https://sonar.der-hahn.net/api/project_badges/measure?project=Kevin.Hahn_dayplanner_64748fee-d48a-4e45-8539-4b15fee1cf90&metric=coverage&token=sqb_3e5566b528819b8ffa561388dcc1d055b150ab13)](https://sonar.der-hahn.net/dashboard?id=Kevin.Hahn_dayplanner_64748fee-d48a-4e45-8539-4b15fee1cf90)
 
-[![Quality Gate Status](http://5.181.51.30:9001/api/project_badges/measure?project=Kevin.Hahn_dayplanner_AYjEM2YbWbiQFYJY4Q0U&metric=alert_status&token=sqb_51baa84b56c8f842bea0a28acf0371704b5ad028)](http://5.181.51.30:9001/dashboard?id=Kevin.Hahn_dayplanner_AYjEM2YbWbiQFYJY4Q0U)
+[![Quality Gate Status](https://sonar.der-hahn.net/api/project_badges/measure?project=Kevin.Hahn_dayplanner_64748fee-d48a-4e45-8539-4b15fee1cf90&metric=alert_status&token=sqb_3e5566b528819b8ffa561388dcc1d055b150ab13)](https://sonar.der-hahn.net/dashboard?id=Kevin.Hahn_dayplanner_64748fee-d48a-4e45-8539-4b15fee1cf90)
 
 A day planner application built using React, designed for use as a training tool. The user-friendly interface allows for easy scheduling and management of daily tasks.
 

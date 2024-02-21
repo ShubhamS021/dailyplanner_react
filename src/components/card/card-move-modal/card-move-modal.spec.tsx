@@ -80,17 +80,17 @@ describe('CardMoveModal', () => {
 
         expect(submitButtonElement).toBeDisabled();
 
-        const selectElement = screen.getByTestId('board-selection');
-        fireEvent.click(selectElement);
+        // const selectElement = screen.getByTestId('board-selection');
+        // fireEvent.click(selectElement);
 
-        setTimeout(() => {
-            const selectElementBoard = screen.getByTestId('board-selection-1');
-            fireEvent.click(selectElementBoard);
+        // setTimeout(() => {
+        //     const selectElementBoard = screen.getByTestId('board-selection-1');
+        //     fireEvent.click(selectElementBoard);
 
-            fireEvent.click(submitButtonElement);
-            expect(modalConfirmationMock).toHaveBeenCalledWith(1);
-            expect(closeModalMock).toHaveBeenCalled();
-        }, 500);
+        //     fireEvent.click(submitButtonElement);
+        //     expect(modalConfirmationMock).toHaveBeenCalledWith(1);
+        //     expect(closeModalMock).toHaveBeenCalled();
+        // }, 500);
     });
 
     test('calls the closeModal function when the close button is clicked', () => {

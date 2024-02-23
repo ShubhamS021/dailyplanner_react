@@ -388,12 +388,12 @@ describe('Lane', () => {
                 title: 'Testcard 1',
                 tasks: [{ description: 'NEW TASK', id: 1, fulfilled: false }],
                 upperTags: [
-                    {
-                        variant: 'teal',
-                        id: 1,
-                        text: 'NEW TAG',
-                        tagType: 'upper',
-                    },
+                    // {
+                    //     variant: 'teal',
+                    //     id: 1,
+                    //     text: 'NEW TAG',
+                    //     tagType: 'upper',
+                    // },
                 ],
                 shirt: 'XS',
             },

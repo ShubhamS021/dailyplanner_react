@@ -58,6 +58,10 @@ export const DEtranslation = {
                 AddCardTags: {
                     add: 'hinzufügen',
                     limit: 'Tag-Grenze erreicht.',
+                    tag_already_exists_title: 'Tag existiert bereits.',
+                    tag_already_exists_description:
+                        'Tag existiert bereits. Bitte wähle einen anderen Tag.',
+                    tag_already_exists_action: 'Ok',
                 },
             },
         },

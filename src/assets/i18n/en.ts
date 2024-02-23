@@ -58,6 +58,10 @@ export const ENtranslation = {
                 AddCardTags: {
                     add: 'Add',
                     limit: 'Tag limit reached.',
+                    tag_already_exists_title: 'Tag already exists',
+                    tag_already_exists_description:
+                        'This tag already exists, please choose another one.',
+                    tag_already_exists_action: 'Ok',
                 },
             },
         },

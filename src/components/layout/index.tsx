@@ -1,5 +1,6 @@
 import { Header } from '@/components/layout/header';
 import { Sidebar } from '@/components/layout/sidebar';
+import { Toaster } from '@/ui/toaster';
 import React from 'react';
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -12,6 +13,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                     {children}
                 </main>
             </div>
+            <Toaster />
         </>
     );
 };

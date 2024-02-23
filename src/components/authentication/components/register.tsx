@@ -63,7 +63,7 @@ export const Register = () => {
 
                     <RegisterForm />
 
-                    <div className="mt-4 text-sm text-gray-300 text-center">
+                    <div className="mt-4 text-sm text-secondary-foreground text-center">
                         <p>
                             {t('components.Register.alreadyHaveAccount')}
                             <button

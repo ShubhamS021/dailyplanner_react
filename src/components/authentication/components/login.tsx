@@ -63,7 +63,7 @@ export const Login = () => {
 
                     <LoginForm />
 
-                    <div className="mt-4 text-sm text-gray-300 text-center">
+                    <div className="mt-4 text-sm text-secondary-foreground text-center">
                         <p>
                             {t('components.Login.noAccount')}
                             <button

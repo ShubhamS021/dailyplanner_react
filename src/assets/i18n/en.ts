@@ -186,9 +186,9 @@ export const ENtranslation = {
         },
         Login: {
             login: 'Login',
-            loginProvider: 'Log in with the following provider',
-            loginGoogle: 'Log in with Google',
-            loginGithub: 'Log in with Github',
+            loginProvider: 'Login with the following provider',
+            loginGoogle: 'Login with Google',
+            loginGithub: 'Login with Github',
             loginEmail: 'or with email',
             email: 'Email',
             emailExample: 'e.g. mail@yourdomain.com',

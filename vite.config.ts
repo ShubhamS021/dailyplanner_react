@@ -1,4 +1,4 @@
-/// <reference types="vitest" />
+/// <reference types="vite" />
 import react from '@vitejs/plugin-react';
 import * as child from 'child_process';
 import path from 'path';
@@ -43,30 +43,6 @@ export default defineConfig({
     },
     server: {
         port: 8080,
-    },
-    test: {
-        globals: true,
-        testTimeout: 60000,
-        hookTimeout: 60000,
-        environment: 'jsdom',
-        setupFiles: './src/setupTests.ts',
-        include: ['src/**/*.spec.tsx', 'src/**/*.test.tsx'],
-        coverage: {
-            reporter: ['lcov'],
-            provider: 'v8',
-            include: ['src/**/*.ts', 'src/**/*.tsx'],
-            exclude: [
-                'src/main.tsx',
-                'src/i18n.ts',
-                'src/reportWebVitals.ts',
-                'src/setupTests.ts',
-                'src/utils.ts',
-                'src/vite-env.d.ts',
-                'src/assets/**/*.ts',
-                'src/**/interfaces/*.ts',
-                'src/**/types/*.ts',
-            ],
-        },
     },
     plugins: [
         react({ exclude: ['cypress/**/*'] }),

@@ -1,11 +1,14 @@
 *.css
 *.svg
 *.png
+dist
+node_modules
 src/vite-env.d.ts
 src/reportWebVitals.ts
 src/setupTests.ts
 src/utils/wdyr.js
 vite.config.ts
+vitest.config.ts
 
 # ignore the shadcn stuff for now
 src/ui/**/*.*

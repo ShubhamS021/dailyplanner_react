@@ -1,8 +1,8 @@
+import { card } from '@/../__mocks__/cards.mock';
 import { type Card } from '@/interfaces/Card';
 import type Tag from '@/interfaces/Tag';
 import { colorVariants } from '@/types/ColorVariant';
 import { fireEvent, render } from '@testing-library/react';
-import { card } from '__mocks__/cards.mock';
 import { expect, test } from 'vitest';
 import { CardAddTags } from './card-add-tags';
 

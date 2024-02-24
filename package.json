@@ -59,7 +59,6 @@
     "react-icons": "^5.0.1",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
-    "vite-plugin-require": "^1.1.14",
     "web-vitals": "^3.5.2",
     "zod": "^3.22.4",
     "zustand": "^4.4.7"
@@ -67,6 +66,7 @@
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.7",
     "@tauri-apps/cli": "^1.5.10",
+    "@testing-library/dom": "^9.3.4",
     "@testing-library/jest-dom": "^6.2.1",
     "@testing-library/react": "^14.1.2",
     "@testing-library/user-event": "^14.5.2",
@@ -76,6 +76,7 @@
     "@types/react": "^18.2.58",
     "@types/react-beautiful-dnd": "^13.1.8",
     "@types/react-dom": "^18.2.19",
+    "@typescript-eslint/parser": "^7.0.2",
     "@typescript-eslint/eslint-plugin": "^7.0.2",
     "@vitejs/plugin-react": "^4.2.1",
     "@vitest/coverage-v8": "^1.1.3",

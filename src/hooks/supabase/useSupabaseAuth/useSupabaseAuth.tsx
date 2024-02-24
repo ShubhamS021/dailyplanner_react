@@ -1,3 +1,4 @@
+import { useUserSessionStore } from '@/hooks/useUserSessionStore/useUserSessionStore';
 import {
     AuthResponse,
     AuthTokenResponsePassword,
@@ -10,6 +11,7 @@ import { useSupabase } from '../useSuperbase/useSuperbase';
 
 export const useSupabaseAuth = () => {
     const { auth } = useSupabase();
+    const { setUser, setSession } = useUserSessionStore();
 
     /**
      * Signs up a user with the given credentials.
@@ -20,7 +22,9 @@ export const useSupabaseAuth = () => {
     const signUp = async (
         credentials: SignUpWithPasswordCredentials
     ): Promise<AuthResponse> => {
-        return await auth.signUp(credentials);
+        const resposne = await auth.signUp(credentials);
+        await handleUser();
+        return resposne;
     };
 
     /**
@@ -32,7 +36,9 @@ export const useSupabaseAuth = () => {
     const signInWithPassword = async (
         credentials: SignUpWithPasswordCredentials
     ): Promise<AuthTokenResponsePassword> => {
-        return await auth.signInWithPassword(credentials);
+        const response = await auth.signInWithPassword(credentials);
+        await handleUser();
+        return response;
     };
 
     /**
@@ -44,16 +50,24 @@ export const useSupabaseAuth = () => {
     const signInWithOAuth = async (
         credentials: SignInWithOAuthCredentials
     ): Promise<OAuthResponse> => {
-        return await auth.signInWithOAuth(credentials);
+        const response = await auth.signInWithOAuth(credentials);
+        await handleUser();
+        return response;
     };
 
-    /**
-     * Gets the user session
-     *
-     * @returns Returns the session, refreshing it if necessary. The session returned can be null if the session is not detected which can happen in the event a user is not signed-in or has logged out.
+    /*
+     * Handles the user session.
      */
-    const getUserSession = async () => {
-        return await auth.getSession();
+    const handleUser = async () => {
+        const authSession = await auth.getSession();
+        if (authSession != null) {
+            setSession(authSession.data.session);
+            const user = authSession.data.session?.user;
+
+            if (user !== undefined) {
+                setUser(user);
+            }
+        }
     };
 
     const value = useMemo(
@@ -61,9 +75,8 @@ export const useSupabaseAuth = () => {
             signUp,
             signInWithPassword,
             signInWithOAuth,
-            getUserSession,
         }),
-        [signUp, signInWithPassword, signInWithOAuth, getUserSession]
+        [signUp, signInWithPassword, signInWithOAuth]
     );
 
     return value;

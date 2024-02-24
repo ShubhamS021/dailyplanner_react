@@ -207,6 +207,18 @@ export const DEtranslation = {
             loginHere: 'Hier einloggen',
             back: 'Zurück zur Boardübersicht',
         },
+        'user-nav': {
+            myaccount: 'Mein Account',
+            settings: 'Einstellungen (demnächst)',
+            tour: 'Machen Sie die Tour (demnächst)',
+
+            support: 'Support (demnächst)',
+            signOut: {
+                signOut: 'Abmelden',
+                title: 'Abmelden erfolgreich',
+                description: 'Sie haben sich erfolgreich abgemeldet.',
+            },
+        },
     },
     state: {
         board: {

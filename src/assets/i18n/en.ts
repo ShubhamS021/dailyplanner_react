@@ -211,6 +211,17 @@ export const ENtranslation = {
             loginHere: 'Login here',
             back: 'Back to board overview',
         },
+        'user-nav': {
+            myaccount: 'My account',
+            settings: 'Settings (coming soon)',
+            tour: 'Take the tour (coming soon)',
+            support: 'Support (coming soon)',
+            signOut: {
+                signOut: 'Sign out',
+                title: 'Sign out successful',
+                description: 'You have successfully signed out.',
+            },
+        },
     },
     state: {
         board: {

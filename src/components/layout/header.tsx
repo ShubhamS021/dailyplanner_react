@@ -1,17 +1,32 @@
 import logo from '@/assets/logo.png';
 import { MobileSidebar } from '@/components/layout/mobile-sidebar';
+import { useSupabase } from '@/hooks/supabase/useSuperbase/useSuperbase';
 import { usePageStore } from '@/hooks/usePageStore/usePageStore';
+import { useUserSessionStore } from '@/hooks/useUserSessionStore/useUserSessionStore';
 import { Button } from '@/ui/button';
 import { Separator } from '@/ui/separator';
 import { cn } from '@/utils';
+import { AuthSession } from '@supabase/supabase-js';
 import { Gitlab } from 'lucide-react';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DarkMode } from '../toggles/dark-mode/dark-mode';
+import { UserNav } from './user-nav';
 
 export const Header = () => {
     const [setPage] = usePageStore((state) => [state.setPage]);
     const { t } = useTranslation();
+    const { auth } = useSupabase();
+    const { user, setSession, setUser } = useUserSessionStore();
 
+    useEffect(() => {
+        auth.onAuthStateChange(
+            (_event: string, session: AuthSession | null) => {
+                setSession(session);
+                session != null ? setUser(session?.user) : setUser(undefined);
+            }
+        );
+    }, []);
     return (
         <div className="supports-backdrop-blur:bg-background/60 fixed left-0 right-0 top-0 z-20 border-b bg-background/95 backdrop-blur">
             <nav className="flex h-16 items-center justify-between px-4">
@@ -47,18 +62,18 @@ export const Header = () => {
                     </a>
                     <Separator orientation="vertical" />
                     <DarkMode />
-                    {/* {sessionData?.user ? (
-                        <UserNav user={sessionData.user} />
-                    ) : ( */}
-                    <Button
-                        size={'sm'}
-                        onClick={() => {
-                            setPage('loginPage');
-                        }}
-                    >
-                        {t('components.Login.login')}
-                    </Button>
-                    {/* )} */}
+                    {user != null ? (
+                        <UserNav />
+                    ) : (
+                        <Button
+                            size={'sm'}
+                            onClick={() => {
+                                setPage('loginPage');
+                            }}
+                        >
+                            {t('components.Login.login')}
+                        </Button>
+                    )}
                 </div>
             </nav>
         </div>

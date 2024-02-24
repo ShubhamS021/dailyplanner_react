@@ -18,9 +18,7 @@ export const IdentityProviderButton: React.FC<IdentityProviderButtonProps> = ({
     const { signInWithOAuth } = useSupabaseAuth();
 
     const signInWithOAuthProvider = async () => {
-        const { data } = await signInWithOAuth({ provider });
-
-        return data;
+        await signInWithOAuth({ provider });
     };
 
     const renderButtonContent = () => {

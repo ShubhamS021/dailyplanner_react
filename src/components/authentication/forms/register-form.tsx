@@ -58,7 +58,7 @@ export const RegisterForm = () => {
                                 {t('components.Register.username')}
                             </FormLabel>
                             <FormControl>
-                                <Input {...field} />
+                                <Input {...field} autoComplete="username" />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -73,7 +73,7 @@ export const RegisterForm = () => {
                                 {t('components.Register.email')}
                             </FormLabel>
                             <FormControl>
-                                <Input {...field} />
+                                <Input {...field} autoComplete="email" />
                             </FormControl>
                             <FormDescription>
                                 {t('components.Register.emailExample')}
@@ -91,7 +91,11 @@ export const RegisterForm = () => {
                                 {t('components.Register.password')}
                             </FormLabel>
                             <FormControl>
-                                <Input {...field} type="password" />
+                                <Input
+                                    {...field}
+                                    type="password"
+                                    autoComplete="current-password"
+                                />
                             </FormControl>
                             <FormMessage />
                         </FormItem>

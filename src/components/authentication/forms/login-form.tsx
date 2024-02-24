@@ -56,7 +56,7 @@ export const LoginForm = () => {
                         <FormItem>
                             <FormLabel>{t('components.Login.email')}</FormLabel>
                             <FormControl>
-                                <Input {...field} />
+                                <Input {...field} autoComplete="email" />
                             </FormControl>
                             <FormDescription>
                                 {t('components.Login.emailExample')}
@@ -74,7 +74,11 @@ export const LoginForm = () => {
                                 {t('components.Login.password')}
                             </FormLabel>
                             <FormControl>
-                                <Input {...field} type="password" />
+                                <Input
+                                    {...field}
+                                    type="password"
+                                    autoComplete="current-password"
+                                />
                             </FormControl>
                             <FormMessage />
                         </FormItem>

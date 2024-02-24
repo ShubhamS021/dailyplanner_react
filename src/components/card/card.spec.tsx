@@ -4,11 +4,14 @@ import { expect, test } from 'vitest';
 import { CardComponent } from './card';
 
 describe('Card', () => {
+    const CARD_TITLE = 'card title';
+    const NOT_IMPLEMENTED_MESSAGE = 'Not implemented';
+
     test('renders basic card', () => {
         const { getByTestId } = render(
             <DragDropContext onDragEnd={() => {}}>
                 <CardComponent
-                    title={'card title'}
+                    title={CARD_TITLE}
                     description="card description"
                     onRemoveCard={() => {}}
                     onEditCard={() => {}}
@@ -19,7 +22,7 @@ describe('Card', () => {
             </DragDropContext>
         );
 
-        expect(getByTestId(/card-title/i).textContent).toBe('card title');
+        expect(getByTestId(/card-title/i).textContent).toBe(CARD_TITLE);
         expect(getByTestId(/card-description/i).textContent).toBe(
             'card description'
         );
@@ -42,7 +45,7 @@ describe('Card', () => {
                                         ref={provided.innerRef}
                                     >
                                         <CardComponent
-                                            title={'card title'}
+                                            title={CARD_TITLE}
                                             description="card description"
                                             tasks={[
                                                 {
@@ -79,18 +82,18 @@ describe('Card', () => {
                                             ]}
                                             onRemoveCard={function (): void {
                                                 throw new Error(
-                                                    'Function not implemented.'
+                                                    NOT_IMPLEMENTED_MESSAGE
                                                 );
                                             }}
                                             onEditCard={function (): void {
                                                 throw new Error(
-                                                    'Function not implemented.'
+                                                    NOT_IMPLEMENTED_MESSAGE
                                                 );
                                             }}
                                             id={0}
                                             onMoveCard={function (): void {
                                                 throw new Error(
-                                                    'Function not implemented.'
+                                                    NOT_IMPLEMENTED_MESSAGE
                                                 );
                                             }}
                                             shirt={'XS'}
@@ -104,7 +107,7 @@ describe('Card', () => {
             </DragDropContext>
         );
 
-        expect(getByTestId(/card-title/i).textContent).toBe('card title');
+        expect(getByTestId(/card-title/i).textContent).toBe(CARD_TITLE);
         expect(getByTestId(/card-description/i).textContent).toBe(
             'card description'
         );

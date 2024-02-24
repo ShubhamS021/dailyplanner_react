@@ -12,6 +12,10 @@ import { expect, test, vi } from 'vitest';
 import { MyBoardLanes } from './my-board-lanes';
 
 describe('MyBoardLanes', () => {
+    const LANENAME_INPUT_TESTID = 'myboardlanes-lanename-input';
+    const LANE_COLOR_BUTTON_TESTID = 'myboardlanes-lane-color-button';
+    const ADDLANE_BUTTON_TESTID = 'myboardlanes-addlane-button';
+
     // add a default board with some columns
     beforeEach(() => {
         const { result } = renderHook(() => useBoardStore());
@@ -40,9 +44,9 @@ describe('MyBoardLanes', () => {
     });
 
     test('allows the user to enter a lane name and pick a color', () => {
-        const laneNameInput = screen.getByTestId('myboardlanes-lanename-input');
+        const laneNameInput = screen.getByTestId(LANENAME_INPUT_TESTID);
         const blueColorButton = screen.getAllByTestId(
-            'myboardlanes-lane-color-button'
+            LANE_COLOR_BUTTON_TESTID
         )[0];
         fireEvent.change(laneNameInput, { target: { value: 'New Lane' } });
         fireEvent.click(blueColorButton);
@@ -54,11 +58,11 @@ describe('MyBoardLanes', () => {
         const { result } = renderHook(() => useBoardStore());
         const spy = vi.spyOn(result.current, 'addLaneToBoard');
 
-        const laneNameInput = screen.getByTestId('myboardlanes-lanename-input');
+        const laneNameInput = screen.getByTestId(LANENAME_INPUT_TESTID);
         const blueColorButton = screen.getAllByTestId(
-            'myboardlanes-lane-color-button'
+            LANE_COLOR_BUTTON_TESTID
         )[0];
-        const addLaneButton = screen.getByTestId('myboardlanes-addlane-button');
+        const addLaneButton = screen.getByTestId(ADDLANE_BUTTON_TESTID);
         fireEvent.change(laneNameInput, { target: { value: 'New Lane' } });
         fireEvent.click(blueColorButton);
         fireEvent.click(addLaneButton);
@@ -79,11 +83,11 @@ describe('MyBoardLanes', () => {
         const { result } = renderHook(() => useBoardStore());
         const spy = vi.spyOn(result.current, 'removeLaneFromBoard');
 
-        const laneNameInput = screen.getByTestId('myboardlanes-lanename-input');
+        const laneNameInput = screen.getByTestId(LANENAME_INPUT_TESTID);
         const blueColorButton = screen.getAllByTestId(
-            'myboardlanes-lane-color-button'
+            LANE_COLOR_BUTTON_TESTID
         )[0];
-        const addLaneButton = screen.getByTestId('myboardlanes-addlane-button');
+        const addLaneButton = screen.getByTestId(ADDLANE_BUTTON_TESTID);
         fireEvent.change(laneNameInput, { target: { value: 'New Lane' } });
         fireEvent.click(blueColorButton);
         fireEvent.click(addLaneButton);
@@ -99,11 +103,11 @@ describe('MyBoardLanes', () => {
         const { result } = renderHook(() => useBoardStore());
         const spy = vi.spyOn(result.current, 'enterBoard');
 
-        const laneNameInput = screen.getByTestId('myboardlanes-lanename-input');
+        const laneNameInput = screen.getByTestId(LANENAME_INPUT_TESTID);
         const blueColorButton = screen.getAllByTestId(
-            'myboardlanes-lane-color-button'
+            LANE_COLOR_BUTTON_TESTID
         )[0];
-        const addLaneButton = screen.getByTestId('myboardlanes-addlane-button');
+        const addLaneButton = screen.getByTestId(ADDLANE_BUTTON_TESTID);
         fireEvent.change(laneNameInput, { target: { value: 'New Lane' } });
         fireEvent.click(blueColorButton);
         fireEvent.click(addLaneButton);

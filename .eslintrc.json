@@ -11,7 +11,8 @@
     "extends": [
         "plugin:react/recommended",
         "standard-with-typescript",
-        "prettier"
+        "prettier",
+        "plugin:sonarjs/recommended"
     ],
     "overrides": [
         {
@@ -32,12 +33,13 @@
             }
         }
     ],
+    "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "project": ["tsconfig.json"],
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
-    "plugins": ["react"],
+    "plugins": ["react", "sonarjs"],
     "rules": {
         "react/react-in-jsx-scope": "off",
         "no-use-before-define": "off",

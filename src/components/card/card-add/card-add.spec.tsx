@@ -8,6 +8,9 @@ import { expect, test } from 'vitest';
 import { CardAdd } from './card-add';
 
 describe('AddCard', () => {
+    const ADD_CARD = 'add a card';
+    const BUTTON_TEXT = 'button text';
+
     // add a default board with some columns
     beforeEach(() => {
         renderHook(() => useDayplannerDB('history'));
@@ -25,18 +28,18 @@ describe('AddCard', () => {
 
     test('renders the basic addCard', () => {
         const { getByTestId } = render(
-            <CardAdd placeholder={'add a card'} text={'button text'} />
+            <CardAdd placeholder={ADD_CARD} text={BUTTON_TEXT} />
         );
         expect(getByTestId(/addcard-input/)).toHaveAttribute(
             'placeholder',
-            'add a card'
+            ADD_CARD
         );
-        expect(getByTestId(/addcard-button/).textContent).toBe('button text');
+        expect(getByTestId(/addcard-button/).textContent).toBe(BUTTON_TEXT);
     });
 
     test('add a new card', () => {
         const { getByTestId } = render(
-            <CardAdd placeholder={'add a card'} text={'button text'} />
+            <CardAdd placeholder={ADD_CARD} text={BUTTON_TEXT} />
         );
 
         const input = getByTestId(/addcard-input/) as HTMLInputElement;
@@ -85,7 +88,7 @@ describe('AddCard', () => {
 
     test('cancel add a new card modal', () => {
         const { getByTestId } = render(
-            <CardAdd placeholder={'add a card'} text={'button text'} />
+            <CardAdd placeholder={ADD_CARD} text={BUTTON_TEXT} />
         );
 
         const input = getByTestId(/addcard-input/) as HTMLInputElement;

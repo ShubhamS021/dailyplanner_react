@@ -13,6 +13,9 @@ import { expect, test, vi } from 'vitest';
 import MyBoards from './my-boards';
 
 describe('MyBoards', () => {
+    const EDIT_BOARD_BUTTON_TESTID = 'edit-board-button';
+    const CONFIRMATION_MODAL_TESTID = 'confirmation-modal';
+
     // add a default board with some columns
     beforeEach(() => {
         const { result: boardStore } = renderHook(() => useBoardStore());
@@ -89,18 +92,18 @@ describe('MyBoards', () => {
     });
 
     test('should render the edit board modal when edit button is clicked', () => {
-        const [editButton] = screen.getAllByTestId('edit-board-button');
+        const [editButton] = screen.getAllByTestId(EDIT_BOARD_BUTTON_TESTID);
         fireEvent.click(editButton);
 
-        const editModal = screen.getByTestId('confirmation-modal');
+        const editModal = screen.getByTestId(CONFIRMATION_MODAL_TESTID);
         expect(editModal).toBeInTheDocument();
     });
 
     test('should close the edit board modal directly after opening', () => {
-        const [editButton] = screen.getAllByTestId('edit-board-button');
+        const [editButton] = screen.getAllByTestId(EDIT_BOARD_BUTTON_TESTID);
         fireEvent.click(editButton);
 
-        const editModal = screen.getByTestId('confirmation-modal');
+        const editModal = screen.getByTestId(CONFIRMATION_MODAL_TESTID);
         expect(editModal).toBeInTheDocument();
 
         const cancelButton = screen.getByTestId(
@@ -113,10 +116,10 @@ describe('MyBoards', () => {
         const { result } = renderHook(() => useBoardStore());
         const spy = vi.spyOn(result.current, 'renameBoard');
 
-        const [editButton] = screen.getAllByTestId('edit-board-button');
+        const [editButton] = screen.getAllByTestId(EDIT_BOARD_BUTTON_TESTID);
         fireEvent.click(editButton);
 
-        const editModal = screen.getByTestId('confirmation-modal');
+        const editModal = screen.getByTestId(CONFIRMATION_MODAL_TESTID);
         expect(editModal).toBeInTheDocument();
 
         const boardTitle = screen.getByTestId('boardedit-title-input');

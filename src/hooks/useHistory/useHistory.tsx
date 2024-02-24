@@ -10,8 +10,7 @@ export const useHistory = (boardId: number) => {
 
     const fetchData = useCallback(async () => {
         try {
-            const history = await getHistory(boardId);
-            return history;
+            return await getHistory(boardId);
         } catch (error) {
             console.error(error);
         }
@@ -89,7 +88,7 @@ export const useHistory = (boardId: number) => {
         }
     }, [loading, fetchData]);
 
-    const value = useMemo(
+    return useMemo(
         () => ({
             history,
             addDeletionToHistory,
@@ -107,6 +106,4 @@ export const useHistory = (boardId: number) => {
             addBoardMovementToHistory,
         ]
     );
-
-    return value;
 };

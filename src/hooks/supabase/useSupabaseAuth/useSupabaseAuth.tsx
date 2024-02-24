@@ -70,7 +70,7 @@ export const useSupabaseAuth = () => {
         }
     };
 
-    const value = useMemo(
+    return useMemo(
         () => ({
             signUp,
             signInWithPassword,
@@ -78,6 +78,4 @@ export const useSupabaseAuth = () => {
         }),
         [signUp, signInWithPassword, signInWithOAuth]
     );
-
-    return value;
 };

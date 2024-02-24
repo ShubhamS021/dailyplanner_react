@@ -86,11 +86,13 @@ export const MyBoards = () => {
         );
     };
 
+    const title = t('components.MyBoards.title');
+
     return (
         <div className="py-10 px-5 grid grid-cols-1 grid-rows-[1fr,auto]">
             <div className="flex flex-col gap-5">
                 <PageTitle
-                    title={t('components.MyBoards.title')}
+                    title={title}
                     subtitle={t('components.MyBoards.subtitle')}
                 />
 
@@ -116,17 +118,13 @@ export const MyBoards = () => {
                     {boards.length === 0 ? (
                         <TableHeader>
                             <TableRow>
-                                <TableHead>
-                                    {t('components.MyBoards.title')}
-                                </TableHead>
+                                <TableHead>{title}</TableHead>
                             </TableRow>
                         </TableHeader>
                     ) : (
                         <TableHeader>
                             <TableRow>
-                                <TableHead>
-                                    {t('components.MyBoards.title')}
-                                </TableHead>
+                                <TableHead>{title}</TableHead>
                                 {/* <TableHead className="w-[120px] text-right">
                                 Save location
                             </TableHead> */}

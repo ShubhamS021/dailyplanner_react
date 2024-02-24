@@ -46,121 +46,119 @@ export const SideNav: React.FC<SideNavProps> = ({
     }, [isOpen]);
 
     const isDisabled = (item: NavItem): boolean => {
-        if (item.disabledBy === 'boardsEmpty') {
-            if (boards?.length === 0) return true;
-        }
-        return false;
+        return !!(item.disabledBy === 'boardsEmpty' && boards?.length === 0);
     };
 
-    return (
-        <nav className="space-y-2">
-            {items.map((item) =>
-                item.isChildren ?? false ? (
-                    <Accordion
-                        type="single"
-                        collapsible
-                        className="space-y-2"
-                        key={item.title}
-                        value={openItem}
-                        onValueChange={setOpenItem}
+    const renderChild = (item: NavItem) => {
+        return (
+            <Button
+                variant={'ghost'}
+                size={'default'}
+                disabled={isDisabled(item)}
+                key={item.title}
+                type="button"
+                onClick={() => {
+                    if (setOpen != null) setOpen(false);
+                    setPage(item.page);
+                }}
+                className={cn(
+                    'group relative flex gap-3 h-12 justify-start cursor-pointer w-full',
+                    page === item.page && 'bg-muted font-bold hover:bg-muted'
+                )}
+            >
+                <item.icon className={cn('h-5 w-5', item.color)} />
+
+                {(isOpen || isMobile) && (
+                    <div
+                        className={cn(
+                            'text-base duration-200',
+                            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+                            !isOpen && className
+                        )}
                     >
-                        <AccordionItem
-                            value={t(item.title)}
-                            className="border-none "
+                        {t(item.title)}
+                    </div>
+                )}
+            </Button>
+        );
+    };
+
+    const renderParent = (item: NavItem) => {
+        return (
+            <Accordion
+                type="single"
+                collapsible
+                className="space-y-2"
+                key={item.title}
+                value={openItem}
+                onValueChange={setOpenItem}
+            >
+                <AccordionItem value={t(item.title)} className="border-none ">
+                    <AccordionTrigger
+                        className={cn(
+                            buttonVariants({ variant: 'ghost' }),
+                            'group relative flex h-12 justify-between px-4 py-2 text-base duration-200 hover:bg-muted hover:no-underline'
+                        )}
+                    >
+                        <div>
+                            <item.icon className={cn('h-5 w-5', item.color)} />
+                        </div>
+                        <div
+                            className={cn(
+                                'absolute left-12 text-base duration-200',
+                                !isOpen && className
+                            )}
                         >
-                            <AccordionTrigger
+                            {t(item.title)}
+                        </div>
+
+                        {isOpen && (
+                            <ChevronDownIcon className="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200" />
+                        )}
+                    </AccordionTrigger>
+                    <AccordionContent className="mt-2 space-y-4 pb-1">
+                        {item.children?.map((child) => (
+                            <button
+                                key={child.title}
+                                type="button"
+                                onClick={() => {
+                                    if (setOpen != null) setOpen(false);
+                                    setPage(item.page);
+                                }}
                                 className={cn(
-                                    buttonVariants({ variant: 'ghost' }),
-                                    'group relative flex h-12 justify-between px-4 py-2 text-base duration-200 hover:bg-muted hover:no-underline'
+                                    buttonVariants({
+                                        variant: 'ghost',
+                                    }),
+                                    'group relative flex h-12 justify-start gap-x-3 cursor-pointer ml-2',
+                                    page === child.page &&
+                                        'bg-muted font-bold hover:bg-muted'
                                 )}
                             >
-                                <div>
-                                    <item.icon
-                                        className={cn('h-5 w-5', item.color)}
-                                    />
-                                </div>
+                                <child.icon
+                                    className={cn('h-5 w-5', child.color)}
+                                />
                                 <div
                                     className={cn(
                                         'absolute left-12 text-base duration-200',
                                         !isOpen && className
                                     )}
                                 >
-                                    {t(item.title)}
+                                    {child.title}
                                 </div>
+                            </button>
+                        ))}
+                    </AccordionContent>
+                </AccordionItem>
+            </Accordion>
+        );
+    };
 
-                                {isOpen && (
-                                    <ChevronDownIcon className="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200" />
-                                )}
-                            </AccordionTrigger>
-                            <AccordionContent className="mt-2 space-y-4 pb-1">
-                                {item.children?.map((child) => (
-                                    <button
-                                        key={child.title}
-                                        type="button"
-                                        onClick={() => {
-                                            if (setOpen != null) setOpen(false);
-                                            setPage(item.page);
-                                        }}
-                                        className={cn(
-                                            buttonVariants({
-                                                variant: 'ghost',
-                                            }),
-                                            'group relative flex h-12 justify-start gap-x-3 cursor-pointer ml-2',
-                                            page === child.page &&
-                                                'bg-muted font-bold hover:bg-muted'
-                                        )}
-                                    >
-                                        <child.icon
-                                            className={cn(
-                                                'h-5 w-5',
-                                                child.color
-                                            )}
-                                        />
-                                        <div
-                                            className={cn(
-                                                'absolute left-12 text-base duration-200',
-                                                !isOpen && className
-                                            )}
-                                        >
-                                            {child.title}
-                                        </div>
-                                    </button>
-                                ))}
-                            </AccordionContent>
-                        </AccordionItem>
-                    </Accordion>
-                ) : (
-                    <Button
-                        variant={'ghost'}
-                        size={'default'}
-                        disabled={isDisabled(item)}
-                        key={item.title}
-                        type="button"
-                        onClick={() => {
-                            if (setOpen != null) setOpen(false);
-                            setPage(item.page);
-                        }}
-                        className={cn(
-                            'group relative flex gap-3 h-12 justify-start cursor-pointer w-full',
-                            page === item.page &&
-                                'bg-muted font-bold hover:bg-muted'
-                        )}
-                    >
-                        <item.icon className={cn('h-5 w-5', item.color)} />
-
-                        {(isOpen || isMobile) && (
-                            <div
-                                className={cn(
-                                    'text-base duration-200',
-                                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                                    !isOpen && className
-                                )}
-                            >
-                                {t(item.title)}
-                            </div>
-                        )}
-                    </Button>
-                )
+    return (
+        <nav className="space-y-2">
+            {items.map((item) =>
+                item.isChildren ?? false
+                    ? renderParent(item)
+                    : renderChild(item)
             )}
         </nav>
     );

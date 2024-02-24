@@ -5,6 +5,7 @@ import { CardActions } from './card-actions';
 
 describe('CardActions', () => {
     const WAIT_TILL_ACTION_MENU = 200;
+    const CARD_ACTION_BUTTON_TESTID = 'card-action-button';
 
     test('renders without crashing', () => {
         render(<CardActions />);
@@ -12,7 +13,7 @@ describe('CardActions', () => {
 
     test('renders all buttons', async () => {
         const { getByTestId } = render(<CardActions />);
-        const actionButton = getByTestId('card-action-button');
+        const actionButton = getByTestId(CARD_ACTION_BUTTON_TESTID);
         await userEvent.click(actionButton, {
             delay: WAIT_TILL_ACTION_MENU,
         });
@@ -25,7 +26,7 @@ describe('CardActions', () => {
     test('calls onEdit when edit button is clicked', async () => {
         const onEdit = vi.fn();
         const { getByTestId } = render(<CardActions onEditCard={onEdit} />);
-        const actionButton = getByTestId('card-action-button');
+        const actionButton = getByTestId(CARD_ACTION_BUTTON_TESTID);
         await userEvent.click(actionButton, {
             delay: WAIT_TILL_ACTION_MENU,
         });
@@ -37,7 +38,7 @@ describe('CardActions', () => {
     test('calls onRemove when remove button is clicked', async () => {
         const onRemove = vi.fn();
         const { getByTestId } = render(<CardActions onRemoveCard={onRemove} />);
-        const actionButton = getByTestId('card-action-button');
+        const actionButton = getByTestId(CARD_ACTION_BUTTON_TESTID);
         await userEvent.click(actionButton, {
             delay: WAIT_TILL_ACTION_MENU,
         });
@@ -49,7 +50,7 @@ describe('CardActions', () => {
     test('calls onMove when move button is clicked', async () => {
         const onMove = vi.fn();
         const { getByTestId } = render(<CardActions onMoveCard={onMove} />);
-        const actionButton = getByTestId('card-action-button');
+        const actionButton = getByTestId(CARD_ACTION_BUTTON_TESTID);
         await userEvent.click(actionButton, {
             delay: WAIT_TILL_ACTION_MENU,
         });

@@ -6,6 +6,8 @@ import { expect, test, vi } from 'vitest';
 import { DarkMode } from './dark-mode';
 
 describe('DarkModeToggle', () => {
+    const BTN_TEST_ID = 'theme-mode-button';
+
     // add a default board with some columns
     beforeEach(() => {
         const { result } = renderHook(() => useBoardStore());
@@ -23,7 +25,7 @@ describe('DarkModeToggle', () => {
     test('should render the dark mode toggle component with correct text', () => {
         const { getByTestId, getByText } = render(<DarkMode />);
 
-        const toggleButton = getByTestId('theme-mode-button');
+        const toggleButton = getByTestId(BTN_TEST_ID);
         const toggleText = getByText('Dark');
 
         expect(toggleButton).toBeInTheDocument();
@@ -39,7 +41,7 @@ describe('DarkModeToggle', () => {
 
         const { getByTestId, getByText } = render(<DarkMode />);
 
-        const toggleButton = getByTestId('theme-mode-button');
+        const toggleButton = getByTestId(BTN_TEST_ID);
         const toggleText = getByText('Light');
 
         expect(toggleButton).toBeInTheDocument();
@@ -52,7 +54,7 @@ describe('DarkModeToggle', () => {
 
         const { getByTestId } = render(<DarkMode />);
 
-        const toggleButton = getByTestId('theme-mode-button');
+        const toggleButton = getByTestId(BTN_TEST_ID);
         fireEvent.click(toggleButton);
 
         expect(spy).toHaveBeenCalled();
@@ -68,7 +70,7 @@ describe('DarkModeToggle', () => {
 
         const { getByTestId } = render(<DarkMode />);
 
-        const toggleButton = getByTestId('theme-mode-button');
+        const toggleButton = getByTestId(BTN_TEST_ID);
         fireEvent.click(toggleButton);
 
         expect(spy).toHaveBeenCalled();

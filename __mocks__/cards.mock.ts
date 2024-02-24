@@ -1,9 +1,11 @@
 import { type Card } from '../src/interfaces/Card';
 
+const mockDescription = 'This card is a test card.';
+
 export const card: Card = {
     id: 1,
     title: 'Testcard 1',
-    description: 'This card is a test card.',
+    description: mockDescription,
     lowerTags: [],
     upperTags: [],
     tasks: [],
@@ -53,7 +55,7 @@ export const cardExtendedUpdate: Card = {
 export const card2: Card = {
     id: 2,
     title: 'Testcard 2',
-    description: 'This card is a test card.',
+    description: mockDescription,
     lowerTags: [],
     upperTags: [],
     tasks: [],
@@ -63,7 +65,7 @@ export const card2: Card = {
 export const card3: Card = {
     id: 3,
     title: 'Testcard 3',
-    description: 'This card is a test card.',
+    description: mockDescription,
     lowerTags: [],
     upperTags: [],
     tasks: [],

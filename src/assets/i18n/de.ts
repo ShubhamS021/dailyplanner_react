@@ -1,3 +1,5 @@
+const ADD = 'hinzufügen';
+
 export const DEtranslation = {
     components: {
         'side-nav': {
@@ -27,7 +29,7 @@ export const DEtranslation = {
                     placeholder: 'Beschreibe deine Aufgabe',
                 },
                 AddDueDate: {
-                    add: 'hinzufügen',
+                    add: ADD,
                     pickADate: 'Wähle ein Datum',
                     preset: 'Schnellauswahl',
                     today: 'Heute',
@@ -50,13 +52,13 @@ export const DEtranslation = {
                 },
                 AddCardSubtasks: {
                     define: 'Teilaufgabe definieren.',
-                    add: 'hinzufügen',
+                    add: ADD,
                     edit: 'Diese Aufgabe bearbeiten.',
                     remove: 'Diese Aufgabe entfernen.',
                     save: 'Diese Aufgabe speichern.',
                 },
                 AddCardTags: {
-                    add: 'hinzufügen',
+                    add: ADD,
                     limit: 'Tag-Grenze erreicht.',
                     tag_already_exists_title: 'Tag existiert bereits.',
                     tag_already_exists_description:
@@ -67,7 +69,7 @@ export const DEtranslation = {
         },
         Board: {
             add: 'Neue Aufgabe',
-            addSubmit: 'Hinzufügen',
+            addSubmit: ADD,
         },
         BoardHistory: {
             historyFor: 'Historie für: ',
@@ -90,7 +92,7 @@ export const DEtranslation = {
             titleAndDescription: 'Titel und Beschreibung',
             title: 'Titel aktualisieren.',
             subtitle: 'Untertitel aktualisieren.',
-            add: 'hinzufügen',
+            add: ADD,
             addLane: 'Spalte hinzufügen',
             addLaneText: 'Spaltennamen eingeben.',
             moveRemoveLane: 'Spalten verschieben / löschen',

@@ -5,16 +5,18 @@ import { LaneActions } from './lane-actions';
 
 describe('LaneActions', () => {
     const WAIT_TILL_ACTION_MENU = 200;
+    const NOT_IMPLEMENTED_MESSAGE = 'Not implemented';
+    const LANE_ACTION_BUTTON_TESTID = 'lane-action-button';
 
     test('renders without crashing', () => {
         render(
             <LaneActions
                 isLastLane={false}
                 onShowLaneEditModal={function (): void {
-                    throw new Error('Function not implemented.');
+                    throw new Error(NOT_IMPLEMENTED_MESSAGE);
                 }}
                 onShowDeleteModal={function (): void {
-                    throw new Error('Function not implemented.');
+                    throw new Error(NOT_IMPLEMENTED_MESSAGE);
                 }}
             />
         );
@@ -24,15 +26,15 @@ describe('LaneActions', () => {
         const { getByTestId } = render(
             <LaneActions
                 onShowLaneEditModal={function (): void {
-                    throw new Error('Function not implemented.');
+                    throw new Error(NOT_IMPLEMENTED_MESSAGE);
                 }}
                 onShowDeleteModal={function (): void {
-                    throw new Error('Function not implemented.');
+                    throw new Error(NOT_IMPLEMENTED_MESSAGE);
                 }}
                 isLastLane={true}
             />
         );
-        const actionButton = getByTestId('lane-action-button');
+        const actionButton = getByTestId(LANE_ACTION_BUTTON_TESTID);
         await userEvent.click(actionButton, {
             delay: WAIT_TILL_ACTION_MENU,
         });
@@ -49,12 +51,12 @@ describe('LaneActions', () => {
             <LaneActions
                 onShowLaneEditModal={onEdit}
                 onShowDeleteModal={function (): void {
-                    throw new Error('Function not implemented.');
+                    throw new Error(NOT_IMPLEMENTED_MESSAGE);
                 }}
                 isLastLane={false}
             />
         );
-        const actionButton = getByTestId('lane-action-button');
+        const actionButton = getByTestId(LANE_ACTION_BUTTON_TESTID);
         await userEvent.click(actionButton, {
             delay: WAIT_TILL_ACTION_MENU,
         });
@@ -68,13 +70,13 @@ describe('LaneActions', () => {
         const { getByTestId } = render(
             <LaneActions
                 onShowLaneEditModal={function (): void {
-                    throw new Error('Function not implemented.');
+                    throw new Error(NOT_IMPLEMENTED_MESSAGE);
                 }}
                 onShowDeleteModal={onRemove}
                 isLastLane={true}
             />
         );
-        const actionButton = getByTestId('lane-action-button');
+        const actionButton = getByTestId(LANE_ACTION_BUTTON_TESTID);
         await userEvent.click(actionButton, {
             delay: WAIT_TILL_ACTION_MENU,
         });

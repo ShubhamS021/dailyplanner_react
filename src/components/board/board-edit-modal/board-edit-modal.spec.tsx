@@ -13,6 +13,9 @@ import { expect, test, vi } from 'vitest';
 import { BoardEditModal } from './board-edit-modal';
 
 describe('boardeditModal', () => {
+    const BOARDEDIT_TITLE_INPUT_TESTID = 'boardedit-title-input';
+    const BOARDEDIT_SUBTITLE_INPUT_TESTID = 'boardedit-subtitle-input';
+
     // add a default board with some columns
     beforeEach(() => {
         const { result } = renderHook(() => useBoardStore());
@@ -50,8 +53,10 @@ describe('boardeditModal', () => {
         expect(
             screen.getByText(t('components.BoardEditModal.title'))
         ).toBeInTheDocument();
-        expect(screen.getByTestId('boardedit-title-input')).toHaveValue(title);
-        expect(screen.getByTestId('boardedit-subtitle-input')).toHaveValue(
+        expect(screen.getByTestId(BOARDEDIT_TITLE_INPUT_TESTID)).toHaveValue(
+            title
+        );
+        expect(screen.getByTestId(BOARDEDIT_SUBTITLE_INPUT_TESTID)).toHaveValue(
             subtitle
         );
     });
@@ -94,10 +99,12 @@ describe('boardeditModal', () => {
             />
         );
 
-        const titleInput = screen.getByTestId('boardedit-title-input');
+        const titleInput = screen.getByTestId(BOARDEDIT_TITLE_INPUT_TESTID);
         expect(titleInput).toHaveValue(result.current.board.title);
 
-        const subtitleInput = screen.getByTestId('boardedit-subtitle-input');
+        const subtitleInput = screen.getByTestId(
+            BOARDEDIT_SUBTITLE_INPUT_TESTID
+        );
         expect(subtitleInput).toHaveValue(result.current.board.subtitle);
     });
 
@@ -112,12 +119,14 @@ describe('boardeditModal', () => {
             />
         );
 
-        const titleInput = screen.getByTestId('boardedit-title-input');
+        const titleInput = screen.getByTestId(BOARDEDIT_TITLE_INPUT_TESTID);
         const newTitle = 'New Board Title';
         fireEvent.change(titleInput, { target: { value: newTitle } });
         expect(titleInput).toHaveValue(newTitle);
 
-        const subtitleInput = screen.getByTestId('boardedit-subtitle-input');
+        const subtitleInput = screen.getByTestId(
+            BOARDEDIT_SUBTITLE_INPUT_TESTID
+        );
         const newSubtitle = 'New Board Subtitle';
         fireEvent.change(subtitleInput, { target: { value: newSubtitle } });
         expect(subtitleInput).toHaveValue(newSubtitle);

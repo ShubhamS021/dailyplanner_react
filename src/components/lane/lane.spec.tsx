@@ -18,6 +18,9 @@ import { LaneComponent } from './lane';
 
 describe('Lane', () => {
     const WAIT_TILL_ACTION_MENU = 200;
+    const LANE_ACTION_BUTTON_TESTID = 'lane-action-button';
+    const LANE_ACTION_BUTTON_DELETE_TESTID = 'delete-all-from-lane-button';
+    const CARD_ACTION_BUTTON_TESTID = 'card-action-button';
 
     // add a default board with some columns
     beforeEach(() => {
@@ -110,12 +113,14 @@ describe('Lane', () => {
             />
         );
 
-        const [laneActionButton] = getAllByTestId('lane-action-button');
+        const [laneActionButton] = getAllByTestId(LANE_ACTION_BUTTON_TESTID);
         await userEvent.click(laneActionButton, {
             delay: WAIT_TILL_ACTION_MENU,
         });
 
-        expect(getByTestId('delete-all-from-lane-button')).toBeInTheDocument();
+        expect(
+            getByTestId(LANE_ACTION_BUTTON_DELETE_TESTID)
+        ).toBeInTheDocument();
     });
 
     test('should open the confirmation modal when delete all button is clicked', async () => {
@@ -139,12 +144,14 @@ describe('Lane', () => {
                 </Droppable>
             </DragDropContext>
         );
-        const [laneActionButton] = getAllByTestId('lane-action-button');
+        const [laneActionButton] = getAllByTestId(LANE_ACTION_BUTTON_TESTID);
         await userEvent.click(laneActionButton, {
             delay: WAIT_TILL_ACTION_MENU,
         });
 
-        const deleteButton = screen.getByTestId('delete-all-from-lane-button');
+        const deleteButton = screen.getByTestId(
+            LANE_ACTION_BUTTON_DELETE_TESTID
+        );
         await userEvent.click(deleteButton);
         expect(
             getByText('Warning: Deleting all cards from lane')
@@ -177,12 +184,14 @@ describe('Lane', () => {
                 </Droppable>
             </DragDropContext>
         );
-        const [laneActionButton] = getAllByTestId('lane-action-button');
+        const [laneActionButton] = getAllByTestId(LANE_ACTION_BUTTON_TESTID);
         await userEvent.click(laneActionButton, {
             delay: WAIT_TILL_ACTION_MENU,
         });
 
-        const deleteButton = screen.getByTestId('delete-all-from-lane-button');
+        const deleteButton = screen.getByTestId(
+            LANE_ACTION_BUTTON_DELETE_TESTID
+        );
         await userEvent.click(deleteButton);
 
         const confirmationButton = screen.getByTestId(
@@ -219,12 +228,14 @@ describe('Lane', () => {
                 </Droppable>
             </DragDropContext>
         );
-        const [laneActionButton] = getAllByTestId('lane-action-button');
+        const [laneActionButton] = getAllByTestId(LANE_ACTION_BUTTON_TESTID);
         await userEvent.click(laneActionButton, {
             delay: WAIT_TILL_ACTION_MENU,
         });
 
-        const deleteButton = screen.getByTestId('delete-all-from-lane-button');
+        const deleteButton = screen.getByTestId(
+            LANE_ACTION_BUTTON_DELETE_TESTID
+        );
         await userEvent.click(deleteButton);
 
         const confirmationButton = screen.getByTestId(
@@ -260,7 +271,7 @@ describe('Lane', () => {
             </DragDropContext>
         );
 
-        const [cardActionButton] = getAllByTestId('card-action-button');
+        const [cardActionButton] = getAllByTestId(CARD_ACTION_BUTTON_TESTID);
         await userEvent.click(cardActionButton);
 
         const removeButton = screen.getByTestId('remove-card-button');
@@ -290,7 +301,7 @@ describe('Lane', () => {
             </DragDropContext>
         );
 
-        const [cardActionButton] = getAllByTestId('card-action-button');
+        const [cardActionButton] = getAllByTestId(CARD_ACTION_BUTTON_TESTID);
         await userEvent.click(cardActionButton);
 
         const editButton = screen.getByTestId('edit-card-button');
@@ -322,7 +333,7 @@ describe('Lane', () => {
             </DragDropContext>
         );
 
-        const [cardActionButton] = getAllByTestId('card-action-button');
+        const [cardActionButton] = getAllByTestId(CARD_ACTION_BUTTON_TESTID);
         await userEvent.click(cardActionButton, {
             delay: WAIT_TILL_ACTION_MENU,
         });

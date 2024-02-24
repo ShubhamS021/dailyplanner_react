@@ -183,6 +183,48 @@ export const LaneComponent: React.FC<LaneProps> = ({
         );
     };
 
+    const handleSetTitle = (title: string) => {
+        setCardToEdit((prevState) => {
+            if (prevState == null) return;
+            return { ...prevState, title };
+        });
+    };
+
+    const handleSetDescription = (description: string) => {
+        setCardToEdit((prevState) => {
+            if (prevState == null) return;
+            return { ...prevState, description };
+        });
+    };
+
+    const handleSetTasks = (tasks: Task[]) => {
+        setCardToEdit((prevState) => {
+            if (prevState == null) return;
+            return { ...prevState, tasks };
+        });
+    };
+
+    const handleSetTags = (tags: Tag[]) => {
+        setCardToEdit((prevState) => {
+            if (prevState == null) return;
+            return { ...prevState, upperTags: tags };
+        });
+    };
+
+    const handleSetLowerTags = (tags: Tag[]) => {
+        setCardToEdit((prevState) => {
+            if (prevState == null) return;
+            return { ...prevState, lowerTags: tags };
+        });
+    };
+
+    const handleSetShirt = (shirt: Shirt) => {
+        setCardToEdit((prevState) => {
+            if (prevState == null) return;
+            return { ...prevState, shirt };
+        });
+    };
+
     const renderEditCardModal = () => {
         if (cardToEdit == null) return;
         return (
@@ -191,40 +233,22 @@ export const LaneComponent: React.FC<LaneProps> = ({
                     card={cardToEdit}
                     submitButtonText={t('components.Lane.editCardSubmit') ?? ''}
                     updateTitle={(title: string) => {
-                        setCardToEdit((prevState) => {
-                            if (prevState == null) return;
-                            return { ...prevState, title };
-                        });
+                        handleSetTitle(title);
                     }}
                     updateDescription={(description: string) => {
-                        setCardToEdit((prevState) => {
-                            if (prevState == null) return;
-                            return { ...prevState, description };
-                        });
+                        handleSetDescription(description);
                     }}
                     updateTasks={(tasks: Task[]) => {
-                        setCardToEdit((prevState) => {
-                            if (prevState == null) return;
-                            return { ...prevState, tasks };
-                        });
+                        handleSetTasks(tasks);
                     }}
                     updateTags={(tags: Tag[]) => {
-                        setCardToEdit((prevState) => {
-                            if (prevState == null) return;
-                            return { ...prevState, upperTags: tags };
-                        });
+                        handleSetTags(tags);
                     }}
                     updateLowerTags={(tags: Tag[]) => {
-                        setCardToEdit((prevState) => {
-                            if (prevState == null) return;
-                            return { ...prevState, lowerTags: tags };
-                        });
+                        handleSetLowerTags(tags);
                     }}
                     updateEstimation={(shirt: Shirt) => {
-                        setCardToEdit((prevState) => {
-                            if (prevState == null) return;
-                            return { ...prevState, shirt };
-                        });
+                        handleSetShirt(shirt);
                     }}
                     closeModal={() => {
                         setShowEditModal(false);

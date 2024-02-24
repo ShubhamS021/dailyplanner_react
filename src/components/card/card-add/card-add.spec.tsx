@@ -78,10 +78,8 @@ describe('AddCard', () => {
         // setTimeout(() => {
         //     const selectElementL = getByTestId('addcard-estimation-select-L');
         //     fireEvent.click(selectElementL);
-
         //     const button = getByTestId(/addcard-modal-button/);
         //     fireEvent.click(button);
-
         //     expect(input.value).toBe('');
         // }, 500);
     });

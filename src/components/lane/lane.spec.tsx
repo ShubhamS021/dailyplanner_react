@@ -369,12 +369,10 @@ describe('Lane', () => {
         // await userEvent.click(calender, {
         //     delay: WAIT_TILL_ACTION_MENU,
         // });
-
         // setTimeout(() => {
         //     const select = getByTestId('addcard-duedate-select');
         //     fireEvent.click(select);
         // }, 500);
-
         // setTimeout(() => {
         //     const selectToday = getByTestId('addcard-duedate-today');
         //     fireEvent.click(selectToday);

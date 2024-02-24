@@ -34,13 +34,11 @@ const useDBStore = <T extends StoreName>(storeName: T) => {
 
     const initDB = useCallback(async () => {
         try {
-            const database = await openDB<DayplannerDB>(dbName, dbVersion, {
+            return await openDB<DayplannerDB>(dbName, dbVersion, {
                 upgrade(db) {
                     upgradeDB(db);
                 },
             });
-
-            return database;
         } catch (error) {
             console.error('Failed to initialize the database.', error);
         }
@@ -136,7 +134,7 @@ const useDBStore = <T extends StoreName>(storeName: T) => {
         [db, storeName]
     );
 
-    const value = useMemo(
+    return useMemo(
         () => ({
             loading,
             addData,
@@ -146,8 +144,6 @@ const useDBStore = <T extends StoreName>(storeName: T) => {
         }),
         [loading, addData, getData, getDataByIndex, deleteData]
     );
-
-    return value;
 };
 
 export const useDayplannerDB = <T extends StoreName>(storeName: T) => {

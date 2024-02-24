@@ -1,10 +1,10 @@
 import ReactDOM from 'react-dom/client';
-import App from './components/App/App';
+import App from './components/app/app';
 import './main.css';
 import reportWebVitals from './reportWebVitals';
-import './theme/theme.colors.css';
 
 import './i18n';
+import { TooltipProvider } from './ui/tooltip';
 // to run why do you render: import './wdyr';
 
 const root = ReactDOM.createRoot(
@@ -15,7 +15,9 @@ root.render(
     // ! WARNING: react-beautiful-dnd is not yet ready for React 18 + StrictMode..
     // Reference: https://github.com/atlassian/react-beautiful-dnd/issues/2396
     // <React.StrictMode>
-    <App />
+    <TooltipProvider>
+        <App />
+    </TooltipProvider>
     // </React.StrictMode>
 );
 

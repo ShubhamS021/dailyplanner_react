@@ -1,3 +1,4 @@
+import { useUserSessionStore } from '@/hooks/useUserSessionStore/useUserSessionStore';
 import {
     AuthResponse,
     AuthTokenResponsePassword,
@@ -10,6 +11,7 @@ import { useSupabase } from '../useSuperbase/useSuperbase';
 
 export const useSupabaseAuth = () => {
     const { auth } = useSupabase();
+    const { setUser, setSession } = useUserSessionStore();
 
     /**
      * Signs up a user with the given credentials.
@@ -20,7 +22,9 @@ export const useSupabaseAuth = () => {
     const signUp = async (
         credentials: SignUpWithPasswordCredentials
     ): Promise<AuthResponse> => {
-        return await auth.signUp(credentials);
+        const resposne = await auth.signUp(credentials);
+        await handleUser();
+        return resposne;
     };
 
     /**
@@ -32,7 +36,9 @@ export const useSupabaseAuth = () => {
     const signInWithPassword = async (
         credentials: SignUpWithPasswordCredentials
     ): Promise<AuthTokenResponsePassword> => {
-        return await auth.signInWithPassword(credentials);
+        const response = await auth.signInWithPassword(credentials);
+        await handleUser();
+        return response;
     };
 
     /**
@@ -44,22 +50,32 @@ export const useSupabaseAuth = () => {
     const signInWithOAuth = async (
         credentials: SignInWithOAuthCredentials
     ): Promise<OAuthResponse> => {
-        return await auth.signInWithOAuth(credentials);
+        const response = await auth.signInWithOAuth(credentials);
+        await handleUser();
+        return response;
     };
 
-    const getUser = async () => {
-        return await auth.getUser();
+    /*
+     * Handles the user session.
+     */
+    const handleUser = async () => {
+        const authSession = await auth.getSession();
+        if (authSession != null) {
+            setSession(authSession.data.session);
+            const user = authSession.data.session?.user;
+
+            if (user !== undefined) {
+                setUser(user);
+            }
+        }
     };
 
-    const value = useMemo(
+    return useMemo(
         () => ({
             signUp,
             signInWithPassword,
             signInWithOAuth,
-            getUser,
         }),
-        [signUp, signInWithPassword, signInWithOAuth, getUser]
+        [signUp, signInWithPassword, signInWithOAuth]
     );
-
-    return value;
 };

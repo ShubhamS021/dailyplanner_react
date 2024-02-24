@@ -17,15 +17,13 @@ export const Icon: React.FC<IconProps> = ({ name, options }) => {
     const viewBoxVal = `${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`;
 
     return (
-        <>
-            <svg
-                viewBox={viewBoxVal}
-                width={viewBox.width}
-                height={viewBox.height}
-                className={`${name} ${classes}`.trimEnd()}
-            >
-                <use href={`${icons}#${name}`} />
-            </svg>
-        </>
+        <svg
+            viewBox={viewBoxVal}
+            width={viewBox.width}
+            height={viewBox.height}
+            className={`${name} ${classes}`.trimEnd()}
+        >
+            <use href={`${icons}#${name}`} />
+        </svg>
     );
 };

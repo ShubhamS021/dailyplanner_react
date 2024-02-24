@@ -1,17 +1,16 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { type HistoryListEntry } from '@/hooks/useHistory/interfaces/HistoryListEntry';
 import { useDayplannerDB } from '@/hooks/useDayplannerDB/useDayplannerDB';
-import { type HistoryType } from '@/types/HistoryType';
+import { type HistoryListEntry } from '@/hooks/useHistory/interfaces/HistoryListEntry';
 import { type Card } from '@/interfaces/Card';
+import { type HistoryType } from '@/types/HistoryType';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
-const useHistory = (boardId: number) => {
+export const useHistory = (boardId: number) => {
     const { loading, addData, getDataByIndex } = useDayplannerDB('history');
     const [history, setHistory] = useState<HistoryListEntry[]>([]);
 
     const fetchData = useCallback(async () => {
         try {
-            const history = await getHistory(boardId);
-            return history;
+            return await getHistory(boardId);
         } catch (error) {
             console.error(error);
         }
@@ -80,8 +79,6 @@ const useHistory = (boardId: number) => {
     );
 
     useEffect(() => {
-        console.log('loading state', loading);
-
         if (!loading) {
             fetchData()
                 .then((history) => {
@@ -91,7 +88,7 @@ const useHistory = (boardId: number) => {
         }
     }, [loading, fetchData]);
 
-    const value = useMemo(
+    return useMemo(
         () => ({
             history,
             addDeletionToHistory,
@@ -109,8 +106,4 @@ const useHistory = (boardId: number) => {
             addBoardMovementToHistory,
         ]
     );
-
-    return value;
 };
-
-export default useHistory;

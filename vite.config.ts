@@ -1,9 +1,8 @@
-/// <reference types="vitest" />
+/// <reference types="vite" />
 import react from '@vitejs/plugin-react';
 import * as child from 'child_process';
 import path from 'path';
 import { defineConfig } from 'vite';
-import vitePluginRequire from 'vite-plugin-require';
 import svgrPlugin from 'vite-plugin-svgr';
 import viteTsconfigPaths from 'vite-tsconfig-paths';
 
@@ -24,47 +23,31 @@ export default defineConfig({
                 },
                 chunkFileNames: 'assets/js/[name]-[hash].js',
                 entryFileNames: 'assets/js/[name]-[hash].js',
+                // manualChunks: (id) => {
+                //     if (id.includes('node_modules')) {
+                //         if (id.includes('@radix-ui')) {
+                //             return 'vendor_radix_ui';
+                //         }
+                //         if (id.includes('@supabase')) {
+                //             return 'vendor_supabase';
+                //         }
+                //         if (id.includes('react-beautiful-dnd')) {
+                //             return 'vendor_atlassian';
+                //         }
+
+                //         return 'vendor'; // all other package goes here
+                //     }
+                // },
             },
         },
     },
     server: {
         port: 8080,
     },
-    test: {
-        globals: true,
-        environment: 'jsdom',
-        setupFiles: './src/setupTests.ts',
-        include: ['src/**/*.spec.tsx', 'src/**/*.test.tsx'],
-        coverage: {
-            reporter: ['lcov', 'html'],
-            provider: 'v8',
-            include: ['src/**/*.ts', 'src/**/*.tsx'],
-            exclude: [
-                'src/main.tsx',
-                'src/i18n.ts',
-                'src/reportWebVitals.ts',
-                'src/setupTests.ts',
-                'src/utils.ts',
-                'src/vite-env.d.ts',
-                'src/assets/**/*.ts',
-                'src/**/interfaces/*.ts',
-                'src/**/types/*.ts',
-            ],
-        },
-    },
     plugins: [
         react({ exclude: ['cypress/**/*'] }),
         viteTsconfigPaths(),
         svgrPlugin(),
-        vitePluginRequire({
-            // @fileRegex RegExp
-            // optional：default file processing rules are as follows
-            // fileRegex:/(.jsx?|.tsx?|.vue)$/
-            // Conversion mode. The default mode is import
-            // importMetaUrl | import
-            // importMetaUrl see https://vitejs.cn/guide/assets.html#new-url-url-import-meta-url
-            // translateType: "importMetaUrl" | "import";
-        }),
     ],
     define: {
         'import.meta.env.VITE_APP_VERSION': JSON.stringify(commitHash),

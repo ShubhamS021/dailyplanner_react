@@ -34,11 +34,6 @@
         "allowSyntheticDefaultImports": true,
         "noImplicitAny": true
     },
-    "include": [
-        "src",
-        "./cypress/**/*.ts",
-        "./cypress.config.ts",
-        "__mocks__/**/*"
-    ],
-    "exclude": ["./src/wdyr.js"]
+    "include": ["src", "cypress", "__mocks__"],
+    "exclude": ["src/utils/wdyr.js"]
 }

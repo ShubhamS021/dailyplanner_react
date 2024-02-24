@@ -1,24 +1,42 @@
+const ADD = 'hinzufügen';
+
 export const DEtranslation = {
     components: {
-        AddBoard: {
-            title: 'Willkommen bei Dayplanner',
-            standard: 'Mit einem Standard-Board beginnen',
+        'side-nav': {
+            boards: 'Alle Boards',
+            board: 'Mein Board',
+            history: 'Board Historie',
+        },
+        'board-add': {
+            title: 'Erstelle ein Board',
+            subtitle: 'Wähle eine Möglichkeit um dein Board zu erstellen.',
+            standardBoard: 'Standard Board',
+            customBoard: 'Eigenes Board',
+            standard:
+                'Mit einem Standard-Board beginnen. Ein Standard-Board enthält einen fertigen Namen und Beschreibung, sowie diese Spalten:',
             create: 'Erstellen',
-            or: 'oder',
-            custom: 'Eigenes Board erstellen',
-            name: 'Gib einen Namen an.',
-            exampleName: 'z.B. "Meine Aufgaben"',
-            description: 'Gib eine Beschreibung an.',
-            exampleDescription: 'z.B. "Eine Übersicht meiner Aufgaben"',
+            custom: 'Erstelle dein eigenes Board mit deinen Wunsch-Spalten!',
+            customDescription: 'Lassen uns mit den Grundlagen beginnen. ',
+            name: 'Name des neuen Boards',
+            description: 'Beschreibung des neuen Boards',
+            nextToLanes: 'Weiter: Erstellen der Spalten',
+            PS: 'Du kannst deine Einstellungen jederzeit ändern.',
         },
         AddCard: {
             modal: {
                 AddCardDescription: {
                     placeholderTitle: 'Name der Aufgabe',
-                    placeholder: 'Definieren Sie Ihre Aufgabe.',
+                    placeholder: 'Beschreibe deine Aufgabe',
                 },
                 AddDueDate: {
-                    add: 'hinzufügen',
+                    add: ADD,
+                    pickADate: 'Wähle ein Datum',
+                    preset: 'Schnellauswahl',
+                    today: 'Heute',
+                    tomorrow: 'Morgen',
+                    threeDays: 'In 3 Tagen',
+                    sevenDays: 'In einer Woche',
+                    fourteenDays: 'In zwei Wochen',
                 },
                 AddCardModal: {
                     save: 'Diese Aufgabe speichern.',
@@ -34,20 +52,24 @@ export const DEtranslation = {
                 },
                 AddCardSubtasks: {
                     define: 'Teilaufgabe definieren.',
-                    add: 'hinzufügen',
+                    add: ADD,
                     edit: 'Diese Aufgabe bearbeiten.',
                     remove: 'Diese Aufgabe entfernen.',
                     save: 'Diese Aufgabe speichern.',
                 },
                 AddCardTags: {
-                    add: 'hinzufügen',
+                    add: ADD,
                     limit: 'Tag-Grenze erreicht.',
+                    tag_already_exists_title: 'Tag existiert bereits.',
+                    tag_already_exists_description:
+                        'Tag existiert bereits. Bitte wähle einen anderen Tag.',
+                    tag_already_exists_action: 'Ok',
                 },
             },
         },
         Board: {
             add: 'Neue Aufgabe',
-            addSubmit: 'Hinzufügen',
+            addSubmit: ADD,
         },
         BoardHistory: {
             historyFor: 'Historie für: ',
@@ -70,7 +92,7 @@ export const DEtranslation = {
             titleAndDescription: 'Titel und Beschreibung',
             title: 'Titel aktualisieren.',
             subtitle: 'Untertitel aktualisieren.',
-            add: 'hinzufügen',
+            add: ADD,
             addLane: 'Spalte hinzufügen',
             addLaneText: 'Spaltennamen eingeben.',
             moveRemoveLane: 'Spalten verschieben / löschen',
@@ -94,11 +116,12 @@ export const DEtranslation = {
         },
         Export: {
             export: 'Exportieren',
-            exportAll: 'Alles exportieren',
         },
         Import: {
             import: 'Importieren',
-            importAll: 'Alle importieren',
+        },
+        Header: {
+            gitlab: 'Folge mir',
         },
         HistoryToggle: {
             history: 'Historie',
@@ -115,16 +138,17 @@ export const DEtranslation = {
             deletionText:
                 'Sind Sie sicher, dass Sie alle Karten aus dieser Spalte löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.',
             deletionSubmit: 'Ja, alles löschen.',
-            moveTitle: 'Karte in ein anderes Board verschieben',
-            moveText:
-                'Wählen Sie das Board aus, zu dem Sie Ihre Karte verschieben möchten:',
-            moveSubmit: 'Karte verschieben',
+            moveTitle: 'Karte verschieben',
+            moveText: 'Wähle ein Board aus.',
+            moveSubmit: 'Verschieben',
+            moveCancel: 'Abbechen',
             editCardSubmit: 'Änderungen speichern',
             task: 'Aufgabe',
             tasks: 'Aufgaben',
         },
         LaneEditModal: {
             title: 'Spalte bearbeiten',
+            newLane: 'Fertige Spalte:',
         },
         LanguageChooser: {
             language: 'Sprache:',
@@ -132,11 +156,14 @@ export const DEtranslation = {
         MyBoardLanes: {
             define: 'Definieren Sie Ihre Spalten',
             subtitle:
-                'Definieren Sie die Spalten, um Ihre Aufgaben hinzuzufügen.',
-            name: 'Geben Sie einen Spaltennamen ein.',
-            color: 'Wählen Sie eine Spaltenfarbe:',
+                'Definieren Sie die Spalten, die ihre Aufgaben durchlaufen sollen.',
+            laneconfiguration: 'Spaltendefinition',
+            name: 'Spaltennamen',
+            color: 'Spaltenfarbe',
             add: 'Spalte hinzufügen',
-            start: 'Start',
+            finalLanes: 'Deine Spalten',
+            noLanes: 'Keine Spalten definiert.',
+            start: 'Weiter: Starte mit deinem neuen Board',
         },
         MyBoards: {
             warningDeleteTitle: 'Warnung: Board löschen',
@@ -144,16 +171,16 @@ export const DEtranslation = {
                 'Sind Sie sicher, dass Sie dieses Board löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.',
             warningDeleteSubmit: 'Ja, Board löschen.',
             editTitle: 'Board editieren',
-            editSubmit: 'Änderungen speichern.',
+            editSubmit: 'Änderungen speichern',
             editCancel: 'Abbrechen',
-            title: 'Meine Boards',
-            enter: 'Dieses Board betreten.',
-            edit: 'Dieses Board bearbeiten.',
-            remove: 'Dieses Board entfernen.',
-            or: 'oder',
-            create: 'Neues Board erstellen',
-            start: 'Start',
-            git: 'Dayplanner auf',
+            title: 'Boards',
+            actions: 'Aktionen',
+            subtitle: 'Ein Überblick über alle Ihre Boards.',
+            download: 'Download Board (.json)',
+            edit: 'Board bearbeiten',
+            remove: 'Board entfernen',
+            create: 'Neues Board',
+            noData: 'Keine Daten. Bitte erstelle oder importiere ein Board.',
         },
         Login: {
             login: 'Login',
@@ -166,6 +193,7 @@ export const DEtranslation = {
             password: 'Passwort',
             noAccount: 'Haben Sie noch kein Konto?',
             registerHere: 'Hier registrieren',
+            back: 'Zurück zur Boardübersicht',
         },
         Register: {
             signUp: 'Registrieren',
@@ -179,6 +207,19 @@ export const DEtranslation = {
             password: 'Passwort',
             alreadyHaveAccount: 'Haben Sie bereits ein Konto?',
             loginHere: 'Hier einloggen',
+            back: 'Zurück zur Boardübersicht',
+        },
+        'user-nav': {
+            myaccount: 'Mein Account',
+            settings: 'Einstellungen (demnächst)',
+            tour: 'Machen Sie die Tour (demnächst)',
+
+            support: 'Support (demnächst)',
+            signOut: {
+                signOut: 'Abmelden',
+                title: 'Abmelden erfolgreich',
+                description: 'Sie haben sich erfolgreich abgemeldet.',
+            },
         },
     },
     state: {

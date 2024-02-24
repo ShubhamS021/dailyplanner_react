@@ -1,9 +1,11 @@
 import { type Card } from '../src/interfaces/Card';
 
+const mockDescription = 'This card is a test card.';
+
 export const card: Card = {
     id: 1,
     title: 'Testcard 1',
-    description: 'This card is a test card.',
+    description: mockDescription,
     lowerTags: [],
     upperTags: [],
     tasks: [],
@@ -25,7 +27,7 @@ export const cardExtended: Card = {
     title: 'Testcard 1',
     description: 'This card is a extended test card.',
     lowerTags: [],
-    upperTags: [{ id: 1, text: 'Testing', color: 'N/A', tagType: 'upper' }],
+    upperTags: [{ id: 1, text: 'Testing', variant: 'green', tagType: 'upper' }],
     tasks: [
         { id: 1, description: 'I need to be done first.' },
         { id: 2, description: 'I need to be done second.' },
@@ -40,7 +42,7 @@ export const cardExtendedUpdate: Card = {
     description: 'This card is a updated extended test card.',
     lowerTags: [],
     upperTags: [
-        { id: 1, text: 'Testing Update', color: 'N/A', tagType: 'upper' },
+        { id: 1, text: 'Testing Update', variant: 'green', tagType: 'upper' },
     ],
     tasks: [
         { id: 1, description: 'a) I need to be done first.' },
@@ -53,7 +55,7 @@ export const cardExtendedUpdate: Card = {
 export const card2: Card = {
     id: 2,
     title: 'Testcard 2',
-    description: 'This card is a test card.',
+    description: mockDescription,
     lowerTags: [],
     upperTags: [],
     tasks: [],
@@ -63,7 +65,7 @@ export const card2: Card = {
 export const card3: Card = {
     id: 3,
     title: 'Testcard 3',
-    description: 'This card is a test card.',
+    description: mockDescription,
     lowerTags: [],
     upperTags: [],
     tasks: [],

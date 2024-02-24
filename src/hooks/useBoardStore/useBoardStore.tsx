@@ -10,6 +10,7 @@ import { Board } from '@/interfaces/Board';
 import { type Card } from '@/interfaces/Card';
 import { type Lane } from '@/interfaces/Lane';
 import type Task from '@/interfaces/Task';
+import { ColorVariant } from '@/types/ColorVariant';
 import { type ThemeMode } from '@/types/ThemeMode';
 import { type DropResult } from 'react-beautiful-dnd';
 import { create } from 'zustand';
@@ -183,21 +184,15 @@ export const useBoardStore = create<BoardStoreState & BoardStoreActions>()(
                 /**
                  * Moves a card to a different board.
                  * @param {Card} card - The card to move.
-                 * @param {number} currentLaneId - The ID of the current lane.
                  * @param {Board} newboard - The target board to move the card to.
                  */
-                moveCardToBoard: (
-                    card: Card,
-                    currentLaneId: number,
-                    newboard: Board
-                ) => {
+                moveCardToBoard: (card: Card, newboard: Board) => {
                     set((state) => {
                         const newCard = {
                             ...card,
                             id: findLastCardIdInBoard(newboard) + 1,
                         };
                         state.addCardToInitialBoardLane(newCard, newboard.id);
-                        state.removeCardFromLane(card.id, currentLaneId);
 
                         return { ...state };
                     });
@@ -336,11 +331,11 @@ export const useBoardStore = create<BoardStoreState & BoardStoreActions>()(
                 /**
                  * Imports a board from JSON.
                  * @param {React.ChangeEvent<HTMLInputElement>} e - The file change event.
-                 * @param {boolean} all - Indicates whether to import all boards or just one.
+                 * @param {boolean} multiple - Indicates whether to import multiple boards or just one.
                  */
                 importBoardFromJSON: (
                     e: React.ChangeEvent<HTMLInputElement>,
-                    all: boolean
+                    multiple: boolean
                 ) => {
                     set((state) => {
                         if (e.target.files !== null) {
@@ -354,9 +349,10 @@ export const useBoardStore = create<BoardStoreState & BoardStoreActions>()(
                                     const parsedBoard = JSON.parse(
                                         boardJSON
                                     ) as Board;
-                                    if (all) {
+                                    if (multiple) {
                                         lastBoardId = lastBoardId + 1;
                                         parsedBoard.id = lastBoardId;
+
                                         state.addBoard(parsedBoard);
                                     } else {
                                         state.updateBoard(parsedBoard);
@@ -607,9 +603,9 @@ export const useBoardStore = create<BoardStoreState & BoardStoreActions>()(
                 /**
                  * Updates the color of a lane.
                  * @param {number} laneId - The ID of the lane to update.
-                 * @param {string} color - The new color of the lane.
+                 * @param {ColorVariant} variant - The new variant color of the lane.
                  */
-                updateLaneColor: (laneId: number, color: string) => {
+                updateLaneColor: (laneId: number, variant: ColorVariant) => {
                     set((state) => {
                         const newBoard = { ...state.board };
                         const newLane = newBoard.lanes.find(
@@ -619,7 +615,7 @@ export const useBoardStore = create<BoardStoreState & BoardStoreActions>()(
                             throw new Error(`No lane with id ${laneId} found.`);
                         }
 
-                        newLane.color = color;
+                        newLane.variant = variant;
 
                         state.updateBoards(newBoard);
                         return { ...state };

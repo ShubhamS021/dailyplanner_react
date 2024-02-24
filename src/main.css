@@ -4,48 +4,112 @@
 
 @layer base {
     :root {
-        --background: 0 0% 100%;
-        --foreground: 20 14.3% 4.1%;
-        --muted: 60 4.8% 95.9%;
-        --muted-foreground: 25 5.3% 44.7%;
+        --gradient: #00416a;
+        --background: 216 100% 98.42%;
+        --foreground: 216 10% 0.84%;
+
+        --muted: 216 10% 92.1%;
+        --muted-foreground: 216 5% 42.1%;
+
         --popover: 0 0% 100%;
         --popover-foreground: 20 14.3% 4.1%;
-        --card: 0 0% 100%;
-        --card-foreground: 20 14.3% 4.1%;
-        --border: 20 5.9% 90%;
-        --input: 20 5.9% 90%;
-        --primary: 24 9.8% 10%;
-        --primary-foreground: 60 9.1% 97.8%;
-        --secondary: 60 4.8% 95.9%;
-        --secondary-foreground: 24 9.8% 10%;
-        --accent: 60 4.8% 95.9%;
-        --accent-foreground: 24 9.8% 10%;
-        --destructive: 27, 86%, 52%;
-        --destructive-foreground: 60 9.1% 97.8%;
-        --ring: 24 5.4% 63.9%;
+
+        --card: 216 10% 92.1%;
+        --card-foreground: 216 10% 1.05%;
+
+        --border: 216 15% 89.84%;
+        --input: 216 15% 89.84%;
+
+        --primary: 216 100% 21%;
+        --primary-foreground: 216 2% 92.1%;
+
+        --secondary: 216 5% 96.05%;
+        --secondary-foreground: 216 7% 12.1%;
+
+        --accent: 216 5% 96.05%;
+        --accent-foreground: 216 7% 12.1%;
+
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 0 0% 98%;
+
+        --ring: 216 100% 21%;
+
         --radius: 0.5rem;
+
+        --rose: 350, 100%, 93%;
+        --rose-foreground: 24 9.8% 10%;
+        --green: 160, 25%, 90%;
+        --green-foreground: 24 9.8% 10%;
+        --lavender: 240, 67%, 94%;
+        --lavender-foreground: 24 9.8% 10%;
+        --light_grey: 210, 9%, 89%;
+        --light_grey-foreground: 24 9.8% 10%;
+        --grey: 0, 0%, 30%;
+        --grey-foreground: 24 9.8% 10%;
+        --dark_grey: 240, 5%, 35%;
+        --dark_grey-foreground: 24 9.8% 10%;
+        --yellow: 54, 100%, 86%;
+        --yellow-foreground: 24 9.8% 10%;
+        --orange: 19, 100%, 86%;
+        --orange-foreground: 24 9.8% 10%;
+        --blue: 204, 80%, 81%;
+        --blue-foreground: 24 9.8% 10%;
+        --teal: 160, 70%, 78%;
+        --teal-foreground: 24 9.8% 10%;
     }
 
     .dark {
-        --background: 222.2 84% 4.9%;
-        --foreground: 60 9.1% 97.8%;
-        --muted: 210 20% 25%;
-        --muted-foreground: 24 5.4% 63.9%;
-        --popover: 212 20% 16%;
-        --popover-foreground: 60 9.1% 97.8%;
-        --card: 20 14.3% 4.1%;
-        --card-foreground: 60 9.1% 97.8%;
-        --border: 210 20% 25%;
-        --input: 12 6.5% 15.1%;
-        --primary: 60 9.1% 97.8%;
-        --primary-foreground: 24 9.8% 10%;
-        --secondary: 12 6.5% 15.1%;
-        --secondary-foreground: 60 9.1% 97.8%;
-        --accent: 210 20% 33%;
-        --accent-foreground: 60 9.1% 97.8%;
-        --destructive: 27, 78%, 61%;
-        --destructive-foreground: 0 85.7% 97.3%;
-        --ring: 12 6.5% 15.1%;
+        --gradient: #108dc7;
+
+        --background: 211 55.25% 3.36%;
+        --foreground: 211 8.5% 97.1%;
+
+        --muted: 211 42.5% 12.6%;
+        --muted-foreground: 211 8.5% 54.2%;
+
+        --popover: 211 48% 5.46%;
+        --popover-foreground: 211 8.5% 97.1%;
+
+        --card: 211 48% 5.46%;
+        --card-foreground: 211 8.5% 97.1%;
+
+        --border: 211 42.5% 12.6%;
+        --input: 211 42.5% 12.6%;
+
+        --primary: 211 85% 42%;
+        --primary-foreground: 211 8.5% 97.1%;
+
+        --secondary: 211 42.5% 12.6%;
+        --secondary-foreground: 211 8.5% 97.1%;
+
+        --accent: 211 42.5% 12.6%;
+        --accent-foreground: 211 8.5% 97.1%;
+
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 211 8.5% 97.1%;
+
+        --ring: 211 85% 42%;
+
+        --rose: 350, 100%, 85%;
+        --rose-foreground: 24, 5%, 5%;
+        --green: 160, 25%, 85%;
+        --green-foreground: 24, 5%, 5%;
+        --lavender: 240, 67%, 85%;
+        --lavender-foreground: 24, 5%, 5%;
+        --light_grey: 210, 9%, 85%;
+        --light_grey-foreground: 24, 5%, 5%;
+        --grey: 0, 0%, 20%;
+        --grey-foreground: 24, 5%, 5%;
+        --dark_grey: 240, 5%, 25%;
+        --dark_grey-foreground: 24, 5%, 5%;
+        --yellow: 54, 100%, 80%;
+        --yellow-foreground: 24, 5%, 5%;
+        --orange: 19, 100%, 80%;
+        --orange-foreground: 24, 5%, 5%;
+        --blue: 204, 80%, 75%;
+        --blue-foreground: 24, 5%, 5%;
+        --teal: 160, 70%, 70%;
+        --teal-foreground: 24, 5%, 5%;
     }
 }
 
@@ -79,82 +143,6 @@ main {
     min-height: 100vh;
 }
 
-.soft {
-    @apply ease-linear !important;
-    @apply transition-all;
-    @apply duration-150;
-}
-
-.formField {
-    @apply bg-[var(--light-main-background)];
-    @apply dark:bg-[var(--dark-main-background)];
-    @apply border;
-    @apply dark:border-[var(--dark-main-border)];
-    @apply border-[var(--light-main-border)];
-    @apply p-2;
-    @apply rounded-lg;
-    @apply focus:outline-none;
-    @apply min-h-[40px];
-}
-
-.formField input {
-    @apply dark:bg-[var(--dark-main-background)];
-    @apply dark:text-white;
-}
-
-.button {
-    /* ------  DEFAULT STATE ------- */
-    /* light -- general */
-    @apply bg-[var(--light-button-background)];
-    @apply rounded-md;
-    @apply font-semibold;
-    @apply stroke-[var(--light-button-stroke)];
-    @apply text-gray-400;
-
-    /* light -- hover */
-    @apply hover:text-gray-800;
-    @apply hover:stroke-gray-800;
-    @apply hover:ease-linear;
-    @apply hover:transition-all;
-    @apply hover:duration-150;
-
-    /* dark -- general */
-    @apply dark:bg-[var(--dark-button-background)];
-    @apply dark:stroke-[var(--dark-button-stroke)];
-
-    /* dark -- hover */
-    @apply dark:hover:stroke-gray-200;
-    @apply dark:hover:text-white;
-
-    /* ------  DISABLED STATE ------- */
-
-    /* light -- general */
-    @apply disabled:bg-[var(--light-button-background--disabled)];
-
-    /* light -- hover */
-    @apply hover:disabled:stroke-gray-500;
-    @apply hover:disabled:brightness-100;
-    @apply hover:disabled:text-gray-400;
-    @apply disabled:stroke-gray-500;
-
-    /* dark -- general */
-    @apply dark:disabled:stroke-gray-500;
-    @apply dark:disabled:bg-[var(--dark-button-background--disabled)];
-    @apply dark:disabled:text-gray-500;
-
-    /* dark -- hover */
-    @apply dark:hover:disabled:stroke-gray-500;
-    @apply dark:hover:disabled:text-gray-500;
-}
-
-.primary-button {
-    @apply bg-[var(--light-button-background--primary)];
-    @apply dark:bg-[var(--light-button-background--primary)];
-    @apply hover:brightness-110;
-    @apply text-white;
-    @apply hover:text-white;
-}
-
 .modal {
     @apply justify-center;
     @apply items-center;
@@ -177,23 +165,10 @@ main {
     @apply flex-col;
     @apply w-full;
     @apply bg-white;
-    @apply dark:bg-[var(--dark-modal-background)];
+    @apply bg-popover;
     @apply outline-none;
     @apply focus:outline-none;
     @apply dark:text-white;
-}
-
-.field-caption {
-    @apply text-sm;
-    @apply text-[#5E5E5E];
-    @apply dark:text-[#fff];
-}
-
-.field-caption-additional {
-    @apply text-xs;
-    @apply text-[#4d4d4d];
-    @apply dark:text-[#fff];
-    @apply font-semibold;
 }
 
 .card {
@@ -206,39 +181,6 @@ main {
     @apply rounded-lg;
     @apply p-4;
     @apply drop-shadow-[0_2px_4px_rgba(0,0,0,0.08)];
-}
-
-.table {
-    @apply bg-white;
-    @apply dark:bg-[#344150];
-    @apply border;
-    @apply border-solid;
-    @apply border-[#DDDDDD];
-    @apply dark:border-[#344150];
-    @apply rounded-lg;
-    @apply p-4;
-    @apply drop-shadow-[0_2px_4px_rgba(0,0,0,0.08)];
-    @apply dark:text-[#DEDEDE];
-}
-
-.small-button {
-    @apply inline-flex;
-    @apply items-center;
-    @apply justify-center;
-    @apply w-8;
-    @apply h-8;
-    @apply transition-colors;
-    @apply duration-150;
-    @apply bg-[#ECEEF8];
-    @apply rounded-md;
-    @apply hover:bg-[#17A2B8];
-    @apply disabled:bg-gray-100;
-    @apply dark:disabled:bg-gray-500;
-    @apply hover:text-white;
-    @apply stroke-[#5A5A65];
-    @apply hover:stroke-white;
-    @apply dark:disabled:hover:stroke-[#5A5A65];
-    @apply disabled:hover:stroke-[#5A5A65];
 }
 
 .backdrop {

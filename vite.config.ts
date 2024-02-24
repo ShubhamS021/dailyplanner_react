@@ -23,21 +23,21 @@ export default defineConfig({
                 },
                 chunkFileNames: 'assets/js/[name]-[hash].js',
                 entryFileNames: 'assets/js/[name]-[hash].js',
-                manualChunks: (id) => {
-                    if (id.includes('node_modules')) {
-                        if (id.includes('@radix-ui')) {
-                            return 'vendor_radix_ui';
-                        }
-                        if (id.includes('@supabase')) {
-                            return 'vendor_supabase';
-                        }
-                        if (id.includes('react-beautiful-dnd')) {
-                            return 'vendor_atlassian';
-                        }
+                // manualChunks: (id) => {
+                //     if (id.includes('node_modules')) {
+                //         if (id.includes('@radix-ui')) {
+                //             return 'vendor_radix_ui';
+                //         }
+                //         if (id.includes('@supabase')) {
+                //             return 'vendor_supabase';
+                //         }
+                //         if (id.includes('react-beautiful-dnd')) {
+                //             return 'vendor_atlassian';
+                //         }
 
-                        return 'vendor'; // all other package goes here
-                    }
-                },
+                //         return 'vendor'; // all other package goes here
+                //     }
+                // },
             },
         },
     },

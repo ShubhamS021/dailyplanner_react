@@ -137,7 +137,7 @@ export const BoardAdd = () => {
                     </div>
                 </div>
 
-                <div className="flex gap-2 justify-center mt-20 pb-3 text-xs text-gray-300 hover:text-black cursor-help">
+                <div className="flex gap-2 justify-center mt-20 pb-3 text-xs text-gray-400 hover:text-primary cursor-help">
                     <Info width={16} height={16} />
                     {t('components.board-add.PS')}
                 </div>

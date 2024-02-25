@@ -21,6 +21,10 @@ image: node:lts-alpine
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
+.setup_env: &setup_env
+    - chmod +x ./deploy/setup_env.sh
+    - bash ./deploy/setup_env.sh
+
 workflow:
     rules:
         - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
@@ -92,12 +96,13 @@ qa:
         - *add_bash
         - *add_git
         - *add_ssh
+        - *setup_env
     environment:
         name: qa
         url: https://planner-qa.der-hahn.net
     needs: [lint, test, sonar]
     script:
-        - ENVIRONMENT_NAME=qa bash deploy/deploy.sh
+        - bash deploy/deploy.sh
     rules:
         - if: $CI_PIPELINE_SOURCE == "schedule"
           when: never
@@ -113,11 +118,12 @@ prod:
         - *add_bash
         - *add_git
         - *add_ssh
+        - *setup_env
     environment:
         name: prod
         url: https://planner.der-hahn.net
     script:
-        - ENVIRONMENT_NAME=prod bash deploy/deploy.sh
+        - bash deploy/deploy.sh
     rules:
         - if: $CI_PIPELINE_SOURCE == "schedule"
           when: never

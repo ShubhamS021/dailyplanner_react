@@ -13,7 +13,7 @@ export const useSupabaseAuth = () => {
     const { auth } = useSupabase();
     const { setUser, setSession } = useUserSessionStore();
 
-    const getURL = () => {
+    const getRedirectURL = () => {
         let url: string =
             import.meta.env.VITE_PUBLIC_SITE_URL ?? 'http://localhost:8080/';
 
@@ -32,9 +32,9 @@ export const useSupabaseAuth = () => {
     const signUp = async (
         credentials: SignUpWithPasswordCredentials
     ): Promise<AuthResponse> => {
-        const resposne = await auth.signUp(credentials);
+        const response = await auth.signUp(credentials);
         await handleUser();
-        return resposne;
+        return response;
     };
 
     /**
@@ -62,7 +62,7 @@ export const useSupabaseAuth = () => {
     ): Promise<OAuthResponse> => {
         const response = await auth.signInWithOAuth({
             ...credentials,
-            options: { redirectTo: getURL() },
+            options: { redirectTo: getRedirectURL() },
         });
         await handleUser();
         return response;

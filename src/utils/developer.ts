@@ -1,5 +1,10 @@
+/**
+ * Logs information about the Vite environment variables to the console, but only when in the 'qa' or 'dev' environments.
+ *
+ * Logs a collapsed group with the environment variable names and values in a table. Useful for debugging the runtime
+ * environment during local development. Not logged in prod to avoid leaking sensitive values.
+ */
 export const logViteEnvironment = () => {
-    // Only log in qa and dev environments
     if (
         !(
             import.meta.env.VITE_ENVIRONMENT_NAME === 'qa' ||

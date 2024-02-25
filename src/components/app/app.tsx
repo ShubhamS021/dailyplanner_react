@@ -3,6 +3,7 @@ import { Register } from '@/components/authentication/components/register';
 import { BoardHistory } from '@/components/board-history/board-history';
 import { Board } from '@/components/board/board';
 import BoardAdd from '@/components/board/board-add/board-add';
+import { Landing } from '@/components/landing/landing';
 import { Layout } from '@/components/layout';
 import MyBoardLanes from '@/components/my-board-lanes/my-board-lanes';
 import MyBoards from '@/components/my-boards/my-boards';
@@ -27,13 +28,13 @@ export const App = () => {
     // Read the initial boards state from localStorage and toggle initial app mode
     useEffect(() => {
         if (boards === null) {
-            setPage('boardCreatePage');
+            setPage('landingPage');
             return;
         }
 
         setPage(
             board === null || boards.length === 0
-                ? 'boardCreatePage'
+                ? 'landingPage'
                 : 'boardDefaultPage'
         );
 
@@ -78,8 +79,12 @@ export const App = () => {
             case 'boardHistoryPage':
                 pageContent = <BoardHistory />;
                 break;
-            default:
+            case 'boardDefaultPage':
                 pageContent = <Board />;
+                break;
+            default:
+                pageContent = <Landing />;
+                standalone = true;
                 break;
         }
 

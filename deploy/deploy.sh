@@ -17,7 +17,7 @@ fi
 yarn install
 yarn build
 
-echo "Deploying to $DEPLOY_SERVER - environment: $$CI_ENVIRONMENT_NAME"
+echo "Deploying to $DEPLOY_SERVER - environment: $CI_ENVIRONMENT_NAME"
 scp -r dist/* ${DEPLOY_USER}@${DEPLOY_SERVER}:${SERVER_FOLDER}/
 scp -r .env ${DEPLOY_USER}@${DEPLOY_SERVER}:${SERVER_FOLDER}/
 echo "Finished copying the build files"

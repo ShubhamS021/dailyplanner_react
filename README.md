@@ -21,6 +21,21 @@ In the project directory, you can run:
 |`yarn run build` | Builds the app for production to the `dist` folder. It correctly bundles React in production mode and optimizes the build for the best performance. The build is minified and the filenames include the hashes. Your app is ready to be deployed!|
 |`yarn lint` | Lints the code for potential errors and enforces code quality standards, ensuring that the code is clean, readable, and maintainable.|
 
+### Development local
+
+To run the application locally you need to follow these steps:
+
+```bash
+# install dependencies
+yarn install
+
+# copy the.env.local.sample to.env.local
+cp .env.local.sample .env.local
+
+# run the application
+yarn start
+```
+
 ### Release scripts
 
 Release scripts are used for versioning the application and generating the [CHANGELOG.MD](CHANGELOG.md)
@@ -56,8 +71,8 @@ For building a new package manually you need to follow these steps:
 5. Add both urls to the 'Release assets':
    |URL | Link title | Type |
    | --- | --- | --- |
-   | https://gitlab.com/Kevin.Hahn/dayplanner-/blob/develop/release/linux | Dayplanner.deb | Package |
-   | https://gitlab.com/Kevin.Hahn/dayplanner-/blob/develop/release/windows | Dayplanner.msi | Package |
+   | <https://gitlab.com/Kevin.Hahn/dayplanner-/blob/develop/release/linux> | Dayplanner.deb | Package |
+   | <https://gitlab.com/Kevin.Hahn/dayplanner-/blob/develop/release/windows> | Dayplanner.msi | Package |
 6. Finally create the release :)
 
 ## Learn More

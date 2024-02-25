@@ -1,4 +1,4 @@
-import { ColorVariant } from '@/types/ColorVariant';
+import { type ColorVariant } from '@/types/ColorVariant';
 import { type Card } from './Card';
 
 export interface Lane {

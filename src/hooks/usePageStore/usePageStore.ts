@@ -2,7 +2,7 @@ import { type PageStoreActions } from '@/hooks/usePageStore/interfaces/PageStore
 import { type PageStoreState } from '@/hooks/usePageStore/interfaces/PageStoreState';
 import { create } from 'zustand';
 import { createJSONStorage, devtools, persist } from 'zustand/middleware';
-import { AppPage } from './types/AppPage';
+import { type AppPage } from './types/AppPage';
 
 export const usePageStore = create<PageStoreState & PageStoreActions>()(
     devtools(

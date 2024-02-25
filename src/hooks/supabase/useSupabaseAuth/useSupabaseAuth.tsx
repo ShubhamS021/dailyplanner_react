@@ -14,8 +14,8 @@ export const useSupabaseAuth = () => {
     const { setUser, setSession } = useUserSessionStore();
 
     const getURL = () => {
-        let url =
-            process?.env?.VITE_PUBLIC_SITE_URL ?? 'http://localhost:8080/';
+        let url: string =
+            import.meta.env.VITE_PUBLIC_SITE_URL ?? 'http://localhost:8080/';
 
         url = url.includes('http') ? url : `https://${url}`;
         url = url.endsWith('/') ? url : `${url}/`;

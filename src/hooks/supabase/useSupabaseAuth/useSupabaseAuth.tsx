@@ -13,6 +13,16 @@ export const useSupabaseAuth = () => {
     const { auth } = useSupabase();
     const { setUser, setSession } = useUserSessionStore();
 
+    const getURL = () => {
+        let url =
+            process?.env?.VITE_PUBLIC_SITE_URL ?? 'http://localhost:8080/';
+
+        url = url.includes('http') ? url : `https://${url}`;
+        url = url.endsWith('/') ? url : `${url}/`;
+
+        return url;
+    };
+
     /**
      * Signs up a user with the given credentials.
      *
@@ -50,7 +60,10 @@ export const useSupabaseAuth = () => {
     const signInWithOAuth = async (
         credentials: SignInWithOAuthCredentials
     ): Promise<OAuthResponse> => {
-        const response = await auth.signInWithOAuth(credentials);
+        const response = await auth.signInWithOAuth({
+            ...credentials,
+            options: { redirectTo: getURL() },
+        });
         await handleUser();
         return response;
     };

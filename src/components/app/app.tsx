@@ -8,6 +8,7 @@ import MyBoardLanes from '@/components/my-board-lanes/my-board-lanes';
 import MyBoards from '@/components/my-boards/my-boards';
 import { useBoardStore } from '@/hooks/useBoardStore/useBoardStore';
 import { usePageStore } from '@/hooks/usePageStore/usePageStore';
+import { logViteEnvironment } from '@/utils/developer';
 import { useEffect } from 'react';
 
 export const App = () => {
@@ -35,6 +36,8 @@ export const App = () => {
                 ? 'boardCreatePage'
                 : 'boardDefaultPage'
         );
+
+        logViteEnvironment();
     }, []);
 
     // update boards whenever a board changes

@@ -251,13 +251,12 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
                         </div>
                     </div>
                     {/* body */}
-                    <div className="relative p-6 grid grid-cols-[1fr,auto,1fr] gap-2">
+                    <div className="relative p-6 grid grid-cols-2 gap-4">
                         <div className="flex flex-col gap-3">
                             {renderTitleAndSubtitle()}
                             <Separator className="my-3" />
                             {renderAddLane()}
                         </div>
-                        <Separator orientation="vertical" className="mx-4" />
                         <div>{renderMoveRemoveLane()}</div>
                     </div>
                     {/* footer */}

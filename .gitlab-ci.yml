@@ -153,6 +153,12 @@ renovate-clean:
 include:
     - project: 'renovate-bot/renovate-runner'
       file: '/templates/renovate.gitlab-ci.yml'
+      cache:
+          paths:
+              - renovate/
+          when: 'always'
+      variables:
+          RENOVATE_BASE_DIR: './renovate'
       rules:
           - if: '$CI_PIPELINE_SOURCE == "schedule" && $CI_COMMIT_BRANCH == "develop"'
             when: always

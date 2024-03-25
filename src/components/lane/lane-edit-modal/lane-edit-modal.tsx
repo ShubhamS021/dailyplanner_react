@@ -6,7 +6,6 @@ import { Badge } from '@/ui/badge';
 import { Button } from '@/ui/button';
 import { Input } from '@/ui/input';
 import { Label } from '@/ui/label';
-import { Separator } from '@/ui/separator';
 import { Cross1Icon } from '@radix-ui/react-icons';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -64,7 +63,7 @@ export const LaneEditModal: React.FC<LaneEditModalProps> = ({
                         </div>
                     </div>
                     {/* body */}
-                    <div className="relative p-6 grid grid-cols-[1fr,auto,1fr] gap-2">
+                    <div className="relative p-6 grid grid-cols-2 gap-4">
                         <div className="flex flex-col gap-3">
                             <Label>{editNameText}</Label>
                             <Input
@@ -85,7 +84,6 @@ export const LaneEditModal: React.FC<LaneEditModalProps> = ({
                                 }
                             ></ColorChooser>
                         </div>
-                        <Separator orientation="vertical" className="mx-4" />
                         <div className="flex flex-col gap-3">
                             <Label>
                                 {t('components.LaneEditModal.newLane') ?? ''}

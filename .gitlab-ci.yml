@@ -50,6 +50,8 @@ test:
     before_script:
         - *add_git
         - yarn install
+    environment:
+        name: qa
     variables:
         VITE_SUPABASE_URL: $VITE_SUPABASE_URL
         VITE_SUPABASE_ANON_KEY: $VITE_SUPABASE_ANON_KEY
@@ -106,11 +108,12 @@ qa:
     rules:
         - if: $CI_PIPELINE_SOURCE == "schedule"
           when: never
+        - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+          when: never
         - if: $CI_COMMIT_BRANCH == "develop"
           when: on_success
         - if: $CI_COMMIT_BRANCH == "main"
           when: manual
-        - when: manual
 
 prod:
     stage: deploy
@@ -150,6 +153,12 @@ renovate-clean:
 include:
     - project: 'renovate-bot/renovate-runner'
       file: '/templates/renovate.gitlab-ci.yml'
+      cache:
+          paths:
+              - renovate/
+          when: 'always'
+      variables:
+          RENOVATE_BASE_DIR: './renovate'
       rules:
           - if: '$CI_PIPELINE_SOURCE == "schedule" && $CI_COMMIT_BRANCH == "develop"'
             when: always

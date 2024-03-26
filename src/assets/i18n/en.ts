@@ -12,14 +12,15 @@ export const ENtranslation = {
             subheader: 'Here are some reasons why Dayplanner is right for you.',
             customBoards: {
                 subtext: 'Create custom boards with individual columns.',
-                text: 'Custom Board',
+                text: 'Custom Boards',
             },
             tags: {
                 subtext: 'Use tags to categorize your tasks.',
                 text: 'Tags',
             },
             supabase: {
-                subtext: 'Use Supabase to store your data.',
+                subtext:
+                    'Use Supabase to store your data and use it wherever you are.',
                 text: 'Supabase',
             },
         },

@@ -15,14 +15,15 @@ export const DEtranslation = {
                 'Hier sind einige Gründe, warum Dayplanner das Richtige für dich ist.',
             customBoards: {
                 subtext: 'Erstelle eigene Boards mit individuellen Spalten.',
-                text: 'Eigenes Board',
+                text: 'Eigene Boards',
             },
             tags: {
                 subtext: 'Verwende Tags um deine Aufgaben zu kategorisieren.',
                 text: 'Tags',
             },
             supabase: {
-                subtext: 'Nutze Supabase um deine Daten zu speichern.',
+                subtext:
+                    'Nutze Supabase um deine Daten zu speichern und überall wieder abzurufen.',
                 text: 'Supabase',
             },
         },

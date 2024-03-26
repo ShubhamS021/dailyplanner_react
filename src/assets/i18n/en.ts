@@ -1,5 +1,12 @@
 export const ENtranslation = {
     components: {
+        landing: {
+            hero: {
+                header: 'Tasks made easy.',
+                subheader: 'Easy to set up. Customizable. Quick. Responsive.',
+                cta: 'Create your board',
+            },
+        },
         'side-nav': {
             boards: 'All boards',
             board: 'My board',

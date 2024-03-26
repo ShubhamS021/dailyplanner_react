@@ -488,10 +488,15 @@ export const useBoardStore = create<BoardStoreState & BoardStoreActions>()(
                         const newBoards = [
                             ...state.boards.filter((b) => b.id !== boardId),
                         ];
+
+                        let currentBoard = state.board;
+
                         if (newBoards.length === 0) {
+                            currentBoard = new Board();
                             usePageStore.getState().setPage('boardCreatePage');
                         }
                         return {
+                            board: currentBoard,
                             boards: [...newBoards],
                         };
                     });

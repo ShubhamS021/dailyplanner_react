@@ -7,7 +7,7 @@ export default function FeatureCards() {
     return (
         <section className="bg-slate-50 dark:bg-slate-900">
             <div className="container space-y-8 py-12 text-center lg:py-20">
-                {featureCards.header || featureCards.subheader ? (
+                {(featureCards.header !== "") || (featureCards.subheader !== "") ? (
                     <HeadingText subtext={featureCards.subheader}>
                         {featureCards.header}
                     </HeadingText>

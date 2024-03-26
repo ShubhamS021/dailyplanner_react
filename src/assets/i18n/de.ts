@@ -2,6 +2,14 @@ const ADD = 'hinzufügen';
 
 export const DEtranslation = {
     components: {
+        landing: {
+            hero: {
+                header: 'Aufgaben leicht gemacht.',
+                subheader:
+                    'Einfach einzurichten. Anpassbar. Schnell. Responsive.',
+                cta: 'Erstelle dein Board',
+            },
+        },
         'side-nav': {
             boards: 'Alle Boards',
             board: 'Mein Board',

@@ -1,13 +1,4 @@
-import {
-    type ContentSection,
-    type HeroHeader,
-} from '@/interfaces/HeroContents';
-
-export const heroHeader: HeroHeader = {
-    header: `Aufgaben leicht gemacht.`,
-    subheader: `Easy to setup. Customizable. Quick. Responsive.`,
-    image: `/hero-img.webp`,
-};
+import { type ContentSection } from '@/interfaces/HeroContents';
 
 export const featureCards: ContentSection = {
     header: `Powered by`,

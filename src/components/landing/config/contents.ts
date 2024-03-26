@@ -1,23 +1,23 @@
 import { type ContentSection } from '@/interfaces/HeroContents';
 
 export const featureCards: ContentSection = {
-    header: `Powered by`,
-    subheader: `What makes Next Landing possible`,
+    header: `components.featureCards.header`,
+    subheader: `components.featureCards.subheader`,
     content: [
         {
-            text: `Next.js`,
-            subtext: `The React Framework`,
-            icon: 'nextjs',
+            text: `components.featureCards.customBoards.text`,
+            subtext: `components.featureCards.customBoards.subtext`,
+            icon: 'customBoards',
         },
         {
-            text: `shadcn/ui`,
-            subtext: `Beautifully designed components`,
-            icon: 'shadcnUi',
+            text: `components.featureCards.tags.text`,
+            subtext: `components.featureCards.tags.subtext`,
+            icon: 'tags',
         },
         {
-            text: `Vercel`,
-            subtext: `Develop. Preview. Ship.`,
-            icon: 'vercel',
+            text: `components.featureCards.supabase.text`,
+            subtext: `components.featureCards.supabase.subtext`,
+            icon: 'supabase',
         },
     ],
 };

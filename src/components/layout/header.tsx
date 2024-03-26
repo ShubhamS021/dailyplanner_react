@@ -16,7 +16,10 @@ import { UserNav } from './user-nav';
 
 export const Header = () => {
     const [setPage] = usePageStore((state) => [state.setPage]);
-    const [board, boards] = useBoardStore((state) => [state.board, state.boards]);
+    const [board, boards] = useBoardStore((state) => [
+        state.board,
+        state.boards,
+    ]);
     const { t } = useTranslation();
     const { auth } = useSupabase();
     const { user, setSession, setUser } = useUserSessionStore();
@@ -36,12 +39,14 @@ export const Header = () => {
                 ? 'landingPage'
                 : 'boardDefaultPage'
         );
-    }
+    };
     return (
-        <div className="supports-backdrop-blur:bg-background/60 fixed left-0 right-0 top-0 z-20 border-b bg-background/95 backdrop-blur">
+        <div className="supports-backdrop-blur:bg-background/60 border-b bg-background/95 backdrop-blur">
             <nav className="flex h-16 items-center justify-between px-4">
-                <button  className="hidden items-center justify-between gap-2 md:flex"  
-                onClick={handleLogoClick}>
+                <button
+                    className="hidden items-center justify-between gap-2 md:flex"
+                    onClick={handleLogoClick}
+                >
                     <img
                         src={logo}
                         alt="Dayplanner Logo"

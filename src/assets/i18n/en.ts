@@ -7,6 +7,22 @@ export const ENtranslation = {
                 cta: 'Create your board',
             },
         },
+        featureCards: {
+            header: 'Why Dayplanner?',
+            subheader: 'Here are some reasons why Dayplanner is right for you.',
+            customBoards: {
+                subtext: 'Create custom boards with individual columns.',
+                text: 'Custom Board',
+            },
+            tags: {
+                subtext: 'Use tags to categorize your tasks.',
+                text: 'Tags',
+            },
+            supabase: {
+                subtext: 'Use Supabase to store your data.',
+                text: 'Supabase',
+            },
+        },
         'side-nav': {
             boards: 'All boards',
             board: 'My board',

@@ -229,8 +229,13 @@ export const CardComponent: React.FC<CardProps> = ({
         );
     };
 
+    const borderColor =
+        lowerTags != null && lowerTags?.length > 0
+            ? '!border-dashed !border-teal'
+            : '';
+
     return (
-        <div className="group card" data-testid={`card-${id}`}>
+        <div className={`group card ${borderColor}`} data-testid={`card-${id}`}>
             <div className="flex flex-col gap-2 items-start w-full">
                 <div className="w-full grid grid-cols-[1fr,auto] gap-1">
                     <div className="flex flex-col gap-2">

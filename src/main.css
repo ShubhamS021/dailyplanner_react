@@ -190,3 +190,9 @@ main {
     @apply z-40;
     @apply bg-black;
 }
+
+.link {
+    @apply text-primary;
+    @apply dark:text-primary-foreground;
+    @apply font-semibold;
+}

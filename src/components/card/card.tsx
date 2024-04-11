@@ -6,6 +6,8 @@ import { Badge } from '@/ui/badge';
 import { Label } from '@/ui/label';
 import { TaskComponent } from '@/ui/task';
 import { truncate } from '@/utils/truncate';
+import { withLinks } from '@/utils/withLinks';
+import purify from 'dompurify';
 import {
     DragDropContext,
     Draggable,
@@ -179,14 +181,25 @@ export const CardComponent: React.FC<CardProps> = ({
         const truncateAfterChars = 120;
         if (description === '') return;
         if (compactMode) return;
+
+        purify.setConfig({
+            ALLOWED_TAGS: ['a'],
+            SAFE_FOR_TEMPLATES: true,
+        });
+
+        const sanitizedHTML = purify.sanitize(
+            withLinks(truncate(description ?? '', truncateAfterChars))
+        );
+
         return (
             <p
                 className="text-sm text-[#5A5A65] dark:text-[#B8B8B8]"
                 data-testid="card-description"
                 title={description}
-            >
-                {truncate(description ?? '', truncateAfterChars)}
-            </p>
+                dangerouslySetInnerHTML={{
+                    __html: sanitizedHTML,
+                }}
+            ></p>
         );
     };
 

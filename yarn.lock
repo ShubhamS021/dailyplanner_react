@@ -2970,9 +2970,9 @@ camelcase@^6.2.0:
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
 caniuse-lite@^1.0.30001587:
-  version "1.0.30001605"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001605.tgz#ca12d7330dd8bcb784557eb9aa64f0037870d9d6"
-  integrity sha512-nXwGlFWo34uliI9z3n6Qc0wZaf7zaZWA1CPZ169La5mV3I/gem7bst0vr5XQH5TJXZIMfDeZyOrZnSlVzKxxHQ==
+  version "1.0.30001608"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001608.tgz#7ae6e92ffb300e4b4ec2f795e0abab456ec06cc0"
+  integrity sha512-cjUJTQkk9fQlJR2s4HMuPMvTiRggl0rAVMtthQuyOlDWuqHXqN8azLq+pi8B2TjwKJ32diHjUqRIKeFX4z1FoA==
 
 caniuse-lite@^1.0.30001599:
   version "1.0.30001603"
@@ -3847,9 +3847,9 @@ ecc-jsbn@~0.1.1:
     safer-buffer "^2.1.0"
 
 electron-to-chromium@^1.4.668:
-  version "1.4.723"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.723.tgz#827da30c96b316684d352c3d81430029df01bb8e"
-  integrity sha512-rxFVtrMGMFROr4qqU6n95rUi9IlfIm+lIAt+hOToy/9r6CDv0XiEcQdC3VP71y1pE5CFTzKV0RvxOGYCPWWHPw==
+  version "1.4.733"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.733.tgz#708d51ce01a7ed3b401d5ced85e9f5d504fd4217"
+  integrity sha512-gUI9nhI2iBGF0OaYYLKOaOtliFMl+Bt1rY7VmEjwxOxqoYLub/D9xmduPEhbw2imE6gYkJKhIE5it+KE2ulVxQ==
 
 email-validator@^2.0.4:
   version "2.0.4"
@@ -6615,10 +6615,10 @@ postcss-custom-media@^10.0.4:
     "@csstools/css-tokenizer" "^2.2.4"
     "@csstools/media-query-list-parser" "^2.1.9"
 
-postcss-custom-properties@^13.3.6:
-  version "13.3.6"
-  resolved "https://registry.yarnpkg.com/postcss-custom-properties/-/postcss-custom-properties-13.3.6.tgz#f18f3105ab33b8cb2e69da38192a415f6e4c0ea8"
-  integrity sha512-vVVIwQbJiIz+PBLMIWA6XMi53Zg66/f474KolA7x0Das6EwkATc/9ZvM6zZx2gs7ZhcgVHjmWBbHkK9FlCgLeA==
+postcss-custom-properties@^13.3.7:
+  version "13.3.7"
+  resolved "https://registry.yarnpkg.com/postcss-custom-properties/-/postcss-custom-properties-13.3.7.tgz#87f8ce173b147dc5e7e7d7f36123042b2572afd6"
+  integrity sha512-0N9F/GUCr/D0IazjzHahyYW2bQVDT6qDtEudiGHAhMd3XqhfM3VmfYVlkc/40DOhsPtngSNb54/Ctu8msvFOvQ==
   dependencies:
     "@csstools/cascade-layer-name-parser" "^1.0.9"
     "@csstools/css-parser-algorithms" "^2.6.1"
@@ -6776,9 +6776,9 @@ postcss-place@^9.0.1:
     postcss-value-parser "^4.2.0"
 
 postcss-preset-env@^9.5.2:
-  version "9.5.4"
-  resolved "https://registry.yarnpkg.com/postcss-preset-env/-/postcss-preset-env-9.5.4.tgz#ea01cc1eb404a9b80f3375a62b50d36d6f27415a"
-  integrity sha512-o/jOlJjhm4f6rI5q1f+4Og3tz1cjaO50er9ndk7ZdcXHjWOH49kMAhqDC/nQifypQkOAiAmF46dPt3pZM+Cwbg==
+  version "9.5.5"
+  resolved "https://registry.yarnpkg.com/postcss-preset-env/-/postcss-preset-env-9.5.5.tgz#b44aa9110007d92c6d5d157b615d9cff15ac1664"
+  integrity sha512-tg71KfEgTHMM+C4LpWtKfHFWEunfWj1JThq/Odsw60MOowcffBrMAcSBDE+imftW5/BD3mpOiiTL6c+KcnGaLQ==
   dependencies:
     "@csstools/postcss-cascade-layers" "^4.0.4"
     "@csstools/postcss-color-function" "^3.0.13"
@@ -6821,7 +6821,7 @@ postcss-preset-env@^9.5.2:
     postcss-color-hex-alpha "^9.0.4"
     postcss-color-rebeccapurple "^9.0.3"
     postcss-custom-media "^10.0.4"
-    postcss-custom-properties "^13.3.6"
+    postcss-custom-properties "^13.3.7"
     postcss-custom-selectors "^7.1.8"
     postcss-dir-pseudo-class "^8.0.1"
     postcss-double-position-gradients "^5.0.6"

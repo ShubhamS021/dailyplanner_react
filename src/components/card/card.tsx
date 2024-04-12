@@ -193,7 +193,7 @@ export const CardComponent: React.FC<CardProps> = ({
 
         return (
             <p
-                className="text-sm text-[#5A5A65] dark:text-[#B8B8B8]"
+                className="text-sm text-[#5A5A65] dark:text-[#B8B8B8] break-all"
                 data-testid="card-description"
                 title={description}
                 dangerouslySetInnerHTML={{

@@ -5,6 +5,7 @@ stages:
     - deploy
     - renovate
     - renovate-cleanup
+    - supabase_keep_alive
 
 image: node:lts-alpine
 
@@ -167,3 +168,17 @@ include:
           - if: $CI_PIPELINE_SOURCE == "schedule"
             when: never
           - when: always
+
+# a simple curl on the supabase api to keep the projects alive
+supabase_activity_scheduler:
+    stage: supabase_keep_alive
+    variables:
+        QA_URL: https://tnasuovooynucfvinlsh.supabase.co
+        PROD_URL: https://hjyzlczdeldivfnnecix.supabase.co
+        TARGET: api/etc/supabase-activity-scheduler
+    script:
+        - curl $QA_URL/$TARGET
+        - curl $PROD_URL//$TARGET
+    rules:
+        - if: '$CI_PIPELINE_SOURCE == "schedule"'
+          when: always

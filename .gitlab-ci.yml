@@ -170,7 +170,7 @@ include:
           - when: always
 
 # a simple curl on the supabase api to keep the projects alive
-supabase_activity_scheduler:
+supabase_keep_alive:
     stage: supabase_keep_alive
     variables:
         QA_URL: https://tnasuovooynucfvinlsh.supabase.co

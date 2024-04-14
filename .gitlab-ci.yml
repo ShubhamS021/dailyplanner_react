@@ -5,7 +5,7 @@ stages:
     - deploy
     - renovate
     - renovate-cleanup
-    - supabase_keep_alive
+    - supabase-keep-alive
 
 image: node:lts-alpine
 
@@ -173,8 +173,8 @@ include:
           - when: always
 
 # a simple curl on the supabase api to keep the projects alive
-supabase_keep_alive:
-    stage: supabase_keep_alive
+supabase-keep-alive:
+    stage: supabase-keep-alive
     before_script:
         - *add_curl
     variables:

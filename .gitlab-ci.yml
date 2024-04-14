@@ -22,6 +22,9 @@ image: node:lts-alpine
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
+.add_curl: &add_curl
+    - apk add --no-cache curl
+
 .setup_env: &setup_env
     - chmod +x ./deploy/setup_env.sh
     - bash ./deploy/setup_env.sh
@@ -172,6 +175,8 @@ include:
 # a simple curl on the supabase api to keep the projects alive
 supabase_keep_alive:
     stage: supabase_keep_alive
+    before_script:
+        - *add_curl
     variables:
         QA_URL: https://tnasuovooynucfvinlsh.supabase.co
         PROD_URL: https://hjyzlczdeldivfnnecix.supabase.co

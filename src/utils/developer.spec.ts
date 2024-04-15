@@ -61,18 +61,18 @@ describe('logWebVitals', () => {
         expect(console.groupEnd).toHaveBeenCalled();
     });
 
-    it('should not log web vitals when VITE_ENVIRONMENT_NAME is not "qa" or "dev"', async () => {
-        // TODO: meta.env not recognized
+    // TODO: meta.env not recognized
+    it.skip('should not log web vitals when VITE_ENVIRONMENT_NAME is not "qa" or "dev"', async () => {
         import.meta.env.VITE_ENVIRONMENT_NAME = 'production';
 
-        // const consoleGroupMock = vitest.spyOn(console, 'group');
+        const consoleGroupMock = vitest.spyOn(console, 'group');
 
         await logWebVitals();
 
-        // expect(consoleGroupMock).not.toHaveBeenCalled();
-        // expect(onCLS).not.toHaveBeenCalled();
-        // expect(onFID).not.toHaveBeenCalled();
-        // expect(onLCP).not.toHaveBeenCalled();
-        // expect(console.groupEnd).not.toHaveBeenCalled();
+        expect(consoleGroupMock).not.toHaveBeenCalled();
+        expect(onCLS).not.toHaveBeenCalled();
+        expect(onFID).not.toHaveBeenCalled();
+        expect(onLCP).not.toHaveBeenCalled();
+        expect(console.groupEnd).not.toHaveBeenCalled();
     });
 });

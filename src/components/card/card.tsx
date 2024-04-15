@@ -14,6 +14,7 @@ import {
     type DropResult,
 } from 'react-beautiful-dnd';
 import Markdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 import { CardActions } from './card-actions/card-actions';
 import { CardTags } from './card-tags/card-tags';
 import { CardTasks } from './card-tasks/card-tasks';
@@ -183,15 +184,14 @@ export const CardComponent: React.FC<CardProps> = ({
         if (compactMode) return;
 
         return (
-            <p
-                className="text-sm text-[#5A5A65] dark:text-[#B8B8B8] break-all"
-                data-testid="card-description"
-                title={description}
-            >
-                <Markdown>
+            <span data-testid="card-description">
+                <Markdown
+                    className="text-sm text-[#5A5A65] dark:text-[#B8B8B8] break-all"
+                    rehypePlugins={[rehypeRaw]}
+                >
                     {withLinks(truncate(description ?? '', truncateAfterChars))}
                 </Markdown>
-            </p>
+            </span>
         );
     };
 

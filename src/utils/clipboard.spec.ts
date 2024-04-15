@@ -17,24 +17,24 @@ describe('writeToClipboards', () => {
         vitest.clearAllMocks();
     });
 
-    it('should call tauri clipboard API if available', async () => {
+    it('should call tauri clipboard API if available', () => {
         (window as any).__TAURI_IPC__ = true;
         const value = 'Test value';
 
-        await writeToClipboards(value);
-
-        expect(writeText).toHaveBeenCalledWith(value);
+        void writeToClipboards(value).then(() => {
+            expect(writeText).toHaveBeenCalledWith(value);
+        });
     });
 
-    it('should call web clipboard API if tauri clipboard API is not available', async () => {
+    it('should call web clipboard API if tauri clipboard API is not available', () => {
         (window as any).__TAURI_IPC__ = false;
         const value = 'Test value';
 
         expect(writeText).not.toHaveBeenCalled();
 
-        await writeToClipboards(value);
-
-        // eslint-disable-next-line @typescript-eslint/unbound-method
-        expect(navigator.clipboard.writeText).toHaveBeenCalledWith(value);
+        void writeToClipboards(value).then(() => {
+            // eslint-disable-next-line @typescript-eslint/unbound-method
+            expect(navigator.clipboard.writeText).toHaveBeenCalledWith(value);
+        });
     });
 });

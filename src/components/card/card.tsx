@@ -7,13 +7,13 @@ import { Label } from '@/ui/label';
 import { TaskComponent } from '@/ui/task';
 import { truncate } from '@/utils/truncate';
 import { withLinks } from '@/utils/withLinks';
-import purify from 'dompurify';
 import {
     DragDropContext,
     Draggable,
     Droppable,
     type DropResult,
 } from 'react-beautiful-dnd';
+import Markdown from 'react-markdown';
 import { CardActions } from './card-actions/card-actions';
 import { CardTags } from './card-tags/card-tags';
 import { CardTasks } from './card-tasks/card-tasks';
@@ -182,24 +182,16 @@ export const CardComponent: React.FC<CardProps> = ({
         if (description === '') return;
         if (compactMode) return;
 
-        purify.setConfig({
-            ALLOWED_TAGS: ['a'],
-            SAFE_FOR_TEMPLATES: true,
-        });
-
-        const sanitizedHTML = purify.sanitize(
-            withLinks(truncate(description ?? '', truncateAfterChars))
-        );
-
         return (
             <p
                 className="text-sm text-[#5A5A65] dark:text-[#B8B8B8] break-all"
                 data-testid="card-description"
                 title={description}
-                dangerouslySetInnerHTML={{
-                    __html: sanitizedHTML,
-                }}
-            ></p>
+            >
+                <Markdown>
+                    {withLinks(truncate(description ?? '', truncateAfterChars))}
+                </Markdown>
+            </p>
         );
     };
 

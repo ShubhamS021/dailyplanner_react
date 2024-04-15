@@ -190,6 +190,7 @@ export const CardComponent: React.FC<CardProps> = ({
                 data-testid="card-description"
                 onClick={handleLinkCopy()}
                 onKeyDown={() => handleLinkCopy()}
+                role="link"
             >
                 <Markdown
                     className="text-sm text-[#5A5A65] dark:text-[#B8B8B8] break-all"

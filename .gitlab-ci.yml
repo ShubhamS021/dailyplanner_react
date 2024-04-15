@@ -5,6 +5,7 @@ stages:
     - deploy
     - renovate
     - renovate-cleanup
+    - supabase-keep-alive
 
 image: node:lts-alpine
 
@@ -20,6 +21,9 @@ image: node:lts-alpine
     - ssh-add <(echo "$SSH_PRIVATE_KEY")
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+.add_curl: &add_curl
+    - apk add --no-cache curl
 
 .setup_env: &setup_env
     - chmod +x ./deploy/setup_env.sh
@@ -167,3 +171,19 @@ include:
           - if: $CI_PIPELINE_SOURCE == "schedule"
             when: never
           - when: always
+
+# a simple curl on the supabase api to keep the projects alive
+supabase-keep-alive:
+    stage: supabase-keep-alive
+    before_script:
+        - *add_curl
+    variables:
+        SUPABASE_DEV_URL: https://tnasuovooynucfvinlsh.supabase.co
+        SUPABASE_PROD_URL: https://hjyzlczdeldivfnnecix.supabase.co
+        TARGET: api/etc/supabase-activity-scheduler
+    script:
+        - curl $SUPABASE_DEV_URL/$TARGET
+        - curl $SUPABASE_PROD_URL/$TARGET
+    rules:
+        - if: '$CI_PIPELINE_SOURCE == "schedule"'
+          when: always

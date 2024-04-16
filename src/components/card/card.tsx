@@ -186,19 +186,14 @@ export const CardComponent: React.FC<CardProps> = ({
         if (compactMode) return;
 
         return (
-            <span
-                data-testid="card-description"
-                onClick={handleLinkCopy()}
-                onKeyDown={() => handleLinkCopy()}
-                role="contentinfo"
-            >
+            <button data-testid="card-description" onClick={handleLinkCopy()}>
                 <Markdown
-                    className="text-sm text-[#5A5A65] dark:text-[#B8B8B8] break-all"
+                    className="text-sm text-[#5A5A65] text-left dark:text-[#B8B8B8] break-all"
                     rehypePlugins={[rehypeRaw]}
                 >
                     {withLinks(truncate(description ?? '', truncateAfterChars))}
                 </Markdown>
-            </span>
+            </button>
         );
     };
 

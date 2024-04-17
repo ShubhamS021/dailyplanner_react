@@ -311,7 +311,7 @@ export const useBoardStore = create<BoardStoreState & BoardStoreActions>()(
                  */
                 exportBoardToJSON: (board: Board) => {
                     set((state) => {
-                        exportBoardToJson(board);
+                        void exportBoardToJson(board);
                         return { ...state };
                     });
                 },

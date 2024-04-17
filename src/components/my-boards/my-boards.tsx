@@ -192,7 +192,7 @@ export const MyBoards = () => {
                                             <Tooltip>
                                                 <TooltipTrigger
                                                     onClick={() => {
-                                                        exportBoardToJson(
+                                                        void exportBoardToJson(
                                                             board
                                                         );
                                                     }}

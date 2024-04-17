@@ -79,7 +79,18 @@ export const BoardHistory = () => {
                                         )}: ${renderAdditionalData(h)}`}
                                     </TableCell>
                                     <TableCell className="py-4 max-w-[20vw]">
-                                        {JSON.stringify(h.data.card, null, 4)}
+                                        <details>
+                                            <summary className="my-2 font-medium">
+                                                Changed data details
+                                            </summary>
+                                            <p className="bg-gray-04 border p-4 whitespace-pre">
+                                                {JSON.stringify(
+                                                    h.data.card,
+                                                    null,
+                                                    4
+                                                )}
+                                            </p>
+                                        </details>
                                     </TableCell>
                                 </TableRow>
                             );

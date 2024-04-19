@@ -291,7 +291,7 @@ export const LaneComponent: React.FC<LaneProps> = ({
     return (
         <div className="flex flex-col gap-2" data-testid={`lane-${id}`}>
             <div className="w-full grid grid-cols-[auto,1fr] gap-1">
-                <div className="flex items-center">
+                <div className="flex items-center" data-testid="lane-label">
                     <Badge variant={variant} size={'xs'}>
                         {text}
                     </Badge>

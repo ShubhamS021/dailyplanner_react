@@ -1,5 +1,7 @@
 import { type Board } from '@/interfaces/Board';
 import { type Card } from '@/interfaces/Card';
+import { save } from '@tauri-apps/api/dialog';
+import { writeTextFile } from '@tauri-apps/api/fs';
 import i18next from 'i18next';
 import { initialBoardState } from '../data/initialBoard.state';
 import { initialLanes } from '../data/initialLanes.state';
@@ -24,19 +26,25 @@ export const findLastTaskIdInCard = (card: Card): number => {
     return Math.max(...(card.tasks?.map((task) => task.id) ?? []), 0);
 };
 
-export const exportBoardToJson = (board: Board) => {
+export const exportBoardToJson = async (board: Board) => {
+    const currentDate = new Date();
+    const fileName = `BoardExport-${board.title.replaceAll(' ', '_')}-${currentDate.toLocaleString().replaceAll(' ', '_')}.json`;
     const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
         JSON.stringify(board)
     )}`;
-    const link = document.createElement('a');
-    link.href = jsonString;
-    const currentDate = new Date();
-    link.download = `BoardExport-${board.title.replaceAll(
-        ' ',
-        '_'
-    )}-${currentDate.toLocaleString()}.json`;
 
-    link.click();
+    // save via Tauri dialog API if running in Tauri
+    if (Object.hasOwn(window, '__TAURI__')) {
+        const filePath = await save({ defaultPath: fileName });
+        if (filePath == null) return;
+        await writeTextFile(filePath, jsonString);
+    } else {
+        // save via browser download if running in browser
+        const link = document.createElement('a');
+        link.href = jsonString;
+        link.download = fileName;
+        link.click();
+    }
 };
 
 export const getLocalizedInitialBoardState = () => {

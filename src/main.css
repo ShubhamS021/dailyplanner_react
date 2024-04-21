@@ -195,4 +195,5 @@ main {
     @apply text-primary;
     @apply dark:text-primary-foreground;
     @apply font-semibold;
+    @apply cursor-pointer;
 }

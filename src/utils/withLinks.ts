@@ -1,7 +1,11 @@
-// first solution. Better: use markdown https://www.npmjs.com/package/react-markdown
-export const withLinks = (str: string) => {
+/**
+ * Wraps links in a string with span tags
+ * @param str - string containing links
+ * @returns string with links wrapped in span tags
+ */
+export const withLinks = (str: string): string => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     return str.replace(urlRegex, (url) => {
-        return `<a class="link" href="${url}" target="_blank" rel="noreferrer" data-attribute="hello" title="${url}">${url}</a>`;
+        return `<span class="link">${url}</span>`;
     });
 };

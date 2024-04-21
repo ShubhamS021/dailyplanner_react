@@ -102,6 +102,10 @@ export const ENtranslation = {
             move: 'Move card',
             edit: 'Edit card',
             remove: 'Remove card',
+            linkCopiedTitle: 'Link copied',
+            linkCopiedAction: 'Ok',
+            linkCopiedDescription:
+                'The link has been copied to your clipboard.',
         },
         CompactModeToggle: {
             normal: 'Normal mode',

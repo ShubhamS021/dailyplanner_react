@@ -6915,10 +6915,10 @@ postcss-custom-media@^10.0.4:
     "@csstools/css-tokenizer" "^2.2.4"
     "@csstools/media-query-list-parser" "^2.1.9"
 
-postcss-custom-properties@^13.3.7:
-  version "13.3.7"
-  resolved "https://registry.yarnpkg.com/postcss-custom-properties/-/postcss-custom-properties-13.3.7.tgz#87f8ce173b147dc5e7e7d7f36123042b2572afd6"
-  integrity sha512-0N9F/GUCr/D0IazjzHahyYW2bQVDT6qDtEudiGHAhMd3XqhfM3VmfYVlkc/40DOhsPtngSNb54/Ctu8msvFOvQ==
+postcss-custom-properties@^13.3.8:
+  version "13.3.8"
+  resolved "https://registry.yarnpkg.com/postcss-custom-properties/-/postcss-custom-properties-13.3.8.tgz#2a75e867fb7a6037e10282e313f9e87ae8881a10"
+  integrity sha512-OP9yj4yXxYOiW2n2TRpnE7C0yePvBiZb72S22mZVNzZEObdTYFjNaX6oZO4R4E8Ie9RmC/Jxw8EKYSbLrC1EFA==
   dependencies:
     "@csstools/cascade-layer-name-parser" "^1.0.9"
     "@csstools/css-parser-algorithms" "^2.6.1"
@@ -7076,9 +7076,9 @@ postcss-place@^9.0.1:
     postcss-value-parser "^4.2.0"
 
 postcss-preset-env@^9.5.8:
-  version "9.5.8"
-  resolved "https://registry.yarnpkg.com/postcss-preset-env/-/postcss-preset-env-9.5.8.tgz#1803f4dcb85ee517b631e57f734830af51ba715b"
-  integrity sha512-AjQ5ZgrVJVL8Ja7UxIlbyHUN5knkdk6L0JxxV7KDZU4S5WfJjRNgvWlU7Xq7CMyRZSjHZBmLDOsBKIL9WStPyw==
+  version "9.5.9"
+  resolved "https://registry.yarnpkg.com/postcss-preset-env/-/postcss-preset-env-9.5.9.tgz#e316ed765d776a4d824f1cf2018e6f506b15261d"
+  integrity sha512-W+WgDH1MOWLT3Fsvknd45pzGMQ8Sp3fmt94Pxeik3Zkqfhw2XUDF8FehfV3Naxw4l/NrKPWLtltPJYVnpjMmfw==
   dependencies:
     "@csstools/postcss-cascade-layers" "^4.0.4"
     "@csstools/postcss-color-function" "^3.0.14"
@@ -7121,7 +7121,7 @@ postcss-preset-env@^9.5.8:
     postcss-color-hex-alpha "^9.0.4"
     postcss-color-rebeccapurple "^9.0.3"
     postcss-custom-media "^10.0.4"
-    postcss-custom-properties "^13.3.7"
+    postcss-custom-properties "^13.3.8"
     postcss-custom-selectors "^7.1.8"
     postcss-dir-pseudo-class "^8.0.1"
     postcss-double-position-gradients "^5.0.6"
@@ -8001,7 +8001,16 @@ string-argv@0.3.2:
   resolved "https://registry.yarnpkg.com/string-argv/-/string-argv-0.3.2.tgz#2b6d0ef24b656274d957d54e0a4bbf6153dc02b6"
   integrity sha512-aqD2Q0144Z+/RqG52NeHEkZauTAUWJO8c6yTftGJKO3Tja5tUgIfmIl6kExvhtxSDP7fXB6DvzkfMpCd/F3G+Q==
 
-"string-width-cjs@npm:string-width@^4.2.0", string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
+"string-width-cjs@npm:string-width@^4.2.0":
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
+  integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
+  dependencies:
+    emoji-regex "^8.0.0"
+    is-fullwidth-code-point "^3.0.0"
+    strip-ansi "^6.0.1"
+
+string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
@@ -8114,7 +8123,14 @@ stringify-entities@^4.0.0:
     character-entities-html4 "^2.0.0"
     character-entities-legacy "^3.0.0"
 
-"strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+"strip-ansi-cjs@npm:strip-ansi@^6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
+  integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
+  dependencies:
+    ansi-regex "^5.0.1"
+
+strip-ansi@^6.0.0, strip-ansi@^6.0.1:
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
   integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
@@ -8972,7 +8988,7 @@ wordwrap@^1.0.0:
   resolved "https://registry.yarnpkg.com/wordwrap/-/wordwrap-1.0.0.tgz#27584810891456a4171c8d0226441ade90cbcaeb"
   integrity sha512-gvVzJFlPycKc5dZN4yPkP8w7Dc37BtP1yczEneOb4uq34pXZcvrtRTmWV8W+Ume+XCxKgbjM+nevkyFPMybd4Q==
 
-"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0", wrap-ansi@^7.0.0:
+"wrap-ansi-cjs@npm:wrap-ansi@^7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
   integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
@@ -8985,6 +9001,15 @@ wrap-ansi@^6.2.0:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-6.2.0.tgz#e9393ba07102e6c91a3b221478f0257cd2856e53"
   integrity sha512-r6lPcBGxZXlIcymEu7InxDMhdW0KDxpLgoFLcguasxCaJ/SOIZwINatK9KY/tf+ZrlywOKU0UDj3ATXUBfxJXA==
+  dependencies:
+    ansi-styles "^4.0.0"
+    string-width "^4.1.0"
+    strip-ansi "^6.0.0"
+
+wrap-ansi@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
+  integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
   dependencies:
     ansi-styles "^4.0.0"
     string-width "^4.1.0"

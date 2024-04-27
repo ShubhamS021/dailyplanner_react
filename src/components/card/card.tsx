@@ -5,13 +5,20 @@ import { type Shirt } from '@/types/Shirt';
 import { Badge } from '@/ui/badge';
 import { Label } from '@/ui/label';
 import { TaskComponent } from '@/ui/task';
+import { useToast } from '@/ui/use-toast';
+import { writeToClipboards } from '@/utils/clipboard';
 import { truncate } from '@/utils/truncate';
+import { withLinks } from '@/utils/withLinks';
+import { ToastAction } from '@radix-ui/react-toast';
 import {
     DragDropContext,
     Draggable,
     Droppable,
     type DropResult,
 } from 'react-beautiful-dnd';
+import { useTranslation } from 'react-i18next';
+import Markdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 import { CardActions } from './card-actions/card-actions';
 import { CardTags } from './card-tags/card-tags';
 import { CardTasks } from './card-tasks/card-tasks';
@@ -49,6 +56,8 @@ export const CardComponent: React.FC<CardProps> = ({
     onRemoveTask,
     onUpdateTasks,
 }) => {
+    const { toast } = useToast();
+    const { t } = useTranslation();
     const [compactMode, updateTask] = useBoardStore((state) => [
         state.compactMode,
         state.updateTask,
@@ -94,9 +103,7 @@ export const CardComponent: React.FC<CardProps> = ({
             return;
         }
 
-        if (onUpdateTasks != null) {
-            onUpdateTasks(reorderedTasks);
-        }
+        onUpdateTasks?.(reorderedTasks);
     };
 
     const renderTasksDraggable = () => {
@@ -145,9 +152,7 @@ export const CardComponent: React.FC<CardProps> = ({
                                                     }
                                                 }}
                                                 onRemove={() => {
-                                                    if (onRemoveTask != null) {
-                                                        onRemoveTask(t);
-                                                    }
+                                                    onRemoveTask?.(t);
                                                 }}
                                             />
                                         </div>
@@ -179,15 +184,39 @@ export const CardComponent: React.FC<CardProps> = ({
         const truncateAfterChars = 120;
         if (description === '') return;
         if (compactMode) return;
+
         return (
-            <p
-                className="text-sm text-[#5A5A65] dark:text-[#B8B8B8]"
-                data-testid="card-description"
-                title={description}
-            >
-                {truncate(description ?? '', truncateAfterChars)}
-            </p>
+            <button data-testid="card-description" onClick={handleLinkCopy()}>
+                <Markdown
+                    className="text-sm text-[#5A5A65] text-left dark:text-[#B8B8B8] break-all"
+                    rehypePlugins={[rehypeRaw]}
+                >
+                    {withLinks(truncate(description ?? '', truncateAfterChars))}
+                </Markdown>
+            </button>
         );
+    };
+
+    const handleLinkCopy = () => {
+        return (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+            const target = e.target as HTMLSpanElement;
+            if (target.className === 'link') {
+                void writeToClipboards(target.innerText);
+                notifyLinkCopy();
+            }
+        };
+    };
+
+    const notifyLinkCopy = () => {
+        toast({
+            title: t('components.Card.linkCopiedTitle'),
+            action: (
+                <ToastAction altText={t('components.Card.linkCopiedAction')}>
+                    {t('components.Card.linkCopiedAction')}
+                </ToastAction>
+            ),
+            description: t('components.Card.linkCopiedDescription'),
+        });
     };
 
     const renderEstimation = () => {
@@ -210,27 +239,26 @@ export const CardComponent: React.FC<CardProps> = ({
             >
                 <CardActions
                     onEditCard={() => {
-                        if (onEditCard != null) {
-                            onEditCard();
-                        }
+                        onEditCard?.();
                     }}
                     onMoveCard={() => {
-                        if (onMoveCard != null) {
-                            onMoveCard();
-                        }
+                        onMoveCard?.();
                     }}
                     onRemoveCard={() => {
-                        if (onRemoveCard != null) {
-                            onRemoveCard();
-                        }
+                        onRemoveCard?.();
                     }}
                 />
             </div>
         );
     };
 
+    const borderColor =
+        lowerTags != null && lowerTags?.length > 0
+            ? '!border-dashed !border-teal'
+            : '';
+
     return (
-        <div className="group card" data-testid={`card-${id}`}>
+        <div className={`group card ${borderColor}`} data-testid={`card-${id}`}>
             <div className="flex flex-col gap-2 items-start w-full">
                 <div className="w-full grid grid-cols-[1fr,auto] gap-1">
                     <div className="flex flex-col gap-2">

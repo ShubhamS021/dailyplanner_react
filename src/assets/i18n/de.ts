@@ -105,6 +105,10 @@ export const DEtranslation = {
             move: 'Karte verschieben',
             edit: 'Karte bearbeiten',
             remove: 'Karte entfernen',
+            linkCopiedTitle: 'Link kopiert',
+            linkCopiedAction: 'Ok',
+            linkCopiedDescription:
+                'Der Link wurde in die Zwischenablage kopiert.',
         },
         CompactModeToggle: {
             normal: 'Normaler Modus',

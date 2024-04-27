@@ -5,9 +5,11 @@
         {
             "matchUpdateTypes": ["minor", "patch"],
             "matchCurrentVersion": "!/^0/",
-            "automerge": true,
-            "autodiscover": true,
-            "autodiscoverFilter": ["dayplanner/*"]
+            "automerge": true
         }
+    ],
+    "dependencyDashboard": true,
+    "repositories": [
+        "Kevin.Hahn/dayplanner"
     ]
 }

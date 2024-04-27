@@ -16,6 +16,7 @@ import { useEffect, useState } from 'react';
 import {
     DragDropContext,
     Draggable,
+    DraggableProvided,
     Droppable,
     type DropResult,
 } from 'react-beautiful-dnd';
@@ -146,6 +147,59 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
         }
     };
 
+    const renderLaneDraggable = (lane: Lane, index: number) => {
+        return (
+            <Draggable
+                key={lane.id}
+                draggableId={`board-lane-${lane.id}`}
+                index={index}
+            >
+                {(draggableProvided, _draggableSnapshot) =>
+                    renderLaneDraggableContent(lane, draggableProvided)
+                }
+            </Draggable>
+        );
+    };
+
+    const renderLaneDraggableContent = (
+        lane: Lane,
+        draggableProvided: DraggableProvided
+    ) => {
+        return (
+            <div
+                className="grid grid-cols-[auto,1fr,auto] gap-2 items-center group bg-white dark:bg-[#2E3842] dark:text-[#DEDEDE] border border-[#f5f4f4] dark:border-[#34414E] p-2 rounded-lg"
+                key={`board-${board.id}-lane-${lane.id}`}
+                data-testid={`board-${board.id}-lane-${lane.id}`}
+                ref={draggableProvided.innerRef}
+                {...draggableProvided.draggableProps}
+                {...draggableProvided.dragHandleProps}
+            >
+                <div className="dark:stroke-[#DEDEDE]">
+                    <GripVerticalIcon />
+                </div>
+                <div>
+                    <Badge variant={lane.variant}>{`${lane.title} (${
+                        lane.cards.length
+                    } ${t('components.BoardEditModal.tasks')})`}</Badge>
+                </div>
+                <div>
+                    <Button
+                        size={'icon'}
+                        variant={'outline'}
+                        className="disabled:cursor-not-allowed"
+                        onClick={() => {
+                            handleRemoveLane(lane.id);
+                        }}
+                        data-testid="remove-lane-button"
+                        disabled={lane.cards.length > 0}
+                    >
+                        <Trash2 width={16} height={16} />
+                    </Button>
+                </div>
+            </div>
+        );
+    };
+
     const renderMoveRemoveLane = () => {
         return (
             <div className="flex flex-col gap-2 max-h-[50vh] overflow-auto">
@@ -159,66 +213,8 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
                                 ref={droppableProvided.innerRef}
                             >
                                 {currentEditBoard.lanes.map(
-                                    (lane: Lane, index: number) => (
-                                        <Draggable
-                                            key={lane.id}
-                                            draggableId={`board-lane-${lane.id}`}
-                                            index={index}
-                                        >
-                                            {(
-                                                draggableProvided,
-                                                _draggableSnapshot
-                                            ) => (
-                                                <div
-                                                    className="grid grid-cols-[auto,1fr,auto] gap-2 items-center group bg-white dark:bg-[#2E3842] dark:text-[#DEDEDE] border border-[#f5f4f4] dark:border-[#34414E] p-2 rounded-lg"
-                                                    key={`board-${board.id}-lane-${lane.id}`}
-                                                    data-testid={`board-${board.id}-lane-${lane.id}`}
-                                                    ref={
-                                                        draggableProvided.innerRef
-                                                    }
-                                                    {...draggableProvided.draggableProps}
-                                                    {...draggableProvided.dragHandleProps}
-                                                >
-                                                    <div className="dark:stroke-[#DEDEDE]">
-                                                        <GripVerticalIcon />
-                                                    </div>
-                                                    <div>
-                                                        <Badge
-                                                            variant={
-                                                                lane.variant
-                                                            }
-                                                        >{`${lane.title} (${
-                                                            lane.cards.length
-                                                        } ${t(
-                                                            'components.BoardEditModal.tasks'
-                                                        )})`}</Badge>
-                                                    </div>
-                                                    <div>
-                                                        <Button
-                                                            size={'icon'}
-                                                            variant={'outline'}
-                                                            className="disabled:cursor-not-allowed"
-                                                            onClick={() => {
-                                                                handleRemoveLane(
-                                                                    lane.id
-                                                                );
-                                                            }}
-                                                            data-testid="remove-lane-button"
-                                                            disabled={
-                                                                lane.cards
-                                                                    .length > 0
-                                                            }
-                                                        >
-                                                            <Trash2
-                                                                width={16}
-                                                                height={16}
-                                                            />
-                                                        </Button>
-                                                    </div>
-                                                </div>
-                                            )}
-                                        </Draggable>
-                                    )
+                                    (lane: Lane, index: number) =>
+                                        renderLaneDraggable(lane, index)
                                 )}
                                 {droppableProvided.placeholder}
                             </div>
@@ -251,13 +247,12 @@ export const BoardEditModal: React.FC<BoardEditModalProps> = ({
                         </div>
                     </div>
                     {/* body */}
-                    <div className="relative p-6 grid grid-cols-[1fr,auto,1fr] gap-2">
+                    <div className="relative p-6 grid grid-cols-2 gap-4">
                         <div className="flex flex-col gap-3">
                             {renderTitleAndSubtitle()}
                             <Separator className="my-3" />
                             {renderAddLane()}
                         </div>
-                        <Separator orientation="vertical" className="mx-4" />
                         <div>{renderMoveRemoveLane()}</div>
                     </div>
                     {/* footer */}

@@ -1,10 +1,12 @@
+import { onCLS, onFID, onLCP } from 'web-vitals/attribution';
+
 /**
  * Logs information about the Vite environment variables to the console, but only when in the 'qa' or 'dev' environments.
  *
  * Logs a collapsed group with the environment variable names and values in a table. Useful for debugging the runtime
  * environment during local development. Not logged in prod to avoid leaking sensitive values.
  */
-export const logViteEnvironment = () => {
+export const logViteEnvironment = async () => {
     if (
         !(
             import.meta.env.VITE_ENVIRONMENT_NAME === 'qa' ||
@@ -14,7 +16,7 @@ export const logViteEnvironment = () => {
         return;
     }
 
-    console.groupCollapsed('VITE_ENV (only visible in qa and dev)');
+    console.group('VITE_ENV (only visible in qa and dev)');
 
     const envVariables: Array<Record<string, string>> = [
         {
@@ -46,4 +48,22 @@ export const logViteEnvironment = () => {
     console.table(envVariablesNoIndex);
 
     console.groupEnd();
+};
+
+export const logWebVitals = async () => {
+    if (
+        import.meta.env.VITE_ENVIRONMENT_NAME === 'qa' ||
+        import.meta.env.VITE_ENVIRONMENT_NAME === 'dev'
+    ) {
+        console.group('Web Vitals');
+        onCLS(console.log);
+        onFID(console.log);
+        onLCP(console.log);
+        console.groupEnd();
+    }
+};
+
+export const logDeveloperInfo = async () => {
+    await logViteEnvironment();
+    await logWebVitals();
 };

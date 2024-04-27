@@ -5,6 +5,7 @@ stages:
     - deploy
     - renovate
     - renovate-cleanup
+    - supabase-keep-alive
 
 image: node:lts-alpine
 
@@ -20,6 +21,9 @@ image: node:lts-alpine
     - ssh-add <(echo "$SSH_PRIVATE_KEY")
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+.add_curl: &add_curl
+    - apk add --no-cache curl
 
 .setup_env: &setup_env
     - chmod +x ./deploy/setup_env.sh
@@ -50,6 +54,8 @@ test:
     before_script:
         - *add_git
         - yarn install
+    environment:
+        name: qa
     variables:
         VITE_SUPABASE_URL: $VITE_SUPABASE_URL
         VITE_SUPABASE_ANON_KEY: $VITE_SUPABASE_ANON_KEY
@@ -106,11 +112,12 @@ qa:
     rules:
         - if: $CI_PIPELINE_SOURCE == "schedule"
           when: never
+        - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+          when: never
         - if: $CI_COMMIT_BRANCH == "develop"
           when: on_success
         - if: $CI_COMMIT_BRANCH == "main"
           when: manual
-        - when: manual
 
 prod:
     stage: deploy
@@ -150,6 +157,12 @@ renovate-clean:
 include:
     - project: 'renovate-bot/renovate-runner'
       file: '/templates/renovate.gitlab-ci.yml'
+      cache:
+          paths:
+              - renovate/
+          when: 'always'
+      variables:
+          RENOVATE_BASE_DIR: './renovate'
       rules:
           - if: '$CI_PIPELINE_SOURCE == "schedule" && $CI_COMMIT_BRANCH == "develop"'
             when: always
@@ -158,3 +171,19 @@ include:
           - if: $CI_PIPELINE_SOURCE == "schedule"
             when: never
           - when: always
+
+# a simple curl on the supabase api to keep the projects alive
+supabase-keep-alive:
+    stage: supabase-keep-alive
+    before_script:
+        - *add_curl
+    variables:
+        SUPABASE_DEV_URL: https://tnasuovooynucfvinlsh.supabase.co
+        SUPABASE_PROD_URL: https://hjyzlczdeldivfnnecix.supabase.co
+        TARGET: api/etc/supabase-activity-scheduler
+    script:
+        - curl $SUPABASE_DEV_URL/$TARGET
+        - curl $SUPABASE_PROD_URL/$TARGET
+    rules:
+        - if: '$CI_PIPELINE_SOURCE == "schedule"'
+          when: always

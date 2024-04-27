@@ -7,7 +7,7 @@ Check if the given labels match the board lane labels in the DOM.
 @returns {void}
 */
 export const checkBoardLabels = (labels: string[]) => {
-    cy.get('[data-testid="page-label"]').as('laneLabels');
+    cy.get('[data-testid="lane-label"]').as('laneLabels');
 
     cy.get('@laneLabels').should('have.length', labels.length);
 

@@ -23,7 +23,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ className }) => {
     return (
         <nav
             className={cn(
-                `relative hidden h-screen border-r pt-20 md:block`,
+                `relative hidden h-screen border-r md:block`,
                 status && 'duration-500',
                 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 isOpen ? 'w-72' : 'w-[78px]',
@@ -32,7 +32,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ className }) => {
         >
             <BsArrowLeftShort
                 className={cn(
-                    'absolute -right-3 top-20 cursor-pointer rounded-full border bg-background text-3xl text-foreground',
+                    'absolute -right-3 top-2 cursor-pointer rounded-full border bg-background text-3xl text-foreground',
                     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                     !isOpen && 'rotate-180'
                 )}

@@ -2,6 +2,31 @@ const ADD = 'hinzufügen';
 
 export const DEtranslation = {
     components: {
+        landing: {
+            hero: {
+                header: 'Aufgaben leicht gemacht.',
+                subheader: 'Einfach einzurichten. Anpassbar. Schnell.',
+                cta: 'Erstelle dein Board',
+            },
+        },
+        featureCards: {
+            header: 'Warum Dayplanner?',
+            subheader:
+                'Hier sind einige Gründe, warum Dayplanner das Richtige für dich ist.',
+            customBoards: {
+                subtext: 'Erstelle eigene Boards mit individuellen Spalten.',
+                text: 'Eigene Boards',
+            },
+            tags: {
+                subtext: 'Verwende Tags um deine Aufgaben zu kategorisieren.',
+                text: 'Tags',
+            },
+            supabase: {
+                subtext:
+                    'Nutze Supabase um deine Daten zu speichern und überall wieder abzurufen.',
+                text: 'Supabase',
+            },
+        },
         'side-nav': {
             boards: 'Alle Boards',
             board: 'Mein Board',

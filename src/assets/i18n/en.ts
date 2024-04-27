@@ -1,5 +1,29 @@
 export const ENtranslation = {
     components: {
+        landing: {
+            hero: {
+                header: 'Tasks made easy.',
+                subheader: 'Easy to set up. Customizable. Quick. Responsive.',
+                cta: 'Create your board',
+            },
+        },
+        featureCards: {
+            header: 'Why Dayplanner?',
+            subheader: 'Here are some reasons why Dayplanner is right for you.',
+            customBoards: {
+                subtext: 'Create custom boards with individual columns.',
+                text: 'Custom Boards',
+            },
+            tags: {
+                subtext: 'Use tags to categorize your tasks.',
+                text: 'Tags',
+            },
+            supabase: {
+                subtext:
+                    'Use Supabase to store your data and use it wherever you are.',
+                text: 'Supabase',
+            },
+        },
         'side-nav': {
             boards: 'All boards',
             board: 'My board',

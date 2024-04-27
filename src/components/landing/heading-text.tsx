@@ -4,11 +4,11 @@ interface HeadingProps {
     className?: string;
 }
 
-export default function HeadingText({
+export const HeadingText: React.FC<HeadingProps> = ({
     children,
     subtext,
     className,
-}: HeadingProps) {
+}) => {
     return (
         <div className={`space-y-2 ${className}`}>
             <h1 className="text-3xl font-bold text-primary lg:text-4xl">
@@ -21,4 +21,4 @@ export default function HeadingText({
             )}
         </div>
     );
-}
+};

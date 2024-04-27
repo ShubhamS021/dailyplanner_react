@@ -4,8 +4,8 @@ import { cn } from '@/utils';
 import { useTranslation } from 'react-i18next';
 import { BoardIllustration } from './assets/BoardIllustration';
 
-export default function Hero() {
-    const {t} = useTranslation();
+export const Hero = () => {
+    const { t } = useTranslation();
     const [setPage] = usePageStore((state) => [state.setPage]);
 
     return (
@@ -16,7 +16,7 @@ export default function Hero() {
                         {t('components.landing.hero.header')}
                     </h1>
                     <h2 className="text-lg font-light text-muted-foreground lg:text-3xl">
-                    {t('components.landing.hero.subheader')}
+                        {t('components.landing.hero.subheader')}
                     </h2>
                 </div>
                 <button
@@ -26,9 +26,9 @@ export default function Hero() {
                     {t('components.landing.hero.cta')}
                 </button>
             </div>
-                <div className="flex flex-1 justify-center lg:justify-end">
-                    {BoardIllustration}
-                </div>
+            <div className="flex flex-1 justify-center lg:justify-end">
+                {BoardIllustration}
+            </div>
         </section>
     );
-}
+};

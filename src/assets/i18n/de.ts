@@ -29,6 +29,24 @@ export const DEtranslation = {
                 text: 'Supabase',
             },
         },
+        features: {
+            header: 'Features',
+            subheader: 'Warum sollte ich Dayplanner nutzen?',
+            'feature-flexibility': {
+                text: 'Aussehen: Flexibilität',
+                subtext:
+                    'Erstelle deine Boards wie es dir gefällt. Individuelle Spalten und vieles mehr.',
+            },
+            'feature-data': {
+                text: 'Daten: volle Kontrolle',
+                subtext:
+                    'Speichere deine Daten auf dem Datenträger oder in der Cloud.',
+            },
+            'feature-history': {
+                text: 'Historie: verfolge deine Änderungen',
+                subtext: 'Behalte den Überblick über deine Änderungen.',
+            },
+        },
         'side-nav': {
             boards: 'Alle Boards',
             board: 'Mein Board',

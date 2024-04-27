@@ -1,5 +1,12 @@
 import { type ContentSection } from '@/interfaces/HeroContents';
-import { GlobeLock, SquareKanban, Tag } from 'lucide-react';
+import {
+    Clock1,
+    GlobeLock,
+    Palette,
+    Save,
+    SquareKanban,
+    Tag,
+} from 'lucide-react';
 
 export const featureCards: ContentSection = {
     header: `components.featureCards.header`,
@@ -24,24 +31,24 @@ export const featureCards: ContentSection = {
 };
 
 export const features: ContentSection = {
-    header: `Features`,
-    subheader: `Why use Next Landing?`,
-    image: `/features-img.webp`,
+    header: `components.features.header`,
+    subheader: `components.features.subheader`,
+    image: `/landing.png`,
     content: [
         {
-            text: `SEO Optimized`,
-            subtext: `Improved website visibility on search engines`,
-            // icon: 'fileSearch',
+            text: `components.features.feature-flexibility.text`,
+            subtext: `components.features.feature-flexibility.subtext`,
+            icon: Palette,
         },
         {
-            text: `Highly Performant`,
-            subtext: `Fast loading times and smooth performance`,
-            // icon: 'barChart',
+            text: `components.features.feature-data.text`,
+            subtext: `components.features.feature-data.subtext`,
+            icon: Save,
         },
         {
-            text: `Easy Customizability`,
-            subtext: `Change your content and layout with little effort`,
-            // icon: 'settings',
+            text: `components.features.feature-history.text`,
+            subtext: `components.features.feature-history.subtext`,
+            icon: Clock1,
         },
     ],
 };

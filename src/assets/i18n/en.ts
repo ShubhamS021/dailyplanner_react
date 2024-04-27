@@ -24,6 +24,26 @@ export const ENtranslation = {
                 text: 'Supabase',
             },
         },
+        features: {
+            header: 'Features',
+            subheader: 'Why should I use Dayplanner?',
+            'feature-flexibility': {
+                text: 'Looks: Flexibility',
+                subtext:
+                    'Create a board for whatever topic you want. you can define everything yourself.',
+            },
+            'feature-data': {
+                text: 'Data: store your data where you want',
+                subtext:
+                    'Store your data on disk (json), browser or in the cloud.',
+            },
+            'feature-history': {
+                text: 'History: follow your changes',
+                subtext:
+                    'Forgot what you changed? Have a look in the history of your board.',
+            },
+        },
+
         'side-nav': {
             boards: 'All boards',
             board: 'My board',

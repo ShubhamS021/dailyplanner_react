@@ -1,9 +1,9 @@
 import { Card, CardDescription, CardTitle } from '@/ui/card';
 import { useTranslation } from 'react-i18next';
 import { featureCards } from './config/contents';
-import HeadingText from './heading-text';
+import { HeadingText } from './heading-text';
 
-export default function FeatureCards() {
+export const FeatureCards = () => {
     const { t } = useTranslation();
     return (
         <section className="bg-slate-50 dark:bg-slate-900">
@@ -36,4 +36,4 @@ export default function FeatureCards() {
             </div>
         </section>
     );
-}
+};

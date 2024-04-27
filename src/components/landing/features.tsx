@@ -1,15 +1,17 @@
+import { useTranslation } from 'react-i18next';
 import { features } from './config/contents';
-import HeadingText from './heading-text';
+import { HeadingText } from './heading-text';
 
-export default function Features() {
+export const Features = () => {
+    const { t } = useTranslation();
     return (
         <section className="container space-y-8 py-12 lg:py-20" id="features">
             {features.header.length > 0 || features.subheader.length > 0 ? (
                 <HeadingText
-                    subtext={features.subheader}
+                    subtext={t(features.subheader)}
                     className="text-center"
                 >
-                    {features.header}
+                    {t(features.header)}
                 </HeadingText>
             ) : null}
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
@@ -20,12 +22,15 @@ export default function Features() {
                                 key={cards.text}
                                 className="flex flex-col items-center gap-2 text-center md:flex-row md:gap-8 md:text-left"
                             >
+                                <div className="flex">
+                                    {cards.icon != null && <cards.icon />}
+                                </div>
                                 <div className="flex-1">
                                     <p className="md:text4xl text-2xl font-semibold">
-                                        {cards.text}
+                                        {t(cards.text)}
                                     </p>
                                     <p className="font-light text-muted-foreground md:text-lg">
-                                        {cards.subtext}
+                                        {t(cards.subtext)}
                                     </p>
                                 </div>
                             </div>
@@ -43,4 +48,4 @@ export default function Features() {
             </div>
         </section>
     );
-}
+};

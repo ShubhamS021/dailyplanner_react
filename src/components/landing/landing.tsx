@@ -1,7 +1,8 @@
 import { LanguageChooser } from '../common/language-chooser/language-chooser';
 import { Header } from '../layout/header';
-import FeatureCards from './feature-cards';
-import Hero from './hero';
+import { FeatureCards } from './feature-cards';
+import { Features } from './features';
+import { Hero } from './hero';
 
 export const Landing = () => {
     return (
@@ -12,7 +13,7 @@ export const Landing = () => {
             <main className="flex-1 overflow-y-auto overflow-x-hidden bg-secondary/10 pb-1">
                 <Hero />
                 <FeatureCards />
-                {/* <Features /> */}
+                <Features />
             </main>
             <div className="flex py-3 justify-center">
                 <LanguageChooser />

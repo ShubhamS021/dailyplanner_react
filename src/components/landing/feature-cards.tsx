@@ -20,9 +20,9 @@ export default function FeatureCards() {
                                 key={cards.text}
                                 className="flex flex-grow flex-col items-center justify-between gap-4 p-8 dark:bg-secondary"
                             >
-                                {/* <div className="flex">
-                                    <BsCardImage></BsCardImage>
-                                </div> */}
+                                <div className="flex">
+                                    {cards.icon != null && <cards.icon />}
+                                </div>
                                 <div className="space-y-2">
                                     <CardTitle>{t(cards.text)}</CardTitle>
                                     <CardDescription>

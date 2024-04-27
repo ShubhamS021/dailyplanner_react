@@ -4,9 +4,9 @@ export const DEtranslation = {
     components: {
         landing: {
             hero: {
-                header: 'Aufgaben leicht gemacht.',
-                subheader: 'Einfach einzurichten. Anpassbar. Schnell.',
-                cta: 'Erstelle dein Board',
+                header: 'Tagesplanung leicht gemacht.',
+                subheader: 'Behalte den Überblick über deine Aufgaben.',
+                cta: 'Erste Schritte',
             },
         },
         featureCards: {
@@ -14,11 +14,13 @@ export const DEtranslation = {
             subheader:
                 'Hier sind einige Gründe, warum Dayplanner das Richtige für dich ist.',
             customBoards: {
-                subtext: 'Erstelle eigene Boards mit individuellen Spalten.',
-                text: 'Eigene Boards',
+                subtext:
+                    'Erstelle deine Boards wie es dir gefällt. Individuelle Spalten und vieles mehr.',
+                text: 'Anpassbare Boards',
             },
             tags: {
-                subtext: 'Verwende Tags um deine Aufgaben zu kategorisieren.',
+                subtext:
+                    'Verwende Tags um deine Aufgaben zu kategorisieren und schnell wieder zu finden.',
                 text: 'Tags',
             },
             supabase: {

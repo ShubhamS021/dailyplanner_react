@@ -2,9 +2,9 @@ export const ENtranslation = {
     components: {
         landing: {
             hero: {
-                header: 'Tasks made easy.',
-                subheader: 'Easy to set up. Customizable. Quick. Responsive.',
-                cta: 'Create your board',
+                header: 'Dayplanning made easy.',
+                subheader: 'Keep track of your tasks.',
+                cta: 'Getting started',
             },
         },
         featureCards: {

@@ -1,4 +1,5 @@
 import { type ContentSection } from '@/interfaces/HeroContents';
+import { GlobeLock, SquareKanban, Tag } from 'lucide-react';
 
 export const featureCards: ContentSection = {
     header: `components.featureCards.header`,
@@ -7,17 +8,17 @@ export const featureCards: ContentSection = {
         {
             text: `components.featureCards.customBoards.text`,
             subtext: `components.featureCards.customBoards.subtext`,
-            icon: 'customBoards',
+            icon: SquareKanban,
         },
         {
             text: `components.featureCards.tags.text`,
             subtext: `components.featureCards.tags.subtext`,
-            icon: 'tags',
+            icon: Tag,
         },
         {
             text: `components.featureCards.supabase.text`,
             subtext: `components.featureCards.supabase.subtext`,
-            icon: 'supabase',
+            icon: GlobeLock,
         },
     ],
 };
@@ -30,17 +31,17 @@ export const features: ContentSection = {
         {
             text: `SEO Optimized`,
             subtext: `Improved website visibility on search engines`,
-            icon: 'fileSearch',
+            // icon: 'fileSearch',
         },
         {
             text: `Highly Performant`,
             subtext: `Fast loading times and smooth performance`,
-            icon: 'barChart',
+            // icon: 'barChart',
         },
         {
             text: `Easy Customizability`,
             subtext: `Change your content and layout with little effort`,
-            icon: 'settings',
+            // icon: 'settings',
         },
     ],
 };

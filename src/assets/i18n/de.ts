@@ -2,6 +2,51 @@ const ADD = 'hinzufügen';
 
 export const DEtranslation = {
     components: {
+        landing: {
+            hero: {
+                header: 'Tagesplanung leicht gemacht.',
+                subheader: 'Behalte den Überblick über deine Aufgaben.',
+                cta: 'Erste Schritte',
+            },
+        },
+        featureCards: {
+            header: 'Warum Dayplanner?',
+            subheader:
+                'Hier sind einige Gründe, warum Dayplanner das Richtige für dich ist.',
+            customBoards: {
+                subtext:
+                    'Erstelle deine Boards wie es dir gefällt. Individuelle Spalten und vieles mehr.',
+                text: 'Anpassbare Boards',
+            },
+            tags: {
+                subtext:
+                    'Verwende Tags um deine Aufgaben zu kategorisieren und schnell wieder zu finden.',
+                text: 'Tags',
+            },
+            supabase: {
+                subtext:
+                    'Nutze Supabase um deine Daten zu speichern und überall wieder abzurufen.',
+                text: 'Supabase',
+            },
+        },
+        features: {
+            header: 'Features',
+            subheader: 'Warum sollte ich Dayplanner nutzen?',
+            'feature-flexibility': {
+                text: 'Aussehen: Flexibilität',
+                subtext:
+                    'Erstelle deine Boards wie es dir gefällt. Individuelle Spalten und vieles mehr.',
+            },
+            'feature-data': {
+                text: 'Daten: volle Kontrolle',
+                subtext:
+                    'Speichere deine Daten auf dem Datenträger oder in der Cloud.',
+            },
+            'feature-history': {
+                text: 'Historie: verfolge deine Änderungen',
+                subtext: 'Behalte den Überblick über deine Änderungen.',
+            },
+        },
         'side-nav': {
             boards: 'Alle Boards',
             board: 'Mein Board',

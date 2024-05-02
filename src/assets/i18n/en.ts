@@ -25,6 +25,7 @@ export const ENtranslation = {
                 AddCardDescription: {
                     placeholderTitle: 'Task name',
                     placeholderDescription: 'Describe your task',
+                    supportsMarkdown: 'Markdown is supported',
                 },
                 AddDueDate: {
                     add: 'Add',
